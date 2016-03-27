@@ -12,6 +12,8 @@
 		516F247C1CA8487A002F4B10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 516F247A1CA8487A002F4B10 /* Main.storyboard */; };
 		516F247E1CA8487A002F4B10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 516F247D1CA8487A002F4B10 /* Assets.xcassets */; };
 		516F24811CA8487A002F4B10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 516F247F1CA8487A002F4B10 /* LaunchScreen.storyboard */; };
+		518F028E1CA8640200A728EA /* Colores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518F028D1CA8640200A728EA /* Colores.swift */; };
+		518F02901CA868BB00A728EA /* Datos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518F028F1CA868BB00A728EA /* Datos.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		516F247D1CA8487A002F4B10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		516F24801CA8487A002F4B10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		516F24821CA8487A002F4B10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		518F028D1CA8640200A728EA /* Colores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colores.swift; sourceTree = "<group>"; };
+		518F028F1CA868BB00A728EA /* Datos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datos.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				516F247D1CA8487A002F4B10 /* Assets.xcassets */,
 				516F247F1CA8487A002F4B10 /* LaunchScreen.storyboard */,
 				516F24821CA8487A002F4B10 /* Info.plist */,
+				518F028D1CA8640200A728EA /* Colores.swift */,
+				518F028F1CA868BB00A728EA /* Datos.swift */,
 			);
 			path = Hamburguesas;
 			sourceTree = "<group>";
@@ -137,6 +143,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				516F24791CA8487A002F4B10 /* ViewController.swift in Sources */,
+				518F02901CA868BB00A728EA /* Datos.swift in Sources */,
+				518F028E1CA8640200A728EA /* Colores.swift in Sources */,
 				516F24771CA8487A002F4B10 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +293,7 @@
 				516F24871CA8487B002F4B10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
