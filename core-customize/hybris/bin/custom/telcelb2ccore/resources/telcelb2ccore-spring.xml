@@ -1,0 +1,1903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+     <context:annotation-config/>
+
+	<!-- Spring Integration -->
+	<!--<import resource="classpath:/telcelb2ccore/integration/hot-folder-common-spring.xml"/>-->
+
+	<!-- SystemSetup for the Telcelb2cCore -->
+	<bean id="acceleratorCoreSystemSetup" class="mx.com.telcel.core.setup.CoreSystemSetup"
+	       parent="abstractCoreSystemSetup"/>
+
+	<!-- Solr field value providers -->
+
+	<bean id="volumeAwareProductPriceValueProvider" class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.VolumeAwareProductPriceValueProvider"  parent="abstractPropertyFieldValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="priceService" ref="priceService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="sessionService" ref="sessionService"/>
+        <property name="userService" ref="userService"/>
+        <property name="priceComparator" ref="volumePriceComparator"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+    </bean>
+
+    <bean id="volumePriceComparator" class="mx.com.telcel.core.comparators.VolumeAwarePriceInformationComparator" scope="singleton"/>
+
+    <bean id="productVolumePricesProvider" class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ProductVolumePricesProvider"  parent="abstractPropertyFieldValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="priceService" ref="priceService"/>
+    </bean>
+
+
+	<bean id="electronicsCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="1"/>
+		<!-- '1' is the root icecat category -->
+	</bean>
+	<bean id="electronicsBrandCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="brands"/>
+		<!-- 'brands' is the root of the brands hierarchy -->
+	</bean>
+
+	<bean id="apparelCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="categories"/>
+		<!-- 'categories' is the root apparel category -->
+	</bean>
+	<bean id="apparelBrandCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="brands"/>
+		<!-- 'brands' is the root of the brands hierarchy -->
+	</bean>
+	<bean id="apparelCollectionCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="collections"/> <!-- 'collections' is the root of the collections hierarchy -->
+	</bean>
+
+	<bean id="abstractCategoryCodeValueProvider" abstract="true"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	<bean id="abstractCategoryNameValueProvider" abstract="true"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryNameValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="electronicsCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="electronicsCategorySource"/>
+	</bean>
+	<bean id="electronicsBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="electronicsBrandCategorySource"/>
+	</bean>
+	<bean id="electronicsCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="electronicsCategorySource"/>
+	</bean>
+	<bean id="electronicsBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="electronicsBrandCategorySource"/>
+	</bean>
+
+	<bean id="apparelCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="apparelCategorySource"/>
+	</bean>
+	<bean id="apparelBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="apparelBrandCategorySource"/>
+	</bean>
+	<bean id="apparelCollectionCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="apparelCollectionCategorySource"/>
+	</bean>
+	<bean id="apparelCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="apparelCategorySource"/>
+	</bean>
+	<bean id="apparelBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="apparelBrandCategorySource"/>
+	</bean>
+	<bean id="apparelCollectionCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="apparelCollectionCategorySource"/>
+	</bean>
+
+	<bean id="image515ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="515Wx515H"/>
+	</bean>
+	<bean id="image300ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="300Wx300H"/>
+	</bean>
+	<bean id="image96ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="96Wx96H"/>
+	</bean>
+	<bean id="image65ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="65Wx65H"/>
+	</bean>
+	<bean id="image30ValueProvider" parent="abstractImageValueProvider" >
+		<property name="mediaFormat" value="30Wx30H"/>
+	</bean>
+
+	<bean id="productUrlValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.ProductUrlValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="urlResolver" ref="productModelUrlResolver"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="promotionCodeValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PromotionCodeValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="promotionImageValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PrimaryPromotionImageValueProvider"
+	      parent="abstractPropertyFieldValueProvider" >
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="colorFacetValueProvider"
+	      class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ColorFacetValueProvider"
+	       parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="colorFacetDisplayNameProvider"
+	      class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ColorFacetDisplayNameProvider"
+	      >
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="apparelPointOfServiceFacetDisplayNameProvider"
+	      class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
+	      >
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+	</bean>
+
+	<bean id="electronicsPointOfServiceFacetDisplayNameProvider"
+	      class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
+	      >
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+	</bean>
+
+	<bean id="genderValueProvider"
+	      class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.GenderValueProvider"
+	       parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="genderFacetDisplayNameProvider"
+	      class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.GenderFacetDisplayNameProvider"
+	      >
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!--
+		Event listeners are singletons, therefore the dependency for a bean in tenant-scope
+		must be configured with a lookup method.
+	-->
+
+	<bean id="createReturnEventListener"
+		  class="mx.com.telcel.core.event.CreateReturnEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	<bean id="orderCancelledEventListener"
+	      class="mx.com.telcel.core.event.OrderCancelledEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="orderRefundEventListener"
+	      class="mx.com.telcel.core.event.OrderRefundEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="customerRegistrationEventListener"
+	      class="mx.com.telcel.core.event.RegistrationEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="forgottenPasswordEventListener"
+	      class="mx.com.telcel.core.event.ForgottenPasswordEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="submitOrderEventListener" class="mx.com.telcel.core.event.SubmitOrderEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	<bean id="orderConfirmationEventListener"
+	      class="mx.com.telcel.core.event.OrderConfirmationEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendDeliveryMessageEventListener"
+	      class="mx.com.telcel.core.event.SendDeliveryMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendReadyForPickupMessageEventListener"
+	      class="mx.com.telcel.core.event.SendReadyForPickupMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendOrderPartiallyCanceledMessageEventListener"
+	      class="mx.com.telcel.core.event.SendOrderPartiallyCanceledMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendOrderPartiallyRefundedMessageEventListener"
+	      class="mx.com.telcel.core.event.SendOrderPartiallyRefundedMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendNotPickedUpConsignmentCanceledMessageEventListener"
+	      class="mx.com.telcel.core.event.SendNotPickedUpConsignmentCanceledMessageEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="orderCompletedEventListener" class="mx.com.telcel.core.event.OrderCompletedEventListener" parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<!-- Process resources definition -->
+
+	<bean id="customerRegistrationEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/customerRegistrationEmailProcess.xml"/>
+	</bean>
+	<bean id="forgottenPasswordEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/forgottenPasswordEmailProcess.xml"/>
+	</bean>
+	<bean id="orderConfirmationEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/orderConfirmationEmailProcess.xml"/>
+	</bean>
+	<bean id="sendDeliveryEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/sendDeliveryEmailProcess.xml"/>
+	</bean>
+	<bean id="sendReadyForPickupEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/sendReadyForPickupEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderCancelledEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/sendOrderCancelledEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderRefundEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/sendOrderRefundEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderPartiallyCanceledEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/sendOrderPartiallyCanceledEmailProcess.xml"/>
+	</bean>
+	<bean id="sendOrderPartiallyRefundedEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/sendOrderPartiallyRefundedEmailProcess.xml"/>
+	</bean>
+	<bean id="sendNotPickedUpConsignmentCanceledEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/sendNotPickedUpConsignmentCanceledEmailProcess.xml"/>
+	</bean>
+	<!--Registration token email process-->
+	<bean id="registrationTokenEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/registrationTokenEmailProcess.xml"/>
+	</bean>
+
+	<!--Registration token email process-->
+	<bean id="welcomeEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/welcomeEmailProcess.xml"/>
+	</bean>
+
+	<!--Pwd Confirmation email process-->
+	<bean id="pwdConfirmationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/pwdConfirmationEmailProcess.xml"/>
+	</bean>
+
+	<!--Blocked Account email process-->
+	<bean id="blockedAccountEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/blockedAccountEmailProcess.xml"/>
+	</bean>
+	<!-- Actions -->
+	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
+	      abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="processParameterHelper" ref="processParameterHelper"/>
+	</bean>
+
+	<bean id="sendEmail" class="de.hybris.platform.acceleratorservices.process.email.actions.SendEmailAction"
+	       parent="abstractAction">
+		<property name="emailService" ref="emailService"/>
+	</bean>
+
+	<bean id="abstractGenerateEmailAction" class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"
+	      parent="abstractAction" abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+	</bean>
+
+	<bean id="generateCustomerRegistrationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerRegistrationEmailTemplate"/>
+	</bean>
+
+	<bean id="generateForgottenPasswordEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ForgottenPasswordEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderConfirmationEmailTemplate"/>
+	</bean>
+
+	<bean id="generateDeliverySentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="DeliverySentEmailTemplate"/>
+	</bean>
+
+	<bean id="generateReadyForPickupEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReadyForPickupEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderCancelledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderCancelledEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderRefundEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderRefundEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderPartiallyCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyCanceledEmailTemplate"/>
+	</bean>
+	<bean id="generateOrderPartiallyRefundedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyRefundedEmailTemplate"/>
+	</bean>
+	<bean id="generateNotPickedUpConsignmentCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NotPickedUpConsignmentCanceledEmailTemplate"/>
+	</bean>
+
+	<bean id="removeSentEmail"
+	      class="de.hybris.platform.acceleratorservices.process.email.actions.RemoveSentEmailAction"
+	      parent="abstractAction">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+    <bean id="markQuoteNotificationAsSent"
+          class="mx.com.telcel.core.actions.quote.MarkQuoteNotificationAsSentAction"
+          parent="abstractAction" abstract="true">
+        <property name="quoteService" ref="quoteService"/>
+    </bean>
+
+	<!-- Simple Suggestion Service -->
+	<alias alias="simpleSuggestionService" name="defaultSimpleSuggestionService"/>
+	<bean id="defaultSimpleSuggestionService"
+	      class="mx.com.telcel.core.suggestion.impl.DefaultSimpleSuggestionService" >
+		<property name="simpleSuggestionDao" ref="simpleSuggestionDao"/>
+	</bean>
+	<alias alias="simpleSuggestionDao" name="defaultSimpleSuggestionDao"/>
+	<bean id="defaultSimpleSuggestionDao"
+	      class="mx.com.telcel.core.suggestion.dao.impl.DefaultSimpleSuggestionDao"
+	      parent="abstractItemDao" >
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<!-- Sales quote process actions -->
+
+	<!-- quote-->
+	<bean id="quoteBuyerSubmitEventListener" class="mx.com.telcel.core.event.QuoteBuyerSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteSalesRepSubmitEventListener" class="mx.com.telcel.core.event.QuoteSalesRepSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteSellerApprovalSubmitEventListener" class="mx.com.telcel.core.event.QuoteSellerApprovalSubmitEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteBuyerOrderPlacedEventListener" class="mx.com.telcel.core.event.QuoteBuyerOrderPlacedEventListener"
+		  parent="abstractEventListener">
+		<property name="commerceQuoteService" ref="commerceQuoteService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<bean id="quoteToExpireSoonEventListener" class="mx.com.telcel.core.event.QuoteToExpireSoonEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	
+	<bean id="quoteExpiredEventListener" class="mx.com.telcel.core.event.QuoteExpiredEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteCancelEventListener" class="mx.com.telcel.core.event.QuoteCancelEventListener"
+		  parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="quoteBuyerProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/quote/quote-buyer-process.xml"/>
+	</bean>
+
+	<bean id="quoteSalesRepProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/quote/quote-salesrep-process.xml"/>
+	</bean>
+
+
+	<bean id="quoteSellerApprovalProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/quote/quote-seller-approval-process.xml"/>
+	</bean>
+	
+	<bean id="quotePostCancellationProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/quote/quote-post-cancellation-process.xml"/>
+	</bean>
+
+	<bean id="quoteToExpireSoonProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/quote/quote-to-expire-soon-email-process.xml"/>
+	</bean>
+	
+	<bean id="quoteExpiredProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/quote/quote-expired-email-process.xml"/>
+	</bean>
+
+	<!-- Quotes email notification jobs -->
+	<bean id="quoteToExpireSoonJobPerformable"
+		  class="mx.com.telcel.core.job.QuoteToExpireSoonJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="supportedQuoteStatuses">
+			<set value-type="de.hybris.platform.core.enums.QuoteState">
+				<value>BUYER_OFFER</value>
+			</set>
+		</property>
+		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
+		<property name="eventService" ref="eventService" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="timeService" ref="timeService" />
+	</bean>
+	
+	<bean id="quoteExpiredJobPerformable"
+		  class="mx.com.telcel.core.job.QuoteExpiredJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="supportedQuoteStatuses">
+			<set value-type="de.hybris.platform.core.enums.QuoteState">
+				<value>BUYER_OFFER</value>
+			</set>
+		</property>
+		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
+		<property name="eventService" ref="eventService" />
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<import resource="/telcelb2ccore/processes/quote/quote-buyer-process-spring.xml"/>
+	<import resource="/telcelb2ccore/processes/quote/quote-salesrep-process-spring.xml"/>
+	<import resource="/telcelb2ccore/processes/quote/quote-seller-approval-process-spring.xml"/>
+	
+	<import resource="/telcelb2ccore/processes/quote/quote-to-expire-soon-email-process-spring.xml"/>
+	<import resource="/telcelb2ccore/processes/quote/quote-expired-email-process-spring.xml"/>
+
+	<import resource="/telcelb2ccore/processes/quote/quote-post-cancellation-process-spring.xml"/>
+	
+	<!-- Customer cleanup -->
+	<alias name="defaultCustomerCleanupRelatedObjectsAction" alias="customerCleanupRelatedObjectsAction"/>
+	<bean id="defaultCustomerCleanupRelatedObjectsAction" class="mx.com.telcel.core.retention.impl.DefaultCustomerCleanupRelatedObjectsAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="customerCleanupHooks"/>
+	</bean>
+	
+	<!-- Cleanup the customers not owning any order currently and the current date has past deactivation date+retention date. Also removes customers audit records. -->
+	<alias name="defaultCustomerNotOwningOrdersRemoveCleanupAction" alias="customerNotOwningOrdersRemoveCleanupAction"/>
+	<bean id="defaultCustomerNotOwningOrdersRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="customerCleanupHooks"/>
+	</bean>
+	
+	<!-- Order cleanup -->
+	<!-- Cleanup the order related objects and then remove order and its audit records. -->
+	<alias name="defaultOrderRemoveCleanupAction" alias="orderRemoveCleanupAction"/>
+	<bean id="defaultOrderRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="orderCleanupHooks"/>
+	</bean>
+
+	<!-- CsTicket Remove action -->
+	<alias name="defaultCSTicketRemoveCleanupAction" alias="csTicketRemoveCleanupAction"/>
+	<bean id="defaultCSTicketRemoveCleanupAction" class="de.hybris.platform.retention.impl.DefaultExtensibleRemoveCleanupAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="csTicketCleanupHooks"/>
+	</bean>
+
+	<!-- CsTicket Stagnation action -->
+	<alias name="defaultCSTicketStagnationAction" alias="csTicketStagnationAction"/>
+	<bean id="defaultCSTicketStagnationAction" class="mx.com.telcel.core.retention.impl.DefaultCSTicketStagnationAction" parent="abstractExtensibleRemoveCleanupAction">
+		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
+		<property name="ticketBusinessService" ref="ticketBusinessService"/>
+	</bean>
+
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-images-load-spring.xml"/>
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-resize-images-spring.xml"/>
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-telcel-base-product-spring.xml"/>
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-telcel-variant-product-spring.xml"/>
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-price-load-update-spring.xml"/>
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-postal-code-spring.xml"/>
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-color-spring.xml"/>
+	<import resource="classpath:/telcelb2ccore/integration/hot-folder-sipab-load-spring.xml"/>
+	<!-- Solr field value providers -->
+	<bean id="b2ctelcelCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="1"/>
+		<!-- '1' is the root icecat category -->
+	</bean>
+	<bean id="b2ctelcelBrandCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="brands"/>
+		<!-- 'brands' is the root of the brands hierarchy -->
+	</bean>
+
+
+	<!--Name Value Providers-->
+	<bean id="b2ctelcelCategoryNameValueProvider" parent="b2cabstractCategoryNameValueProvider">
+		<property name="categorySource" ref="b2ctelcelCategorySource"/>
+	</bean>
+	<bean id="b2ctelcelBrandCategoryNameValueProvider" parent="b2cabstractCategoryNameValueProvider">
+		<property name="categorySource" ref="b2ctelcelBrandCategorySource"/>
+	</bean>
+
+	<!--Code Value Providers-->
+	<bean id="b2ctelcelCategoryCodeValueProvider" parent="b2cabstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="b2ctelcelCategorySource"/>
+	</bean>
+	<bean id="b2ctelcelBrandCategoryCodeValueProvider" parent="b2cabstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="b2ctelcelBrandCategorySource"/>
+	</bean>
+
+	<bean id="marcaValueProvider" class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.MarcaValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="colorValueProvider" class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ColorValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="booleanIsTrueValueProvider" class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.BooleanIsTrueValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="parser">
+			<bean class="org.springframework.expression.spel.standard.SpelExpressionParser" />
+		</property>
+	</bean>
+
+	<bean id="bandasSoportadasValueProvider" class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.BandasSoportadasValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+
+	<bean id="modeloValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ModeloValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="chipPriceValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ChipPriceValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="chipNameValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ChipNameValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="memoriaValueProvider" class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.MemoriaValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="masVendidosValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.MasVendidosValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+
+
+	<!--Telcel Email Helper-->
+	<bean id="telcelEmailsHelper" class="mx.com.telcel.core.helper.impl.DefaultTelcelEmailsHelper">
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+		<property name="eventService" ref="eventService"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<!--Telcel registration token generic email action-->
+	<bean id="generateRegistrationTokenEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="RegistrationTokenEmailTemplate"/>
+	</bean>
+
+	<!--Telcel Registration Token Email Listener-->
+	<bean id="registrationTokenEmailEventListener"
+		  class="mx.com.telcel.core.event.RegistrationTokenEmailEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Telcel registration token generic email action-->
+	<bean id="generateWelcomeEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="WelcomeEmailTemplate"/>
+	</bean>
+
+	<!--Telcel registration token generic email action-->
+	<bean id="generatePwdConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="PwdConfirmationEmailTemplate"/>
+	</bean>
+
+	<!--Telcel registration token generic email action-->
+	<bean id="generateBlockedAccountEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="BlockedAccountEmailTemplate"/>
+	</bean>
+
+	<!--Telcel Registration Token Email Listener-->
+	<bean id="welcomeEmailEventListener"
+		  class="mx.com.telcel.core.event.WelcomeEmailEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+	<!--Telcel Registration Token Email Listener-->
+	<bean id="pwdConfirmationEmailEventListener"
+		  class="mx.com.telcel.core.event.PwdConfirmationEmailEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+	<!--Telcel Registration Token Email Listener-->
+	<bean id="blockedAccountEmailEventListener"
+		  class="mx.com.telcel.core.event.BlockedAccountEmailEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+	<!--Tecel Token service-->
+	<alias name="defaultTelcelTokenService" alias="telcelTokenService" />
+	<bean id="defaultTelcelTokenService" class="mx.com.telcel.core.services.impl.DefaultTelcelTokenService">
+		<property name="modelService" ref="modelService"/>
+		<property name="telcelTokenDao" ref="telcelTokenDao"/>
+	</bean>
+	<!--Tecel Token dao-->
+	<alias name="defaultTelcelTokenDao" alias="telcelTokenDao" />
+	<bean id="defaultTelcelTokenDao" class="mx.com.telcel.core.daos.registration.impl.DefaultTelcelTokenDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+
+	<alias alias="comparatorDao" name="defaultComparatorDao"/>
+	<bean id="defaultComparatorDao"
+		  class="mx.com.telcel.core.dao.comparator.impl.DefaultComparatorDao" >
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+
+	<alias alias="telcelPaymentDao" name="defaultTelcelPaymentDao"/>
+	<bean id="defaultTelcelPaymentDao"
+		  class="mx.com.telcel.core.daos.payment.impl.DefaultTelcelPaymentDao" >
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+
+	<alias alias="telcelWarehouseDao" name="defaultTelcelWarehouseDao"/>
+	<bean id="defaultTelcelWarehouseDao"
+		  class="mx.com.telcel.core.daos.warehouse.impl.DefaultTelcelWarehouseDao" >
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<alias alias="comparatorService" name="defaultComparatorService"/>
+	<bean id="defaultComparatorService"
+		  class="mx.com.telcel.core.service.impl.DefaultComparatorService" >
+		<property name="comparatorDao" ref="comparatorDao" />
+	</bean>
+
+	<alias alias="billingService" name="defaultBillingService"/>
+	<bean id="defaultBillingService"
+		  class="mx.com.telcel.core.service.impl.DefaultBillingService" >
+		<property name="telcelBillingDao" ref="telcelBillingDao" />
+	</bean>
+
+
+	<alias alias="telcelPaymentService" name="defaultTelcelPaymentService"/>
+	<bean id="defaultTelcelPaymentService"
+		  class="mx.com.telcel.core.service.impl.DefaultTelcelPaymentService" >
+	</bean>
+
+	<alias alias="userGroupsService" name="defaultUserGroupsService"/>
+	<bean id="defaultUserGroupsService"
+		  class="mx.com.telcel.core.service.impl.DefaultUserGroupsService" >
+		<property name="telcelUserGroupDao" ref="telcelUserGroupDao" />
+	</bean>
+
+	<alias alias="telcelWarehouseService" name="defaultTelcelWarehouseService"/>
+	<bean id="defaultTelcelWarehouseService"
+		  class="mx.com.telcel.core.service.impl.DefaultTelcelWarehouseService" >
+		<property name="telcelWarehouseDao" ref="telcelWarehouseDao" />
+	</bean>
+
+
+
+
+	<!-- Telcel  -->
+	<bean id="audioValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.AudioValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="genericCategoriesValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.GenericCategoriesValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="terminalValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.TerminalValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="giftIncludeValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.GiftIncludeValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="sectorValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.SectorValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+
+	<bean id="skuValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.SkuValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="telcelColorValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.TelcelColorValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="telcelPdpUrlValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.TelcelPdpUrlValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="productModelUrlResolver" ref="productModelUrlResolver"/>
+	</bean>
+
+	<bean id="tmaPoVariantValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.TmaPoVariantValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean name="telcelCategoryCodeProvider"
+		  parent="abstractPropertyFieldValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="categorySource" ref="tmaCategorySourceWithRoot"/>
+	</bean>
+
+	<bean name="telcelCategoryNameProvider"
+		  parent="telcelCategoryCodeProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.CategoryNameValueProvider">
+	</bean>
+
+	<!--Codigos Postales Tecel service-->
+	<alias name="defaultTelcelCodigosPostalesService" alias="telcelCodigosPostalesService" />
+	<bean id="defaultTelcelCodigosPostalesService" class="mx.com.telcel.core.services.impl.DefaultTelcelCodigosPostalesService">
+		<property name="telcelCodigosPostalesDao" ref="telcelCodigosPostalesDao"/>
+		<property name="regionConverter" ref="regionConverter"/>
+	</bean>
+	<!--Codigos Postales Tecel dao-->
+	<alias name="defaultTelcelCodigosPostalesDao" alias="telcelCodigosPostalesDao" />
+	<bean id="defaultTelcelCodigosPostalesDao" class="mx.com.telcel.core.daos.zipcode.impl.DefaultTelcelCodigosPostalesDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+
+	<alias name="defaultTelcelBillingDao" alias="telcelBillingDao" />
+	<bean id="defaultTelcelBillingDao" class="mx.com.telcel.core.daos.billing.impl.DefaultTelcelBillingDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias name="defaultTelcelUserGroupDao" alias="telcelUserGroupDao" />
+	<bean id="defaultTelcelUserGroupDao" class="mx.com.telcel.core.daos.usergroup.impl.DefaultTelcelUserGroupDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="customProductPriceValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.ProductPriceValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="priceService" ref="priceService" />
+		<constructor-arg name="popConvertersMap" ref="tmaSolrDocumentPopConvertersMap"/>
+	</bean>
+
+	<alias name="defaultTelcelOrderDao" alias="telcelOrderDao" />
+	<bean id="defaultTelcelOrderDao" class="mx.com.telcel.core.daos.order.impl.DefaultTelcelOrderDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+	
+	<alias alias="telcelCommerceCartDao" name="defaultTelcelCommerceCartDao"/>
+	<bean id="defaultTelcelCommerceCartDao" class="mx.com.telcel.core.daos.cart.impl.DefaultTelcelCommerceCartDao"
+		  parent="defaultCommerceCartDao"/>
+
+	<alias name="defaultTelcelPoVariantDao" alias="telcelPoVariantDao" />
+	<bean id="defaultTelcelPoVariantDao" class="mx.com.telcel.core.daos.product.impl.DefaultTelcelPoVariantDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="masVendidosJobPerformable"
+		  class="mx.com.telcel.core.job.MasVendidosJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="timeService" ref="timeService" />
+		<property name="telcelOrderDao" ref="telcelOrderDao" />
+		<property name="modelService" ref="modelService" />
+		<property name="telcelPoVariantDao" ref="telcelPoVariantDao" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="sessionService" ref="sessionService" />
+	</bean>
+
+
+
+	<bean id="telcelMediaDataTranslator" class="mx.com.telcel.core.services.dataimport.TelcelMediaDataTranslator">
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+
+	<alias name="telcelTmaQuantityResourceStrategy" alias="tmaQuantityResourceStrategy"/>
+	<bean id="telcelTmaQuantityResourceStrategy" class="mx.com.telcel.core.strategies.order.impl.TelcelTmaQuantityResourceStrategy" parent="defaultTmaQuantityResourceStrategy">
+		<property name="telcelPoService" ref="telcelPoService"/>
+		<property name="additionalServiceEntryService" ref="additionalServiceEntryService"/>
+		<property name="telcelProductService" ref="telcelProductService"/>
+
+	</bean>
+
+	<!--Order returns -->
+
+	<alias alias="returnCallbackService" name="telcelReturnService"/>
+	<alias alias="returnService" name="telcelReturnService"/>
+	<bean id="telcelReturnService" class="mx.com.telcel.core.returns.impl.TelcelReturnService">
+		<property name="modelService" ref="modelService" />
+		<property name="generator" ref="RMAGenerator"/>
+		<property name="refundService" ref="refundService"/>
+		<property name="modificationHandler" ref="orderReturnRecordsHandler"/>
+		<property name="returnableChecks">
+			<list>
+				<ref bean="consignmentBasedReturnableCheck"/>
+				<ref bean="checksExistingReturnEntry"/>
+			</list>
+		</property>
+		<!--
+			Here you can add some additional returns handling logic. For example
+			Consignment (Warehouse) related business logic
+		-->
+		<!--
+			See: de.hybris.platform.returns.processor.ReturnEntryProcessor;
+			de.hybris.platform.returns.processor.ReplacementOrderProcessor;
+			de.hybris.platform.returns.processor.RefundOrderProcessor
+		-->
+		<!--
+			<property name="returnEntryProcessor"
+			ref="YOUR_RETUNRS_ENTRY_PROCESSOR" /> <property
+			name="replacementOrderProcessor"
+			ref="YOUR_REPLACEMEMNT_ORDER_PROCESSOR" /> <property
+			name="refundOrderProcessor" ref="YOUR_REFUND_ORDER_PROCESSOR" />
+		-->
+		<property name="replacementOrderDao" ref="replacementOrderDao"/>
+		<property name="returnRequestDao" ref="returnRequestDao"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="returnActionRequestExecutor" ref="returnActionRequestExecutor"/>
+	</bean>
+
+	<alias alias="returnActionAdapter" name="telcelReturnActionAdapter"/>
+	<bean id="telcelReturnActionAdapter" class="mx.com.telcel.core.returns.impl.TelcelReturnActionAdapter">
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<alias name="defaultTelcelEsquemaCobroDao" alias="telcelEsquemaCobroDao" />
+	<bean id="defaultTelcelEsquemaCobroDao" class="mx.com.telcel.core.daos.esquemacobro.impl.DefaultTelcelEsquemaCobroDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias name="telcelStorageCatalogDao" alias="storageCatalogDao"/>
+	<bean id="telcelStorageCatalogDao" class="mx.com.telcel.core.daos.product.impl.TelcelStorageCatalogDao">
+		<constructor-arg value="Storage"/>
+	</bean>
+
+	<alias name="telcelStorageUnitDao" alias="storageUnitDao"/>
+	<bean id="telcelStorageUnitDao" class="mx.com.telcel.core.daos.product.impl.TelcelStorageUnitDao">
+		<constructor-arg value="StorageUnit"/>
+	</bean>
+
+	<alias name="defaultStorageCatalogService" alias="storageCatalogService"/>
+	<bean id="defaultStorageCatalogService" class="mx.com.telcel.core.services.impl.DefaultStorageCatalogService">
+		<property name="storageCatalogDao" ref="storageCatalogDao"/>
+		<property name="storageUnitDao" ref="storageUnitDao"/>
+	</bean>
+
+	<alias name="defaultEsquemasCobroService" alias="esquemasCobroService" />
+	<bean id="defaultEsquemasCobroService" class="mx.com.telcel.core.services.impl.DefaultEsquemasCobroService"/>
+
+	<bean id="esquemasCobroJobPerformable"
+		  class="mx.com.telcel.core.job.EsquemasCobroJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<alias name="defaultTelcelUtil" alias="telcelUtil" />
+	<bean id="defaultTelcelUtil" class="mx.com.telcel.core.util.TelcelUtil">
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<alias name="defaultCustomTmaCommerceAddToCartStrategy" alias="commerceAddToCartStrategy"/>
+	<bean id="defaultCustomTmaCommerceAddToCartStrategy"
+		  class="mx.com.telcel.core.commerceservices.order.impl.CustomTmaCommerceAddToCartStrategy"
+		  parent="defaultTmaCommerceAddToCartStrategy">
+		<property name="defaultEsquemasCobroService" ref="defaultEsquemasCobroService"/>
+		<property name="telcelPoService" ref="telcelPoService"/>
+		<property name="additionalServiceEntryService" ref="additionalServiceEntryService"/>
+		<property name="telcelProductService" ref="telcelProductService"/>
+	</bean>
+
+	<alias name="defaultTmaCommerceCartResourceService" alias="tmaCommerceCartResourceService"/>
+	<bean id="defaultTmaCommerceCartResourceService"
+		  class="de.hybris.platform.b2ctelcoservices.order.impl.DefaultTmaCommerceCartResourceService">
+		<constructor-arg name="modelService" ref="modelService"/>
+		<constructor-arg name="tmaAbstractOrderResourceStrategies">
+			<list>
+				<ref bean="tmaPaymentMethodResourceStrategy"/>
+				<ref bean="tmaCouponResourceStrategy"/>
+				<ref bean="tmaDeliveryAddressResourceStrategy"/>
+				<ref bean="tmaBillingAddressResourceStrategy"/>
+				<ref bean="tmaConfigProductSpecCharResourceStrategy"/>
+				<ref bean="tmaAppointmentResourceStrategy"/>
+				<ref bean="tmaInstallationAddressResourceStrategy"/>
+				<ref bean="tmaQuantityResourceStrategy"/>
+				<ref bean="tmaDeliveryModeResourceStrategy"/>
+				<ref bean="tmaSubscribedProductResourceStrategy"/>
+				<ref bean="tmaRegionResourceStrategy"/>
+				<ref bean="tmaServiceProviderResourceStrategy"/>
+				<ref bean="tmaContractStartDateResourceStrategy"/>
+				<ref bean="tmaProcessTypeResourceStrategy"/>
+				<ref bean="tmaCartStatusResourceStrategy"/>
+				<ref bean="additionalServiceEntriesResourceStrategy"/>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<alias name="telcelAdditionalServiceEntriesResourceStrategy" alias="additionalServiceEntriesResourceStrategy"/>
+	<bean id="telcelAdditionalServiceEntriesResourceStrategy" class="mx.com.telcel.core.strategies.order.impl.TelcelAdditionalServiceEntriesResourceStrategy">
+		<property name="commerceCartCalculationStrategy" ref="commerceCartCalculationStrategy"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+
+	<alias name="customCommerceCartRestorationStrategy" alias="commerceCartRestorationStrategy"/>
+	<bean id="customCommerceCartRestorationStrategy"
+		  class="mx.com.telcel.core.strategies.order.impl.CustomCommerceCartRestorationStrategy"
+		  parent="abstractCommerceCartStrategy">
+		<property name="timeService" ref="timeService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="cartFactory" ref="cartFactory"/>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+		<property name="commerceAddToCartStrategy" ref="commerceAddToCartStrategy"/>
+		<property name="guidKeyGenerator" ref="guidKeyGenerator"/>
+		<property name="cartValidityPeriod" value="${commerceservices.cartValidityPeriod}"/>
+	</bean>
+
+	<alias name="defaultAdditionalServiceEntryService" alias="additionalServiceEntryService"/>
+	<bean id="defaultAdditionalServiceEntryService" class="mx.com.telcel.core.order.impl.DefaultAdditionalServiceEntryService" parent="abstractBusinessService">
+	</bean>
+
+	<alias name="telcelDefaultCalculationService" alias="calculationService"/>
+	<bean id="telcelDefaultCalculationService" class="mx.com.telcel.core.service.DefaultTelcelCalculationService"
+		  parent="defaultTmaCalculationService">
+		<property name="telcelTmaFindOrderEntryPriceStrategy" ref="telcelTmaFindOrderEntryPriceStrategy"/>
+		<property name="userService" ref="userService"/>
+		<property name="priceContextService" ref="tmaPriceContextService"/>
+		<property name="commercePriceService" ref="tmaCommercePriceService"/>
+		<property name="telcelOrderRequiresCalculationStrategy" ref="orderRequiresCalculationStrategy"/>
+		<property name="telcelCommonI18NService" ref="commonI18NService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+
+	<alias name="defaultTelcelTmaCommercePriceService" alias="tmaCommercePriceService"/>
+	<bean id="defaultTelcelTmaCommercePriceService"
+		  class="mx.com.telcel.core.services.impl.DefaultTelcelTmaCommercePriceService"
+		  parent="defaultTmaCommercePriceService">
+		<constructor-arg name="abstractOrderEntryService" ref="abstractOrderEntryService"/>
+	</bean>
+
+	<bean id="samePriceValueProvider"
+		  class="mx.com.telcel.core.search.solrfacetsearch.provider.impl.SamePriceValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<alias alias="commerceCartCalculationStrategy" name="defaultCommerceCartCalculationStrategy"/>
+	<bean id="defaultCommerceCartCalculationStrategy" class="mx.com.telcel.core.services.order.impl.CustomDefaultCommerceCartCalculationStrategy">
+		<property name="calculationService" ref="calculationService"/>
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="commerceCartCalculationMethodHooks" ref="commerceCartCalculationMethodHooks"/>
+		<property name="externalTaxesService" ref="externalTaxesService"/>
+		<property name="calculateExternalTaxes" value="false"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+
+	<alias alias="checkoutCartCalculationStrategy" name="defaultCheckoutCartCalculationStrategy"/>
+	<bean id="defaultCheckoutCartCalculationStrategy"
+		  class="mx.com.telcel.core.services.order.impl.CustomDefaultCommerceCartCalculationStrategy"
+		  parent="defaultCommerceCartCalculationStrategy">
+		<property name="calculateExternalTaxes" value="true"/>
+	</bean>
+
+	<bean id="nonTransactionalCommerceCartCalculationStrategy"
+		  class="mx.com.telcel.core.services.order.impl.CustomNonTransactionalCommerceCartCalculationStrategy" parent="defaultCommerceCartCalculationStrategy">
+	</bean>
+
+	<alias name="defaultTelcelCommerceSolrFacetSearchProductSearchStrategy" alias="commerceSolrFacetSearchProductSearchStrategy" />
+	<bean id="defaultTelcelCommerceSolrFacetSearchProductSearchStrategy"
+		  class="mx.com.telcel.core.services.impl.DefaultTelcelSolrFacetSearchProductSearchStrategy"
+		  parent="defaultCommerceSolrFacetSearchProductSearchStrategy">
+	</bean>
+
+	<alias name="defaultTelcelTmaFindOrderEntryPriceStrategy" alias="telcelTmaFindOrderEntryPriceStrategy"/>
+	<bean id="defaultTelcelTmaFindOrderEntryPriceStrategy"
+		  class="mx.com.telcel.core.strategy.impl.DefaultTelcelTmaFindOrderEntryPriceStrategy">
+		<property name="commercePriceService" ref="tmaCommercePriceService"/>
+		<property name="billingTimeService" ref="billingTimeService"/>
+	</bean>
+
+	<bean id="telcelProductPricesPerformable"
+		  class="mx.com.telcel.core.job.TelcelProductPricesPerformable"
+		  parent="abstractJobPerformable">
+		<property name="modelService" ref="modelService" />
+		<property name="productDao" ref="productDao"/>
+		<property name="zoneDeliveryModeService" ref="zoneDeliveryModeService"/>
+		<property name="setupSyncJobService" ref="setupSyncJobService"/>
+		<property name="cronJobService" ref="cronJobService"/>
+		<property name="deliveryModeService" ref="deliveryModeService"/>
+	</bean>
+
+	<alias name="defaultTelcelPriceContextService" alias="tmaPriceContextService"/>
+	<bean id="defaultTelcelPriceContextService" class="mx.com.telcel.core.services.pricing.impl.DefaultTelcelPriceContextService">
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="telcelPoService" ref="telcelPoService"/>
+		<property name="cartService" ref="cartService"/>
+		<property name="abstractOrderEntryService" ref="abstractOrderEntryService"/>
+	</bean>
+
+	<!-- Product Offering -->
+	<alias name="defaultTelcelPoService" alias="telcelPoService"/>
+	<bean id="defaultTelcelPoService" class="mx.com.telcel.core.services.impl.DefaultTelcelPoService" parent="defaultTmaPoService">
+		<constructor-arg name="tmaProductDao" ref="productDao"/>
+		<property name="additionalServiceConverter" ref="additionalServiceConverter"/>
+		<property name="telcelProductDao" ref="telcelProductDao"/>
+	</bean>
+
+	<!-- tmaProduct Dao-->
+	<alias name="defaultTelcelProductDao" alias="telcelProductDao"/>
+	<bean id="defaultTelcelProductDao" class="mx.com.telcel.core.daos.product.impl.DefaultTelcelProductDao" parent="defaultTmaProductDao">
+		<constructor-arg name="typecode" value="Product"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+
+	<bean id="replicateStockJobPerformable"
+		  class="mx.com.telcel.core.job.ReplicateStockJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelProductDao" ref="telcelProductDao"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+
+
+	</bean>
+
+	<bean id="telcelCreateRequestPickupPerformable" class="mx.com.telcel.core.job.TelcelCreateRequestPickupPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelConsignmentDao" ref="telcelConsignmentDao"/>
+		<property name="telcelFedexService" ref="telcelFedexService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="telcelConsignmentCodeGenerator" ref="telcelConsignmentCodeGenerator"/>
+	</bean>
+
+	<bean id="telcelUpdateLDIFGroupImportJob"
+		  class="mx.com.telcel.core.job.TelcelUpdateLDIFGroupImportJob"
+		  parent="abstractJobPerformable">
+	</bean>
+
+<!--	<bean id="disableLoginForImportedUserInterceptor" class="mx.com.telcel.core.users.interceptors.TelcelDisableLoginForImportedUserInterceptor">-->
+<!--		<constructor-arg ref="sessionService" />-->
+<!--		<constructor-arg ref="passwordEncoderService" />-->
+<!--	</bean>-->
+
+<!--	<bean id="disableLoginForImportedUserInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">-->
+<!--		<property name="interceptor" ref="disableLoginForImportedUserInterceptor"/>-->
+<!--		<property name="typeCode" value="User"/>-->
+<!--	</bean>-->
+
+	<bean id="replicateUserGroupsForSamlPerformable"
+		  class="mx.com.telcel.core.job.ReplicateUserGroupsForSamlPerformable"
+		  parent="abstractJobPerformable">
+	</bean>
+
+	<alias name="replicateStockServiceImpl" alias="replicateStockService" />
+	<bean id="replicateStockServiceImpl" class="mx.com.telcel.core.service.impl.ReplicateStockServiceImpl"/>
+
+	<alias name="defaultTelcelOrderService" alias="telcelOrderService" />
+	<bean id="defaultTelcelOrderService" class="mx.com.telcel.core.services.impl.DefaultTelcelOrderService">
+		<property name="telcelOrderDao" ref="telcelOrderDao"/>
+		<property name="telcelFedexService" ref="telcelFedexService"/>
+		<property name="catalogVersionService" ref="catalogVersionService" />
+	</bean>
+
+<!--	<bean id="telcelOrderForwardingPerformable"-->
+<!--		  class="mx.com.telcel.core.job.TelcelOrderForwardingPerformable"-->
+<!--		  parent="abstractJobPerformable">-->
+<!--		<property name="modelService" ref="modelService" />-->
+<!--		<property name="telcelOrderService" ref="telcelOrderService" />-->
+<!--		<property name="businessProcessService" ref="businessProcessService"/>-->
+<!--	</bean>-->
+
+	<alias name="defaultTelcelSoapConverterService" alias="telcelSoapConverterService" />
+	<bean id="defaultTelcelSoapConverterService" class="mx.com.telcel.core.services.impl.DefaultTelcelSoapConverterService">
+	</bean>
+
+	<alias name="defaultTelcelOrderSplittingService" alias="telcelOrderSplittingService"/>
+	<bean id="defaultTelcelOrderSplittingService"
+		  class="mx.com.telcel.core.services.ordersplitting.impl.DefaultTelcelOrderSplittingService" parent="defaultOrderSplittingService">
+		<property name="consignmentService" ref="consignmentService"/>
+	</bean>
+
+	<alias name="telcelDefaultConsignmentService" alias="consignmentService"/>
+	<bean id="telcelDefaultConsignmentService"
+		  class="mx.com.telcel.core.order.impl.TelcelDefaultConsignmentService" parent="defaultConsignmentService">
+		<property name="modelService" ref="modelService"/>
+		<property name="warehouseService" ref="warehouseService"/>
+	</bean>
+
+	<bean id="telcelConsignmentPrepareInterceptor" class="mx.com.telcel.core.consignmenttrackingservices.interceptors.TelcelConsignmentPrepareInterceptor">
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="telcelConsignmentPrepareInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="telcelConsignmentPrepareInterceptor"/>
+		<property name="typeCode" value="Consignment"/>
+	</bean>
+
+	<bean id="telcelOrderPrepareInterceptor" class="mx.com.telcel.core.order.interceptors.TelcelOrderPrepareInterceptor" />
+
+	<bean id="telcelOrderPrepareInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="telcelOrderPrepareInterceptor"/>
+		<property name="typeCode" value="Order"/>
+	</bean>
+	
+	<bean id="telcelItemRemoveInterceptor" class="mx.com.telcel.core.consignmenttrackingservices.interceptors.TelcelItemRemoveInterceptor">
+	</bean>
+	<bean id="telcelItemRemoveInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="telcelItemRemoveInterceptor"/>
+		<property name="typeCode" value="Item"/>
+	</bean>
+	
+	<bean id="telcelItemValidateInterceptor" class="mx.com.telcel.core.consignmenttrackingservices.interceptors.TelcelItemValidateInterceptor">
+	</bean>
+	<bean id="telcelItemValidateInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="telcelItemValidateInterceptor"/>
+		<property name="typeCode" value="Item"/>
+	</bean>
+
+	<!-- CVTs and DATs Daos -->
+	<alias name="userInfoCVTDaoImpl" alias="userInfoCVTDao"/>
+	<bean id="userInfoCVTDaoImpl" class="mx.com.telcel.core.daos.cvtdat.impl.UserInfoCVTDaoImpl">
+	</bean>
+
+	<alias name="userInfoDATDaoImpl" alias="userInfoDATDao"/>
+	<bean id="userInfoDATDaoImpl" class="mx.com.telcel.core.daos.cvtdat.impl.UserInfoDATDaoImpl">
+	</bean>
+
+	<!--Solr listener-->
+	<bean id="defaultTelcelSearchSolrListener" class="mx.com.telcel.core.search.solrfacetsearch.listeners.impl.TelcelSearchSolrListener">
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<bean id="ofertaComercialJobPerformable"
+		  class="mx.com.telcel.core.job.OfertaComercialJobPerformable"
+		  parent="abstractJobPerformable">
+	</bean>
+
+	<bean id="telcelSolrListenerDefinition" parent="solrListenerDefinition">
+		<property name="priority" value="150"/>
+		<property name="listener" ref="defaultTelcelSearchSolrListener" />
+	</bean>
+
+	<alias name="defaultAyudaTicketDao" alias="ayudaTicketDao" />
+	<bean id="defaultAyudaTicketDao" class="mx.com.telcel.core.daos.ticket.impl.DefaultAyudaTicketDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias name="defaultCorreoContactoDao" alias="correoContactoDao" />
+	<bean id="defaultCorreoContactoDao" class="mx.com.telcel.core.daos.ticket.impl.DefaultCorreosContactoRegionDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<!--Telcel Ticket Notification Customer generic email action-->
+	<bean id="generateTicketNotificationCustomerEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="TicketNotificationCustomerEmailTemplate"/>
+	</bean>
+
+	<!--Ticket Notification Customer email process-->
+	<bean id="ticketNotificationCustomerEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/ticketCustomerEmailProcess.xml"/>
+	</bean>
+
+	<!--Telcel Notification Customer Email Listener-->
+	<bean id="ticketNotificationCustomerEmailEventListener"
+		  class="mx.com.telcel.core.event.TicketNotificationCustomerEmailEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Telcel Ticket Notification Agent generic email action-->
+	<bean id="generateTicketNotificationAgentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="TicketNotificationAgentEmailTemplate"/>
+	</bean>
+
+	<!--Ticket Notification Agent email process-->
+	<bean id="ticketNotificationAgentEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/ticketAgentEmailProcess.xml"/>
+	</bean>
+
+	<!--Telcel Notification Agent Email Listener-->
+	<bean id="ticketNotificationAgentEmailEventListener"
+		  class="mx.com.telcel.core.event.TicketNotificationAgentEmailEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+	
+	<bean id="telcelAvailableProductPerformable"
+		  class="mx.com.telcel.core.job.TelcelAvailableProductPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelProductDao" ref="telcelProductDao"/>
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+	</bean>
+
+	<bean id="telcelReportsPerformable"
+		  class="mx.com.telcel.core.job.TelcelReportsPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="telcelReportsDao" ref="telcelReportsDao"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryService" ref="categoryService"/>
+	</bean>
+	
+	<bean id="telcelReportsFULLPerformable"
+		  class="mx.com.telcel.core.job.TelcelReportsFULLPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="telcelReportsDao" ref="telcelReportsDao"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryService" ref="categoryService"/>
+	</bean>
+	
+	<bean id="telcelReportsAlmDispPerformable"
+		  class="mx.com.telcel.core.job.TelcelReportsAlmDispPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="telcelReportsDao" ref="telcelReportsDao"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryService" ref="categoryService"/>
+	</bean>
+	
+	<bean id="telcelReportsClientesPerformable"
+		  class="mx.com.telcel.core.job.TelcelReportsClientesPerformable"
+		  parent="abstractJobPerformable">
+			<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="telcelReportsDao" ref="telcelReportsDao"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+	</bean>
+	
+	
+	<bean id="telcelReportsPedidosProductosPerformable"
+		  class="mx.com.telcel.core.job.TelcelReportsPedidosProductosPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="telcelReportsDao" ref="telcelReportsDao"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryService" ref="categoryService"/>
+	</bean>
+
+	<bean id="telcelSecurityReportsPerformable"
+		  class="mx.com.telcel.core.job.TelcelSecurityReportsPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="telcelReportsDao" ref="telcelReportsDao"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="telcelSecurityLogReportsPerformable"
+		  class="mx.com.telcel.core.job.TelcelSecurityLogReportsPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="telcelReportsDao" ref="telcelReportsDao"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="telcelInactiveEmployeesCronJobPerformable"
+		  class="mx.com.telcel.core.job.TelcelInactiveEmployeesCronJobPerformable"
+		  parent="abstractJobPerformable">
+	</bean>
+
+	<!-- Tecel ftp service-->
+	<alias name="defaultTelcelFTPService" alias="telcelFTPService" />
+	<bean id="defaultTelcelFTPService" class="mx.com.telcel.core.services.impl.DefaultTelcelFTPService">
+	</bean>
+	<!-- Payment Commerce Service-->
+	<alias name="paymentCommerceServiceImpl" alias="paymentCommerceService" />
+	<bean id="paymentCommerceServiceImpl" class="mx.com.telcel.core.services.paymentcommerce.impl.PaymentCommerceServiceImpl">
+	</bean>
+
+	<alias name="defaultTelcelFedexService" alias="telcelFedexService"/>
+	<bean id="defaultTelcelFedexService" class="mx.com.telcel.core.services.impl.DefaultTelcelFedexService">
+	</bean>
+
+	<alias name="defaultTelcelFedexDao" alias="telcelFedexDao" />
+	<bean id="defaultTelcelFedexDao" class="mx.com.telcel.core.daos.fedex.impl.DefaultTelcelFedexDao" >
+	</bean>
+
+	<bean id="telcelFedexGuidesPerformable"
+		  class="mx.com.telcel.core.job.TelcelFedexGuidesPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelFedexDao" ref="telcelFedexDao"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="consignmentDao" ref="consignmentDao"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="telcelFedexService" ref="telcelFedexService"/>
+	</bean>
+
+	<alias name="defaultCustomEntryMergeStrategy" alias="entryMergeStrategy"/>
+	<bean id="defaultCustomEntryMergeStrategy" class="mx.com.telcel.core.commerceservices.order.impl.DefaultCustomEntryMergeStrategy">
+		<property name="entryMergeFilters" ref="commerceCartEntryMergeFilters"/>
+	</bean>
+	
+	<!-- Product Order MQ Service-->
+	<alias name="productOrderMQServiceImpl" alias="productOrderMQService" />
+	<bean id="productOrderMQServiceImpl" class="mx.com.telcel.core.services.mq.telmex.impl.ProductOrderMQServiceImpl">
+	</bean>
+	
+	<!-- Facturacion MQ Service-->
+	<alias name="facturacionMQServiceImpl" alias="facturacionMQService" />
+	<bean id="facturacionMQServiceImpl" class="mx.com.telcel.core.services.mq.facturacion.impl.FacturacionMQServiceImpl">
+	</bean>
+	
+	<!-- Activacion Prepago MQ Service-->
+	<alias name="activacionPrepagoMQServiceImpl" alias="activacionPrepagoMQService" />
+	<bean id="activacionPrepagoMQServiceImpl" class="mx.com.telcel.core.services.mq.activacionprepago.impl.ActivacionPrepagoMQServiceImpl">
+	</bean>
+	
+	<!-- Json Converter -->
+	<alias name="jsonConverterDS" alias="jsonConverterService"/>
+	<bean id="jsonConverterDS" 
+	    class="mx.com.telcel.core.util.JsonConverter">
+	</bean>
+	
+	<!-- Soap Converter -->
+	<alias name="soapConverterDS" alias="soapConverterService"/>
+	<bean id="soapConverterDS" 
+	    class="mx.com.telcel.core.util.SOAPConverter">
+	</bean>
+
+	<!-- Override Default Commerce Cart Merging Strategy -->
+	<alias name="b2ctelcelCommerceCartMergingStrategy" alias="commerceCartMergingStrategy"/>
+	<bean id="b2ctelcelCommerceCartMergingStrategy"
+		  class="mx.com.telcel.core.services.impl.B2cTelcelCommerceCartMergingStrategy"
+		  parent="b2ctelcoCommerceCartMergingStrategy">
+		<constructor-arg name="customerInventoryService" ref="tmaCustomerInventoryService"/>
+		<constructor-arg name="tmaCommerceAddToCartStrategy" ref="commerceAddToCartStrategy"/>
+		<constructor-arg name="tmaUpdateCartStrategy" ref="tmaUpdateCartStrategy"/>
+	</bean>
+
+	<alias name="defaultTelcelCreditCardPaymentInfoCreateStrategy" alias="creditCardPaymentInfoCreateStrategy"/>
+	<bean id="defaultTelcelCreditCardPaymentInfoCreateStrategy" class="mx.com.telcel.core.strategy.impl.DefaultTelcelCreditCardPaymentInfoCreateStrategy" parent="defaultCreditCardPaymentInfoCreateStrategy">
+	</bean>
+
+    <!-- Order Telmex Dao-->
+	<alias name="orderTelmexDaoImpl" alias="orderTelmexDao" />
+	<bean id="orderTelmexDaoImpl" class="mx.com.telcel.core.daos.ordertelmex.impl.OrderTelmexDaoImpl">
+	</bean>
+	
+	<!-- Notify Order Telmex Service-->
+	<alias name="notifyProductOrderTelmexImpl" alias="notifyProductOrderTelmex" />
+	<bean id="notifyProductOrderTelmexImpl" class="mx.com.telcel.core.services.ordertelmex.impl.NotifyProductOrderTelmexImpl">
+	</bean>
+	<bean id="telcelActulizaPagoResponsePerformable"
+		  class="mx.com.telcel.core.job.TelcelActulizaPagoResponsePerformable"
+		  parent="abstractJobPerformable">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="telcelOrderDao" ref="telcelOrderDao"/>
+		<property name="facturacionMQService" ref="facturacionMQService"/>
+	</bean>
+
+
+	<!-- Liberacion Recursos MQ Service-->
+	<alias name="liberaRecursosMQServiceImpl" alias="liberaRecursosMQService" />
+	<bean id="liberaRecursosMQServiceImpl" class="mx.com.telcel.core.services.mq.liberacionrecursos.impl.LiberaRecursosMQServiceImpl">
+		<property name="telcelReleaseResourcesCodeGenerator" ref="telcelReleaseResourcesCodeGenerator"/>
+	</bean>
+
+	<alias alias="consignmentBasedReturnableCheck" name="defaultTelcelConsignmentBasedReturnableCheck"/>
+	<bean id="defaultTelcelConsignmentBasedReturnableCheck"
+		  class="mx.com.telcel.core.strategies.returns.impl.DefaultTelcelConsignmentBasedReturnableCheck" parent="defaultConsignmentBasedReturnableCheck">
+	</bean>
+
+	<alias name="consumerServicePaymentMQImpl" alias="consumerServicePaymentMQ" />
+	<bean id="consumerServicePaymentMQImpl" class="mx.com.telcel.core.services.mq.paymentcommerce.impl.ConsumerServicePaymentMQImpl" >
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="paymentCommerceMQResponsePerformable"
+		  class="mx.com.telcel.core.job.PaymentCommerceMQResponsePerformable"
+		  parent="abstractJobPerformable">
+    </bean>
+
+	<alias name="telcelProductModelUrlResolver" alias="productModelUrlResolver"/>
+	<bean id="telcelProductModelUrlResolver" class="mx.com.telcel.core.url.impl.TelcelProductModelUrlResolver">
+		<property name="threadContextService" ref="threadContextService"/>
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="defaultPattern" value="/{category-code}/producto/{product-code}"/>
+		<property name="productAndCategoryHelper" ref="productAndCategoryHelper"/>
+	</bean>
+
+	<bean id="activacionJobPerformable"
+		  class="mx.com.telcel.core.job.ActivacionJobPerformable"
+		  parent="abstractJobPerformable">
+	</bean>
+
+	<!-- Configuracion SPRING,PARA CRONJOB LIBERACION DE RECURSOS POR CONSIGMENT -->
+	<bean id="releaseResourcesByConsignmentJobPerformable"
+		  class="mx.com.telcel.core.job.ReleaseResourcesByConsignmentJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	<!-- FIN-->
+
+
+	<bean id="liberaRecursosTelcelJobPerformable"
+		  class="mx.com.telcel.core.job.LiberaRecursosTelcelJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<alias name="defaultTelcelSerieIccidDao" alias="telcelSerieIccidDao" />
+	<bean id="defaultTelcelSerieIccidDao" class="mx.com.telcel.core.daos.serieiccid.impl.DefaultSerieIccidDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<!-- Release Resources Id Generator-->
+	<alias name="defaultTelcelReleaseResourcesIdGenerator" alias="telcelReleaseResourcesCodeGenerator"/>
+	<bean id="defaultTelcelReleaseResourcesIdGenerator"
+		  class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+		<property name="key" value="releaseResourcesId"/>
+		<property name="digits" value="10"/>
+		<property name="start" value="0000000000"/>
+		<property name="type" value="numeric"/>
+		<property name="template" value="$"/>
+	</bean>
+	<alias alias="commerceProductService" name="telcelDefaultCommerceProductService"/>
+	<bean id="telcelDefaultCommerceProductService"
+		  class="mx.com.telcel.core.service.impl.DefaultCommerceProductService">
+		<property name="stockService" ref="stockService"/>
+		<property name="warehouseService" ref="warehouseService"/>
+	</bean>
+
+	<!--Pending Payment Email Process-->
+	<bean id="pendingPaymentEmailProcessDefinitionResource"
+			  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+			<property name="resource" value="classpath:/telcelb2ccore/processes/pendingPaymentEmailProcess.xml"/>
+	</bean>
+
+	<!--Telcel Pending Payment Email Action-->
+	<bean id="generatePendingPaymentEmail" parent="abstractGenerateEmailAction">
+			<property name="frontendTemplateName" value="PendingPaymentEmailTemplate"/>
+	</bean>
+
+	<!--Telcel Pending Payment Email Listener-->
+	<bean id="pendingPaymentEmailEventListener"
+			  class="mx.com.telcel.core.event.PendingPaymentEmailEventListener" parent="abstractEventListener">
+			<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Successful Purchase Email Process-->
+	<bean id="successfulPurchaseEmailProcessDefinitionResource"
+			  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+			<property name="resource" value="classpath:/telcelb2ccore/processes/successfulPurchaseEmailProcess.xml"/>
+	</bean>
+
+	<!--Telcel Successful Purchase Email Action-->
+	<bean id="generateSuccessfulPurchaseEmail" parent="abstractGenerateEmailAction">
+			<property name="frontendTemplateName" value="SuccessfulPurchaseEmailTemplate"/>
+	</bean>
+
+	<!--Telcel Successful Purchase Email Listener-->
+	<bean id="successfulPurchaseEmailEventListener"
+			  class="mx.com.telcel.core.event.SuccessfulPurchaseEmailEventListener" parent="abstractEventListener">
+			<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Successful Delivery Email Process-->
+	<bean id="successfulDeliveryEmailProcessDefinitionResource"
+			  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+			<property name="resource" value="classpath:/telcelb2ccore/processes/successfulDeliveryEmailProcess.xml"/>
+	</bean>
+
+	<!--Telcel Successful Delivery Email Action-->
+	<bean id="generateSuccessfulDeliveryEmail" parent="abstractGenerateEmailAction">
+			<property name="frontendTemplateName" value="SuccessfulDeliveryEmailTemplate"/>
+	</bean>
+
+	<!--Telcel Successful Delivery Email Listener-->
+	<bean id="successfulDeliveryEmailEventListener"
+			  class="mx.com.telcel.core.event.SuccessfulDeliveryEmailEventListener" parent="abstractEventListener">
+			<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+    <!--Reserved Order Email Process-->
+	<bean id="reservedOrderEmailProcessDefinitionResource"
+			  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+			<property name="resource" value="classpath:/telcelb2ccore/processes/reservedOrderEmailProcess.xml"/>
+	</bean>
+
+	<!--Telcel Reserved Order Email Action-->
+	<bean id="generateReservedOrderEmail" parent="abstractGenerateEmailAction">
+			<property name="frontendTemplateName" value="ReservedOrderEmailTemplate"/>
+	</bean>
+
+	<!--Telcel Reserved Order Email Listener-->
+	<bean id="reservedOrderEmailEventListener"
+			  class="mx.com.telcel.core.event.ReservedOrderEmailEventListener" parent="abstractEventListener">
+			<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<bean id="pendingPaymentJobPerformable"
+		  class="mx.com.telcel.core.job.PendingPaymentNotificationJobPerformable"
+		  parent="abstractJobPerformable">
+	</bean>
+
+	<!-- tmaProduct Dao-->
+	<alias name="defaultTelcelReportsDao" alias="telcelReportsDao"/>
+	<bean id="defaultTelcelReportsDao" class="mx.com.telcel.core.daos.reports.impl.DefaultTelcelReportsDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias name="defaultTelcelEmailService" alias="emailService"/>
+	<bean id="defaultTelcelEmailService"
+		  class="mx.com.telcel.core.email.DefaulTelcelEmailService" parent="defaultEmailService">
+	</bean>
+
+	<alias name="defaultTelcelLiberarRecursosDao" alias="telcelLiberarRecursosDao" />
+	<bean id="defaultTelcelLiberarRecursosDao" class="mx.com.telcel.core.daos.liberarrecursos.impl.DefaultTelcelLiberarRecursosDao" >
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<!--Cancellation underpaymeny email process-->
+	<bean id="cancellationUnderpaymentEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/cancellationUnderpaymentEmailProcess.xml"/>
+	</bean>
+	<!--Telcel Cancellation underpayment email action-->
+	<bean id="generateCancellationUnderpaymentEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CancellationUnderpaymentEmailTemplate"/>
+	</bean>
+	<!--Telcel Cancellation underpayment Email Listener-->
+	<bean id="cancellationUnderpaymentEmailEventListener"
+		  class="mx.com.telcel.core.event.CancellationUnderpaymentEmailEventListener" parent="abstractEventListener">
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!-- Cancellation Card Item email process-->
+	<bean id="cancellationCardItemEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/cancellationCardItemEmailProcess.xml"/>
+	</bean>
+	<!--Cancellation Card Item email action-->
+	<bean id="generateCancellationCardItemEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CancellationCardItemEmailTemplate"/>
+	</bean>
+	<!--Cancellation Card Item Email Listener-->
+	<bean id="cancellationCardItemEmailEventListener"
+		  class="mx.com.telcel.core.event.CancellationCardItemEmailEventListener" parent="abstractEventListener">
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Cancellation Others Item email process-->
+	<bean id="cancellationOthersItemEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/cancellationOthersItemEmailProcess.xml"/>
+	</bean>
+	<!--Telcel Cancellation Others Item email action-->
+	<bean id="generateCancellationOthersItemEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CancellationOthersItemEmailTemplate"/>
+	</bean>
+	<!--Telcel Cancellation Others Item Email Listener-->
+	<bean id="cancellationOthersItemEmailEventListener"
+		  class="mx.com.telcel.core.event.CancellationOthersItemEmailEventListener" parent="abstractEventListener">
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Cancellation Telcel email process-->
+	<bean id="cancellationTelcelEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/cancellationTelcelEmailProcess.xml"/>
+	</bean>
+	<!--Cancellation Telcel email action-->
+	<bean id="generateCancellationTelcelEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CancellationTelcelEmailTemplate"/>
+	</bean>
+	<!--Cancellation Telcel Email Listener-->
+	<bean id="cancellationTelcelEmailEventListener"
+		  class="mx.com.telcel.core.event.CancellationTelcelEmailEventListener" parent="abstractEventListener">
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Cancellation User Card email process-->
+	<bean id="cancellationUserCardEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/cancellationUserCardEmailProcess.xml"/>
+	</bean>
+	<!--Cancellation User Card email action-->
+	<bean id="generateCancellationUserCardEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CancellationUserCardEmailTemplate"/>
+	</bean>
+	<!--Cancellation User Card Email Listener-->
+	<bean id="cancellationUserCardEmailEventListener"
+		  class="mx.com.telcel.core.event.CancellationUserCardEmailEventListener" parent="abstractEventListener">
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<!--Cancellation User Others email process-->
+	<bean id="cancellationUserOthersEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/telcelb2ccore/processes/cancellationUserOthersEmailProcess.xml"/>
+	</bean>
+	<!--Cancellation User Others email action-->
+	<bean id="generateCancellationUserOthersEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CancellationUserOthersEmailTemplate"/>
+	</bean>
+	<!--Cancellation User Others Email Listener-->
+	<bean id="cancellationUserOthersEmailEventListener"
+		  class="mx.com.telcel.core.event.CancellationUserOthersEmailEventListener" parent="abstractEventListener">
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy"/>
+	</bean>
+
+	<bean id="telcelSIPABPrepareInterceptor" class="mx.com.telcel.core.consignmenttrackingservices.interceptors.TelcelSIPABPrepareInterceptor">
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="telcelSIPABPrepareInterceptorMapping"
+		  class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="telcelSIPABPrepareInterceptor"/>
+		<property name="typeCode" value="Sipabb"/>
+	</bean>
+
+	<alias name="telcelLdapPasswordEncoderService" alias="passwordEncoderService"/>
+	<bean id="telcelLdapPasswordEncoderService" class="mx.com.telcel.core.service.impl.TelcelLDAPPasswordEncoderService" parent="ldapPasswordEncoderService"/>
+
+    <!-- Saml User Groups Dao -->
+    <alias name="samlUserGroupDaoImpl" alias="samlUserGroupDao" />
+	<bean id="samlUserGroupDaoImpl" class="mx.com.telcel.core.daos.saml.impl.SamlUserGroupDaoImpl">
+	</bean>
+
+	<!-- Telcel Consignment Dao -->
+	<alias name="defaultTelcelConsignmentDao" alias="telcelConsignmentDao"/>
+	<bean id="defaultTelcelConsignmentDao" class="mx.com.telcel.core.daos.consignment.impl.DefaultTelcelConsignmentDao" parent="defaultConsignmentDao">
+	</bean>
+
+	<!-- Telcel SSO Service -->
+	<alias name="defaultTelcelSSOCoreService" alias="telcelSSOCoreService" />
+	<bean id="defaultTelcelSSOCoreService" class="mx.com.telcel.core.services.impl.DefaultTelcelSSOCoreService">
+	</bean>
+
+	<alias name="defaultTelcelReplacementOrderService" alias="telcelReplacementOrderService" />
+	<bean id="defaultTelcelReplacementOrderService" class="mx.com.telcel.core.services.impl.DefaultTelcelReplacementOrderService">
+		<property name="telcelReplacementOrderDao" ref="telcelReplacementOrderDao"/>
+	</bean>
+
+	<alias name="defaultTelcelReplacementOrderDao" alias="telcelReplacementOrderDao" />
+	<bean id="defaultTelcelReplacementOrderDao" class="mx.com.telcel.core.daos.order.impl.DefaultTelcelReplacementOrderDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="enumerationService" ref="enumerationService" />
+	</bean>
+	
+	<!-- Chip Express Validate Dao -->
+	<alias name="chipExpressValidateDaoImpl" alias="chipExpressValidateDao" />
+	<bean id="chipExpressValidateDaoImpl" class="mx.com.telcel.core.daos.chipexpress.impl.ChipExpressValidateDaoImpl">
+	</bean>
+
+	<!-- Job google mercant -->
+	<bean id="telcelGoogleMercantPerformable"
+		  class="mx.com.telcel.core.job.TelcelGoogleMercantPerformable"
+		  parent="abstractJobPerformable">
+		<property name="telcelProductDao" ref="telcelProductDao"/>
+		<property name="telcelFTPService" ref="telcelFTPService"/>
+		<property name="commerceStockService" ref="commerceStockService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="telcelProductModelUrlResolver" ref="telcelProductModelUrlResolver"/>
+	</bean>
+
+	<!-- Fedex Create_Pickup Id Generator-->
+	<alias name="defaultConsignmentIdGenerator" alias="telcelConsignmentCodeGenerator"/>
+	<bean id="defaultConsignmentIdGenerator"
+		  class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+		<property name="key" value="createPickupConsecutiveId"/>
+		<property name="digits" value="10"/>
+		<property name="start" value="0"/>
+		<property name="type" value="numeric"/>
+		<property name="template" value="$"/>
+	</bean>
+
+	<alias alias="createOrderFromCartStrategy" name="defaultTelcelCreateOrderFromCartStrategy"/>
+	<bean id="defaultTelcelCreateOrderFromCartStrategy"
+		  class="mx.com.telcel.core.strategy.impl.DefaultTelcelCreateOrderFromCartStrategy" parent="defaultCreateOrderFromCartStrategy">
+		<property name="cartValidator" ref="cartValidator"/>
+		<property name="cloneAbstractOrderStrategy" ref="cloneAbstractOrderStrategy"/>
+	</bean>
+
+	<alias name="customTmaContextService" alias="tmaEligibilityContextService"/>
+	<bean id="customTmaContextService" class="mx.com.telcel.core.service.impl.DefaultTmaEligibilityContextUpdateService">
+		<property name="userService" ref="userService"/>
+		<property name="tmaEligibilityContextDao" ref="tmaEligibilityContextDao"/>
+		<property name="tmaEligibilityPolicyEngine" ref="tmaEligibilityPolicyEngine"/>
+		<property name="modelService" ref="defaultModelService"/>
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+
+	<alias name="defaultCustomTmaCustomerInventoryService" alias="tmaCustomerInventoryService"/>
+	<bean id="defaultCustomTmaCustomerInventoryService"
+		  class="mx.com.telcel.core.service.impl.DefaultTmaCustomerInventoryService">
+		<property name="billingAccountService" ref="tmaBillingAccountService"/>
+		<property name="subscriptionBaseService" ref="tmaSubscriptionBaseService"/>
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="userService" ref="userService"/>
+		<property name="tmaEligibilityContextService" ref="tmaEligibilityContextService"/>
+		<property name="subscriptionTermService" ref="tmaSubscriptionTermService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	
+	<alias name="defaultAESService" alias="aesService" />
+	<bean id="defaultAESService" class="mx.com.telcel.core.service.impl.DefaultAESService">
+	</bean>
+
+	<!-- custom service for product methods -->
+	<alias alias="telcelProductService" name="defaultTelcelProductService"/>
+	<bean id="defaultTelcelProductService" class="mx.com.telcel.core.service.impl.DefaultTelcelProductService" >
+	</bean>
+
+	<alias name="defaultTelcelJasperReportsService" alias="telcelJasperReportsService" />
+	<bean id="defaultTelcelJasperReportsService" class="mx.com.telcel.core.services.impl.DefaultTelcelJasperReportsService">
+	</bean>
+	
+	<alias name="defaultMSIConfigurationDao" alias="msiConfigurationDao" />
+	<bean id="defaultMSIConfigurationDao" class="mx.com.telcel.core.daos.msiconfiguration.impl.MSIConfigurationDaoImpl" >
+	</bean>
+	
+	<alias name="refundCashPaymentCommerceServiceImpl" alias="refundCashPaymentCommerceService" />
+	<bean id="refundCashPaymentCommerceServiceImpl" class="mx.com.telcel.core.services.refund.impl.RefundCashPaymentCommerceServiceImpl" >
+	</bean>
+
+	<alias name="defaultTokenNipDao" alias="tokenNipDao" />
+	<bean id="defaultTokenNipDao" class="mx.com.telcel.core.daos.tokennip.impl.DefaultTokenNipDao" >
+	</bean>
+	
+	<alias alias="telcelReportService" name="defaultTelcelReportService"/>
+	<bean id="defaultTelcelReportService"
+		  class="mx.com.telcel.core.services.impl.DefaultTelcelReportService" >
+	</bean>
+
+	<alias alias="countryZoneDeliveryModeDao" name="defaultTelcelCountryZoneDeliveryModeDao"/>
+	<bean id="defaultTelcelCountryZoneDeliveryModeDao"
+		  class="mx.com.telcel.core.services.dao.impl.DefaultTelcelCountryZoneDeliveryModeDao"
+		  parent="defaultCountryZoneDeliveryModeDao"/>
+
+	<bean id="telcelRollbackPerformable"
+		  class="mx.com.telcel.core.job.TelcelRollbackCronJobPerformable"
+		  parent="abstractJobPerformable">
+	</bean>
+
+	<alias name="defaultTelcelRollbackDao" alias="telcelRollbackDao" />
+	<bean id="defaultTelcelRollbackDao" class="mx.com.telcel.core.daos.rollback.impl.DefaultTelcelRollbackDao" >
+	</bean>
+
+	<bean id="mediaRealNamePerformable" class="mx.com.telcel.core.job.MediaRealNameJobPerformable" parent="abstractJobPerformable">
+		<property name="telcelMediaDao" ref="telcelMediaDao"/>
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+	</bean>
+
+	<alias alias="telcelMediaDao" name="defaultTelcelMediaDao" />
+	<bean id="defaultTelcelMediaDao" class="mx.com.telcel.core.daos.media.impl.DefaultTelcelMediaDao" parent="defaultMediaDao">
+	</bean>
+	
+	<bean id="bitacoraTelcelDeleteItemsPerformable"
+		  class="mx.com.telcel.core.job.BitacoraTelcelDeleteItemsPerformable"
+		  parent="abstractJobPerformable">
+    </bean>
+	
+	<alias alias="bitacoraTelcelDao" name="defaultBitacoraTelcelDao"/>
+	<bean id="defaultBitacoraTelcelDao" class="mx.com.telcel.core.daos.bitacoratelcel.impl.DefaultBitacoraTelcelDao" >
+	</bean>
+
+</beans>
