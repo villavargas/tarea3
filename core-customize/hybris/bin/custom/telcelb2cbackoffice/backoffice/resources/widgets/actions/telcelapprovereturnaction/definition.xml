@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<action-definition id="mx.com.telcel.backoffice.actions.returns.telcelapprovereturnaction"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+
+    <name>telcelapprovereturn.action</name>
+    <description>Open approve return popup in returns to manually approve complete or partial return</description>
+    <author>hybris</author>
+    <version>0.1</version>
+
+    <actionClassName>mx.com.telcel.backoffice.actions.returns.TelcelApproveReturnAction</actionClassName>
+    <inputType>de.hybris.platform.returns.model.ReturnRequestModel</inputType>
+    <outputType>de.hybris.platform.returns.model.ReturnRequestModel</outputType>
+
+    <iconUri>icons/icon_action_telcelapprovereturn_default.png</iconUri>
+    <iconHoverUri>icons/icon_action_telcelapprovereturn_hover.png</iconHoverUri>
+    <iconDisabledUri>icons/icon_action_telcelapprovereturn_disabled.png</iconDisabledUri>
+
+
+    <settings>
+        <setting key="viewMode" default-value="iconAndText"/>
+    </settings>
+
+    <!-- Sockets definition-->
+    <sockets>
+        <output id="telcelApproveReturnContext"/>
+    </sockets>
+
+</action-definition>
