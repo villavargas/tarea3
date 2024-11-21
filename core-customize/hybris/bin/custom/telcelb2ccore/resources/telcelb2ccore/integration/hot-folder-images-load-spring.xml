@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration
+	http://www.springframework.org/schema/integration/spring-integration.xsd
+	http://www.springframework.org/schema/integration/file
+	http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config/>
+
+    <bean id="baseDirectoryLoad" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcel/images" />
+    </bean>
+    <bean id="baseDirectoryLoadAccesorio" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcelacc/images" />
+    </bean>
+    <bean id="telcelImagesCleanupHelper" class="mx.com.telcel.core.services.dataimport.TelcelImagesCleanupHelper">
+        <property name="timeStampFormat" value="yyyyMMddHHmmssSSS" />
+        <property name="cronJobService" ref="cronJobService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <!-- 1) Scan for files -->
+    <file:inbound-channel-adapter id="batchFilesTelcelImagesLoad" directory="#{baseDirectoryLoad}"
+                                  filename-regex="^(.*)\.csv" comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000" />
+    </file:inbound-channel-adapter>
+    <file:inbound-channel-adapter id="batchFilesTelcelImagesLoadAccesorio" directory="#{baseDirectoryLoadAccesorio}"
+                                  filename-regex="^(.*)\.csv" comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000" />
+    </file:inbound-channel-adapter>
+
+    <!-- 2) move the file to processing and setup header -->
+    <file:outbound-gateway request-channel="batchFilesTelcelImagesLoad" reply-channel="batchFilesTelcelImagesLoadProc"
+                           directory="#{baseDirectoryLoad}/processing" delete-source-files="true" />
+    <file:outbound-gateway request-channel="batchFilesTelcelImagesLoadAccesorio" reply-channel="batchFilesTelcelImagesLoadAccesorioProc"
+                           directory="#{baseDirectoryLoadAccesorio}/processing" delete-source-files="true" />
+
+    <int:service-activator input-channel="batchFilesTelcelImagesLoadProc" output-channel="batchFilesHeaderInitImagesLoad"
+                           ref="imagesLoadHeaderSetupTask" method="execute" />
+    <int:service-activator input-channel="batchFilesTelcelImagesLoadAccesorioProc" output-channel="batchFilesHeaderInitImagesLoad"
+                           ref="imagesLoadAccesorioHeaderSetupTask" method="execute" />
+
+    <bean id="imagesLoadHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="telcelProductCatalog" />
+        <property name="net" value="false" />
+        <property name="storeBaseDirectory" ref="baseDirectoryLoad" />
+    </bean>
+    <bean id="imagesLoadAccesorioHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="telcelProductCatalog" />
+        <property name="net" value="false" />
+        <property name="storeBaseDirectory" ref="baseDirectoryLoadAccesorio" />
+    </bean>
+
+    <int:service-activator input-channel="batchFilesHeaderInitImagesLoad" output-channel="batchFilesHeaderImagesLoad" ref="headerInitTask"
+                           method="execute" />
+
+    <!-- 3) transform csv to impex file -->
+    <int:service-activator input-channel="batchFilesHeaderImagesLoad" output-channel="batchFilesTranImagesLoad" ref="telcelImagesLoadBatchTransformerTask"
+                           method="execute" />
+
+    <bean id="telcelImagesLoadBatchTransformerTask"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.task.ImpexTransformerTask"
+          init-method="initConvertersMap">
+        <property name="fieldSeparator" value=","/>
+        <property name="encoding" value="UTF-8"/>
+        <property name="linesToSkip" value="0"/>
+        <property name="cleanupHelper" ref="cleanupHelper"/>
+    </bean>
+
+    <!-- Mapping and Converter -->
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          id="batchImagesConverterMapping"
+          p:converter-ref="batchImagesConverter"
+          p:mapping="imagenes">
+    </bean>
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          id="batchImagesContainerConverterMapping"
+          p:converter-ref="batchImagesContainerConverter"
+          p:mapping="imagenes">
+    </bean>
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          id="batchAccessImagesConverterMapping"
+          p:converter-ref="batchImagesConverter"
+          p:mapping="img-access">
+    </bean>
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          id="batchAccessImagesContainerConverterMapping"
+          p:converter-ref="batchImagesContainerConverter"
+          p:mapping="img-access">
+    </bean>
+
+    <!-- 4) run impex import -->
+    <int:service-activator input-channel="batchFilesTranImagesLoad" output-channel="batchFilesImpImagesLoad" ref="batchRunnerTask"
+                           method="execute" />
+
+    <!-- 5) Cleanup -->
+    <int:service-activator input-channel="batchFilesImpImagesLoad" ref="batchCleanupTaskCustom" method="execute" />
+    <bean id="batchCleanupTaskCustom" class="mx.com.telcel.core.services.dataimport.TelcelCleanupTask">
+        <property name="telcelCleanupHelper" ref="telcelImagesCleanupHelper" />
+        <property name="process" value="cargaImagen"/>
+    </bean>
+
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter" id="batchImagesConverter">
+        <property name="header">
+            <value>
+                #{defaultImpexProductHeader}
+                # Import media from filesystems
+                INSERT_UPDATE Media;code[unique=true];mime[default='image/jpeg'];$catalogVersion;folder(qualifier)[default=images];realfilename;@media[translator=mx.com.telcel.core.services.dataimport.TelcelMediaDataTranslator]
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>
+                ;{+1};;;;{+1};{+1},{+3}
+            </value>
+        </property>
+        <!-- <property value="images" name="type"/> -->
+    </bean>
+
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter" id="batchImagesContainerConverter">
+        <property name="header">
+            <value>
+                #{defaultImpexProductHeader}
+                #Import media containers
+                $medias=medias(code, $catalogVersion)[mode=append]
+
+                INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;conversionGroup(code);$catalogVersion
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>
+                ;{+1};{+1};telcelImages;
+            </value>
+        </property>
+        <property value="images" name="type"/>
+    </bean>
+
+</beans>
+
