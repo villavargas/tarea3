@@ -1,0 +1,42 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# ENGLISH LOCALIZATION
+#
+
+$lang = en
+$solrIndexedType = telcelPriceType
+
+###################
+# used in headers #
+###################
+$hIndexType = solrIndexedType(identifier)[unique = true, default = telcelPriceType]
+$hName = name[unique = true]
+$hCode = code[unique = true]
+$hDisplayName = displayName[lang = en]
+$hLang = language(isocode)[unique = true, default = en]
+UPDATE SolrIndexedProperty; $hIndexType; $hName               ; $hDisplayName
+# facets
+                          ;            ; smsquantity          ; "Sms"
+                          ;            ; voice                ; "Minutes"
+                          ;            ; datavolume           ; "Data volume"
+                          ;            ; dataspeed            ; "Data speed"
+                          ;            ; sdchannels           ; "SD Channels"
+                          ;            ; hdchannels           ; "HD Channels"
+                          ;            ; tvsessions           ; "TV Sessions"
+                          ;            ; uploadspeed          ; "Upload Speed"
+                          ;            ; downloadspeed        ; "Download Speed"
+                          ;            ; priceValue           ; "Precio"
+                          ;            ; marca                ; "Marca"
+                          ;            ; category                ; "Productos"
+                          ;            ; storage                ; "Memoria"
+                          ;            ; color                ; "Color"
+                          ;            ; isNew                ; "Nuevos"
+                          ;            ; isPromotion          ; "En promoción"
+                          ;            ; isMotriz             ; "Motriz"
+                          ;            ; isAuditva            ; "Visual"
+                          ;            ; isVisual             ; "Auditiva"
+                          ;            ; bandasSoportadas             ; "Technology"
+                          ;            ; masVendidosValue             ; "Más vendidos"
