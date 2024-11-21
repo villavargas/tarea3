@@ -1,0 +1,105 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# Impex for Importing Product Media into Telcel Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$thumbnail = thumbnail(code, $catalogVersion)
+$picture = picture(code, $catalogVersion)
+$thumbnails = thumbnails(code, $catalogVersion)
+$detail = detail(code, $catalogVersion)
+$normal = normal(code, $catalogVersion)
+$others = others(code, $catalogVersion)
+$data_sheet = data_sheet(code, $catalogVersion)
+$medias = medias(code, $catalogVersion)
+$original = original(code, $catalogVersion)
+$galleryImages = galleryImages(qualifier, $catalogVersion)
+$siteResource = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/productCatalogs/$productCatalog
+
+## Smartphones Medias
+INSERT_UPDATE Media; mediaFormat(qualifier); code[unique = true]                                ;$original;@media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite = true]; realfilename                ; mime[default = 'image/jpeg']; $catalogVersion; folder(qualifier)[default = images]
+                   ;                       ; iphonex-white-back                 ;; $siteResource/images/1200Wx1200H/iphonex-white-back.jpg                                            ; iphonex-white-back.jpg      ;
+                   ; 30Wx30H               ; iphonex-white-back_30Wx30H         ;iphonex-white-back; $siteResource/images/30Wx30H/iphonex-white-back.jpg                                            ; iphonex-white-back.jpg      ;
+                   ; 65Wx65H               ; iphonex-white-back_65Wx65H         ;iphonex-white-back; $siteResource/images/65Wx65H/iphonex-white-back.jpg                                            ; iphonex-white-back.jpg      ;
+                   ; 96Wx96H               ; iphonex-white-back_96Wx96H         ;iphonex-white-back; $siteResource/images/96Wx96H/iphonex-white-back.jpg                                            ; iphonex-white-back.jpg      ;
+                   ; 300Wx300H             ; iphonex-white-back_300Wx300H       ;iphonex-white-back; $siteResource/images/300Wx300H/iphonex-white-back.jpg                                          ; iphonex-white-back.jpg      ;
+                   ; 515Wx515H             ; iphonex-white-back_515Wx515H       ;iphonex-white-back; $siteResource/images/515Wx515H/iphonex-white-back.jpg                                          ; iphonex-white-back.jpg      ;
+                   ; 1200Wx1200H           ; iphonex-white-back_1200Wx1200H     ;iphonex-white-back; $siteResource/images/1200Wx1200H/iphonex-white-back.jpg                                        ; iphonex-white-back.jpg      ;
+
+                   ;                       ; iphonex-white-front                 ;;$siteResource/images/1200Wx1200H/iphonex-white-front.jpg                                           ; iphonex-white-front.jpg     ;
+                   ; 30Wx30H               ; iphonex-white-front_30Wx30H         ;iphonex-white-front; $siteResource/images/30Wx30H/iphonex-white-front.jpg                                           ; iphonex-white-front.jpg     ;
+                   ; 65Wx65H               ; iphonex-white-front_65Wx65H         ;iphonex-white-front; $siteResource/images/65Wx65H/iphonex-white-front.jpg                                           ; iphonex-white-front.jpg     ;
+                   ; 96Wx96H               ; iphonex-white-front_96Wx96H         ;iphonex-white-front; $siteResource/images/96Wx96H/iphonex-white-front.jpg                                           ; iphonex-white-front.jpg     ;
+                   ; 300Wx300H             ; iphonex-white-front_300Wx300H       ;iphonex-white-front; $siteResource/images/300Wx300H/iphonex-white-front.jpg                                         ; iphonex-white-front.jpg     ;
+                   ; 515Wx515H             ; iphonex-white-front_515Wx515H       ;iphonex-white-front; $siteResource/images/515Wx515H/iphonex-white-front.jpg                                         ; iphonex-white-front.jpg     ;
+                   ; 1200Wx1200H           ; iphonex-white-front_1200Wx1200H     ;iphonex-white-front; $siteResource/images/1200Wx1200H/iphonex-white-front.jpg                                       ; iphonex-white-front.jpg     ;
+
+#
+INSERT_UPDATE MediaContainer; qualifier[unique = true]          ; $medias; $catalogVersion
+                            ; iphonex-white-back  ; iphonex-white-back,iphonex-white-back_30Wx30H,iphonex-white-back_65Wx65H,iphonex-white-back_96Wx96H,iphonex-white-back_300Wx300H,iphonex-white-back_515Wx515H,iphonex-white-back_1200Wx1200H
+                            ; iphonex-white-front  ; iphonex-white-front,iphonex-white-front_30Wx30H,iphonex-white-front_65Wx65H,iphonex-white-front_96Wx96H,iphonex-white-front_300Wx300H,iphonex-white-front_515Wx515H,iphonex-white-front_1200Wx1200H
+
+UPDATE TelcelPoVariant; code[unique = true]      ; $picture                         ; $thumbnail                     ; $galleryImages; $catalogVersion
+                    ; iPhone_x_white_256GB      ; iphonex-white-back_300Wx300H ; iphonex-white-back_96Wx96H ; iphonex-white-back, iphonex-white-front
+                    ; iPhone_x_white_128GB      ; iphonex-white-back_300Wx300H ; iphonex-white-back_96Wx96H ; iphonex-white-back, iphonex-white-front
+                    ; iPhone_x_white_64GB      ; iphonex-white-back_300Wx300H ; iphonex-white-back_96Wx96H ; iphonex-white-back, iphonex-white-front
+
+## Tablets Medias
+INSERT_UPDATE Media; mediaFormat(qualifier); code[unique = true]                ;$original;@media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite = true];realfilename;mime[default = 'image/jpeg'];$catalogVersion;folder(qualifier)[default = images]
+                   ;                       ; alcatel-90017484-8094M                 ;; $siteResource/images/1200Wx1200H/Alcatel3T10NegroFrontal_1200Wx1200H.png                               ;Alcatel3T10NegroFrontal_1200Wx1200H.png;
+                   ; 30Wx30H               ; alcatel-90017484-8094M_30Wx30H         ;alcatel-90017484-8094M; $siteResource/images/30Wx30H/Alcatel3T10NegroFrontal_30Wx30H.png                 ;Alcatel3T10NegroFrontal_30Wx30H.png ;
+                   ; 65Wx65H               ; alcatel-90017484-8094M_65Wx65H         ;alcatel-90017484-8094M; $siteResource/images/65Wx65H/Alcatel3T10NegroFrontal_65Wx65H.png                 ;Alcatel3T10NegroFrontal_65Wx65H.png;
+                   ; 96Wx96H               ; alcatel-90017484-8094M_96Wx96H         ;alcatel-90017484-8094M; $siteResource/images/96Wx96H/Alcatel3T10NegroFrontal_96Wx96H.png                 ;Alcatel3T10NegroFrontal_96Wx96H.png;
+                   ; 300Wx300H             ; alcatel-90017484-8094M_300Wx300H       ;alcatel-90017484-8094M; $siteResource/images/300Wx300H/Alcatel3T10NegroFrontal_300Wx300H.png             ;Alcatel3T10NegroFrontal_300Wx300H.png;
+                   ; 515Wx515H             ; alcatel-90017484-8094M_515Wx515H       ;alcatel-90017484-8094M; $siteResource/images/515Wx515H/Alcatel3T10NegroFrontal_515Wx515H.png             ;Alcatel3T10NegroFrontal_515Wx515H.png;
+                   ; 1200Wx1200H           ; alcatel-90017484-8094M_1200Wx1200H     ;alcatel-90017484-8094M; $siteResource/images/1200Wx1200H/Alcatel3T10NegroFrontal_1200Wx1200H.png         ;Alcatel3T10NegroFrontal_1200Wx1200H.png;
+
+                   ;                       ; alcatel-90017484-8094M-front                     ;;$siteResource/images/1200Wx1200H/Alcatel3T10NegroFrontal_1200Wx1200H.png                       ;Alcatel3T10NegroFrontal_1200Wx1200H.png;
+                   ; 30Wx30H               ; alcatel-90017484-8094M-front _30Wx30H            ;iphonex-white-front; $siteResource/images/30Wx30H/Alcatel3T10NegroFrontal_30Wx30H.png           ;Alcatel3T10NegroFrontal_30Wx30H.png;
+                   ; 65Wx65H               ; alcatel-90017484-8094M-front _65Wx65H            ;iphonex-white-front; $siteResource/images/65Wx65H/Alcatel3T10NegroFrontal_65Wx65H.png           ;Alcatel3T10NegroFrontal_65Wx65H.png;
+                   ; 96Wx96H               ; alcatel-90017484-8094M-front _96Wx96H            ;iphonex-white-front; $siteResource/images/96Wx96H/Alcatel3T10NegroFrontal_96Wx96H.png           ;Alcatel3T10NegroFrontal_96Wx96H.png;
+                   ; 300Wx300H             ; alcatel-90017484-8094M-front _300Wx300H          ;iphonex-white-front; $siteResource/images/300Wx300H/Alcatel3T10NegroFrontal_300Wx300H.png       ;Alcatel3T10NegroFrontal_300Wx300H.png;
+                   ; 515Wx515H             ; alcatel-90017484-8094M-front _515Wx515H          ;iphonex-white-front; $siteResource/images/515Wx515H/Alcatel3T10NegroFrontal_515Wx515H.png       ;Alcatel3T10NegroFrontal_515Wx515H.png;
+                   ; 1200Wx1200H           ; alcatel-90017484-8094M-front _1200Wx1200H        ;iphonex-white-front; $siteResource/images/1200Wx1200H/Alcatel3T10NegroFrontal_1200Wx1200H.png   ;Alcatel3T10NegroFrontal_1200Wx1200H.png;
+
+
+INSERT_UPDATE MediaContainer; qualifier[unique = true]          ; $medias; $catalogVersion
+                            ;alcatel-90017484-8094M;alcatel-90017484-8094M,alcatel-90017484-8094M_30Wx30H,alcatel-90017484-8094M_65Wx65H,alcatel-90017484-8094M_96Wx96H,alcatel-90017484-8094M_300Wx300H,alcatel-90017484-8094M_515Wx515H,alcatel-90017484-8094M_1200Wx1200H
+                            ;alcatel-90017484-8094M-front;alcatel-90017484-8094M-front,alcatel-90017484-8094M-front _30Wx30H,alcatel-90017484-8094M-front _65Wx65H,alcatel-90017484-8094M-front _96Wx96H,alcatel-90017484-8094M-front _300Wx300H,alcatel-90017484-8094M-front _515Wx515H,alcatel-90017484-8094M-front _1200Wx1200H
+
+UPDATE TelcelPoVariant; code[unique = true]      ; $picture                         ; $thumbnail                     ; $galleryImages; $catalogVersion
+                    ;90017484; alcatel-90017484-8094M_300Wx300H ; alcatel-90017484-8094M_96Wx96H ; alcatel-90017484-8094M, alcatel-90017484-8094M-front
+
+## End Tablets Media
+
+
+## Vida_Conectada  Reloj Watch Medias
+INSERT_UPDATE Media; mediaFormat(qualifier); code[unique = true]                ;$original;@media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite = true];realfilename;mime[default = 'image/jpeg'];$catalogVersion;folder(qualifier)[default = images]
+                   ;                       ;huawei-9006890-watch-fitn                 ;; $siteResource/images/1200Wx1200H/9006890-1_1200Wx1200H.jpeg                                  ;9006890-1_1200Wx1200H.jpeg;
+                   ; 30Wx30H               ;huawei-9006890-watch-fitn_30Wx30H         ;huawei-9006890-watch-fitn; $siteResource/images/30Wx30H/9006890-1_30Wx30H.jpeg                 ;9006890-1_30Wx30H.jpeg ;
+                   ; 65Wx65H               ;huawei-9006890-watch-fitn_65Wx65H         ;huawei-9006890-watch-fitn; $siteResource/images/65Wx65H/9006890-1_65Wx65H.jpeg                 ;9006890-1_65Wx65H.jpeg;
+                   ; 96Wx96H               ;huawei-9006890-watch-fitn_96Wx96H         ;huawei-9006890-watch-fitn; $siteResource/images/96Wx96H/9006890-1_96Wx96H.jpeg                 ;9006890-1_96Wx96H.jpeg;
+                   ; 300Wx300H             ;huawei-9006890-watch-fitn_300Wx300H       ;huawei-9006890-watch-fitn; $siteResource/images/300Wx300H/9006890-1_300Wx300H.jpeg             ;9006890-1_300Wx300H.jpeg;
+                   ; 515Wx515H             ;huawei-9006890-watch-fitn_515Wx515H       ;huawei-9006890-watch-fitn; $siteResource/images/515Wx515H/9006890-2_515Wx515H.jpeg             ;9006890-2_515Wx515H.jpeg;
+                   ; 1200Wx1200H           ;huawei-9006890-watch-fitn_1200Wx1200H     ;huawei-9006890-watch-fitn; $siteResource/images/1200Wx1200H/9006890-1_1200Wx1200H.jpeg         ;9006890-1_1200Wx1200H.jpeg;
+
+                   ;                       ;huawei-9006890-watch-fitn-front                     ;;$siteResource/images/1200Wx1200H/9006890-1_1200Wx1200H.jpeg                                   ;9006890-1_1200Wx1200H.jpeg ;
+                   ; 30Wx30H               ;huawei-9006890-watch-fitn-front _30Wx30H            ;huawei-9006890-watch-fitn-front; $siteResource/images/30Wx30H/9006890-1_30Wx30H.jpeg           ;9006890-1_30Wx30H.jpeg;
+                   ; 65Wx65H               ;huawei-9006890-watch-fitn-front _65Wx65H            ;huawei-9006890-watch-fitn-front; $siteResource/images/65Wx65H/9006890-1_65Wx65H.jpeg           ;9006890-1_65Wx65H.jpeg;
+                   ; 96Wx96H               ;huawei-9006890-watch-fitn-front _96Wx96H            ;huawei-9006890-watch-fitn-front; $siteResource/images/96Wx96H/9006890-1_96Wx96H.jpeg           ;9006890-1_96Wx96H.jpeg;
+                   ; 300Wx300H             ;huawei-9006890-watch-fitn-front _300Wx300H          ;huawei-9006890-watch-fitn-front; $siteResource/images/300Wx300H/9006890-1_300Wx300H.jpeg       ;9006890-1_300Wx300H.jpeg;
+                   ; 515Wx515H             ;huawei-9006890-watch-fitn-front _515Wx515H          ;huawei-9006890-watch-fitn-front; $siteResource/images/515Wx515H/9006890-2_515Wx515H.jpeg       ;9006890-2_515Wx515H.jpeg;
+                   ; 1200Wx1200H           ;huawei-9006890-watch-fitn-front _1200Wx1200H        ;huawei-9006890-watch-fitn-front; $siteResource/images/1200Wx1200H/9006890-1_1200Wx1200H.jpeg   ;9006890-1_1200Wx1200H.jpeg;
+
+
+INSERT_UPDATE MediaContainer; qualifier[unique = true]          ; $medias; $catalogVersion
+                            ;huawei-9006890-watch-fitn;huawei-9006890-watch-fitn,huawei-9006890-watch-fitn_30Wx30H,huawei-9006890-watch-fitn_65Wx65H,huawei-9006890-watch-fitn_96Wx96H,huawei-9006890-watch-fitn_300Wx300H,huawei-9006890-watch-fitn_515Wx515H,huawei-9006890-watch-fitn_1200Wx1200H
+                            ;huawei-9006890-watch-fitn-front;huawei-9006890-watch-fitn-front,huawei-9006890-watch-fitn-front _30Wx30H,huawei-9006890-watch-fitn-front _65Wx65H,huawei-9006890-watch-fitn-front _96Wx96H,huawei-9006890-watch-fitn-front _300Wx300H,huawei-9006890-watch-fitn-front _515Wx515H,huawei-9006890-watch-fitn-front _1200Wx1200H
+
+UPDATE TelcelPoVariant; code[unique = true]      ; $picture                         ; $thumbnail                     ; $galleryImages; $catalogVersion
+                      ;9006890;huawei-9006890-watch-fitn_300Wx300H ;huawei-9006890-watch-fitn_96Wx96H ;huawei-9006890-watch-fitn,huawei-9006890-watch-fitn-front
+
+## End Vida_Conectada  Reloj Watch
