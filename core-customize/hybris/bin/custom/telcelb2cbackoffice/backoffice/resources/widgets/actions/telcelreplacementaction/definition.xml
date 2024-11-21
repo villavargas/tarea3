@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<action-definition id="mx.com.telcel.backoffice.actions.telcelreplacementaction"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+	
+	<name></name>
+	<description>Action to Telcel Replacement</description>
+	<author>hybris</author>
+	<version>1.0</version>
+	
+	<actionClassName>mx.com.telcel.backoffice.actions.TelcelReplacementAction</actionClassName>
+    <inputType>de.hybris.platform.ordersplitting.model.ConsignmentModel</inputType>
+	<outputType>java.lang.Object</outputType>
+	
+    <iconUri>icons/icon_telcel_replacement_enabled.png</iconUri>
+    <iconDisabledUri>icons/icon_telcel_replacement_disabled.png</iconDisabledUri>
+
+	<settings>
+		<setting key="viewMode" default-value="iconAndText"/>
+	</settings>
+
+	<!-- Sockets definition-->
+	<sockets>
+		<output id="createTelcelReplacementRequestContext"/>
+	</sockets>
+</action-definition>
