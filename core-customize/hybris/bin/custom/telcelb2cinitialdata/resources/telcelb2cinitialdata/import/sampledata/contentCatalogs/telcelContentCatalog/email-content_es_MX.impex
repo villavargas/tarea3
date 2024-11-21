@@ -1,0 +1,139 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture = media(code, $contentCV);
+$wideContent = CMSImageComponent, BannerComponent
+$siteResource = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+# Language
+$lang = es_MX
+
+
+# Language
+# Media
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                    ; realfilename             ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/banner-free-delivery.jpg ; banner-free-delivery.jpg ; $siteResource/images/theme/banner-free-delivery.jpg                         ;                             ;
+                   ;                          ; /images/theme/banner-sale-now-on.jpg   ; banner-sale-now-on.jpg   ; $siteResource/images/theme/banner-sale-now-on.jpg                           ;                             ;
+
+# CMS Image Components
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]           ; $picture[lang = $lang]
+                        ;                          ; EmailBannerFreeDeliveryImage ; /images/theme/banner-free-delivery.jpg ;
+                        ;                          ; EmailBannerSaleNowOnImage    ; /images/theme/banner-sale-now-on.jpg   ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                                ; realfilename      ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/order-confirmation/1.png             ; 1.png             ; $siteResource/images/theme/order-confirmation/1.png                         ;                             ;
+                   ;                          ; /images/theme/order-confirmation/2.png             ; 2.png             ; $siteResource/images/theme/order-confirmation/2.png                         ;                             ;
+                   ;                          ; /images/theme/order-confirmation/3.png             ; 3.png             ; $siteResource/images/theme/order-confirmation/3.png                         ;                             ;
+                   ;                          ; /images/theme/order-confirmation/4.png             ; 4.png             ; $siteResource/images/theme/order-confirmation/4.png                         ;                             ;
+                   ;                          ; /images/theme/order-confirmation/informacion.png   ; informacion.png   ; $siteResource/images/theme/order-confirmation/informacion.png               ;                             ;
+                   ;                          ; /images/theme/order-confirmation/keyboard.png      ; keyboard.png      ; $siteResource/images/theme/order-confirmation/keyboard.png                  ;                             ;
+                   ;                          ; /images/theme/order-confirmation/logo-telcel.png   ; logo-telcel.png   ; $siteResource/images/theme/order-confirmation/logo-telcel.png               ;                             ;
+                   ;                          ; /images/theme/order-confirmation/palomita.png      ; palomita.png      ; $siteResource/images/theme/order-confirmation/palomita.png                  ;                             ;
+                   ;                          ; /images/theme/order-confirmation/tienda-telcel.png ; tienda-telcel.png ; $siteResource/images/theme/order-confirmation/tienda-telcel.png             ;                             ;
+                   ;                          ; /images/theme/order-confirmation/placeholder.jpg   ; placeholder.jpg   ; $siteResource/images/theme/order-confirmation/placeholder.jpg               ;                             ;
+
+# CMS Image Components
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                 ; $picture[lang = $lang]
+                        ;                          ; EmailConfirmationOneImage          ; /images/theme/order-confirmation/1.png             ;
+                        ;                          ; EmailConfirmationTwoImage          ; /images/theme/order-confirmation/2.png             ;
+                        ;                          ; EmailConfirmationThreeImage        ; /images/theme/order-confirmation/3.png             ;
+                        ;                          ; EmailConfirmationFourImage         ; /images/theme/order-confirmation/4.png             ;
+                        ;                          ; EmailConfirmationInformacionImage  ; /images/theme/order-confirmation/informacion.png   ;
+                        ;                          ; EmailConfirmationKeyboardImage     ; /images/theme/order-confirmation/keyboard.png      ;
+                        ;                          ; EmailConfirmationLogoTelcelImage   ; /images/theme/order-confirmation/logo-telcel.png   ;
+                        ;                          ; EmailConfirmationPalomitaImage     ; /images/theme/order-confirmation/palomita.png      ;
+                        ;                          ; EmailConfirmationTiendaTelcelImage ; /images/theme/order-confirmation/tienda-telcel.png ;
+                        ;                          ; EmailConfirmationPlaceholderImage  ; /images/theme/order-confirmation/placeholder.jpg   ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                         ; realfilename      ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/backinstock/logo-telcel.png   ; logo-telcel.png   ; $siteResource/images/theme/backinstock/logo-telcel.png                      ;                             ;
+                   ;                          ; /images/theme/backinstock/tienda-telcel.png ; tienda-telcel.png ; $siteResource/images/theme/backinstock/tienda-telcel.png                    ;                             ;
+                   ;                          ; /images/theme/backinstock/placeholder.jpg   ; placeholder.jpg   ; $siteResource/images/theme/backinstock/placeholder.jpg                      ;                             ;
+
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                ; $picture[lang = $lang]
+                        ;                          ; EmailBackInStockLogoTelcelImage   ; /images/theme/backinstock/logo-telcel.png   ;
+                        ;                          ; EmailBackInStockTiendaTelcelImage ; /images/theme/backinstock/tienda-telcel.png ;
+                        ;                          ; EmailBackInStockPlaceholderImage  ; /images/theme/backinstock/placeholder.jpg   ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                                    ; realfilename                 ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/cancelation/logo-telcel.png              ; logo-telcel.png              ; $siteResource/images/theme/cancelation/logo-telcel.png                      ;                             ;
+                   ;                          ; /images/theme/cancelation/tienda-telcel.png            ; tienda-telcel.png            ; $siteResource/images/theme/cancelation/tienda-telcel.png                    ;                             ;
+                   ;                          ; /images/theme/cancelation/banner-contactanos-2.png     ; banner-contactanos-2.png     ; $siteResource/images/theme/cancelation/banner-contactanos-2.png             ;                             ;
+                   ;                          ; /images/theme/cancelation/order-error-message-icon.svg ; order-error-message-icon.svg ; $siteResource/images/theme/cancelation/order-error-message-icon.svg         ;                             ;
+
+
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                             ; $picture[lang = $lang]
+                        ;                          ; EmailCancellationUnderpaymentLogoTelcelImage   ; /images/theme/cancelation/logo-telcel.png              ;
+                        ;                          ; EmailCancellationUnderpaymentTiendaTelcelImage ; /images/theme/cancelation/tienda-telcel.png            ;
+                        ;                          ; EmailContactanosCancellationUnderpaymentImage  ; /images/theme/cancelation/banner-contactanos-2.png     ;
+                        ;                          ; EmailErrorIconCancellationUnderpaymentImage    ; /images/theme/cancelation/order-error-message-icon.svg ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                                               ; realfilename                   ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]   ; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/cancelationCardItems/logo-telcel.png                ; logo-telcel.png                ; $siteResource/images/theme/cancelationCardItems/logo-telcel.png                ;                             ;
+                   ;                          ; /images/theme/cancelationCardItems/tienda-telcel.png              ; tienda-telcel.png              ; $siteResource/images/theme/cancelationCardItems/tienda-telcel.png              ;                             ;
+                   ;                          ; /images/theme/cancelationCardItems/banner-contactanos-2.png       ; banner-contactanos-2.png       ; $siteResource/images/theme/cancelationCardItems/banner-contactanos-2.png       ;                             ;
+                   ;                          ; /images/theme/cancelationCardItems/package-error-message-icon.svg ; package-error-message-icon.svg ; $siteResource/images/theme/cancelationCardItems/package-error-message-icon.svg ;                             ;
+
+
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                          ; $picture[lang = $lang]
+                        ;                          ; EmailCancellationCardItemsLogoTelcelImage   ; /images/theme/cancelationCardItems/logo-telcel.png                ;
+                        ;                          ; EmailCancellationCardItemsTiendaTelcelImage ; /images/theme/cancelationCardItems/tienda-telcel.png              ;
+                        ;                          ; EmailContactanosCancellationCardItemsImage  ; /images/theme/cancelationCardItems/banner-contactanos-2.png       ;
+                        ;                          ; EmailErrorIconCancellationCardItemsImage    ; /images/theme/cancelationCardItems/package-error-message-icon.svg ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                                                ; realfilename                   ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]    ; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/cancelationOtherItems/logo-telcel.png                ; logo-telcel.png                ; $siteResource/images/theme/cancelationOtherItems/logo-telcel.png                ;                             ;
+                   ;                          ; /images/theme/cancelationOtherItems/tienda-telcel.png              ; tienda-telcel.png              ; $siteResource/images/theme/cancelationOtherItems/tienda-telcel.png              ;                             ;
+                   ;                          ; /images/theme/cancelationOtherItems/banner-contactanos-2.png       ; banner-contactanos-2.png       ; $siteResource/images/theme/cancelationOtherItems/banner-contactanos-2.png       ;                             ;
+                   ;                          ; /images/theme/cancelationOtherItems/package-error-message-icon.svg ; package-error-message-icon.svg ; $siteResource/images/theme/cancelationOtherItems/package-error-message-icon.svg ;                             ;
+
+
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                           ; $picture[lang = $lang]
+                        ;                          ; EmailCancellationOtherItemsLogoTelcelImage   ; /images/theme/cancelationOtherItems/logo-telcel.png                ;
+                        ;                          ; EmailCancellationOtherItemsTiendaTelcelImage ; /images/theme/cancelationOtherItems/tienda-telcel.png              ;
+                        ;                          ; EmailContactanosCancellationOtherItemsImage  ; /images/theme/cancelationOtherItems/banner-contactanos-2.png       ;
+                        ;                          ; EmailErrorIconCancellationOtherItemsImage    ; /images/theme/cancelationOtherItems/package-error-message-icon.svg ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                                             ; realfilename                   ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator] ; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/cancellationTelcel/logo-telcel.png                ; logo-telcel.png                ; $siteResource/images/theme/cancellationTelcel/logo-telcel.png                ;                             ;
+                   ;                          ; /images/theme/cancellationTelcel/tienda-telcel.png              ; tienda-telcel.png              ; $siteResource/images/theme/cancellationTelcel/tienda-telcel.png              ;                             ;
+                   ;                          ; /images/theme/cancellationTelcel/banner-contactanos-2.png       ; banner-contactanos-2.png       ; $siteResource/images/theme/cancellationTelcel/banner-contactanos-2.png       ;                             ;
+                   ;                          ; /images/theme/cancellationTelcel/package-error-message-icon.svg ; package-error-message-icon.svg ; $siteResource/images/theme/cancellationTelcel/package-error-message-icon.svg ;                             ;
+
+
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                       ; $picture[lang = $lang]
+                        ;                          ; EmailCancellationTelcelLogoTelcelImage   ; /images/theme/cancellationTelcel/logo-telcel.png                ;
+                        ;                          ; EmailCancellationTelcelTiendaTelcelImage ; /images/theme/cancellationTelcel/tienda-telcel.png              ;
+                        ;                          ; EmailContactanosCancellationTelcelImage  ; /images/theme/cancellationTelcel/banner-contactanos-2.png       ;
+                        ;                          ; EmailErrorIconCancellationTelcelImage    ; /images/theme/cancellationTelcel/package-error-message-icon.svg ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                                              ; realfilename                   ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]  ; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/userCancelationCard/logo-telcel.png                ; logo-telcel.png                ; $siteResource/images/theme/userCancelationCard/logo-telcel.png                ;                             ;
+                   ;                          ; /images/theme/userCancelationCard/tienda-telcel.png              ; tienda-telcel.png              ; $siteResource/images/theme/userCancelationCard/tienda-telcel.png              ;                             ;
+                   ;                          ; /images/theme/userCancelationCard/banner-contactanos-2.png       ; banner-contactanos-2.png       ; $siteResource/images/theme/userCancelationCard/banner-contactanos-2.png       ;                             ;
+                   ;                          ; /images/theme/userCancelationCard/package-error-message-icon.svg ; package-error-message-icon.svg ; $siteResource/images/theme/userCancelationCard/package-error-message-icon.svg ;                             ;
+
+
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                         ; $picture[lang = $lang]
+                        ;                          ; EmailCancellationUserCardLogoTelcelImage   ; /images/theme/userCancelationCard/logo-telcel.png                ;
+                        ;                          ; EmailCancellationUserCardTiendaTelcelImage ; /images/theme/userCancelationCard/tienda-telcel.png              ;
+                        ;                          ; EmailContactanosCancellationUserCardImage  ; /images/theme/userCancelationCard/banner-contactanos-2.png       ;
+                        ;                          ; EmailErrorIconCancellationUserCardImage    ; /images/theme/userCancelationCard/package-error-message-icon.svg ;
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]                                                ; realfilename                   ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]    ; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+                   ;                          ; /images/theme/userCancelationOthers/logo-telcel.png                ; logo-telcel.png                ; $siteResource/images/theme/userCancelationOthers/logo-telcel.png                ;                             ;
+                   ;                          ; /images/theme/userCancelationOthers/tienda-telcel.png              ; tienda-telcel.png              ; $siteResource/images/theme/userCancelationOthers/tienda-telcel.png              ;                             ;
+                   ;                          ; /images/theme/userCancelationOthers/banner-contactanos-2.png       ; banner-contactanos-2.png       ; $siteResource/images/theme/userCancelationOthers/banner-contactanos-2.png       ;                             ;
+                   ;                          ; /images/theme/userCancelationOthers/package-error-message-icon.svg ; package-error-message-icon.svg ; $siteResource/images/theme/userCancelationOthers/package-error-message-icon.svg ;                             ;
+
+
+UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                           ; $picture[lang = $lang]
+                        ;                          ; EmailCancellationUserOthersLogoTelcelImage   ; /images/theme/userCancelationOthers/logo-telcel.png                ;
+                        ;                          ; EmailCancellationUserOthersTiendaTelcelImage ; /images/theme/userCancelationOthers/tienda-telcel.png              ;
+                        ;                          ; EmailContactanosCancellationUserOthersImage  ; /images/theme/userCancelationOthers/banner-contactanos-2.png       ;
+                        ;                          ; EmailErrorIconCancellationUserOthersImage    ; /images/theme/userCancelationOthers/package-error-message-icon.svg ;
