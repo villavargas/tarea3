@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="telcelb2cbackofficeLabelLocator" class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator" scope="singleton" init-method="init" lazy-init="false">
+  		<property name="location" value="/telcelb2cbackoffice-backoffice-labels/"/>
+  		<property name="name" value="labels"/>
+  	</bean>
+
+	<alias name="defaultSourceRuleAdvancedSearchInitHandler" alias="sourceRuleAdvancedSearchInitHandler"/>
+	<bean id="defaultSourceRuleAdvancedSearchInitHandler" class="mx.com.telcel.backoffice.omsbackoffice.handlers.SourceRuleAdvancedSearchInitializer"/>
+
+	<bean id="telcelRefundAmountRenderer" class="mx.com.telcel.backoffice.renders.TelcelRefundAmountRenderer"  parent="editorAreaPanelRenderer">
+		<property name="typeFacade" ref="typeFacade"/>
+		<property name="labelService" ref="labelService" />
+	</bean>
+
+	<bean id="telcelConsignmentRenderer" class="mx.com.telcel.backoffice.renders.TelcelConsignmentRender" parent="editorAreaPanelRenderer">
+		<property name="typeFacade" ref="typeFacade"/>
+		<property name="labelService" ref="labelService" />
+	</bean>
+
+	<bean id="telcelSIPABFolioRenderer" class="mx.com.telcel.backoffice.renders.TelcelSIPABFolioRenderer" parent="editorAreaPanelRenderer">
+		<property name="typeFacade" ref="typeFacade"/>
+		<property name="labelService" ref="labelService" />
+	</bean>
+
+	<alias name="defaultConsignmentFromReturnEntriesRender" alias="consignmentFromReturnEntriesRender" />
+	<bean id="defaultConsignmentFromReturnEntriesRender" class="mx.com.telcel.backoffice.renders.ConsignmentFromReturnEntriesRender">
+	</bean>
+
+	<alias name="telcelSuccessHandler" alias="backofficeAuthenticationSuccessHandler"/>
+	<beans:bean id="telcelSuccessHandler" class="mx.com.telcel.backoffice.security.handler.TelcelSuccessHandler" parent="defaultBackofficeAuthenticationSuccessHandler">
+		<beans:property name="userService" ref="userService" />
+		<beans:property name="modelService" ref="modelService" />
+	</beans:bean>
+
+</beans>
