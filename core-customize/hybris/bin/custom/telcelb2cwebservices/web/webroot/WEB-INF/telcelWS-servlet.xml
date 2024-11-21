@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	  <property name="properties" ref="hybrisProperties"/>
+	</bean>
+    
+    <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+        <property name="soapVersion">
+            <util:constant static-field="org.springframework.ws.soap.SoapVersion.SOAP_12"/>
+        </property>
+    </bean>
+    
+    <!-- SOAP Servicio Notificacion Factura -->
+
+    <bean name="requestProcesorFactura" class="mx.com.telcel.config.impl.NotificacionFacturaRequestProcessorImpl">
+        <property name="modelService" ref="modelService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+        <property name="baseStoreService" ref="baseStoreService"/>
+        <property name="customerAccountService" ref="tmaCustomerAccountService"/>
+        <property name="telcelConsignmentDao" ref="telcelConsignmentDao"/>
+        <property name="telcelOrderDao" ref="telcelOrderDao" />
+    </bean>
+
+    <bean id="notificacionFacturaEndPoint" class="mx.com.telcel.config.NotificacionFacturaEndPoint">
+        <property name="procesor" ref="requestProcesorFactura" />
+        <property name="soapConverter" ref="soapConverter" />
+    </bean>
+
+    <bean id="payloadMappingFactura" class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+        <property name="endpointMap">
+            <map>
+                <entry key="{http://ibcomercio/telcel.com/commerce/services/SAP/NotificacionFactura/}NotificacionFacturaRequest"
+                       value-ref="notificacionFacturaEndPoint"/>
+            </map>
+        </property>
+
+        <property name="interceptors">
+            <list>
+                <ref bean="validatingInterceptorFactura"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="validatingInterceptorFactura"
+          class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+        <property name="schema" value="/WEB-INF/xsd/notificacionFactura.xsd"/>
+        <property name="validateRequest"  value="true"/>
+        <property name="validateResponse" value="false"/>
+    </bean>
+
+    <bean id="notificacionFacturaWS" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd" value="/WEB-INF/xsd/notificacionFactura.xsd"/>
+            </bean>
+        </property>
+        <property name="createSoap11Binding" value="false"/>
+        <property name="createSoap12Binding" value="true"/>
+        <property name="portTypeName" value="notificacionFacturaWS"/>
+        <property name="locationUri"  value="${website.telcel.internal.https}/telcelb2cwebservices/servicesws"/>
+    </bean>
+    
+    <!-- SOAP Servicio Notificacion Factura Telmex -->
+    
+    <bean name="requestProcesorFacturaTelmex" class="mx.com.telcel.config.impl.NotificacionFacturaTelmexRequestProcessorImpl">
+        <property name="modelService" ref="modelService"/>
+        <property name="customerAccountService" ref="tmaCustomerAccountService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+        <property name="telcelOrdersFacade" ref="telcelOrdersFacade"/>
+    </bean>
+
+    <bean id="notificacionFacturaTelmexEndPoint" class="mx.com.telcel.config.NotificacionFacturaTelmexEndPoint">
+        <property name="procesor" ref="requestProcesorFacturaTelmex" />
+        <property name="soapConverter" ref="soapConverter" />
+    </bean>
+
+    <bean id="payloadMappingFacturaTelmex" class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+        <property name="endpointMap">
+            <map>
+                <entry key="{http://ibcomercio/telcel.com/commerce/services/SAP/NotificacionFacturaTelmex/}NotificacionFacturaTelmexRequest"
+                       value-ref="notificacionFacturaTelmexEndPoint"/>
+            </map>
+        </property>
+
+        <property name="interceptors">
+            <list>
+                <ref bean="validatingInterceptorFacturaTelmex"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="validatingInterceptorFacturaTelmex"
+          class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+        <property name="schema" value="/WEB-INF/xsd/notificacionFacturaTelmex.xsd"/>
+        <property name="validateRequest"  value="true"/>
+        <property name="validateResponse" value="false"/>
+    </bean>
+
+    <bean id="notificacionFacturaTelmexWS" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd" value="/WEB-INF/xsd/notificacionFacturaTelmex.xsd"/>
+            </bean>
+        </property>
+        <property name="createSoap11Binding" value="false"/>
+        <property name="createSoap12Binding" value="true"/>
+        <property name="portTypeName" value="notificacionFacturaTelmexWS"/>
+        <property name="locationUri"  value="${website.telcel.internal.https}/telcelb2cwebservices/servicesws"/>
+    </bean>
+    
+</beans>
