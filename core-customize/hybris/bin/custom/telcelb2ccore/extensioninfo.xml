@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+        	
+    
+    <extension abstractclassprefix="Generated" classprefix="Telcelb2cCore" managername="Telcelb2cCoreManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="telcelb2ccore" usemaven="false">
+
+        <requires-extension name="b2ctelcoservices"/>
+        <requires-extension name="telcelintegration"/>
+        <requires-extension name="warehousing"/>
+        <requires-extension name="ldap"/>
+        <requires-extension name="y2ysync"/>
+		<requires-extension name="commercefacades"/>
+
+        <coremodule generated="true" manager="mx.com.telcel.core.jalo.Telcelb2cCoreManager" packageroot="mx.com.telcel.core"/>
+
+
+
+
+
+    </extension>
+        
+
+</extensioninfo>
