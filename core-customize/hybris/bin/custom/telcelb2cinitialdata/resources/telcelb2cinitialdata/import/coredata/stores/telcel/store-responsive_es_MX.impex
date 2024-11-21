@@ -1,0 +1,14 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import the Telcel BaseStore
+#
+
+# Language
+$lang = es_MX
+
+# Create Base Store
+UPDATE BaseStore; uid[unique = true]; name[lang = $lang] ; maxItems; limiteVenta
+                ; telcel          ; "Tienda Telcel"; 5       ; 50000
