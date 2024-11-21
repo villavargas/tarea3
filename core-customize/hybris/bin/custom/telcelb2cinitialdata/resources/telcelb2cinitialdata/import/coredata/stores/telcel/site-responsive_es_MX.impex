@@ -1,0 +1,15 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import the CMS Site configuration for the Telcel store
+#
+
+# Language
+$lang = es_MX
+
+# Create CMS Site
+UPDATE CMSSite; uid[unique = true]; name[lang = $lang]; locale[lang = $lang]
+              ; telcel            ; "Sitio Telcel"    ; es_MX
+              ; telmex            ; "Sitio Telmex"    ; es_MX
