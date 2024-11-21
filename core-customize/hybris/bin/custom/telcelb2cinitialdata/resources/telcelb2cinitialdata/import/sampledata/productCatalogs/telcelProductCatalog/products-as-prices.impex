@@ -1,0 +1,35 @@
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = '$productCatalog:Staged']
+$currency = currency(isocode)[default = MXN]
+$price = price[default = 0.0]
+$processTypes = processTypes(code)
+$regions = regions(isocode)
+$subscriptionTerms = subscriptionTerms(id)
+$priority = priority[default = 50]
+$priceEvent = priceEvent(code)[default='paynow']
+
+################################################
+###                   Prices                 ###
+################################################
+
+INSERT_UPDATE PriceRow; $price; code[unique = true]                   ; product(code, $catalogVersion)[unique = true]; productOfferingPrice(id, $catalogVersion); startTime[dateformat = dd-MM-yyyy]; endTime[dateformat = dd-MM-yyyy]; $priority; $processTypes[unique = true]; $subscriptionTerms; $currency; unit(code)[default = pieces]; $regions; $catalogVersion
+                      ;       ; recarga_inicial_activacion_20_MXN_pr  ; recarga_inicial_activacion_esq_1_20          ; OTC_20_MXN                               ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_30_MXN_pr  ; recarga_inicial_activacion_esq_1_30          ; OTC_30_MXN                               ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_50_MXN_pr  ; recarga_inicial_activacion_esq_1_50          ; OTC_50_MXN                               ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_80_MXN_pr  ; recarga_inicial_activacion_esq_1_80          ; OTC_80_MXN                               ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_100_MXN_pr ; recarga_inicial_activacion_esq_1_100         ; OTC_100_MXN                              ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_150_MXN_pr ; recarga_inicial_activacion_esq_1_150         ; OTC_150_MXN                              ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_200_MXN_pr ; recarga_inicial_activacion_esq_1_200         ; OTC_200_MXN                              ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_300_MXN_pr ; recarga_inicial_activacion_esq_1_300         ; OTC_300_MXN                              ; 01-03-2020                        ; 25-6-2030                       ; 100
+                      ;       ; recarga_inicial_activacion_500_MXN_pr ; recarga_inicial_activacion_esq_1_500         ; OTC_500_MXN                              ; 01-03-2020                        ; 25-6-2030                       ; 100
+
+INSERT_UPDATE TmaOneTimeProdOfferPriceCharge; id[unique = true]; $catalogVersion; value ; currentPPWoTaxes; $priceEvent; $currency
+                                            ; OTC_20_MXN       ;                ; 20.0  ;                 ;
+                                            ; OTC_30_MXN       ;                ; 30.0  ;                 ;
+                                            ; OTC_50_MXN       ;                ; 50.0  ; 43.10           ;
+                                            ; OTC_80_MXN       ;                ; 80.0  ;                 ;
+                                            ; OTC_100_MXN      ;                ; 100.0 ; 86.21           ;
+                                            ; OTC_150_MXN      ;                ; 150.0 ;                 ;
+                                            ; OTC_200_MXN      ;                ; 200.0 ;                 ;
+                                            ; OTC_300_MXN      ;                ; 300.0 ;                 ;
+                                            ; OTC_500_MXN      ;                ; 500.0 ;                 ;
