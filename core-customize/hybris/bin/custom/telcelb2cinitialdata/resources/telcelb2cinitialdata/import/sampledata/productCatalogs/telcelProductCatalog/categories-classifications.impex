@@ -1,0 +1,69 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing Category Classifications into Telcel Store
+
+# Macros / Replacement Parameter definitions
+$classificationCatalog = telcelClassification
+$classCatalogVersion = catalogversion(catalog(id[default = $classificationCatalog]), version[default = '1.0'])[unique = true, default = '$classificationCatalog:1.0']
+$classSystemVersion = systemVersion(catalog(id[default = $classificationCatalog]), version[default = '1.0'])[unique = true]
+$class = classificationClass(ClassificationClass.code, $classCatalogVersion)[unique = true]
+$attribute = classificationAttribute(code, $classSystemVersion)[unique = true]
+
+# Insert Classifications
+INSERT_UPDATE ClassificationClass; $classCatalogVersion; code[unique = true]; allowedPrincipals(uid)[default = 'customergroup']
+;;smartphoneclassification
+;;accesoriosclassification
+;;tabletsclassification
+;;vida_conectadaclassification
+;;internet_movilclassification
+;;renueva_planclassification
+;;amigo_chipclassification
+
+INSERT_UPDATE ClassificationAttribute; $classSystemVersion; code[unique = true]
+                                     ; ; compatibilidad
+                                     ; ; tipoPantalla
+                                     ; ; sistemasOperativosCompatibles
+                                     ; ; tipoCable
+                                     ; ; tipoConector
+                                     ; ; contenidoEmpaque
+                                     ; ; ioAudio
+                                     ; ; tipoBateria
+                                     ; ; duracionBateria
+                                     ; ; uso_acerca_de
+
+INSERT_UPDATE ClassAttributeAssignment;                      $class;            $attribute; position; attributeType(code[default = string]); multiValued[default = false]; range[default = false]; localized[default = false]
+   ; accesoriosclassification   ; compatibilidad; 0; string   ; ; ; true
+   ; accesoriosclassification   ; tipoPantalla    ; 1; string   ; ; ; true
+   ; accesoriosclassification   ; sistemasOperativosCompatibles; 2; string   ; ; ; true
+   ; accesoriosclassification   ; tipoCable      ; 3; string   ; ; ; true
+   ; accesoriosclassification   ; tipoConector    ; 4; string   ; ; ; true
+   ; accesoriosclassification   ; contenidoEmpaque; 5; string   ; ; ; true
+   ; accesoriosclassification   ; ioAudio ; 6; string   ; ; ; true
+   ; accesoriosclassification   ; tipoBateria ; 7; string   ; ; ; true
+   ; accesoriosclassification   ; duracionBateria ; 8; string   ; ; ; true
+   ; accesoriosclassification   ; uso_acerca_de ; 9; string   ; ; ; true
+   
+   ; tabletsclassification   ; compatibilidad; 0; string   ; ; ; true
+   ; tabletsclassification   ; tipoPantalla    ; 1; string   ; ; ; true
+   ; tabletsclassification   ; sistemasOperativosCompatibles; 2; string   ; ; ; true
+   ; tabletsclassification   ; tipoCable      ; 3; string   ; ; ; true
+   ; tabletsclassification   ; tipoConector    ; 4; string   ; ; ; true
+   ; tabletsclassification   ; contenidoEmpaque; 5; string   ; ; ; true
+   ; tabletsclassification   ; ioAudio ; 6; string   ; ; ; true
+   ; tabletsclassification   ; tipoBateria ; 7; string   ; ; ; true
+   ; tabletsclassification   ; duracionBateria ; 8; string   ; ; ; true
+   ; tabletsclassification   ; uso_acerca_de ; 9; string   ; ; ; true
+
+   ; vida_conectadaclassification   ; compatibilidad; 0; string   ; ; ; true
+   ; vida_conectadaclassification   ; tipoPantalla    ; 1; string   ; ; ; true
+   ; vida_conectadaclassification   ; sistemasOperativosCompatibles; 2; string   ; ; ; true
+   ; vida_conectadaclassification   ; tipoCable      ; 3; string   ; ; ; true
+   ; vida_conectadaclassification   ; tipoConector    ; 4; string   ; ; ; true
+   ; vida_conectadaclassification   ; contenidoEmpaque; 5; string   ; ; ; true
+   ; vida_conectadaclassification   ; ioAudio ; 6; string   ; ; ; true
+   ; vida_conectadaclassification   ; tipoBateria ; 7; string   ; ; ; true
+   ; vida_conectadaclassification   ; duracionBateria ; 8; string   ; ; ; true
+   ; vida_conectadaclassification   ; uso_acerca_de ; 9; string   ; ; ; true
+
