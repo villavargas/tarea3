@@ -1,0 +1,235 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import the CMS content for the Telcel site  emails
+#
+
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$emailResource = $config-emailResourceValue
+
+# Language
+$lang = en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate; code[unique = true]                                    ; description[lang = $lang]                          ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel-BannerComponent-template                        ; "CMSBannerComponent Template"                      ; $emailResource/email-bannerComponentTemplate.vm
+                       ; telcel-CMSImageComponent-template                      ; "CMSImageComponent Template"                       ; $emailResource/email-cmsImageComponentTemplate.vm
+                       ; telcel-CMSLinkComponent-template                       ; "CMSLinkComponent Template"                        ; $emailResource/email-cmsLinkComponentTemplate.vm
+                       ; telcel-CMSParagraphComponent-template                  ; "CMSParagraphComponent Template"                   ; $emailResource/email-cmsParagraphComponentTemplate.vm
+                       ; telcel-SimpleBannerComponent-template                  ; "CMSSimpleBannerComponent Template"                ; $emailResource/email-bannerComponentTemplate.vm
+                       ; b2ctelco_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $emailResource/email-customerRegistrationBody.vm
+                       ; b2ctelco_Email_Customer_Registration_Subject           ; "Customer Registration Email Subject"              ; $emailResource/email-customerRegistrationSubject.vm
+                       ; b2ctelco_Email_Delivery_Sent_Body                      ; "Delivery Sent Email Body"                         ; $emailResource/email-deliverySentBody.vm
+                       ; b2ctelco_Email_Delivery_Sent_Subject                   ; "Delivery Sent Email Subject"                      ; $emailResource/email-deliverySentSubject.vm
+                       ; b2ctelco_Email_Forgotten_Password_Body                 ; "Forgotten Password Email Body"                    ; $emailResource/email-forgottenPasswordBody.vm
+                       ; b2ctelco_Email_Forgotten_Password_Subject              ; "Forgotten Password Email Subject"                 ; $emailResource/email-forgottenPasswordSubject.vm
+                       ; b2ctelco_Email_Order_Confirmation_Body                 ; "Order Confirmation Email Body"                    ; $emailResource/email-orderConfirmationBody.vm
+                       ; b2ctelco_Email_Order_Confirmation_Subject              ; "Order Confirmation Email Subject"                 ; $emailResource/email-orderConfirmationSubject.vm
+                       ; b2ctelco_Email_NotPickedUpConsignment_Canceled_Body    ; "Not Picked Up Consignment Canceled Email Body"    ; $emailResource/email-notPickedUpConsignmentCanceledBody.vm
+                       ; b2ctelco_Email_NotPickedUpConsignment_Canceled_Subject ; "Not Picked Up Consignment Canceled Email Subject" ; $emailResource/email-notPickedUpConsignmentCanceledSubject.vm
+                       ; b2ctelco_Email_Order_Cancelled_Body                    ; "Order Cancelled Email Body"                       ; $emailResource/email-orderCancelledBody.vm
+                       ; b2ctelco_Email_Order_Cancelled_Subject                 ; "Order Cancelled Email Subject"                    ; $emailResource/email-orderCancelledSubject.vm
+                       ; b2ctelco_Email_Order_Collection_Reminder_Body          ; "Order Collection Reminder Body"                   ; $emailResource/email-orderCollectionReminderBody.vm
+                       ; b2ctelco_Email_Order_Collection_Reminder_Subject       ; "Order Collection Reminder Subject"                ; $emailResource/email-orderCollectionReminderSubject.vm
+                       ; b2ctelco_Email_Order_Move_To_CS_Body                   ; "Order Move To CS Body"                            ; $emailResource/email-orderMoveToCsBody.vm
+                       ; b2ctelco_Email_Order_Move_To_CS_Subject                ; "Order Move To CS Subject"                         ; $emailResource/email-orderMoveToCsSubject.vm
+                       ; b2ctelco_Email_Order_Partially_Canceled_Body           ; "Order Partially Canceled Email Body"              ; $emailResource/email-orderPartiallyCanceledBody.vm
+                       ; b2ctelco_Email_Order_Partially_Canceled_Subject        ; "Order Partially Canceled Email Subject"           ; $emailResource/email-orderPartiallyCanceledSubject.vm
+                       ; b2ctelco_Email_Order_Partially_Refunded_Body           ; "Order Partially Refunded Email Body"              ; $emailResource/email-orderPartiallyRefundedBody.vm
+                       ; b2ctelco_Email_Order_Partially_Refunded_Subject        ; "Order Partially Refunded Email Subject"           ; $emailResource/email-orderPartiallyRefundedSubject.vm
+                       ; b2ctelco_Email_Order_Refund_Body                       ; "Order Refund Email Body"                          ; $emailResource/email-orderRefundBody.vm
+                       ; b2ctelco_Email_Order_Refund_Subject                    ; "Order Refund Email Subject"                       ; $emailResource/email-orderRefundSubject.vm
+                       ; b2ctelco_Email_Ready_For_Pickup_Body                   ; "Ready For Pickup Email Body"                      ; $emailResource/email-readyForPickupBody.vm
+                       ; b2ctelco_Email_Ready_For_Pickup_Subject                ; "Ready For Pickup Email Subject"                   ; $emailResource/email-readyForPickupSubject.vm
+
+# Email Pages
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]           ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; CustomerRegistrationEmail    ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; DeliverySentEmail            ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; ForgottenPasswordEmail       ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; OrderCancelledEmail          ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; OrderCollectionReminderEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; OrderConfirmationEmail       ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; OrderMoveToCsEmail           ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; OrderPartiallyCanceledEmail  ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; OrderPartiallyRefundedEmail  ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; OrderRefundEmail             ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+                ;                          ; ReadyForPickupEmail          ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+
+# Start Registration Token Email
+UPDATE RendererTemplate; code[unique = true]                     ; description[lang = $lang]          ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_Registration_Token_Body    ; "Registration Token Email Body"    ; $emailResource/email-registrationTokenBody.vm
+                       ; telcel_Email_Registration_Token_Subject ; "Registration Token Email Subject" ; $emailResource/email-registrationTokenSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]     ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; RegistrationTokenEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End Registration Token Email
+
+# Start Welcome Emaail
+UPDATE RendererTemplate; code[unique = true]          ; description[lang = $lang]; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_Welcome_Body    ; "Welcome Email Body"     ; $emailResource/email-welcomeBody.vm
+                       ; telcel_Email_Welcome_Subject ; "Welcome Email Subject"  ; $emailResource/email-welcomeSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; WelcomeEmail      ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End Welcome Emaail
+
+# Start PwdConfirmation Emaail
+UPDATE RendererTemplate; code[unique = true]                  ; description[lang = $lang]       ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_PwdConfirmation_Body    ; "PwdConfirmation Email Body"    ; $emailResource/email-pwdConfirmationBody.vm
+                       ; telcel_Email_PwdConfirmation_Subject ; "PwdConfirmation Email Subject" ; $emailResource/email-pwdConfirmationSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]   ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; PwdConfirmationEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End PwdConfirmation Emaail
+
+
+# Start BlockedAccount Emaail
+UPDATE RendererTemplate; code[unique = true]                 ; description[lang = $lang]      ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_BlockedAccount_Body    ; "BlockedAccount Email Body"    ; $emailResource/email-blockedAccountBody.vm
+                       ; telcel_Email_BlockedAccount_Subject ; "BlockedAccount Email Subject" ; $emailResource/email-blockedAccountSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]  ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; BlockedAccountEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End BlockedAccount Emaail
+
+# Start Back In Stock
+UPDATE RendererTemplate; code[unique = true]                        ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_Product_Back_In_Stock_Body    ; $emailResource/email-productBackInStockBody.vm
+                       ; telcel_Email_Product_Back_In_Stock_Subject ; $emailResource/email-productBackInStockSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]                  ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; ProductBackInStockNotificationEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End Back In Stock
+
+
+# Start TicketNotificationCustomer Email
+UPDATE RendererTemplate; code[unique = true]                             ; description[lang = $lang]                  ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_TicketNotificationCustomer_Body    ; "TicketNotificationCustomer Email Body"    ; $emailResource/email-ticketNotificationCustomerBody.vm
+                       ; telcel_Email_TicketNotificationCustomer_Subject ; "TicketNotificationCustomer Email Subject" ; $emailResource/email-ticketNotificationCustomerSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]              ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; TicketNotificationCustomerEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End TicketNotificationCustomer Email
+
+
+# Start TicketNotificationCustomer Email
+UPDATE RendererTemplate; code[unique = true]                          ; description[lang = $lang]               ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_TicketNotificationAgent_Body    ; "TicketNotificationAgent Email Body"    ; $emailResource/email-ticketNotificationAgentBody.vm
+                       ; telcel_Email_TicketNotificationAgent_Subject ; "TicketNotificationAgent Email Subject" ; $emailResource/email-ticketNotificationAgentSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]           ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; TicketNotificationAgentEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End TicketNotificationCustomer Emaail
+
+# Start Pending Payment Email
+UPDATE RendererTemplate; code[unique = true]                 ; description[lang = $lang]      ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_Pending_Payment_Body    ; "Pending Payment Email Body"    ; $emailResource/email-pendingPaymentBody.vm
+                       ; telcel_Email_Pending_Payment_Subject ; "Pending Payment Email Subject" ; $emailResource/email-pendingPaymentSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]  ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; PendingPaymentEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End Pending Payment Email
+
+# Start Successful Purchase Email
+UPDATE RendererTemplate; code[unique = true]                 ; description[lang = $lang]      ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_Successful_Purchase_Body    ; "Successful Purchase Email Body"    ; $emailResource/email-successfulPurchaseBody.vm
+                       ; telcel_Email_Successful_Purchase_Subject ; "Successful Purchase Email Subject" ; $emailResource/email-successfulPurchaseSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]  ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; SuccessfulPurchaseEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End Successful Purchase Email
+
+# Start Successful Delivery Email
+UPDATE RendererTemplate; code[unique = true]                 ; description[lang = $lang]      ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_Successful_Delivery_Body    ; "Successful Delivery Email Body"    ; $emailResource/email-successfulDeliveryBody.vm
+                       ; telcel_Email_Successful_Delivery_Subject ; "Successful Delivery Email Subject" ; $emailResource/email-successfulDeliverySubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]  ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; SuccessfulDeliveryEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End Successful Delivery Email
+
+# Start Cancellation Under payment Emaail
+UPDATE RendererTemplate; code[unique = true]                                ; description[lang = $lang]                  ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_CancellationUnderpaymentEmail_Body    ; "Cancellation Under payment Email Body"    ; $emailResource/email-cancellationUnderpaymentEmailBody.vm
+                       ; telcel_Email_CancellationUnderpaymentEmail_Subject ; "Cancellation Under payment Email Subject" ; $emailResource/email-cancellationUnderpaymentEmailSubject.vm
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]            ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; CancellationUnderpaymentEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End Cancellation Under payment Emaail
+
+# Start Cancellation Card Item Process Emaail
+UPDATE RendererTemplate; code[unique = true]                       ; description[lang = $lang]              ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_CancellationCardItem_Body    ; "Cancellation Card Item Email Body"    ; $emailResource/email-cancellationCardItemEmailBody.vm
+                       ; telcel_Email_CancellationCardItem_Subject ; "Cancellation Card Item Email Subject" ; $emailResource/email-cancellationCardItemEmailSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]        ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; CancellationCardItemEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End Cancellation Card Item Process Emaail
+
+# Start Cancellation Others Item Emaail
+UPDATE RendererTemplate; code[unique = true]                         ; description[lang = $lang]                ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_CancellationOthersItem_Body    ; "Cancellation Others Item Email Body"    ; $emailResource/email-cancellationOthersItemEmailBody.vm
+                       ; telcel_Email_CancellationOthersItem_Subject ; "Cancellation Others Item Email Subject" ; $emailResource/email-cancellationOthersItemEmailSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]          ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; CancellationOthersItemEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End Cancellation Others Item Emaail
+
+# Start Cancellation Telcel Emaail
+UPDATE RendererTemplate; code[unique = true]                     ; description[lang = $lang]           ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_CancellationTelcel_Body    ; "Cancellation Telcel Email Body"    ; $emailResource/email-cancellationTelcelEmailBody.vm
+                       ; telcel_Email_CancellationTelcel_Subject ; "Cancellation Telcel Email Subject" ; $emailResource/email-cancellationTelcelEmailSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]      ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; CancellationTelcelEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End Cancellation Telcel Emaail
+
+# Start Cancellation User Card Emaail
+UPDATE RendererTemplate; code[unique = true]                       ; description[lang = $lang]              ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_CancellationUserCard_Body    ; "Cancellation User Card Email Body"    ; $emailResource/email-cancellationUserCardEmailBody.vm
+                       ; telcel_Email_CancellationUserCard_Subject ; "Cancellation User Card Email Subject" ; $emailResource/email-cancellationUserCardEmailSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]        ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; CancellationUserCardEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End Cancellation User Card Emaail
+
+# Start Cancellation User Others Emaail
+UPDATE RendererTemplate; code[unique = true]                         ; description[lang = $lang]                ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_CancellationUserOthers_Body    ; "Cancellation User Others Email Body"    ; $emailResource/email-cancellationUserOthersEmailBody.vm
+                       ; telcel_Email_CancellationUserOthers_Subject ; "Cancellation User Others Email Subject" ; $emailResource/email-cancellationUserOthersEmailSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]          ; fromEmail[lang = $lang]    ; fromName[lang = $lang]
+                ;                          ; CancellationUserOthersEmail ; "tiendaenlinea@telcel.com" ; "Tienda en Linea"
+# End Cancellation User Others Emaail
+
+# Start Reserved Order Email
+UPDATE RendererTemplate; code[unique = true]                 ; description[lang = $lang]      ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; telcel_Email_Reserved_Order_Body    ; "Reserved Order Email Body"    ; $emailResource/email-reservedOrderEmailBody.vm
+                       ; telcel_Email_Reserved_Order_Subject ; "Reserved Order Email Subject" ; $emailResource/email-reservedOrderEmailSubject.vm
+
+
+UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]  ; fromEmail[lang = $lang]       ; fromName[lang = $lang]
+                ;                          ; ReservedOrderEmail ; "tiendaenlinea@telcel.com" ; "Tienda en línea"
+# End Reserved Order Email
