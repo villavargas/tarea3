@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <!-- Return Process Actions -->
+
+    <bean id="initialReturnAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.InitialReturnAction" parent="abstractAction"/>
+
+    <bean id="captureRefundAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.CaptureRefundAction" parent="abstractAction"/>
+
+    <bean id="successCaptureAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.SuccessCaptureAction" parent="abstractAction"/>
+
+    <bean id="approveReturnAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.ApproveReturnAction" parent="abstractAction"/>
+
+    <bean id="rollBackReturnAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.RollBackReturnAction" parent="abstractAction"/>
+
+    <bean id="amountRefundRequestReturnAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.AmountRefundRequestReturnAction" parent="abstractAction"/>
+
+    <bean id="validateSIPABRestrictionsAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.ValidateSIPABRestrictionsAction" parent="abstractAction"/>
+
+    <bean id="successCardRefoundAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.SuccessCardRefoundAction" parent="abstractAction"/>
+
+    <bean id="failedRefoundAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.FailedRefoundAction" parent="abstractAction"/>
+
+    <bean id="cancelReturnAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.CancelReturnAction" parent="abstractAction"/>
+
+    <bean id="printReturnLabelAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.PrintReturnLabelAction" parent="abstractAction"/>
+
+    <bean id="setSIPABStatusAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.SetSIPABStatusAction" parent="abstractAction"/>
+
+    <bean id="printPackingLabelAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.PrintPackingLabelAction" parent="abstractAction"/>
+
+    <bean id="acceptGoodsAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.AcceptGoodsAction" parent="abstractAction"/>
+
+    <bean id="taxReverseAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.TaxReverseAction" parent="abstractAction"/>
+
+    <bean id="successTaxReverseAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.SuccessTaxReverseAction" parent="abstractAction"/>
+
+    <bean id="inventoryUpdateAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.InventoryUpdateAction" parent="abstractAction"/>
+
+    <bean id="fraudReturnAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.FraudReturnAction" parent="abstractAction"/>
+
+    <bean id="checkReturnAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.CheckReturnAction" parent="abstractAction"/>
+
+    <bean id="returnTypeAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.ReturnTypeAction" parent="abstractAction"/>
+
+    <bean id="sendCancellationTelcelEmailsAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.SendCancellationTelcelEmailsAction" parent="abstractAction"/>
+
+    <bean id="startApprovalProcessAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.StartApprovalProcessAction" parent="abstractAction"/>
+
+    <bean id="refundPaymentCashAction" class="mx.com.telcel.fulfilmentprocess.actions.returns.RefundPaymentCashAction" parent="abstractAction"/>
+
+</beans>
