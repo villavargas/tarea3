@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="waitForTelmexBilling" name="order-process-telmex"
+         processClass="de.hybris.platform.orderprocessing.model.OrderProcessModel">
+
+    <wait id="waitForTelmexBilling" then="telmexBilling" prependProcessCode="false">
+        <event>${process.code}_TelmexBilling</event>
+    </wait>
+
+    <action id="telmexBilling" bean="telmexBillingAction">
+        <transition name="OK" to="telmexSplitOrder"/>
+    </action>
+
+    <action id="telmexSplitOrder" bean="telmexSplitOrderAction">
+        <transition name="OK" to="waitForTelmexWarehouseSubprocessEnd"/>
+    </action>
+
+    <wait id="waitForTelmexWarehouseSubprocessEnd" then="isTelmexProcessCompleted" prependProcessCode="false" >
+        <event>${process.code}_TelmexConsignmentSubprocessEnd</event>
+    </wait>
+
+    <action id="isTelmexProcessCompleted" bean="telmexProcessCompletedAction">
+        <transition name="OK" to="setTelmexOrderExpirationTime"/>
+        <transition name="NOK" to="waitForTelmexWarehouseSubprocessEnd"/>
+    </action>
+
+    <action id="setTelmexOrderExpirationTime" bean="setTelmexOrderExpirationTimeAction">
+        <transition name="OK" to="sendTelmexOrderCompletedNotification"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <action id="sendTelmexOrderCompletedNotification" bean="sendTelmexOrderCompletedNotificationAction">
+        <transition name="OK" to="success"/>
+        <transition name="NOK" to="waitForTelmexWarehouseSubprocessEnd"/>
+    </action>
+
+    <end id="error" state="ERROR">All went wrong.</end>
+    <end id="failed" state="FAILED">Order not placed.</end>
+    <end id="success" state="SUCCEEDED">Order placed.</end>
+
+</process>
