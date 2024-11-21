@@ -1,0 +1,27 @@
+# Language
+$lang = es_MX
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/saldo
+#$siteResource=file:\\\D:\TELCEL\Imagenes
+$picture = media(code, $contentCV)
+$medias = medias(code, $contentCV)
+$mediaContainer = media(qualifier, $contentCV)[lang=$lang];
+
+
+###  TELCEL RECARGA SALDO BANNER  #######
+INSERT_UPDATE Media; mediaFormat(qualifier); code[unique = true]                           ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite = true]; realfilename                                  ; altText; mime[default = 'image/jpeg']; $contentCV[unique = true]; folder(qualifier)[default = images];
+                   ; mobile                ; recargas_saldo_bnm.jpg ; $siteResource/recargas_saldo_bnm.jpg                                    ; recargas-saldo-regalo-navidad-2021-v1-bnm.jpg ; ""     ;
+                   ; desktop               ; recargas_saldo_bne.jpg ; $siteResource/recargas_saldo_bne.jpg                                    ; recargas-saldo-regalo-navidad-2021-v1-bne.jpg ; ""     ;
+
+INSERT_UPDATE MediaContainer; qualifier[unique = true]       ; $medias; $contentCV[unique = true]
+                            ; telcel-recarga-saldo-banner-mx ; recargas_saldo_bnm.jpg,recargas_saldo_bne.jpg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent; $contentCV[unique = true]; urlLink                                                             ;uid[unique = true]                ; $mediaContainer ; title ; caption
+                                             ;                          ;https://www.telcel.com/personas/telefonia/amigo/recarga-compra-ahora ;TelcelRecargaSaldoBannerComponent ; telcel-recarga-saldo-banner-mx ; Titulo de recarga dfdfdf ; caption jklsdjlkdsjslkjlkew
+
+INSERT_UPDATE CMSTelcelFAQComponent; $contentCV[unique = true]; uid[unique = true]    ; title[lang = $lang]    ; caption[lang = $lang]; content[lang = $lang]                                                                                                                                                                                                                             ; &componentRef
+                                   ;                          ; CMSTelcelFAQComponent ; "Preguntas frecuentes" ; "¿Necesitas ayuda?"  ; "Visita nuestro<span class='help-options chatbot'>TelcelBot</span>, consulta nuestra sección de<span class='help-options'><a href='https://www.telcel.com/personas/atencion-a-clientes/preguntas-frecuentes'>preguntas frecuentes</a></span> o contáctanos<span class='help-options'><a href='/ticket-contacto'>aquí.</a></span>" ; CMSTelcelFAQComponent
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]           ; name               ; cmsComponents(uid, $contentCV)
+                         ;                          ; BodyContentSlot-recargaSaldo ; Recarga Saldo Slot ; TelcelRecargaSaldoBannerComponent,RecargaSaldoComponent,CMSTelcelFAQComponent
