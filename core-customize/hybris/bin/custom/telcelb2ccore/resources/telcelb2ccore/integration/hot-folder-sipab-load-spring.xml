@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <bean id="baseDirectoryTelcelSIPAB" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcel/sipab"/>
+    </bean>
+
+    <!-- 1) Scan for files -->
+    <file:inbound-channel-adapter id="batchFilesSIPABTelcel" directory="#{baseDirectoryTelcelSIPAB}"
+                                  filename-regex="^(.*)_(\d+)\.csv" comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000"/>
+    </file:inbound-channel-adapter>
+
+    <!-- 2) move the file to processing and setup header -->
+    <file:outbound-gateway request-channel="batchFilesSIPABTelcel" reply-channel="batchFilesSIPABTelcelProc"
+                           directory="#{baseDirectoryTelcelSIPAB}/processing" delete-source-files="true"/>
+    <int:service-activator input-channel="batchFilesSIPABTelcelProc" output-channel="batchFilesHeaderSIPAB"
+                           ref="telcelSIPABHeaderSetupTask" method="execute"/>
+
+    <bean id="telcelSIPABHeaderSetupTask"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="telcelProductCatalog"/>
+        <property name="net" value="false"/>
+        <property name="storeBaseDirectory" ref="baseDirectoryTelcelSIPAB"/>
+    </bean>
+
+    <int:service-activator input-channel="batchFilesHeaderSIPAB" output-channel="batchFilesTran" ref="batchTransformerSIPABTask"
+                           method="execute" />
+
+    <bean id="batchTransformerSIPABTask"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.task.ImpexTransformerTask"
+          init-method="initConvertersMap">
+        <property name="fieldSeparator" value=","/>
+        <property name="encoding" value="UTF-8"/>
+        <property name="linesToSkip" value="1"/>
+        <property name="cleanupHelper" ref="cleanupHelper"/>
+    </bean>
+
+
+    <bean id="telcelSIPABConverterMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="SIPAB_FiltradoReg"
+          p:converter-ref="telcelSIPABChargeConverter"/>
+
+    <bean id="telcelSIPABImpexHeader" class="java.lang.String">
+        <constructor-arg>
+            <value># Impex for importing data into $CATALOG$
+                $version=Staged
+                $productCatalog = telcelProductCatalog
+            </value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="telcelSIPABChargeConverter"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{telcelSIPABImpexHeader}
+                INSERT_UPDATE Sipabb;folioSipab;anio;estatus;importe;numeroDeOrdenCommerce[unique=true];itemCommerce;fechaDeCreacion;fechaDeCierreDeFolio;fechaDeActualizacionEstatus;facturaTelcel[unique=true];consignments[unique=true];
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};</value>
+        </property>
+    </bean>
+
+</beans>
