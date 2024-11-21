@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="waitBeforeTransmissionTelmex" name="consignment-process-telmex" processClass="de.hybris.platform.ordersplitting.model.ConsignmentProcessModel">
+
+	<action id="waitBeforeTransmissionTelmex" bean="waitBeforeTransmissionTelmexAction">
+		<transition name="NOK" to="waitBeforeTransmissionTelmex"/>
+		<transition name="OK" to="sendTelmexConsignmentToWarehouse"/>
+	</action>
+
+	<action id="sendTelmexConsignmentToWarehouse" bean="sendTelmexConsignmentToWarehouseAction">
+		<transition name="OK" to="waitForTelmexWarehouse"/>
+	</action>
+
+	<wait id="waitForTelmexWarehouse" then="receiveTelmexConsignmentStatus" prependProcessCode="false">
+		<event>${process.code}_WaitForTelmexWarehouse</event>
+	</wait>
+
+	<action id="receiveTelmexConsignmentStatus" bean="receiveTelmexConsignmentStatusAction">
+		<transition name="OK" to="telmexActivation"/>
+		<transition name="CANCEL" to="cancelTelmexConsignment"/>
+		<transition name="ERROR" to="error"/>
+	</action>
+
+	<action id="telmexActivation" bean="telmexActivationAction">
+		<transition name="REQUIRES_ACTIVATION" to="waitForReadyToPack" />
+		<transition name="NO_ACTIVATION_REQUIRED" to="telmexGuideType" />
+	</action>
+
+	<wait id="waitForReadyToPack" then="telmexGuideType" prependProcessCode="false">
+		<event>${process.code}_waitForTelmexReadyToPack</event>
+	</wait>
+
+	<action id="telmexGuideType" bean="telmexGuideTypeAction">
+		<transition name="OK" to="waitForTypeGuide"/>
+	</action>
+
+	<wait id="waitForTypeGuide" then="telmexContinueProcessForGuideType" prependProcessCode="false">
+		<event>${process.code}_waitForTelmexGuideType</event>
+	</wait>
+
+	<action id="telmexContinueProcessForGuideType" bean="telmexContinueProcessForGuideTypeAction">
+		<transition name="FEDEX" to="fedexTelmexInformation"/>
+		<transition name="EXPRESS" to="waitForDeliveryExpress"/>
+	</action>
+
+	<action id="fedexTelmexInformation" bean="fedexTelmexInformationAction">
+		<transition name="OK" to="telmexReadyToShip"/>
+		<transition name="WAIT" to="waitForTelmexFedexInformation"/>
+	</action>
+
+	<wait id="waitForTelmexFedexInformation" then="fedexTelmexInformation" prependProcessCode="false">
+		<event>${process.code}_waitForTelmexFedexInformation</event>
+	</wait>
+
+	<action id="telmexReadyToShip" bean="telmexReadyToShipAction">
+		<transition name="OK" to="waitingToTelmexBeShipped"/>
+		<transition name="WAIT" to="waitForTelmexReadyToShip"/>
+	</action>
+
+	<wait id="waitForTelmexReadyToShip" then="telmexReadyToShip" prependProcessCode="false">
+		<event>${process.code}_waitForTelmexReadyToShip</event>
+	</wait>
+
+	<action id="waitingToTelmexBeShipped" bean="waitingToTelmexBeShippedAction">
+		<transition name="OK" to="allowShipmentTelmex"/>
+		<transition name="WAIT" to="waitToBeShippedTelmex"/>
+		<transition name="ERROR" to="telmexSubprocessEnd"/>
+	</action>
+
+	<wait id="waitToBeShippedTelmex" then="waitingToTelmexBeShipped" prependProcessCode="false">
+		<event>${process.code}_waitToTelmexBeShipped</event>
+	</wait>
+
+	<action id="allowShipmentTelmex" bean="allowShipmentTelmexAction">
+		<transition name="DELIVERY" to="waitingTelmexDelivered"/>
+		<transition name="PICKUP" to="sendTelmexReadyForPickupMessage"/>
+		<transition name="ERROR" to="error"/>
+		<transition name="CANCEL" to="cancelTelmexConsignment"/>
+	</action>
+
+	<action id="waitingTelmexDelivered" bean="waitingTelmexDeliveredAction">
+		<transition name="OK" to="telmexSubprocessEnd"/>
+		<transition name="WAIT" to="waitingForTelmexDelivered"/>
+		<transition name="ERROR" to="telmexSubprocessEnd"/>
+	</action>
+
+	<wait id="waitingForTelmexDelivered" then="waitingTelmexDelivered" prependProcessCode="false">
+		<event>${process.code}_waitingForTelmexDelivered</event>
+	</wait>
+
+	<action id="sendTelmexReadyForPickupMessage" bean="sendTelmexReadyForPickupMessageAction">
+		<transition name="OK" to="waitForTelmexPickup"/>
+	</action>
+
+	<action id="cancelTelmexConsignment" bean="cancelTelmexConsignmentAction">
+		<transition name="OK" to="sendTelmexCancelMessage"/>
+	</action>
+
+	<action id="sendTelmexCancelMessage" bean="sendTelmexCancelMessageAction">
+		<transition name="OK" to="telmexSubprocessEnd"/>
+	</action>
+
+	<wait id="waitForTelmexPickup" then="confirmTelmexConsignmentPickup" prependProcessCode="false">
+		<event>${process.code}_ConsignmentPickup</event>
+	</wait>
+	
+	<action id="confirmTelmexConsignmentPickup" bean="confirmTelmexConsignmentPickupAction">
+		<transition name="OK" to="sendTelmexPickedUpMessage"/>
+		<transition name="CANCEL" to="cancelTelmexConsignment"/>
+		<transition name="ERROR" to="error"/>
+	</action>
+	
+	<action id="sendTelmexPickedUpMessage" bean="sendTelmexPickedUpMessageAction">
+		<transition name="OK" to="telmexSubprocessEnd"/>
+	</action>
+
+	<wait id="waitForDeliveryExpress" then="telmexGuideExpressDelivered" prependProcessCode="false">
+		<event>${process.code}_waitForTelmexDeliveryExpress</event>
+	</wait>
+
+	<action id="telmexGuideExpressDelivered" bean="telmexGuideExpressDeliveredAction">
+		<transition name="OK" to="telmexSubprocessEnd"/>
+	</action>
+
+
+	<action id="telmexSubprocessEnd" bean="telmexSubprocessEndAction">
+		<transition name="OK" to="success"/>
+	</action>
+
+	<end id="error" state="ERROR">All went wrong.</end>
+	<end id="failed" state="FAILED">Order not placed.</end>
+	<end id="success" state="SUCCEEDED">Order placed.</end>
+</process>
