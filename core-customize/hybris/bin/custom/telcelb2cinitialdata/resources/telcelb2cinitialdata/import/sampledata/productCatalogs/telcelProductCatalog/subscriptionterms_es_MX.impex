@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# Impex for Subscription Terms - en
+
+# Macros / Replacement Parameter definitions
+$lang = es_MX
+
+#UPDATE SubscriptionTerm; id[unique = true]             ; name[lang = $lang]
+#                       ; 6_months_non_renewing_cancel  ; 6 meses: facturación mensual cancelable, no renovable
+#                       ; 6_months_auto_renewing_cancel ; 6 meses: cancelación, renovación automática, facturación mensual
+#                       ; 1_year_auto_renewing_cancel   ; 1 año - cancelable, renovación automática, facturación mensual
+#
+#
+## Impex for Telco Subscription Terms - en
+#
+#UPDATE SubscriptionTerm; id[unique = true]; name[lang = $lang]
+#                       ; none             ; Sin contrato
+#                       ; monthly_1        ; 1 mes - facturación mensual
+#                       ; monthly_12       ; 12 meses - facturación mensual
+#                       ; monthly_18       ; 18 meses - facturación mensual
+#                       ; monthly_24       ; 24 meses - facturación mensual
+#                       ; monthly_36       ; 36 meses - facturación mensual
+#                       ; monthly_48       ; 48 meses - facturación mensual
+#                       ; annually_1       ; 1 año - facturación mensual
+#                       ; annually_2       ; 2 años - facturación mensual
+#                       ; annually_3       ; 3 años - facturación mensual
+#                       ; annually_24      ; 24 meses - facturación anual
