@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+# ImpEx for Importing Classification Categories into B2C Telcel Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog = telcelProductCatalog
+$classificationCatalog = telcelClassification
+$productCatalogName = Telcel Product Catalog
+$classCatalogVersion = catalogversion(catalog(id[default=$classificationCatalog]), version[default='1.0'])[unique=true, default='$classificationCatalog:1.0']
+$classSystemVersion = systemVersion(catalog(id[default='$classificationCatalog']), version[default='1.0'])[unique=true]
+
+# Language
+$lang = es_MX
+
+
+INSERT_UPDATE ClassificationSystem; id[unique = true]      ; name[lang = $lang]               ;
+                                  ; $classificationCatalog ; Telcel Classification System ;
+
+# Insert Classifications
+UPDATE ClassificationClass; $classCatalogVersion; code[unique = true]         ; name[lang = $lang]
+;;smartphoneclassification; Teléfonos y Smartphones
+;;accesoriosclassification; Accesorios
+;;tabletsclassification; Tabletas
+;;vida_conectadaclassification; Vida Conectada
+;;internet_movilclassification; Internet Movil
+;;renueva_planclassification; Renueva Plan
+;;amigo_chipclassification; Amigo Chip
+
+# Insert Classification Attributes
+UPDATE ClassificationAttribute;     code[unique=true];name[lang=$lang];$classSystemVersion
+                              ; compatibilidad  ; Compatibilidad
+                              ; tipoPantalla      ; Tipo de Pantalla
+                              ; sistemasOperativosCompatibles  ; Sistemas Operativos compatibles
+                              ; tipoCable ; Tipo de Cable
+                              ; tipoConector ; Tipo de Conector
+                              ; contenidoEmpaque  ; Contenido en el empaque
+                              ; ioAudio ; Entrada/Salida de Audio
+                              ; tipoBateria ; Tipo de batería
+                              ; duracionBateria ; Duración de bateria
+                              ; uso_acerca_de   ; Uso / Acerca de
