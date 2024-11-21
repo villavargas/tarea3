@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="checkOrder" name="order-process-replacement" processClass="de.hybris.platform.orderprocessing.model.OrderProcessModel" defaultNodeGroup="storeB2cNodeGroup">
+
+	<action id="checkOrder" bean="replacementCheckOrderAction">
+		<transition name="OK" to="sentToERP"/>
+		<!--		<transition name="OK" to="checkAuthorizeOrderPayment"/>-->
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<action id="sentToERP" bean="replacementSentToERPAction">
+		<transition name="OK" to="replacementActualizarPagoMQ"/>
+		<transition name="NOK" to="waitForsentToERP"/>
+	</action>
+
+	<wait id="waitForsentToERP" then="sentToERP" prependProcessCode="false" >
+		<event>${process.code}_replacementSentToERP</event>
+	</wait>
+	
+	<action id="replacementActualizarPagoMQ" bean="replacementActualizarPagoMQAction">
+		<transition name="OK" to="waitForReplacementActualizaPagoResponse"/>
+	</action>
+	
+	<wait id="waitForReplacementActualizaPagoResponse" then="updatePayment" prependProcessCode="false" >
+		<event>${process.code}_ReplacementActualizaPagoResponse</event>
+	</wait>
+
+	<action id="updatePayment" bean="replacementUpdatePaymentAction">
+		<transition name="OK" to="waitForBilledOrder"/>
+	</action>
+
+	<wait id="waitForBilledOrder" then="continueAllConsignment" prependProcessCode="false" >
+		<event>${process.code}_ReplacementWaitForBilledOrder</event>
+	</wait>
+
+	<action id="continueAllConsignment" bean="replacementContinueAllConsignmentAction">
+		<transition name="OK" to="waitForWarehouseSubprocessEnd"/>
+	</action>
+
+	<wait id="waitForWarehouseSubprocessEnd" then="isProcessCompleted" prependProcessCode="false" >
+		<event>${process.code}_ReplacementConsignmentSubprocessEnd</event>
+	</wait>
+
+	<action id="isProcessCompleted" bean="replacementSubprocessesCompletedAction">
+		<transition name="OK" to="setOrderExpirationTime"/>
+		<transition name="NOK" to="waitForWarehouseSubprocessEnd"/>
+	</action>
+
+	<action id="setOrderExpirationTime" bean="replacementSetOrderExpirationTimeAction">
+		<transition name="OK" to="sendOrderCompletedNotification"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<action id="sendOrderCompletedNotification" bean="replacementSendOrderCompletedNotificationAction">
+		<transition name="OK" to="success"/>
+	</action>
+
+	<end id="error" state="ERROR">All went wrong.</end>
+	<end id="failed" state="FAILED">Order not placed.</end>
+	<end id="success" state="SUCCEEDED">Order placed.</end>
+
+</process>
