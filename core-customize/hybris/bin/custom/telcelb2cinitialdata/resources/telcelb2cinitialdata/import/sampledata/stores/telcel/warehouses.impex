@@ -1,0 +1,149 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# Create Warehouses for Telco Store
+#
+#% impex.setLocale( Locale.ENGLISH );
+
+$storeUid = telcel
+$vendor = telcel
+
+
+INSERT_UPDATE Warehouse; code[unique = true]  ; name                 ; isocode          ; centro; nameContact                         ; numberContact; vendor(code)[default = default]; default[default = true]
+; CD05_Tapachula       ; CD05 Tapachula       ; CD05             ; MX08  ; Cora Santeliz Montero               ; 0   ; $vendor
+
+
+INSERT_UPDATE BaseStore2WarehouseRel; source(uid)[unique = true]; target(code)[unique = true]
+                                    ; $storeUid                 ; warehouse_telcel
+                                    ; $storeUid                 ; VL01_Guadalajara
+                                    ; $storeUid                 ; CD01_Guadalajara
+                                    ; $storeUid                 ; CD18_Morelia
+                                    ; $storeUid                 ; CD16_Tepic
+                                    ; $storeUid                 ; CD20_Colima
+                                    ; $storeUid                 ; VL01_Hermosillo
+                                    ; $storeUid                 ; CD01_Hermosillo
+                                    ; $storeUid                 ; VL01_Chihuahua
+                                    ; $storeUid                 ; CD01_Chihuahua
+                                    ; $storeUid                 ; VL01_Monterrey
+                                    ; $storeUid                 ; CD01_Monterrey
+                                    ; $storeUid                 ; VL01_Queretaro
+                                    ; $storeUid                 ; CD02_Queretaro
+                                    ; $storeUid                 ; VL01_Puebla
+                                    ; $storeUid                 ; CD01_Puebla
+                                    ; $storeUid                 ; VL01_Tijuana
+                                    ; $storeUid                 ; CD01_Tijuana
+                                    ; $storeUid                 ; CD04_Villahermosa
+                                    ; $storeUid                 ; CD02_Tuxtla
+                                    ; $storeUid                 ; CD07_Mochis
+                                    ; $storeUid                 ; CD06_Culiacan
+                                    ; $storeUid                 ; RU04_Torreon
+                                    ; $storeUid                 ; CD03_Torreon
+                                    ; $storeUid                 ; RU03_Juarez
+                                    ; $storeUid                 ; CD02_Juarez
+                                    ; $storeUid                 ; CD07_Tampico
+                                    ; $storeUid                 ; CD16_Saltillo
+                                    ; $storeUid                 ; CD10_Reynosa
+                                    ; $storeUid                 ; CD03_Leon
+                                    ; $storeUid                 ; CD04_San_Luis_Potosi
+                                    ; $storeUid                 ; CD05_Aguascaliente
+                                    ; $storeUid                 ; CD06_Zacatecas
+                                    ; $storeUid                 ; CD04_Acapulco
+                                    ; $storeUid                 ; CD09_Oaxaca
+                                    ; $storeUid                 ; CD05_Veracruz
+                                    ; $storeUid                 ; CD03_CANCUN
+                                    ; $storeUid                 ; CD05_Tapachula
+                                    ; $storeUid                 ; CD01_Merida
+                                    ; $storeUid                 ; VL01_Merida
+                                    ; $storeUid                 ; VL01_CDMX
+
+INSERT_UPDATE PointOfService; name[unique = true]  ; displayName          ; warehouses(code)     ; address(&addrID)     ; latitude  ; longitude   ; geocodeTimestamp[dateformat = dd.MM.yyyy]; type(code)[default = WAREHOUSE]
+                            ; warehouse_telcel     ; Warehouse Telcel     ; warehouse_telcel     ; warehouse_telcel     ; 43,070542 ; 141,3533259 ; 11.12.2025
+                            ; VL01_Guadalajara     ; VL01 Guadalajara     ; VL01_Guadalajara     ; VL01_Guadalajara     ; 0         ; 0           ; 11.12.2025
+                            ; CD01_Guadalajara     ; CD01 Guadalajara     ; CD01_Guadalajara     ; CD01_Guadalajara     ; 0         ; 0           ; 11.12.2025
+                            ; CD18_Morelia         ; CD18 Morelia         ; CD18_Morelia         ; CD18_Morelia         ; 0         ; 0           ; 11.12.2025
+                            ; CD16_Tepic           ; CD16 Tepic           ; CD16_Tepic           ; CD16_Tepic           ; 0         ; 0           ; 11.12.2025
+                            ; CD20_Colima          ; CD20 Colima          ; CD20_Colima          ; CD20_Colima          ; 0         ; 0           ; 11.12.2025
+                            ; VL01_Hermosillo      ; VL01 Hermosillo      ; VL01_Hermosillo      ; VL01_Hermosillo      ; 0         ; 0           ; 11.12.2025
+                            ; CD01_Hermosillo      ; CD01 Hermosillo      ; CD01_Hermosillo      ; CD01_Hermosillo      ; 0         ; 0           ; 11.12.2025
+                            ; VL01_Chihuahua       ; VL01 Chihuahua       ; VL01_Chihuahua       ; VL01_Chihuahua       ; 0         ; 0           ; 11.12.2025
+                            ; CD01_Chihuahua       ; CD01 Chihuahua       ; CD01_Chihuahua       ; CD01_Chihuahua       ; 0         ; 0           ; 11.12.2025
+                            ; VL01_Monterrey       ; VL01 Monterrey       ; VL01_Monterrey       ; VL01_Monterrey       ; 0         ; 0           ; 11.12.2025
+                            ; CD01_Monterrey       ; CD01 Monterrey       ; CD01_Monterrey       ; CD01_Monterrey       ; 0         ; 0           ; 11.12.2025
+                            ; VL01_Queretaro       ; VL01 Queretaro       ; VL01_Queretaro       ; VL01_Queretaro       ; 0         ; 0           ; 11.12.2025
+                            ; CD02_Queretaro       ; CD02 Queretaro       ; CD02_Queretaro       ; CD02_Queretaro       ; 0         ; 0           ; 11.12.2025
+                            ; VL01_Puebla          ; VL01 Puebla          ; VL01_Puebla          ; VL01_Puebla          ; 0         ; 0           ; 11.12.2025
+                            ; CD01_Puebla          ; CD01 Puebla          ; CD01_Puebla          ; CD01_Puebla          ; 0         ; 0           ; 11.12.2025
+                            ; VL01_Tijuana         ; VL01 Tijuana         ; VL01_Tijuana         ; VL01_Tijuana         ; 0         ; 0           ; 11.12.2025
+                            ; CD01_Tijuana         ; CD01 Tijuana         ; CD01_Tijuana         ; CD01_Tijuana         ; 0         ; 0           ; 11.12.2025
+                            ; CD04_Villahermosa    ; CD04 Villahermosa    ; CD04_Villahermosa    ; CD04_Villahermosa    ; 0         ; 0           ; 11.12.2025
+                            ; CD02_Tuxtla          ; CD02 Tuxtla          ; CD02_Tuxtla          ; CD02_Tuxtla          ; 0         ; 0           ; 11.12.2025
+                            ; CD07_Mochis          ; CD07 Mochis          ; CD07_Mochis          ; CD07_Mochis          ; 0         ; 0           ; 11.12.2025
+                            ; CD06_Culiacan        ; CD06 Culiacan        ; CD06_Culiacan        ; CD06_Culiacan        ; 0         ; 0           ; 11.12.2025
+                            ; RU04_Torreon         ; RU04 Torreon         ; RU04_Torreon         ; RU04_Torreon         ; 0         ; 0           ; 11.12.2025
+                            ; CD03_Torreon         ; CD03 Torreon         ; CD03_Torreon         ; CD03_Torreon         ; 0         ; 0           ; 11.12.2025
+                            ; RU03_Juarez          ; RU03 Juarez          ; RU03_Juarez          ; RU03_Juarez          ; 0         ; 0           ; 11.12.2025
+                            ; CD02_Juarez          ; CD02 Juarez          ; CD02_Juarez          ; CD02_Juarez          ; 0         ; 0           ; 11.12.2025
+                            ; CD07_Tampico         ; CD07 Tampico         ; CD07_Tampico         ; CD07_Tampico         ; 0         ; 0           ; 11.12.2025
+                            ; CD16_Saltillo        ; CD16 Saltillo        ; CD16_Saltillo        ; CD16_Saltillo        ; 0         ; 0           ; 11.12.2025
+                            ; CD10_Reynosa         ; CD10 Reynosa         ; CD10_Reynosa         ; CD10_Reynosa         ; 0         ; 0           ; 11.12.2025
+                            ; CD03_Leon            ; CD03 Leon            ; CD03_Leon            ; CD03_Leon            ; 0         ; 0           ; 11.12.2025
+                            ; CD04_San_Luis_Potosi ; CD04 San_Luis_Potosi ; CD04_San_Luis_Potosi ; CD04_San_Luis_Potosi ; 0         ; 0           ; 11.12.2025
+                            ; CD05_Aguascaliente   ; CD05 Aguascaliente   ; CD05_Aguascaliente   ; CD05_Aguascaliente   ; 0         ; 0           ; 11.12.2025
+                            ; CD06_Zacatecas       ; CD06 Zacatecas       ; CD06_Zacatecas       ; CD06_Zacatecas       ; 0         ; 0           ; 11.12.2025
+                            ; CD04_Acapulco        ; CD04 Acapulco        ; CD04_Acapulco        ; CD04_Acapulco        ; 0         ; 0           ; 11.12.2025
+                            ; CD09_Oaxaca          ; CD09 Oaxaca          ; CD09_Oaxaca          ; CD09_Oaxaca          ; 0         ; 0           ; 11.12.2025
+                            ; CD05_Veracruz        ; CD05 Veracruz        ; CD05_Veracruz        ; CD05_Veracruz        ; 0         ; 0           ; 11.12.2025
+                            ; CD03_CANCUN          ; CD03 CANCUN          ; CD03_CANCUN          ; CD03_CANCUN          ; 0         ; 0           ; 11.12.2025
+                            ; CD05_Tapachula       ; CD05 Tapachula       ; CD05_Tapachula       ; CD05_Tapachula       ; 0         ; 0           ; 11.12.2025
+                            ; CD01_Merida          ; CD01 Merida          ; CD01_Merida          ; CD01_Merida          ; 0         ; 0           ; 11.12.2025
+                            ; VL01_Merida          ; VL01 Merida          ; VL01_Merida          ; VL01_Merida          ; 0         ; 0           ; 11.12.2025
+                            ; VL01_CDMX            ; VL01 CDMX            ; VL01_CDMX            ; VL01_CDMX            ; 0         ; 0           ; 11.12.2025
+
+
+INSERT_UPDATE Address; &addrID              ; region(isocode); streetnumber[unique = true]; streetname                                         ; ofnaVts; regionTelcel(code); town             ; district                                 ; country(isocode); postalcode[unique = true]; phone1          ; externalNumber           ; interiorNumber                        ; owner(PointOfService.name)[unique = true]
+                     ; warehouse_telcel     ; MX-CMX         ; 1-1-22 Kita 7 Jonishi      ;                                                    ;        ;                   ; Sapporo          ;                                          ; MX              ; 060-0807                 ; +81 11 737 8222 ; SN                       ;                                       ; warehouse_telcel
+                     ; VL01_Guadalajara     ; MX-JAL         ; VL01_Guadalajara    M501   ; Av. Camino al Iteso                                ; M501   ; MX05              ; Tlaquepaque      ; El Mante                                 ; MX              ; 45080                    ;                 ; 8499                     ; Parque Industrial El Bosque 2, nave 4 ; VL01_Guadalajara
+                     ; CD01_Guadalajara     ; MX-JAL         ; CD01_Guadalajara    M524   ; Av. Camino al Iteso                                ; M524   ; MX05              ; Tlaquepaque      ; El Mante                                 ; MX              ; 45080                    ;                 ; 8499                     ; Parque Industrial El Bosque 2, nave 4 ; CD01_Guadalajara
+                     ; CD18_Morelia         ; MX-MCH         ; CD18_Morelia        M539   ; Virrey de Mendoza                                  ; M539   ; MX05              ; Morelia          ; Felix Irieta                             ; MX              ; 58070                    ;                 ; 1660                     ;                                       ; CD18_Morelia
+                     ; CD16_Tepic           ; MX-NAY         ; CD16_Tepic          M553   ; Insurgentes                                        ; M553   ; MX05              ; Tepic            ; Imss                                     ; MX              ; 63119                    ;                 ; 901                      ; A                                     ; CD16_Tepic
+                     ; CD20_Colima          ; MX-COL         ; CD20_Colima         M566   ; Pino Suarez                                        ; M566   ; MX05              ; Colima           ; Fátima                                   ; MX              ; 28050                    ;                 ; 319                      ; B                                     ; CD20_Colima
+                     ; VL01_Hermosillo      ; MX-SON         ; VL01_Hermosillo     M201   ; Blvd. Rosales                                      ; M201   ; MX02              ; Hermosillo       ; Centro                                   ; MX              ; 83000                    ;                 ; 86                       ;                                       ; VL01_Hermosillo
+                     ; CD01_Hermosillo      ; MX-SON         ; CD01_Hermosillo     M201   ; Blvd. Rosales                                      ; M201   ; MX02              ; Hermosillo       ; Centro                                   ; MX              ; 83000                    ;                 ; 86                       ;                                       ; CD01_Hermosillo
+                     ; VL01_Chihuahua       ; MX-CHI         ; VL01_Chihuahua      M349   ; Av. de la Juventud - Luis Donaldo Colosio Murrieta ; M349   ; MX03              ; Chihuahua        ; Las Hacienda IV etapa                    ; MX              ; 31215                    ;                 ; 3512                     ;                                       ; VL01_Chihuahua
+                     ; CD01_Chihuahua       ; MX-CHI         ; CD01_Chihuahua      M349   ; Av. de la Juventud - Luis Donaldo Colosio Murrieta ; M349   ; MX03              ; Chihuahua        ; Las Hacienda IV etapa                    ; MX              ; 31215                    ;                 ; 3512                     ;                                       ; CD01_Chihuahua
+                     ; VL01_Monterrey       ; MX-NL          ; VL01_Monterrey      M415   ; Blvd. Rogelio Cantu Gomez                          ; M415   ; MX04              ; Monterrey        ; Santa María                              ; MX              ; 64650                    ;                 ; 390                      ;                                       ; VL01_Monterrey
+                     ; CD01_Monterrey       ; MX-NL          ; CD01_Monterrey      M415   ; Blvd. Rogelio Cantu Gomez                          ; M415   ; MX04              ; Monterrey        ; Santa María                              ; MX              ; 64650                    ;                 ; 390                      ;                                       ; CD01_Monterrey
+                     ; VL01_Queretaro       ; MX-QRO         ; VL01_Queretaro      M601   ; Av. Epigmenio González                             ; M601   ; MX06              ; Querétaro        ; Conjunto Parques                         ; MX              ; 76158                    ;                 ; 2                        ;                                       ; VL01_Queretaro
+                     ; CD02_Queretaro       ; MX-QRO         ; CD02_Queretaro      M601   ; Av. Epigmenio González                             ; M601   ; MX06              ; Querétaro        ; Conjunto Parques                         ; MX              ; 76158                    ;                 ; 2                        ;                                       ; CD02_Queretaro
+                     ; VL01_Puebla          ; MX-PUE         ; VL01_Puebla         M701   ; Boulevard Norte                                    ; M701   ; MX07              ; Puebla           ; Villas San Alejandro                     ; MX              ; 72090                    ;                 ; 1833                     ;                                       ; VL01_Puebla
+                     ; CD01_Puebla          ; MX-PUE         ; CD01_Puebla         M701   ; Boulevard Norte                                    ; M701   ; MX07              ; Puebla           ; Villas San Alejandro                     ; MX              ; 72090                    ;                 ; 1833                     ;                                       ; CD01_Puebla
+                     ; VL01_Tijuana         ; MX-BC         ; VL01_Tijuana         M101  ; Blvd Sanchez Taboada                               ; M101   ; MX01              ; Tijuana          ; Tijuana                                  ; MX              ; 22320                    ;                 ; 1517                     ;                                       ; VL01_Tijuana
+                     ; CD01_Tijuana         ; MX-BC         ; CD01_Tijuana         M141  ; Valles                                             ; M141   ; MX01              ; Tijuana          ; Tijuana                                  ; MX              ; 22226                    ;                 ; 16551                    ;                                       ; CD01_Tijuana
+                     ; CD04_Villahermosa    ; MX-TAB         ; CD04_Villahermosa   M866   ; AV SAN LORENZO                                     ; M866   ; MX08              ; Centro           ; PARQUE LOGISTICO IND TABASCO 4TA SECCION ; MX              ; 86287                    ;                 ; LT 8 MZ 1 No SN BODEGA 4 ;                                       ; CD04_Villahermosa
+                     ; CD02_Tuxtla          ; MX-CHS         ; CD02_Tuxtla         M805   ; Blvd. Angel Albino Corzo                           ; M805   ; MX08              ; Tuxtla Gutierrez ; Las Palmas                               ; MX              ; 29040                    ;                 ; 2681                     ;                                       ; CD02_Tuxtla
+                     ; CD07_Mochis          ; MX-SIN         ; CD07_Mochis         M214   ; Blvd . Antonio  Rosales                            ; M214   ; MX02              ; Ahome            ; Miguel Hidalgo                           ; MX              ; 81210                    ;                 ; 2705 nte                 ;                                       ; CD07_Mochis
+                     ; CD06_Culiacan        ; MX-SIN         ; CD06_Culiacan       M207   ; Cristobal Colón                                    ; M207   ; MX02              ; Culiacán         ; Las Vegas                                ; MX              ; 80090                    ;                 ; 965 ote                  ;                                       ; CD06_Culiacan
+                     ; RU04_Torreon         ; MX-COA         ; RU04_Torreon        M351   ; Carr. a San Agustin                                ; M351   ; MX03              ; Torreon          ; Fracc. San Agustin                       ; MX              ; 27013                    ;                 ; 123                      ; 5                                     ; RU04_Torreon
+                     ; CD03_Torreon         ; MX-COA         ; CD03_Torreon        M351   ; Carr. a San Agustin                                ; M351   ; MX03              ; Torreon          ; Fracc. San Agustin                       ; MX              ; 27013                    ;                 ; 123                      ; 5                                     ; CD03_Torreon
+                     ; RU03_Juarez          ; MX-CHI         ; RU03_Juarez         M310   ; Av. Hermanos Escobar                               ; M310   ; MX03              ; Juarez           ; Fracc. La Playa                          ; MX              ; 32310                    ;                 ; 3515                     ;                                       ; RU03_Juarez
+                     ; CD02_Juarez          ; MX-CHI         ; CD02_Juarez         M310   ; Av. Hermanos Escobar                               ; M310   ; MX03              ; Juarez           ; Fracc. La Playa                          ; MX              ; 32310                    ;                 ; 3515                     ;                                       ; CD02_Juarez
+                     ; CD07_Tampico         ; MX-TMS         ; CD07_Tampico        M452   ; Av Ribera de Champayan                             ; M452   ; MX04              ; Tampico          ; Arenal                                   ; MX              ; 89344                    ;                 ; 107                      ; BODEGA 3                              ; CD07_Tampico
+                     ; CD16_Saltillo        ; MX-COA         ; CD16_Saltillo       M402   ; Blvd Venustiano Carranza                           ; M402   ; MX04              ; Saltillo         ; Villa olimpica                           ; MX              ; 25230                    ;                 ; 3984                     ;                                       ; CD16_Saltillo
+                     ; CD10_Reynosa         ; MX-TMS         ; CD10_Reynosa        M446   ; Blvd Morelos                                       ; M446   ; MX04              ; Reynosa          ; Rodriguez                                ; MX              ; 88630                    ;                 ; 1122                     ;                                       ; CD10_Reynosa
+                     ; CD03_Leon            ; MX-GTO         ; CD03_Leon           M624   ; Blvd. Adolfo López Mateos                          ; M624   ; MX06              ; León             ; El Coecillo                              ; MX              ; 37260                    ;                 ; 1309 Ote.                ;                                       ; CD03_Leon
+                     ; CD04_San_Luis_Potosi ; MX-SLP         ; CD04_San_Luis_Potosi M640  ; Av. Acceso Norte                                   ; M640   ; MX06              ; San Luis Potosí  ; Soledad de Graciano Sánchez              ; MX              ; 78430                    ;                 ; 451                      ;                                       ; CD04_San_Luis_Potosi
+                     ; CD05_Aguascaliente   ; MX-AGS         ; CD05_Aguascaliente  M662   ; Av. Canal Interceptor                              ; M662   ; MX06              ; Aguascalientes   ; Villas de la Universidad                 ; MX              ; 20029                    ;                 ; 415                      ;                                       ; CD05_Aguascaliente
+                     ; CD06_Zacatecas       ; MX-ZAC         ; CD06_Zacatecas      M650   ; Blvd. José López Portillo                          ; M650   ; MX06              ; Zacatecas        ; Indeco                                   ; MX              ; 98610                    ;                 ; 4 Local C                ;                                       ; CD06_Zacatecas
+                     ; CD04_Acapulco        ; MX-GRO         ; CD04_Acapulco       M782   ; Blvd Vicente Guerrero                              ; M782   ; MX07              ; Acapulco         ; Plan De Los Amates                       ; MX              ; 39931                    ;                 ; 205                      ; Fracc 2-2                             ; CD04_Acapulco
+                     ; CD09_Oaxaca          ; MX-OAX         ; CD09_Oaxaca         M790   ; Calz. Cristobal Colon                              ; M790   ; MX07              ; San Pablo Etla   ; San Sebastian Etla                       ; MX              ; 68258                    ;                 ; 101                      ;                                       ; CD09_Oaxaca
+                     ; CD05_Veracruz        ; MX-VER         ; CD05_Veracruz       M780   ; Blvd Paseo Del Puerto                              ; M780   ; MX07              ; Veracruz         ; Nuevo Veracruz                           ; MX              ; 91726                    ;                 ; 1139                     ;                                       ; CD05_Veracruz
+                     ; CD03_CANCUN          ; MX-QR         ; CD03_CANCUN         M821   ; Av. Francisco I Madero                             ; M821   ; MX08              ; BENITO JUAREZ    ; REGION 93                                ; MX              ; 77517                    ;                 ; LOT1 LOC1                ;                                       ; CD03_CANCUN
+                     ; CD05_Tapachula       ; MX-CHS         ; CD05_Tapachula      M821   ; 26 A Poniente                                      ; M821   ; MX08              ; Tapachula        ; Tapachula                                ; MX              ; 30797                    ;                 ; SN                       ;                                       ; CD05_Tapachula
+                     ; CD01_Merida          ; MX-YUC         ; CD01_Merida         M801   ; 31                                                 ; M801   ; MX08              ; Merida           ; Merida                                   ; MX              ; 97128                    ;                 ; 92                       ;                                       ; CD01_Merida
+                     ; VL01_Merida          ; MX-YUC         ; VL01_Merida         M801   ; 31                                                 ; M801   ; MX08              ; Merida           ; Merida                                   ; MX              ; 97128                    ;                 ; 92                       ;                                       ; VL01_Merida
+                     ; VL01_CDMX            ; MX-CMX         ; VL01_CDMX           M901   ; Autopista México-Querétaro Kilómetro 42.5          ; M901   ; MX09              ; Tepotzotlán      ; Pueblo San Pedro                         ; MX              ; 54600                    ;                 ; SN                       ;                                       ; VL01_CDMX
+
+
+INSERT_UPDATE BaseStore; uid[unique = true]; defaultDeliveryOrigin(name); warehouses(code)
+                       ; $storeUid         ; warehouse_telcel           ; warehouse_telcel,VL01_Guadalajara,CD01_Guadalajara,CD18_Morelia,CD16_Tepic,CD20_Colima,VL01_Hermosillo,CD01_Hermosillo,VL01_Chihuahua,CD01_Chihuahua,VL01_Monterrey,CD01_Monterrey,VL01_Queretaro,CD02_Queretaro,VL01_Puebla,CD01_Puebla,VL01_Tijuana,CD01_Tijuana,CD04_Villahermosa,CD02_Tuxtla,CD07_Mochis,RU04_Torreon,CD03_Torreon,RU03_Juarez,CD02_Juarez,CD07_Tampico, CD16_Saltillo,CD03_Leon,CD04_San_Luis_Potosi,CD06_Zacatecas,CD04_Acapulco,CD09_Oaxaca,CD05_Veracruz,CD03_CANCUN,CD05_Tapachula,CD01_Merida,VL01_Merida,VL01_CDMX
