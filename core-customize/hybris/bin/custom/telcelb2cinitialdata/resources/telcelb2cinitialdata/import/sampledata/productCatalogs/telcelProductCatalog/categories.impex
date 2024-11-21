@@ -1,0 +1,623 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing Categories into Telcel Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+$supercategories = source(code, $catalogVersion)[unique=true]
+$categories = target(code, $catalogVersion)[unique=true]
+$allowedPrincipals = allowedPrincipals(uid)[default = 'customergroup']
+
+# Master Category
+INSERT_UPDATE Category; code[unique=true];$allowedPrincipals;$catalogVersion
+                      ;1
+
+# Product Categories
+INSERT_UPDATE Category; code[unique = true]; $allowedPrincipals; $catalogVersion
+                      ; telefonos-y-smartphones
+                      ; tablets
+                      ; vida_conectada
+                      ; amigo_chip
+                      ; internet_movil
+                      ; accesorios
+                      ; renueva_plan
+                      ; amigo_chip
+
+# Product accesorios categories
+INSERT_UPDATE Category ; code[unique = true]; $allowedPrincipals; $catalogVersion
+;audio
+;carga
+;gadgets
+;hogar
+;memorias
+;proteccion
+;rastreadores
+;router
+;soportes
+;tablets_laptops
+;tarjeta_cobro
+;wearables_smartwatch
+;t_audio
+;t_carga
+;t_gadgets
+;t_hogar
+;t_memorias
+;t_proteccion
+;t_rastreadores
+;t_router
+;t_soportes
+;t_tablets_laptops
+;t_tarjeta_cobro
+;t_wearables_smartwatch
+;vc_audio
+;vc_carga
+;vc_gadgets
+;vc_hogar
+;vc_memorias
+;vc_proteccion
+;vc_rastreadores
+;vc_router
+;vc_soportes
+;vc_tablets_laptops
+;vc_tarjeta_cobro
+;vc_wearables_smartwatch
+
+# Product accesorios subcategories
+INSERT_UPDATE Category ; code[unique = true]; $allowedPrincipals; $catalogVersion
+##audio
+;bocinas
+;audiofonos
+##carga
+;cargadores_pared
+;cargagores_inalambricos
+;cables
+;adaptadores_corriente
+;baterias
+;power_bank
+##gadgets
+;bicicletas
+;selfie_stick
+;impresora
+;bascula
+;scooter
+;pluma
+;teclado_gaming
+;audifonos_gaming
+;mouse_gaming
+## hogar
+;camaras
+;aspirador
+;caja_inteligente
+;kit_sensores
+;focos_inteligentes
+;purificador__aire
+;lampara_nocturna
+;monitor_temperatura
+## memorias
+;micro_sd
+;16gb
+;32gb
+;64gb
+## proteccion
+;cases
+;fundas
+;micas
+## rastreadores
+;cellocator
+;obd_zte
+;concox
+;trackers
+## router
+;router_wifi
+;mesh_wifi
+## soportes
+;soportes_celular
+;bicicleta
+## tablets_laptops
+;tablets_wifi
+;laptops_wifi
+## tarjeta_cobro
+;billpocket
+## wearables_smartwatch
+;wearables_bt
+;wearables_iot
+;bandas
+##audio
+;t_bocinas
+;t_audiofonos
+##carga
+;t_cargadores_pared
+;t_cargagores_inalambricos
+;t_cables
+;t_adaptadores_corriente
+;t_baterias
+;t_power_bank
+##gadgets
+;t_bicicletas
+;t_selfie_stick
+;t_impresora
+;t_bascula
+;t_scooter
+;t_pluma
+;t_teclado_gaming
+;t_audifonos_gaming
+;t_mouse_gaming
+## hogar
+;t_camaras
+;t_aspirador
+;t_caja_inteligente
+;t_kit_sensores
+;t_focos_inteligentes
+;t_purificador__aire
+;t_lampara_nocturna
+;t_monitor_temperatura
+## memorias
+;t_micro_sd
+;t_16gb
+;t_32gb
+;t_64gb
+## proteccion
+;t_cases
+;t_fundas
+;t_micas
+## rastreadores
+;t_cellocator
+;t_obd_zte
+;t_concox
+;t_trackers
+## router
+;t_router_wifi
+;t_mesh_wifi
+## soportes
+;t_soportes_celular
+;t_bicicleta
+## tablets_laptops
+;t_tablets_wifi
+;t_laptops_wifi
+## tarjeta_cobro
+;t_billpocket
+## wearables_smartwatch
+;t_wearables_bt
+;t_wearables_iot
+;t_bandas
+##audio
+;vc_bocinas
+;vc_audiofonos
+##carga
+;vc_cargadores_pared
+;vc_cargagores_inalambricos
+;vc_cables
+;vc_adaptadores_corriente
+;vc_baterias
+;vc_power_bank
+##gadgets
+;vc_bicicletas
+;vc_selfie_stick
+;vc_impresora
+;vc_bascula
+;vc_scooter
+;vc_pluma
+;vc_teclado_gaming
+;vc_audifonos_gaming
+;vc_mouse_gaming
+## hogar
+;vc_camaras
+;vc_aspirador
+;vc_caja_inteligente
+;vc_kit_sensores
+;vc_focos_inteligentes
+;vc_purificador__aire
+;vc_lampara_nocturna
+;vc_monitor_temperatura
+## memorias
+;vc_micro_sd
+;vc_16gb
+;vc_32gb
+;vc_64gb
+## proteccion
+;vc_cases
+;vc_fundas
+;vc_micas
+## rastreadores
+;vc_cellocator
+;vc_obd_zte
+;vc_concox
+;vc_trackers
+## router
+;vc_router_wifi
+;vc_mesh_wifi
+## soportes
+;vc_soportes_celular
+;vc_bicicleta
+## tablets_laptops
+;vc_tablets_wifi
+;vc_laptops_wifi
+## tarjeta_cobro
+;vc_billpocket
+## wearables_smartwatch
+;vc_wearables_bt
+;vc_wearables_iot
+;vc_bandas
+
+# Insert Category Structure
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;telefonos-y-smartphones;1
+;tablets;1
+;vida_conectada;1
+;amigo_chip;1
+;internet_movil;1
+;accesorios;1
+;renueva_plan;1
+;amigo_chip;1
+## accesorios subcategorias
+;audio;accesorios
+;bocinas;audio
+;audiofonos;audio
+;carga;accesorios
+;cargadores_pared;carga
+;cargagores_inalambricos;carga
+;cables;carga
+;adaptadores_corriente;carga
+;baterias;carga
+;power_bank;carga
+;gadgets;accesorios
+; bicicletas;gadgets
+; selfie_stick;gadgets
+; impresora;gadgets
+; bascula;gadgets
+; scooter;gadgets
+; pluma;gadgets
+; teclado_gaming;gadgets
+; audifonos_gaming;gadgets
+; mouse_gaming;gadgets
+;hogar;accesorios
+; camaras;hogar
+; aspirador;hogar
+; caja_inteligente;hogar
+; kit_sensores;hogar
+; focos_inteligentes;hogar
+; purificador__aire;hogar
+; lampara_nocturna;hogar
+; monitor_temperatura;hogar
+;memorias;accesorios
+; micro_sd;memorias
+; 16gb;memorias
+; 32gb;memorias
+; 64gb;memorias
+;proteccion;accesorios
+; cases;proteccion
+; fundas;proteccion
+; micas;proteccion
+;rastreadores;accesorios
+; cellocator;rastreadores
+; obd_zte;rastreadores
+; concox;rastreadores
+; trackers;rastreadores
+;router;accesorios
+; router_wifi;router
+; mesh_wifi;router
+;soportes;accesorios
+; soportes_celular;soportes
+; bicicleta;soportes
+; tablets_laptops;accesorios
+; tablets_wifi; tablets_laptops
+; laptops_wifi; tablets_laptops
+; tarjeta_cobro; tablets_laptops
+; billpocket; tablets_laptops
+; wearables_smartwatch;accesorios
+; wearables_bt; wearables_smartwatch
+; wearables_iot; wearables_smartwatch
+; bandas; wearables_smartwatch
+## tablets subcategorias
+;t_audio;tablets
+;t_bocinas;t_audio
+;t_audiofonos;t_audio
+;t_carga;tablets
+;t_cargadores_pared;t_carga
+;t_cargagores_inalambricos;t_carga
+;t_cables;t_carga
+;t_adaptadores_corriente;t_carga
+;t_baterias;t_carga
+;t_power_bank;t_carga
+;t_gadgets;tablets
+;t_bicicletas;t_gadgets
+;t_selfie_stick;t_gadgets
+;t_impresora;t_gadgets
+;t_bascula;t_gadgets
+;t_scooter;t_gadgets
+;t_pluma;t_gadgets
+;t_teclado_gaming;t_gadgets
+;t_audifonos_gaming;t_gadgets
+;t_mouse_gaming;t_gadgets
+;t_hogar;tablets
+;t_camaras;t_hogar
+;t_aspirador;t_hogar
+;t_caja_inteligente;t_hogar
+;t_kit_sensores;t_hogar
+;t_focos_inteligentes;t_hogar
+;t_purificador__aire;t_hogar
+;t_lampara_nocturna;t_hogar
+;t_monitor_temperatura;t_hogar
+;t_memorias;tablets
+;t_micro_sd;t_memorias
+;t_16gb;t_memorias
+;t_32gb;t_memorias
+;t_64gb;t_memorias
+;t_proteccion;tablets
+;t_cases;t_proteccion
+;t_fundas;t_proteccion
+;t_micas;t_proteccion
+;t_rastreadores;tablets
+;t_cellocator;t_rastreadores
+;t_obd_zte;t_rastreadores
+;t_concox;t_rastreadores
+;t_trackers;t_rastreadores
+;t_router;tablets
+;t_router_wifi;t_router
+;t_mesh_wifi;t_router
+;t_soportes;tablets
+;t_soportes_celular;t_soportes
+;t_bicicleta;t_soportes
+;t_tablets_laptops;tablets
+;t_tablets_wifi;t_tablets_laptops
+;t_laptops_wifi;t_tablets_laptops
+;t_tarjeta_cobro;t_tablets_laptops
+;t_billpocket;t_tablets_laptops
+;t_wearables_smartwatch;tablets
+;t_wearables_bt;t_wearables_smartwatch
+;t_wearables_iot;t_wearables_smartwatch
+;t_bandas;t_wearables_smartwatch
+## vida_conectada subcategorias
+;vc_audio;vida_conectada
+;vc_bocinas;vc_audio
+;vc_audiofonos;vc_audio
+;vc_carga;vida_conectada
+;vc_cargadores_pared;vc_carga
+;vc_cargagores_inalambricos;vc_carga
+;vc_cables;vc_carga
+;vc_adaptadores_corriente;vc_carga
+;vc_baterias;vc_carga
+;vc_power_bank;vc_carga
+;vc_gadgets;vida_conectada
+;vc_bicicletas;vc_gadgets
+;vc_selfie_stick;vc_gadgets
+;vc_impresora;vc_gadgets
+;vc_bascula;vc_gadgets
+;vc_scooter;vc_gadgets
+;vc_pluma;vc_gadgets
+;vc_teclado_gaming;vc_gadgets
+;vc_audifonos_gaming;vc_gadgets
+;vc_mouse_gaming;vc_gadgets
+;vc_hogar;vida_conectada
+;vc_camaras;vc_hogar
+;vc_aspirador;vc_hogar
+;vc_caja_inteligente;vc_hogar
+;vc_kit_sensores;vc_hogar
+;vc_focos_inteligentes;vc_hogar
+;vc_purificador__aire;vc_hogar
+;vc_lampara_nocturna;vc_hogar
+;vc_monitor_temperatura;vc_hogar
+;vc_memorias;vida_conectada
+;vc_micro_sd;vc_memorias
+;vc_16gb;vc_memorias
+;vc_32gb;vc_memorias
+;vc_64gb;vc_memorias
+;vc_proteccion;vida_conectada
+;vc_cases;vc_proteccion
+;vc_fundas;vc_proteccion
+;vc_micas;vc_proteccion
+;vc_rastreadores;vida_conectada
+;vc_cellocator;vc_rastreadores
+;vc_obd_zte;vc_rastreadores
+;vc_concox;vc_rastreadores
+;vc_trackers;vc_rastreadores
+;vc_router;vida_conectada
+;vc_router_wifi;vc_router
+;vc_mesh_wifi;vc_router
+;vc_soportes;vida_conectada
+;vc_soportes_celular;vc_soportes
+;vc_bicicleta;vc_soportes
+;vc_tablets_laptops;vida_conectada
+;vc_tablets_wifi;vc_tablets_laptops
+;vc_laptops_wifi;vc_tablets_laptops
+;vc_tarjeta_cobro;vc_tablets_laptops
+;vc_billpocket;vc_tablets_laptops
+;vc_wearables_smartwatch;vida_conectada
+;vc_wearables_bt;vc_wearables_smartwatch
+;vc_wearables_iot;vc_wearables_smartwatch
+;vc_bandas;vc_wearables_smartwatch
+
+INSERT_UPDATE VariantCategory; code[unique = true]; supercategories(code, $catalogVersion); hasImage; $allowedPrincipals; $catalogVersion
+                             ; color              ;                                      ; true    ;
+                             ; storage_size       ; color                                ; false   ;
+
+INSERT_UPDATE VariantValueCategory; code[unique = true]; colorCode; supercategories(code, $catalogVersion); sequence;$allowedPrincipals; $catalogVersion
+;transparent;#FFFFFF;color;1
+;ALPINE GREEN;#005C53;color;2
+;AMARILLO;#fbba19;color;3
+;AMIGO;;color;4
+;AQUA;#2fa2ad;color;5
+;ARENA;#c39c65;color;6
+;AZUL;#5C96D6;color;7
+;AZUL /AQUA;#5C96D6;color;8
+;AZUL CLARO;#B9D6EA;color;9
+;AZUL GLACIAR;#7B878F;color;10
+;AZUL LIGHT;#437bf5;color;11
+;AZUL MARINO;#242d4f;color;12
+;AZUL RELOJ;#242d4f;color;13
+;AZUL/NARAN;#5C96D6;color;14
+;AZUL/NARANJA;#5C96D6;color;15
+;AZUL/PLATA;#5C96D6;color;16
+;BCO/FASHIO;#ffffff;color;17
+;BCO/ROS+VR;#ffffff;color;18
+;BEIGE;#fde8c9;color;19
+;BLACK;#000000;color;20
+;BLACK PEARL;#000316;color;21
+;BLANCO;#e8e8e8;color;22
+;BLANCO VER;#ffffff;color;23
+;BLANCO VERDE;#ffffff;color;24
+;BLANCO/AZU;#e8e8e8;color;25
+;BLANCO/BLA;#e8e8e8;color;26
+;BLANCO/LAV;#e8e8e8;color;27
+;BLANCO/MOR;#e8e8e8;color;28
+;BLANCO/NAR;#e8e8e8;color;29
+;BLANCO/NEG;#e8e8e8;color;30
+;BLANCO/PLA;#e8e8e8;color;31
+;BLANCO/ROJ;#e8e8e8;color;32
+;BLANCO/ROJO;#e8e8e8;color;33
+;BLANCO/ROS;#e8e8e8;color;34
+;BLUE;#5C96D6;color;35
+;BRONCE;;color;36
+;CAFE;#71522B;color;37
+;CANDY RED;#cc356a;color;38
+;COBRE;#c77962;color;39
+;CORAL;#fe4e37;color;40
+;CROMO;#bebebe;color;41
+;DATOS;;color;42
+;DEV KIT;;color;43
+;DORADO;#B99919;color;44
+;DORADO/BLA;#B99919;color;45
+;DORADO/BLANCO;#B99919;color;46
+;DURANZO CLARO;#F2D2B3;color;47
+;DURAZNO;#f2ad86;color;48
+;EPN;;color;49
+;ESP;;color;50
+;ESPECIAL;;color;51
+;ESTANDAR F;;color;52
+;ESTANDAR I;;color;53
+;EVAL;;color;54
+;FIJA;;color;55
+;FUCSIA;#c20073;color;56
+;GENERICO;#7B7B7B;color;57
+;GOLD;#ceb559;color;58
+;GRAFITO;#383428;color;59
+;GRAPHITE;#4a4a4a;color;60
+;GREEN;#97c153;color;61
+;GREEN LIGH;#7F9D4E;color;62
+;GRIS;#7B7B7B;color;63
+;GRIS ESP;#7B7B7B;color;64
+;GRIS ESPECIAL;#7B7B7B;color;65
+;GRIS/NEGRO;#7B7B7B;color;66
+;GRIS/ROSA;;color;67
+;GRIS/VERDE;#7B7B7B;color;68
+;HOT PINK;#901d51;color;69
+;JET BLACK;#21242c;color;70
+;LAVANDA;#b57edc;color;71
+;LILA;#b57edc;color;72
+;LIMA;#e4ff00;color;73
+;LIQUIDBLUE;#8d9dff;color;74
+;M2M;;color;75
+;MENTA;#53ca98;color;76
+;MICRO;#7B7B7B;color;77
+;MIDNIGHT;#7B7B7B;color;78
+;MIDNIGHT G;#7B7B7B;color;79
+;MIDNIGHT GRAY;#7B7B7B;color;80
+;MOKA;#967b6a;color;81
+;MORADO;#6F44CB;color;82
+;NANO;;color;83
+;NARANJA;#FF8A00;color;84
+;NEG/PTA+VR;#000000;color;85
+;NEGRO;#000316;color;86
+;NEGRO BRILLANTE;#000316;color;87
+;NEGRO GRAFITO;#1F1e19;color;88
+;NEGRO/AMAR;#000316;color;89
+;NEGRO/AZUL;#5C96D6;color;90
+;NEGRO/BLAN;#000316;color;91
+;NEGRO/DORA;#000316;color;92
+;NEGRO/DORADO;#000316;color;93
+;NEGRO/GRAF;#000316;color;94
+;NEGRO/GRIS;#000316;color;95
+;NEGRO/MARR;#000316;color;96
+;NEGRO/NARA;#000316;color;97
+;NEGRO/PLAT;#000316;color;98
+;NEGRO/ROJO;#000316;color;99
+;NEGRO/ROSA;#000316;color;100
+;NEGRO/TITA;#000316;color;101
+;ORO ROSA;#EF688A;color;102
+;OTRO;#FFFFF;color;103
+;P BLUE;#5C96D6;color;104
+;PEACH LIGH;#f2ad86;color;105
+;PINK;#F6BFD9;color;106
+;PLATA;#CCCCCCC;color;107
+;PLATA/NEGR;#CCCCCCC;color;108
+;PLATINO;#bebebe;color;109
+;PORTA;;color;110
+;PROMO;;color;111
+;PURPLE;#6F44CB;color;112
+;PURPURA;#6F44CB;color;113
+;RED;#ff0404;color;114
+;ROJO;#FF4500;color;115
+;ROJO/NEGRO;#FF4500;color;116
+;ROSA;#EF688A;color;117
+;ROSA PASTE;#EF688A;color;118
+;ROSA/BLANC;#EF688A;color;119
+;ROSA/DORAD;#EF688A;color;120
+;ROSA/DORADO;#EF688A;color;121
+;ROSA/PLATA;#EF688A;color;122
+;ROSE GOLD;#EF688A;color;123
+;SIERRA BLU;#90B6D0;color;124
+;SIERRA BLUE;#90B6D0;color;125
+;SILVER;#CCCCCCC;color;126
+;SKY BLUE;#003399;color;127
+;SPACE GRAY;#313131;color;128
+;STARLIGHT;#F7E6E3;color;129
+;TIP;;color;130
+;TITANIUM;#4a4341;color;131
+;TPR;;color;132
+;TRICOLOR;#161616;color;133
+;TURQUESA;#35b6d0;color;134
+;VERDE;#549D54;color;135
+;VERDE AURORA;#009CAC;color;136
+;VERDE CLARO;#7CCD7C;color;137
+;VERDE METAL;#7F9D4E;color;138
+;VERDE/META;#549D54;color;139
+;VINO;#5d000e;color;140
+;VINO/PLATA;#5d000e;color;150
+;VIOLETA;#422950;color;151
+;WHITE;#eaeaea;color;152
+;WHITE PLAT;#eaeaea;color;153
+;YELLOW;#f0ef9b;color;154
+;ÚNICO;;color;155
+
+INSERT_UPDATE VariantValueCategory; code[unique = true]; supercategories(code, $catalogVersion); sequence; $allowedPrincipals; $catalogVersion
+; 16GB  ; storage_size; 1 ;
+; 32GB  ; storage_size; 2 ;
+; 64GB  ; storage_size; 3 ;
+; 128GB ; storage_size; 4 ;
+; 256GB ; storage_size; 5 ;
+; 1TB   ; storage_size; 6 ;
+; 16KB  ; storage_size; 7 ;
+; 32KB  ; storage_size; 8 ;
+; 64KB  ; storage_size; 9 ;
+; 128KB ; storage_size; 10 ;
+; 256KB ; storage_size; 11 ;
+; 16MB  ; storage_size; 12 ;
+; 32MB  ; storage_size; 13;
+; 64MB  ; storage_size; 14;
+; 128MB ; storage_size; 15 ;
+; 256MB ; storage_size; 16 ;
+; 512GB  ; storage_size; 17 ;
+; 512MB  ; storage_size; 18 ;
+; 512KB  ; storage_size; 19 ;
+; 12GB  ; storage_size; 20 ;
+; 12MB  ; storage_size; 21 ;
+; 12KB  ; storage_size; 22 ;
+; 8GB  ; storage_size; 23 ;
+; 8MB  ; storage_size; 24 ;
+; 8KB  ; storage_size; 25 ;
+; 4GB  ; storage_size; 26 ;
+; 4MB  ; storage_size; 27 ;
+; 4KB  ; storage_size; 28 ;
+; 2GB  ; storage_size; 29 ;
+; 2MB  ; storage_size; 30 ;
+; 2KB  ; storage_size; 31 ;
+; NA  ; storage_size; 32 ;
+; 1GB  ; storage_size; 33 ;
+; 1MB  ; storage_size; 34 ;
+; 1KB  ; storage_size; 35 ;
+; 116GB  ; storage_size; 36 ;
+; 116MB  ; storage_size; 37 ;
+; 116KB  ; storage_size; 38 ;
