@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/>
+
+	<!-- Order Process Actions -->
+	<bean id="replacementCheckOrderAction" class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.CheckOrderAction"  parent="abstractAction">
+		<property name="checkOrderService" ref="checkOrderService"/>
+	</bean>
+
+	<bean id="replacementSentToERPAction" class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.SentToERPAction"  parent="abstractAction" >
+		<property name="telcelOrderService" ref="telcelOrderService" />
+	</bean>
+
+	<bean id="replacementUpdatePaymentAction" class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.UpdatePaymentAction"  parent="abstractAction"/>
+
+	<bean id="replacementContinueAllConsignmentAction" class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.ContinueAllConsignmentAction"  parent="abstractAction">
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="replacementSubprocessesCompletedAction" class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.SubprocessesCompletedAction"  parent="abstractAction"/>
+
+	<bean id="replacementSetOrderExpirationTimeAction" class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.SetOrderExpirationTimeAction"  parent="abstractAction">
+		<property name="timeService" ref="timeService"/>
+	</bean>
+
+	<bean id="replacementSendOrderCompletedNotificationAction" class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.SendOrderCompletedNotificationAction"  parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+	
+	<bean id="replacementActualizarPagoMQAction" 
+	    class="mx.com.telcel.fulfilmentprocess.actions.order.replacement.ReplacementActualizarPagoMQAction"  
+	    parent="abstractAction"/>
+
+</beans>
