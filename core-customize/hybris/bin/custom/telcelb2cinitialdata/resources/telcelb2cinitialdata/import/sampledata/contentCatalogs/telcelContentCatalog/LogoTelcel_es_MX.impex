@@ -1,0 +1,31 @@
+# Language
+$lang=es_MX
+$contentCatalog=telcelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+
+$picture=media(code, $contentCV)
+
+INSERT_UPDATE Media;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+; telcel_logo         ; $siteResource\Header_Logo-header.png ;Header_Logo-header.png;;
+; telcel_logo_footer  ; $siteResource\Footer_Logo.png ;Footer_Logo.png;;
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;SiteLogoComponent      ; telcel_logo
+;;SiteLogoFooterComponent; telcel_logo_footer
+
+# Language
+$lang=es_MX
+$contentCatalog=telcelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+#$siteResource=jar:mx.totalplay.initialdata.setup.InitialDataSystemSetup&/totalplayinitialdata/import/sampledata/contentCatalogs/totalplayContentCatalog
+$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+$picture=media(code, $contentCV)
+
+INSERT_UPDATE Media;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+; telcel_logo  ; $siteResource\Header_Logo-header.png ;Header_Logo-header.png;;
+; telcel_logo_footer  ; $siteResource\Footer_Logo.png ;Footer_Logo.png;;
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;SiteLogoComponent      ; telcel_logo
+;;SiteLogoFooterComponent; telcel_logo_footer
