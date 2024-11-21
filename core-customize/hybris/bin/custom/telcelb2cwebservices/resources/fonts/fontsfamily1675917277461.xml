@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+	<fontFamily name="Source Sans Pro Black">
+		<normal><![CDATA[fonts/SourceSansProBlack/SourceSansPro-Black.ttf]]></normal>
+		<italic><![CDATA[fonts/SourceSansProBlack/SourceSansPro-BlackItalic.ttf]]></italic>
+		<pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+	</fontFamily>
+	<fontFamily name="Source Sans Pro">
+		<normal><![CDATA[fonts/SourceSansPro/SourceSansPro-Regular.ttf]]></normal>
+		<bold><![CDATA[fonts/SourceSansPro/SourceSansPro-Bold.ttf]]></bold>
+		<italic><![CDATA[fonts/SourceSansPro/SourceSansPro-Italic.ttf]]></italic>
+		<boldItalic><![CDATA[fonts/SourceSansPro/SourceSansPro-BoldItalic.ttf]]></boldItalic>
+		<pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+	</fontFamily>
+	<fontFamily name="Source Sans Pro ExtraLight">
+		<normal><![CDATA[fonts/SourceSansProExtraLight/SourceSansPro-ExtraLight.ttf]]></normal>
+		<italic><![CDATA[fonts/SourceSansProExtraLight/SourceSansPro-ExtraLightItalic.ttf]]></italic>
+		<pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+	</fontFamily>
+	<fontFamily name="Source Sans Pro Light">
+		<normal><![CDATA[fonts/SourceSansProLight/SourceSansPro-Light.ttf]]></normal>
+		<italic><![CDATA[fonts/SourceSansProLight/SourceSansPro-LightItalic.ttf]]></italic>
+		<pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+	</fontFamily>
+	<fontFamily name="Source Sans Pro Semibold">
+		<normal><![CDATA[fonts/SourceSansProSemibold/SourceSansPro-Semibold.ttf]]></normal>
+		<italic><![CDATA[fonts/SourceSansProSemibold/SourceSansPro-SemiboldItalic.ttf]]></italic>
+		<pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+	</fontFamily>
+	<fontFamily name="Source Serif Pro">
+		<normal><![CDATA[fonts/SourceSerifPro/SourceSerifPro-Regular.ttf]]></normal>
+		<bold><![CDATA[fonts/SourceSerifPro/SourceSerifPro-Bold.ttf]]></bold>
+		<pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+	</fontFamily>
+	<fontFamily name="Source Serif Pro Semibold">
+		<normal><![CDATA[fonts/SourceSerifProSemibold/SourceSerifPro-Semibold.ttf]]></normal>
+		<pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+	</fontFamily>
+</fontFamilies>
