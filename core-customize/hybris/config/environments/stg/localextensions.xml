@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hybrisconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../bin/platform/resources/schemas/extensions.xsd">
+    <extensions>
+        <!--
+                        All extensions located in ${HYBRIS_BIN_DIR}/platform/ext are automatically loaded.
+                        More information about how to configure available extensions can be found here : https://wiki.hybris.com/x/nZVzC
+        -->
+        <path dir="${HYBRIS_BIN_DIR}"/>
+        <extension name="acceleratorcms"/>
+        <extension name="addonsupport"/>
+        <extension name="adaptivesearchbackoffice"/>
+        <extension name="adaptivesearchsolr"/>
+        <extension name="b2ctelcobackoffice"/>
+        <extension name="b2ctelcocms"/>
+        <extension name="b2ctelcowebservices"/>
+        <extension name="b2ctelcocommercewebservicescommons"/>
+        <extension name="b2ctelcoserviceabilityclient"/>
+        <extension name="telcelb2cbackoffice"/>
+        <extension name="telcelb2cfulfilmentprocess"/>
+        <extension name="telcelb2ccore"/>
+        <extension name="telcelb2cfacades"/>
+        <extension name="telcelb2cinitialdata"/>
+        <extension name="telcelb2cwebservices"/>
+        <extension name="telcelb2ctest"/>
+        <extension name="telb2cocc"/>
+        <extension name="telcelintegration" />
+        <extension name="commerceservicesbackoffice"/>
+        <extension name="solrfacetsearchbackoffice"/>
+        <extension name="solrserver"/>
+        <extension name="subscriptionbackoffice"/>
+        <extension name="cmsbackoffice"/>
+        <extension name="cmswebservices"/>
+        <extension name="smarteditwebservices"/>
+        <extension name="cmssmarteditwebservices"/>
+        <extension name="cmssmartedit"/>
+        <extension name="backofficesolrsearch"/>
+        <extension name="personalizationwebservices"/>
+        <extension name="previewpersonalizationweb"/>
+        <extension name="personalizationcmsweb"/>
+        <extension name="personalizationsmartedit"/>
+        <extension name="personalizationservicesbackoffice"/>
+        <extension name="personalizationcmsbackoffice"/>
+        <extension name="personalizationservices"/>
+        <extension name="personalizationfacades"/>
+        <extension name="assistedservicefacades"/>
+        <extension name="rulebuilderbackoffice"/>
+        <extension name="couponbackoffice"/>
+        <extension name="droolsruleengineservices"/>
+        <extension name="couponfacades"/>
+        <extension name="couponservices"/>
+        <extension name="ordermanagementfacades"/>
+        <extension name="ordermanagementwebservices"/>
+        <extension name="customersupportbackoffice"/>
+        <extension name="mediaconversion" />
+        <extension name="mediaconversionbackoffice" />
+        <extension name="stocknotificationfacades" />
+        <extension name="stocknotificationfacades" />
+        <extension name="stocknotificationservices" />
+        <extension name="notificationservices" />
+        <extension name="notificationfacades" />
+        <extension name='customerinterestsfacades' />
+        <extension name='customerinterestsocc' />
+        <extension name="notificationocc" />
+        <extension name='warehousingwebservices' />
+        <extension name='warehousingbackoffice' />
+        <extension name='warehousing' />
+        <extension name="examplehac"/>
+        <extension name="samlssobackoffice"/>
+        <extension name="samlsinglesignon"/>
+        <extension name="ldap"/>
+		<extension name="y2ysync"/>
+        <extension name="telcelsamlsinglesignon"/>
+        <extension dir="${HYBRIS_BIN_DIR}/custom/commercewebservices"/>
+        <extension dir="${HYBRIS_BIN_DIR}/custom/acceleratorocc"/>
+        <extension dir="${HYBRIS_BIN_DIR}/custom/acceleratorservices"/>
+		<extension dir="${HYBRIS_BIN_DIR}/custom/cmsocc"/>
+        <webapp contextroot="jolokia" path="${HYBRIS_BIN_DIR}/webapps/jolokia-1.6.2.war"/>
+    </extensions>
+</hybrisconfig>
