@@ -1,0 +1,63 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Update the Product Catalog Sync Job
+#
+
+$productCatalog = telcelProductCatalog
+$syncJob = sync $productCatalog:Staged->Online
+
+INSERT_UPDATE CatalogVersionSyncJob; code[unique = true]; syncPrincipalsOnly; priority; active[default = true]; sourceVersion(catalog(id), version)[unique = true]; targetVersion(catalog(id), version)[unique = true];
+                                   ; $syncJob           ; false             ; 4       ;                       ; $productCatalog:Staged                            ; $productCatalog:Online                            ;
+
+UPDATE CatalogVersionSyncJob; code[unique = true]                 ; roottypes(code)[mode = append]    ;
+                            ; sync $productCatalog:Staged->Online ; TmaProductSpecification           ;
+                            ; sync $productCatalog:Staged->Online ; TmaProductSpecCharacteristic      ;
+                            ; sync $productCatalog:Staged->Online ; TmaProductSpecCharacteristicValue ;
+                            ; sync $productCatalog:Staged->Online ; TmaProductOfferingGroup           ;
+                            ; sync $productCatalog:Staged->Online ; TmaCompatibilityPolicy            ;
+                            ; sync $productCatalog:Staged->Online ; TmaBpoPreConfig                   ;
+# From telco Store
+                            ; sync $productCatalog:Staged->Online ; Category                          ;
+                            ; sync $productCatalog:Staged->Online ; Product                           ;
+                            ; sync $productCatalog:Staged->Online ; TmaBundledProdOfferOption         ;
+                            ; sync $productCatalog:Staged->Online ; TmaPolicyAction                   ;
+                            ; sync $productCatalog:Staged->Online ; TmaPolicyCondition                ;
+                            ; sync $productCatalog:Staged->Online ; TmaPolicyStatement                ;
+                            ; sync $productCatalog:Staged->Online ; TmaProductOfferingPrice           ;
+                            ; sync $productCatalog:Staged->Online ; TmaServiceSpecCharacteristic      ;
+                            ; sync $productCatalog:Staged->Online ; TmaServiceSpecCharacteristicValue ;
+                            ; sync $productCatalog:Staged->Online ; TmaServiceSpecification           ;
+                            ; sync $productCatalog:Staged->Online ; TmaUsageSpecification             ;
+                            ; sync $productCatalog:Staged->Online ; Media                             ;
+                            ; sync $productCatalog:Staged->Online ; Keyword                           ;
+                            ; sync $productCatalog:Staged->Online ; TaxRow                            ;
+                            ; sync $productCatalog:Staged->Online ; PriceRow                          ;
+                            ; sync $productCatalog:Staged->Online ; DiscountRow                       ;
+                            ; sync $productCatalog:Staged->Online ; MediaContainer                    ;
+                            ; sync $productCatalog:Staged->Online ; AbstractAsSearchProfile           ;
+                            ; sync $productCatalog:Staged->Online ; AbstractAsSearchConfiguration     ;
+                            ; sync $productCatalog:Staged->Online ; AbstractAsItemConfiguration       ;
+                            ; sync $productCatalog:Staged->Online ; AsSearchProfileActivationSet      ;
+                            ; sync $productCatalog:Staged->Online ; CMSItem                           ;
+                            ; sync $productCatalog:Staged->Online ; CMSRelation                       ;
+                            ; sync $productCatalog:Staged->Online ; CxCustomizationsGroup             ;
+                            ; sync $productCatalog:Staged->Online ; CxCustomization                   ;
+                            ; sync $productCatalog:Staged->Online ; CxVariation                       ;
+                            ; sync $productCatalog:Staged->Online ; CxAbstractTrigger                 ;
+                            ; sync $productCatalog:Staged->Online ; CxAbstractAction                  ;
+
+# Enable synchronization of refered conditions and actions when synchronizing a compatibility policy
+INSERT_UPDATE SyncAttributeDescriptorConfig; syncJob(code)[unique = true]         ; attributeDescriptor(enclosingType(code), qualifier)[unique = true]; copyByValue
+                                           ; sync $productCatalog\:Staged->Online ; TmaCompatibilityPolicy:conditions                                 ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaCompatibilityPolicy:actions                                    ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaPolicyCondition:statement                                      ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaCompositePolicyCondition:children                              ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaPolicyAction:statement                                         ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaProductOffering:productSpecCharacteristicValues                ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaProductOffering:productSpecification                           ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaProductSpecification:productSpecCharacteristics                ; true
+                                           ; sync $productCatalog\:Staged->Online ; TmaProductSpecCharacteristic:productSpecCharacteristicValues      ; true
+
