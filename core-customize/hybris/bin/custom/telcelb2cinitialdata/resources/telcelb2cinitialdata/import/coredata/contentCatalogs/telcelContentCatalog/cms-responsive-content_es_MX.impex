@@ -1,0 +1,51 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import CMS content for the Responsive telcospa site
+#
+
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Language
+$lang = es_MX
+
+# Functional Content Pages
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]          ; name               ; masterTemplate(uid, $contentCV)  ; label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false']
+                         ;                          ; guidedselling-select-device ; Select Device Page ; BundleSelectionAddOnPageTemplate ; guidedselling-select-device
+
+# Content Pages
+UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]                   ; title[lang = $lang]													;description[lang = $lang]
+                  ;                          ; add-edit-address                     ; "Agregar / editar dirección | Telcel"									;
+                  ;                          ; address-book                         ; "Libreta de direcciones | Telcel"                                      			;
+                  ;                          ; cartPage                             ; "Tu carrito de compra | Telcel"                         				;
+                  ;                          ; checkout-login                       ; "Compra como invitado | Telcel"                               			;
+                  ;                          ; faq                                  ; "Preguntas frecuentes | Telcel"                            			;
+                  ;                          ; homepage                             ; "Telcel Tienda en línea - Encuentra los mejores equipos | Telcel"     ;Ofrecemos el catálogo de celulares y smartphones más completo del mercado. Explora, compra y descubre cuál es el ideal para ti y tu bolsillo.
+                  ;                          ; login                                ; "Acceso | Telcel"                                          			;
+                  ;                          ; multiStepCheckoutSummaryPage         ; "Verificar | Telcel"                                       			;
+                  ;                          ; notFound                             ; "Extraviado | Telcel"                                      			;
+                  ;                          ; order                                ; "Detalles del pedido | Telcel"                             			;
+                  ;                          ; orderConfirmationPage                ; "Confirmación del pedido | Telcel"                         			;
+                  ;                          ; orders                               ; "Historial de pedidos | Telcel"                            			;
+                  ;                          ; payment-details                      ; "Métodos de pago | Telcel"                               			;
+                  ;                          ; payment-details-manage-subscriptions ; "Detalles de pago Administrar suscripciones | Telcel"      			;
+                  ;                          ; profile                              ; "Perfil | Telcel"                                          			;
+                  ;                          ; searchEmpty                          ; "No hay resultados | Telcel"                               			;
+                  ;                          ; storefinderPage                      ; "Buscador de tiendas | Telcel"                             			;
+                  ;                          ; termsAndConditions                   ; "Términos y condiciones | Telcel"                          			;
+                  ;                          ; update-email                         ; "Actualizar correo electrónico | Telcel"                   			;
+                  ;                          ; update-profile                       ; "Datos personales | Telcel"                        			;
+                  ;                          ; updatePassword                       ; "Actualizar contraseña | Telcel"                  			;
+                  ;                          ; bundleselection-plan                 ; "Selección del plan de servicio | Telcel"                  			;
+                  ;                          ; bundleselection-extra                ; "Selección de complementos de servicio | Telcel"           			;
+                  ;                          ; guidedselling-select-device          ; "Selección de producto | Telcel"                           			;
+                  ;                          ; privacyPolicy                        ; "Política de privacidad | Telcel"                          			;
+                  ;                          ; termsOfService                       ; "Términos de servicio | Telcel"                            			;
+                  ;                          ; WishListPage                         ; "Lista de deseos | Telcel"                            			;
+																																							;
+
+INSERT_UPDATE FooterNavigationComponent; $contentCV[unique = true]; uid[unique = true]        ; notice[lang = $lang]
+                                       ;                          ; FooterNavigationComponent ; "© 2021 Telcel"
