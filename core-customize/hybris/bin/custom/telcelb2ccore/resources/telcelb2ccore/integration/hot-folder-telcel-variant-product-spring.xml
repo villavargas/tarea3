@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration
+	http://www.springframework.org/schema/integration/spring-integration.xsd
+	http://www.springframework.org/schema/integration/file
+	http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config/>
+
+    <bean id="baseDirectoryTelcelVariantProduct" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcel/variantproduct"/>
+    </bean>
+    <bean id="baseDirectoryTelcelVariantProductAccesorio" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcelacc/variantproduct"/>
+    </bean>
+
+    <file:inbound-channel-adapter id="batchFilesTelcelVariantProduct"
+                                  directory="#{baseDirectoryTelcelVariantProduct}"
+                                  filename-regex="^(.*)\.csv"
+                                  comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000"/>
+    </file:inbound-channel-adapter>
+    <file:inbound-channel-adapter id="batchFilesTelcelVariantProductAccesorio"
+                                  directory="#{baseDirectoryTelcelVariantProductAccesorio}"
+                                  filename-regex="^(.*)\.csv"
+                                  comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000"/>
+    </file:inbound-channel-adapter>
+
+    <file:outbound-gateway request-channel="batchFilesTelcelVariantProduct"
+                           reply-channel="batchFilesTelcelVariantProductProcess"
+                           directory="#{baseDirectoryTelcelVariantProduct}/processing"
+                           delete-source-files="true"/>
+    <file:outbound-gateway request-channel="batchFilesTelcelVariantProductAccesorio"
+                           reply-channel="batchFilesTelcelVariantProductProcess"
+                           directory="#{baseDirectoryTelcelVariantProductAccesorio}/processing"
+                           delete-source-files="true"/>
+
+    <int:service-activator input-channel="batchFilesTelcelVariantProductProcess"
+                           output-channel="batchFilesTelcelVariantProductHeaderInit"
+                           ref="telcelVariantProductHeaderSetupTask"
+                           method="execute"/>
+
+    <int:service-activator input-channel="batchFilesTelcelVariantProductHeaderInit"
+                           output-channel="batchFilesTelcelVariantProductHeader"
+                           ref="headerInitTask"
+                           method="execute"/>
+
+    <int:service-activator input-channel="batchFilesTelcelVariantProductHeader" output-channel="batchFilesTran" ref="telcelVariantProductBatchTransformerTask" method="execute"/>
+
+    <bean id="telcelVariantProductBatchTransformerTask"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.task.ImpexTransformerTask"
+          init-method="initConvertersMap">
+        <property name="fieldSeparator" value=","/>
+        <property name="encoding" value="UTF-8"/>
+        <property name="linesToSkip" value="1"/>
+        <property name="cleanupHelper" ref="cleanupHelper"/>
+    </bean>
+
+    <bean id="telcelVariantProductHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="telcelProductCatalog"/>
+        <property name="net" value="false"/>
+        <property name="storeBaseDirectory" ref="baseDirectoryTelcelVariantProduct"/>
+    </bean>
+
+    <bean id="telcelSmartphonePOVariantbatchConverterMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="product-variante"
+          p:converter-ref="telcelSmartphonePOVariantImpexConverter"/>
+
+    <bean id="telcelSmartphonePOVariantImpexConverter" class="mx.com.telcel.core.services.dataimport.TelcelSmartphonePOVariantImpexConverter">
+        <property name="modelService" ref="modelService"/>
+        <property name="categoryService" ref="categoryService"/>
+        <property name="catalogService" ref="catalogService"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="storageCatalogService" ref="storageCatalogService"/>
+        <property name="header">
+            <value>
+                $catalog = catalogversion(catalog(id[default=telcelProductCatalog]),version[default='Staged'])[unique=true,default=telcelProductCatalog:Staged]
+                $supercategories = supercategories(code, $catalogVersion)
+                $channels = distributionChannels(code)
+
+                INSERT_UPDATE TelcelPoVariant;code[unique=true];tmaBasePo(code,$catalog);sku;sapAlternativo;$supercategories;color(code);storage(code);name[lang=es_MX];comercialName[lang=es_MX];sitioOficial;bandaSoportada3G[lang=es_MX];bandaSoportadaGSM[lang=es_MX];bandaSoportada4G[lang=es_MX];frecuenciaCATM1[lang=es_MX];frecuenciaNGIOT[lang=es_MX];sector;sectorId;gtin;resurtible[lang=es_MX];dimensiones;pesoGramos;duracionBateriaLC[lang=es_MX];duracionBateriaCC[lang=es_MX];duracionBateriaStandby[lang=es_MX];pantalla;camaraTrasera;camaraFrontal;memoria[lang=es_MX];procesadorMarca;procesadorModelo;procesadorVelocidad;gigaRedSoportado[default=false];sistemaOperativo;sistemaOperativoVersion;accesorios[lang=es_MX];altavoz[lang=es_MX];caracteristicas[lang=es_MX];clienteCorreo[lang=es_MX];llamadaVoz[lang=es_MX];modem[lang=es_MX];ranuraMicroSD[lang=es_MX];tipoSim;tipoSimSap;visionArchivos[lang=es_MX];volte[lang=es_MX];slogan;description[lang=es_MX];defaultTelcel[default=true];tipoActivacion[default=true];unit(code)[default=pieces];approvalstatus(code)[default='approved'];$catalog
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+0};smartphone_{+1}_{+2};{+0};{+0};telefonos-y-smartphones,{+3},{+4};{+3};{+4};{5};{5};{8};"{9}";"{10}";"{11}";"{12}";"{13}";{14};{15};{16};{17};{18};{19};"{20}";"{21}";"{22}";{23};{24};{25};"{26}";"{27}";"{28}";"{29}";"{31}";"{32}";"{33}";"{34}";{35};"{36}";{37};{38};{39};{40};{41};{42};{43};{44};"{45}";"{46}"</value>
+        </property>
+        <property name="rowFilter">
+            <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexRowFilter">
+                <property name="expression" value="row[6]=='smartphone'"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="telcelAccesorioPOVariantbatchConverterMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="acces-variante"
+          p:converter-ref="telcelAccesorioPOVariantImpexConverter"/>
+
+    <bean id="telcelAccesorioPOVariantImpexConverter" class="mx.com.telcel.core.services.dataimport.TelcelAccesorioPOVariantImpexConverter">
+        <property name="header">
+            <value>
+                $catalog = catalogversion(catalog(id[default=telcelProductCatalog]),version[default='Staged'])[unique=true,default=telcelProductCatalog:Staged]
+                $supercategories = supercategories(code, $catalogVersion)
+                $channels = distributionChannels(code)
+
+                INSERT_UPDATE TelcelPoVariant;code[unique=true];tmaBasePo(code,$catalog);sku;sapAlternativo;$supercategories;color(code);name[lang=es_MX];comercialName[lang=es_MX];sector;sectorId;description[lang=es_MX];defaultTelcel[default=true];tipoActivacion[default=false];unit(code)[default=pieces];approvalstatus(code)[default='approved'];$catalog
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+0};accesorios_{+1}_{+2};{+0};{+0};{5},{+3},NA;{+3};"{4}";"{4}";"{7}";{8};"{6}"</value>
+        </property>
+    </bean>
+
+</beans>
