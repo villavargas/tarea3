@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+
+	<bean id="telmexBillingAction" class="mx.com.telcel.fulfilmentprocess.actions.order.telmex.TelmexBillingAction"  parent="abstractAction"/>
+	<bean id="telmexSplitOrderAction" class="mx.com.telcel.fulfilmentprocess.actions.order.telmex.TelmexSplitOrderAction"  parent="abstractAction">
+		<property name="telcelOrderSplittingService" ref="telcelOrderSplittingService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="telmexProcessCompletedAction" class="mx.com.telcel.fulfilmentprocess.actions.order.telmex.TelmexProcessCompletedAction" parent="abstractAction"/>
+
+	<bean id="setTelmexOrderExpirationTimeAction" class="mx.com.telcel.fulfilmentprocess.actions.order.telmex.SetTelmexOrderExpirationTimeAction"  parent="abstractAction">
+		<property name="timeService" ref="timeService"/>
+	</bean>
+
+	<bean id="sendTelmexOrderCompletedNotificationAction" class="mx.com.telcel.fulfilmentprocess.actions.order.telmex.SendTelmexOrderCompletedNotificationAction"  parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+</beans>
