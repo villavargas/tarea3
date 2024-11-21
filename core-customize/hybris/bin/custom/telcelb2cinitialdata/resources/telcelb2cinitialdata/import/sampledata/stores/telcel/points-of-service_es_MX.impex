@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Telco Stores
+# English localisations
+
+$lang = es_MX
+
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+$storeImage = storeImage(qualifier, $catalogVersion)
+
+$standardHours = b2ctelcel-mx-standard-hours
+
+UPDATE SpecialOpeningDay; openingSchedule(code)[unique = true]; date[unique = true, dateformat = dd.MM.yyyy]; name[lang = $lang]; message[lang = $lang]
+
+#UPDATE StoreLocatorFeature; code[unique = true]    ; name[lang = $lang]
+#                          ; wheelchair             ; "Acceso en silla de ruedas"
+#                          ; creche                 ; "Guardería"
+#                          ; sundayWorkshops        ; "Talleres dominicales"
+#                          ; buyOnlinePickupInStore ; "Comprar en línea y recoger en tienda"
+#
+#UPDATE PointOfService; name[unique = true]                     ; displayName                             ;
+#                     ; Hybris Telcel - Chicago Premium Outlets ; Hybris Telcel - Chicago Premium Outlets ;
+#                     ; Hybris Telcel - Chrysler Building       ; Hybris Telcel - Chrysler Building       ;
+#                     ; Hybris Telcel - San Francisco Center    ; Hybris Telcel - San Francisco Center    ;
+#                     ; Hybris Telcel - Seattle Premium Outlets ; Hybris Telcel - Seattle Premium Outlets ;
+#                     ; Hybris Telcel - Riverwalk Marketplace   ; Hybris Telcel - Riverwalk Marketplace   ;
