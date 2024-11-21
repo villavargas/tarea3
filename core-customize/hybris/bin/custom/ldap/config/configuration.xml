@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<config>
+	<types>
+		<type>
+	 		<code>UserGroup</code>
+			<objectclasses>
+				<objectclass>groupOfUniqueNames</objectclass>
+		 	</objectclasses>
+			<attributes>
+		 		<attribute>
+		 			<ldap>cn</ldap>
+			 		<hybris>uid</hybris>
+			 		<impex>[unique=true]</impex>
+				</attribute>
+				<attribute>
+		 			<ldap>cn</ldap>
+		 			<hybris>cn</hybris>
+				</attribute>
+				<attribute>
+		 			<ldap>actualdn</ldap>
+		 			<hybris>dn</hybris>
+				</attribute>
+			</attributes>				
+		</type>
+		<type>
+	 		<code>Employee</code>
+			<objectclasses>
+				<objectclass>organizationalPerson</objectclass>
+		 	</objectclasses>
+			<attributes>
+				<attribute>
+		 			<ldap>uid</ldap>
+		 			<hybris>uid</hybris>
+			 		<impex>[unique=true]</impex>
+				</attribute>
+		 		<attribute>
+		 			<ldap>cn</ldap>
+			 		<hybris>name</hybris>
+				</attribute>
+				<attribute>
+		 			<ldap>cn</ldap>
+		 			<hybris>cn</hybris>
+				</attribute>
+				<attribute>
+					<ldap>title</ldap>
+					<hybris>description</hybris>
+				</attribute>
+				<attribute>
+		 			<ldap>actualdn</ldap>
+		 			<hybris>dn</hybris>
+				</attribute>
+				<attribute>
+		 			<ldap>actualdn</ldap>
+		 			<hybris>ldaplogin</hybris>
+				</attribute>
+				<attribute>
+		 			<ldap>telceluser</ldap>
+		 			<hybris>userId</hybris>
+				</attribute>
+				<attribute>
+		 			<ldap>telcelregion</ldap>
+		 			<hybris>region</hybris>
+				</attribute>
+<!--				<attribute>-->
+<!--					<ldap>perfilTiendaEnL</ldap>-->
+<!--					<hybris>groups</hybris>-->
+<!--				</attribute>-->
+
+				<attribute>
+
+		 			<ldap>perfilTiendaEnL</ldap>
+		 			<hybris>groups</hybris>
+					<impex>(uid)</impex>
+<!--					<impex>(cn)[translator=de.hybris.platform.ldap.impex.ExtractUserGroupTranslator, groupid=cn, mode=append]</impex>-->
+
+<!--					<ldap>perfilTiendaEnL</ldap>-->
+<!--		 			<hybris>groups</hybris>-->
+<!--					<impex>(perfilTiendaEnL)[translator=de.hybris.platform.ldap.impex.ActiveDirectoryGroupCollectionTranslator, mode=append, groupid=perfilTiendaEnL]</impex>-->
+				</attribute>
+			</attributes>
+			<defaultimpexheaderentry>
+				sessionLanguage(isoCode)[default=es_MX];sessionCurrency(isocode)[default=MXN];ldapaccount[default=true , virtual=true];
+			</defaultimpexheaderentry>
+		</type>
+	</types>
+	<mappings>
+		<mapping>
+			<attributes>
+		 		<attribute>ou</attribute>
+			</attributes>
+			<values>
+				<value>
+					<ldap>RD</ldap>
+					<hybris>Development</hybris>
+				</value>
+			</values>
+		</mapping>
+	</mappings>
+</config>
