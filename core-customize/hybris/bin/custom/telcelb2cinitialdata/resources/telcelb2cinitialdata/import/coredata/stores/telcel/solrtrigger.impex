@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import the Solr CronJob Trigger configuration for the Telcel Product Catalog
+#
+
+$facetSearchCfg=telcelIndex
+$backoffice-facetSearchCfg=backofficeIndex
+$tmabackoffice-facetSearchCfg=tma-backofficeIndex
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression ; active; maxAcceptableDelay
+# full-telcelIndex is disabled because is triggered every 20 min by cronjob "Creacion de precios para Guest y Anonimo"
+; update-$facetSearchCfg-cronJob ;0 0/20 * * * ?; false ; -1
+; update-$backoffice-facetSearchCfg-CronJob ;0 0/20 * * * ?; true ; -1
+; update-$tmabackoffice-facetSearchCfg-CronJob ;0 0/20 * * * ?; true ; -1
+; full-$facetSearchCfg-cronJob ;0 0 3 * * ?; true ; -1
+
+# Start Back In Stock
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+                             ;stockLevelStatusJob;stockLevelStatusJob
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+                     ;stockLevelStatusCronJob;stockLevelStatusJob;false;en
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+                     ;stockLevelStatusCronJob; 0 0 0 * * ?
+# End Back In Stock
