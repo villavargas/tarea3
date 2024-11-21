@@ -1,0 +1,40 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+# ImpEx for Importing Classification Categories into B2C Telcel Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog = telcelProductCatalog
+$classificationCatalog = telcelClassification
+$productCatalogName = Telcel Product Catalog
+$classCatalogVersion = catalogversion(catalog(id[default=$classificationCatalog]), version[default='1.0'])[unique=true, default='$classificationCatalog:1.0']
+$classSystemVersion = systemVersion(catalog(id[default='$classificationCatalog']), version[default='1.0'])[unique=true]
+
+# Language
+$lang = en
+
+
+INSERT_UPDATE ClassificationSystem; id[unique = true]      ; name[lang = $lang]               ;
+                                  ; $classificationCatalog ; Telcel Classification System ;
+
+# ImpEx for Importing Category Classifications into telcel Store
+
+# Insert Classifications
+UPDATE ClassificationClass; $classCatalogVersion; code[unique = true]         ; name[lang = $lang]
+                            ;                     ; smartphoneclassification; Smartphones
+                            ;                     ; accesoriosclassification; Accessories
+
+# Insert Classification Attributes
+UPDATE ClassificationAttribute;     code[unique=true];name[lang=$lang];$classSystemVersion
+                              ; compatibilidad  ; Compatibility
+                              ; tipoPantalla      ; Screen Type
+                              ; sistemasOperativosCompatibles  ; Supported S.O.
+                              ; tipoCable ; Wire Type
+                              ; tipoConector ; Connector Type
+                              ; contenidoEmpaque  ; Package Content
+                              ; ioAudio ; I/O Audio
+                              ; tipoBateria ; Battery type
+                              ; duracionBateria ; Battery Life
+
