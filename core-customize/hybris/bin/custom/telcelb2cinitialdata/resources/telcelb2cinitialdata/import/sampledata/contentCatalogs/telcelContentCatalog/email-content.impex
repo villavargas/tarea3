@@ -1,0 +1,122 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# CMS Image Components
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]           ; name
+                               ;                          ; EmailBannerSaleNowOnImage    ; Email Banner Sale Now On Image
+                               ;                          ; EmailBannerFreeDeliveryImage ; Email Banner Free Delivery Image
+
+# Content Slots
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; cmsComponents(uid, $contentCV)
+                  ;                          ; EmailTopSlot      ; EmailBannerFreeDeliveryImage
+                  ;                          ; EmailBottomSlot   ; EmailBannerSaleNowOnImage
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                 ; name          ; styleClasses
+                               ;                          ; EmailConfirmationOneImage          ; One           ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 40px; max-width: 100%; outline: none; text-decoration: none; width: 40px;"
+                               ;                          ; EmailConfirmationTwoImage          ; Two           ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 40px; max-width: 100%; outline: none; text-decoration: none; width: 40px;"
+                               ;                          ; EmailConfirmationThreeImage        ; Three         ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 40px; max-width: 100%; outline: none; text-decoration: none; width: 40px;"
+                               ;                          ; EmailConfirmationFourImage         ; Four          ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 40px; max-width: 100%; outline: none; text-decoration: none; width: 40px;"
+                               ;                          ; EmailConfirmationInformacionImage  ; Informacion   ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; height: 18px; max-width: 100%; outline: none; text-decoration: none; vertical-align: middle; width: 18px;"
+                               ;                          ; EmailConfirmationKeyboardImage     ; Keyboard      ;
+                               ;                          ; EmailConfirmationLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailConfirmationPalomitaImage     ; Palomita      ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; float: left; height: 32px; margin-right: 8px; max-width: 100%; outline: none; text-decoration: none; vertical-align: bottom; width: 32px;"
+                               ;                          ; EmailConfirmationTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailConfirmationPlaceholderImage  ; Placeholder   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]       ; cmsComponents(uid, $contentCV)
+                  ;                          ; OneImageConfirmation     ; EmailConfirmationOneImage
+                  ;                          ; TwoImageConfirmation     ; EmailConfirmationTwoImage
+                  ;                          ; ThreeImageConfirmation   ; EmailConfirmationThreeImage
+                  ;                          ; FourImageConfirmation    ; EmailConfirmationFourImage
+                  ;                          ; InformacionConfirmation  ; EmailConfirmationInformacionImage
+                  ;                          ; SiteLogoConfirmation     ; EmailConfirmationLogoTelcelImage
+                  ;                          ; PalomitaConfirmation     ; EmailConfirmationPalomitaImage
+                  ;                          ; TiendaTelcelConfirmation ; EmailConfirmationTiendaTelcelImage
+                  ;                          ; PlaceholderConfirmation  ; EmailConfirmationPlaceholderImage
+
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                ; name          ; styleClasses
+                               ;                          ; EmailBackInStockLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailBackInStockTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailBackInStockPlaceholderImage  ; Placeholder   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]      ; cmsComponents(uid, $contentCV)
+                  ;                          ; SiteLogoBackInStock     ; EmailBackInStockLogoTelcelImage
+                  ;                          ; TiendaTelcelBackInStock ; EmailBackInStockTiendaTelcelImage
+                  ;                          ; PlaceholderBackInStock  ; EmailBackInStockPlaceholderImage
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                             ; name          ; styleClasses
+                               ;                          ; EmailCancellationUnderpaymentLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailCancellationUnderpaymentTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailContactanosCancellationUnderpaymentImage  ; Contactanos   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+                               ;                          ; EmailErrorIconCancellationUnderpaymentImage    ; Error Icon    ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; float: left; height: 32px; margin-right: 8px !important; max-width: 100%; outline: none; text-decoration: none; vertical-align: bottom; width: 32px;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                   ; cmsComponents(uid, $contentCV)
+                  ;                          ; SiteLogoCancellationUnderpayment     ; EmailCancellationUnderpaymentLogoTelcelImage
+                  ;                          ; TiendaTelcelCancellationUnderpayment ; EmailCancellationUnderpaymentTiendaTelcelImage
+                  ;                          ; ContactanosCancellationUnderpayment  ; EmailContactanosCancellationUnderpaymentImage
+                  ;                          ; ErrorIconCancellationUnderpayment    ; EmailErrorIconCancellationUnderpaymentImage
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                             ; name          ; styleClasses
+                               ;                          ; EmailCancellationCardItemsLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailCancellationCardItemsTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailContactanosCancellationCardItemsImage  ; Contactanos   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+                               ;                          ; EmailErrorIconCancellationCardItemsImage    ; Error Icon    ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; float: left; height: 32px; margin-right: 8px !important; max-width: 100%; outline: none; text-decoration: none; vertical-align: bottom; width: 32px;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                   ; cmsComponents(uid, $contentCV)
+                  ;                          ; SiteLogoCancellationCardItems     ; EmailCancellationCardItemsLogoTelcelImage
+                  ;                          ; TiendaTelcelCancellationCardItems ; EmailCancellationCardItemsTiendaTelcelImage
+                  ;                          ; ContactanosCancellationCardItems  ; EmailContactanosCancellationCardItemsImage
+                  ;                          ; ErrorIconCancellationCardItems    ; EmailErrorIconCancellationCardItemsImage
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                             ; name          ; styleClasses
+                               ;                          ; EmailCancellationOtherItemsLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailCancellationOtherItemsTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailContactanosCancellationOtherItemsImage  ; Contactanos   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+                               ;                          ; EmailErrorIconCancellationOtherItemsImage    ; Error Icon    ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; float: left; height: 32px; margin-right: 8px !important; max-width: 100%; outline: none; text-decoration: none; vertical-align: bottom; width: 32px;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                   ; cmsComponents(uid, $contentCV)
+                  ;                          ; SiteLogoCancellationOtherItems     ; EmailCancellationOtherItemsLogoTelcelImage
+                  ;                          ; TiendaTelcelCancellationOtherItems ; EmailCancellationOtherItemsTiendaTelcelImage
+                  ;                          ; ContactanosCancellationOtherItems  ; EmailContactanosCancellationOtherItemsImage
+                  ;                          ; ErrorIconCancellationOtherItems    ; EmailErrorIconCancellationOtherItemsImage
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                             ; name          ; styleClasses
+                               ;                          ; EmailCancellationTelcelLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailCancellationTelcelTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailContactanosCancellationTelcelImage  ; Contactanos   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+                               ;                          ; EmailErrorIconCancellationTelcelImage    ; Error Icon    ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; float: left; height: 32px; margin-right: 8px !important; max-width: 100%; outline: none; text-decoration: none; vertical-align: bottom; width: 32px;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                   ; cmsComponents(uid, $contentCV)
+                  ;                          ; SiteLogoCancellationTelcel     ; EmailCancellationTelcelLogoTelcelImage
+                  ;                          ; TiendaTelcelCancellationTelcel ; EmailCancellationTelcelTiendaTelcelImage
+                  ;                          ; ContactanosCancellationTelcel  ; EmailContactanosCancellationTelcelImage
+                  ;                          ; ErrorIconCancellationTelcel    ; EmailErrorIconCancellationTelcelImage
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                             ; name          ; styleClasses
+                               ;                          ; EmailCancellationUserCardLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailCancellationUserCardTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailContactanosCancellationUserCardImage  ; Contactanos   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+                               ;                          ; EmailErrorIconCancellationUserCardImage    ; Error Icon    ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; float: left; height: 32px; margin-right: 8px !important; max-width: 100%; outline: none; text-decoration: none; vertical-align: bottom; width: 32px;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                   ; cmsComponents(uid, $contentCV)
+                  ;                          ; SiteLogoCancellationUserCard     ; EmailCancellationUserCardLogoTelcelImage
+                  ;                          ; TiendaTelcelCancellationUserCard ; EmailCancellationUserCardTiendaTelcelImage
+                  ;                          ; ContactanosCancellationUserCard  ; EmailContactanosCancellationUserCardImage
+                  ;                          ; ErrorIconCancellationUserCard    ; EmailErrorIconCancellationUserCardImage
+
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]                             ; name          ; styleClasses
+                               ;                          ; EmailCancellationUserOthersLogoTelcelImage   ; Logo telcel   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;"
+                               ;                          ; EmailCancellationUserOthersTiendaTelcelImage ; Tienda telcel ; "-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;"
+                               ;                          ; EmailContactanosCancellationUserOthersImage  ; Contactanos   ; "-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;"
+                               ;                          ; EmailErrorIconCancellationUserOthersImage    ; Error Icon    ; "-ms-interpolation-mode: bicubic; clear: both; display: inline-block; float: left; height: 32px; margin-right: 8px !important; max-width: 100%; outline: none; text-decoration: none; vertical-align: bottom; width: 32px;"
+
+UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                   ; cmsComponents(uid, $contentCV)
+                  ;                          ; SiteLogoCancellationUserOthers     ; EmailCancellationUserOthersLogoTelcelImage
+                  ;                          ; TiendaTelcelCancellationUserOthers ; EmailCancellationUserOthersTiendaTelcelImage
+                  ;                          ; ContactanosCancellationUserOthers  ; EmailContactanosCancellationUserOthersImage
+                  ;                          ; ErrorIconCancellationUserOthers    ; EmailErrorIconCancellationUserOthersImage
