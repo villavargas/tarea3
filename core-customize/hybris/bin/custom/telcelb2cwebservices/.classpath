@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+
+				
+				
+	<classpathentry exported="true" kind="src" path="/webservicescommons" />
+	<classpathentry exported="false" kind="lib" path="web/webroot/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.5.jar" />
+	<classpathentry exported="true" kind="lib" path="resources" />
+	<classpathentry kind="lib" path="lib/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/javax.xml.soap-api-1.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-runtime-2.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/saaj-impl-1.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/stax-ex-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/javax.jws-api-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-api-2.3.1.jar"/>
+	<classpathentry exported="true" output="eclipsebin/classes" kind="src" path="src" />
+	<classpathentry exported="false" output="eclipsebin/web/classes" kind="src" path="web/src" />
+	<classpathentry exported="true" output="eclipsebin/classes" kind="src" path="testsrc" />
+	<classpathentry exported="true" output="eclipsebin/classes" kind="src" path="gensrc" />
+	<classpathentry exported="false" kind="src" path="/platform" />
+				
+</classpath>
+				
