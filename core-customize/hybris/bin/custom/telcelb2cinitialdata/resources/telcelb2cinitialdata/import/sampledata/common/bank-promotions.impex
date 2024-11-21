@@ -1,0 +1,38 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+##### Configuracion Promociones Bancarias
+INSERT_UPDATE BankPromotionConfig; code[unique=true]; bankName; month; minAmount; priority; logo
+                                 ; 1                ; Inbursa ; 6    ; 900      ; 1       ; inbursa
+                                 ; 2                ; Inbursa ; 12   ; 2500     ; 1       ; inbursa
+                                 
+INSERT_UPDATE BankPromotionConfig; code[unique=true]; bankName         ; month; minAmount; priority; logo
+                                 ; 3                ; American Express ; 6    ; 900      ; 2       ; amex
+                                 
+INSERT_UPDATE BankPromotionConfig; code[unique=true]; bankName; month; minAmount; priority; logo
+                                 ; 4                ; HSBC    ; 6    ; 900      ; 3       ; hsbc
+                                 ; 5                ; HSBC    ; 12   ; 2500     ; 3       ; hsbc
+                                 
+INSERT_UPDATE BankPromotionConfig; code[unique=true]; bankName  ; month; minAmount; priority; logo
+                                 ; 6                ; Santander ; 6    ; 900      ; 4       ; santander
+                                 ; 7                ; Santander ; 12   ; 2500     ; 4       ; santander
+                                 
+INSERT_UPDATE BankPromotionConfig; code[unique=true]; bankName      ; month; minAmount; priority; logo
+                                 ; 8                ; BBVA Bancomer ; 6    ; 900      ; 5       ; bbva
+                                 ; 9                ; BBVA Bancomer ; 13   ; 2500     ; 5       ; bbva
+
+##### Configuracion Mensajes Pago Efectivo
+INSERT_UPDATE PaymentMessageConfig; code[unique=true]; title                                                 ; priority; paymentType; logo      ; description
+                                  ; 1                ; ¿Cómo funciona el pago en tiendas y establecimientos? ; 1       ; cash       ; cash-bill ; En tu proceso de compra, selecciona la opción de Pago en “Tiendas y establecimientos” y elige la tienda que más te convenga.
+                                  ; 2                ; ¿Cómo funciona el pago en tiendas y establecimientos? ; 1       ; cash       ; cash-bill ; Al concluir tu compra te generamos una referencia de pago.  
+                                  ; 3                ; ¿Cómo funciona el pago en tiendas y establecimientos? ; 1       ; cash       ; cash-bill ; Acude a la tienda de conveniencia que seleccionaste para pagar, presenta tu ficha y realiza tu pago.
+                                  
+INSERT_UPDATE PaymentMessageConfig; code[unique=true]; title                                    ; priority; paymentType; logo        ; description
+                                  ; 4                ; Tiendas y establecimientos participantes ; 2       ; cash       ; cash-normal ; Oxxo, Walmart, 7-Eleven, Farmacias del Ahorro, Bodega Aurrerá, Sam’s Club y muchos más. 
+
+##### Configuracion Mensajes SPEI                               
+INSERT_UPDATE PaymentMessageConfig; code[unique=true]; title ; priority; paymentType; logo ; description
+                                  ; 5                ; SPEI  ; 1       ; spei       ; spei ; Transferencias (SPEI): BBVA, Citibanamex, Santander, HSBC, BanBajío, Banorte, Inbursa, Scotiabank, entre otros.                      
+
+                 
