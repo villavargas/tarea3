@@ -1,0 +1,65 @@
+# Language
+$lang=es_MX
+$contentCatalog=telcelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV)
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+# Site Home Medias Banner Header 
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop    ; RotatingImage1.png     ; $siteResource/carrousel/Reno6-5G-bne.jpg                                  ;RotatingImage1.png;;
+;desktop    ; RotatingImage2.png     ; $siteResource/carrousel/BANNER-PTP5-DESKTOP_1136X260.jpg                  ;RotatingImage2.png;;
+;desktop    ; RotatingImage3.png     ; $siteResource/carrousel/chip_express.bne.jpg                              ;RotatingImage3.png;;
+;desktop    ; RotatingImage4.png     ; $siteResource/carrousel/1136X260-activar_linea_JULIO.jpg                  ;RotatingImage4.png;;
+;desktop    ; RotatingImage5.png     ; $siteResource/carrousel/campaña_telmex_w31.bne.jpg                        ;RotatingImage5.png;;
+;mobile    ; RotatingImageMobile1.png; $siteResource/carrousel/Reno6-5G-bnm.jpg                                  ;RotatingImageMobile1.png;;
+;mobile    ; RotatingImageMobile2.png; $siteResource/carrousel/BANNER-PTP5-MOVIL_656X520.jpg                     ;RotatingImageMobile2.png;;
+;mobile    ; RotatingImageMobile3.png; $siteResource/carrousel/chip_express.bnm.jpg                              ;RotatingImageMobile3.png;;
+;mobile    ; RotatingImageMobile4.png; $siteResource/carrousel/656x520_activar_linea_mobile.jpg                  ;RotatingImageMobile4.png;;
+;mobile    ; RotatingImageMobile5.png; $siteResource/carrousel/campaña_telmex_w31.bnm.jpg                        ;RotatingImageMobile5.png;;
+ 
+
+
+# Site Home Media Container Carousel Banner 1
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;CarouselHomeBanner_ImgContainer_1; RotatingImage1.png,RotatingImageMobile1.png;
+;CarouselHomeBanner_ImgContainer_2; RotatingImage2.png,RotatingImageMobile2.png;
+;CarouselHomeBanner_ImgContainer_3; RotatingImage3.png,RotatingImageMobile3.png;
+;CarouselHomeBanner_ImgContainer_4; RotatingImage4.png,RotatingImageMobile4.png;
+;CarouselHomeBanner_ImgContainer_5; RotatingImage4.png,RotatingImageMobile5.png;
+
+
+#Banner Header Components For Home
+INSERT_UPDATE BannerComponent     ; $contentCV[unique=true] ; uid[unique=true]; name ; &componentRef; urlLink;$picture[lang=$lang]
+;; CarouselHomeBanner1Desktop     ; Banner Home One  Wide Screen     ; CarouselHomeBanner1Desktop       ; /telefonos-y-smartphones/producto/70020212    ; RotatingImage1.png
+;; CarouselHomeBanner2Desktop     ; Banner Home Two  Wide Screen     ; CarouselHomeBanner2Desktop       ; https://www.telcel.com/registros/renovaciones ; RotatingImage2.png
+;; CarouselHomeBanner3Desktop     ; Banner Home Three Wide Screen    ; CarouselHomeBanner3Desktop       ; /categoria/amigo_chip                         ; RotatingImage3.png
+;; CarouselHomeBanner4Desktop     ; Banner Home Four  Wide Screen    ; CarouselHomeBanner4Desktop       ; /categoria/telefonos-y-smartphones            ; RotatingImage4.png
+;; CarouselHomeBanner5Desktop     ; Banner Home Five  Wide Screen    ; CarouselHomeBanner5Desktop       ; /categoria/telefonos-y-smartphones            ; RotatingImage5.png
+;; CarouselHomeBanner1Mobile      ; Banner Home One Mobile    ; CarouselHomeBanner1Mobile               ; /telefonos-y-smartphones/producto/70020212    ; RotatingImageMobile1.png
+;; CarouselHomeBanner2Mobile      ; Banner Home Two Mobile    ; CarouselHomeBanner2Mobile               ; https://www.telcel.com/registros/renovaciones ; RotatingImageMobile2.png
+;; CarouselHomeBanner3Mobile      ; Banner Home Three Mobile  ; CarouselHomeBanner3Mobile               ; /categoria/amigo_chip                         ; RotatingImageMobile3.png
+;; CarouselHomeBanner4Mobile      ; Banner Home Four Mobile   ; CarouselHomeBanner4Mobile               ; /categoria/telefonos-y-smartphones            ; RotatingImageMobile4.png
+;; CarouselHomeBanner5Mobile      ; Banner Home Four Mobile   ; CarouselHomeBanner5Mobile               ; /categoria/telefonos-y-smartphones            ; RotatingImageMobile5.png
+
+#Home Header Carrousel  
+INSERT_UPDATE RotatingImagesComponent;$contentCV[unique=true];uid[unique=true];name;banners(&componentRef) ;&componentRef
+;; TelcelHomepageCarouselComponent1;  Homepage Carousel Desktop;  CarouselHomeBanner1Desktop, CarouselHomeBanner2Desktop,CarouselHomeBanner3Desktop,CarouselHomeBanner4Desktop,CarouselHomeBanner5Desktop;TelcelHomepageCarouselComponent1
+;; TelcelHomepageCarouselComponent2;  Homepage Carousel Mobile; CarouselHomeBanner1Mobile,CarouselHomeBanner2Mobile,CarouselHomeBanner3Mobile,CarouselHomeBanner4Mobile,CarouselHomeBanner5Mobile;TelcelHomepageCarouselComponent2
+
+INSERT_UPDATE ContentSlotName; name[unique = true]    ; template(uid, $contentCV)[unique = true][default = 'LandingPage2Template']; validComponentTypes(code); compTypeGroup(code)
+                             ; Section1A              ;                                                                           ;                          ; wide
+
+#Home Content Slos Roatating Image
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+;;Section1Slot-Homepage;Section1 Slot for Homepage Cms 1;true;TelcelHomepageCarouselComponent1;;;
+;;Section1ASlot-Homepage;Section1 Slot for Homepage Cms 2;true;TelcelHomepageCarouselComponent2;;;
+
+
+#Home Header Content Slos For Page
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-Homepage;Section1;;Section1Slot-Homepage;;;
+;;Section1A-Homepage;Section1A;;Section1ASlot-Homepage;;;
