@@ -1,0 +1,135 @@
+$productCatalog = telcelProductCatalog
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+$lang=es_MX
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV)
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ; name                                              ; products(code, $productCV)                                                                                        ; categories(code); &componentRef
+                                      ;                          ; TelcelRecommendationsProductCarouselComponent ; Telcel Recommendations Product Carousel Component ; 70016983,70018167,70018195,70019222,70017619 ;                 ; TelcelRecommendationsProductCarouselComponent
+                                      ;                          ; Smartphone                                    ; Smartphone                                        ; 70016983,70018167,70018195,70019222,70017619 ;                 ; Smartphone
+                                      ;                          ; Accesorio                                     ; Accesorio                                         ; 7006483,7006413,7005560,7005501,7005569     ;                 ; Accesorio
+
+UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ; popup[default = false]; scroll(code);
+                               ;                          ; TelcelRecommendationsProductCarouselComponent ;                       ; allVisible  ;
+                               ;                          ; Smartphone                                    ;                       ; allVisible  ;
+                               ;                          ; Accesorio                                     ;                       ; allVisible  ;
+
+# Site Home Slot Banner 1
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]    ; name                       ; active; cmsComponents(&componentRef)
+                         ;                          ; Section4Slot-Homepage ; Section4 Slot for Homepage ; true  ; TelcelRecommendationsProductCarouselComponent
+
+#*********************************************
+#carrousel and banner smartphone
+#*********************************************
+
+# Site Home Media SmarttPhone
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop    ; HomePageMediaSection4A_BannerSmartPhone   ; $siteResource/smartphone/Oppo_Reno7-1136x260.jpg ;HomePageMediaSection4A_BannerSmartPhone.png;;
+;desktop    ; HomePageMediaSection4B_BannerSmartPhone   ; $siteResource/smartphone/Oppo_Reno7-328x340.jpg ;HomePageMediaSection4B_BannerSmartPhone.png;;
+
+
+# Site Home Banner SmartPhone
+INSERT_UPDATE BannerComponent ; $contentCV[unique=true] ; uid[unique=true]; name ; &componentRef; urlLink;content[lang=$lang];headline[lang=$lang];$picture[lang=$lang]
+;; HomePageSection4A_Banner        ; Banner smartphones               ; HomePageSection4A_Banner         ; /telefonos-y-smartphones/producto/70019784 ;;Ofrecemos el catálogo de celulares y smartphones más completo del mercado.; HomePageMediaSection4A_BannerSmartPhone
+;; HomePageSection4B_Banner       ; Banner smartphones Mobile        ; HomePageSection4B_Banner        ; /telefonos-y-smartphones/producto/70019784 ;;Ofrecemos el catálogo de celulares y smartphones más completo del mercado.; HomePageMediaSection4B_BannerSmartPhone
+
+# Site Home Slot Banner SmartPhone
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section4ASlot-Homepage;Section4A Slot for Homepage;true;HomePageSection4A_Banner;
+;;Section4BSlot-Homepage;Section4B Slot for Homepage;true;HomePageSection4B_Banner;
+
+
+#Home Header Content Slos For Page SmartPhone
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section4A-Homepage;Section4A;;Section4ASlot-Homepage;;;
+;;Section4B-Homepage;Section4B;;Section4BSlot-Homepage;;;
+
+
+
+#*********************************************
+#carrousel and banner for tablets
+#*********************************************
+# Site Home Media tablets
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop    ; HomePageMediaSection6A_BannerTablets   ; $siteResource/AMIGO_TABLET_1136x260.jpg        ;HomePageMediaSection6A_BannerTablets.png;;
+;desktop    ; HomePageMediaSection6B_BannerTablets   ; $siteResource/AMIGO_TABLET_328x340.jpg ;HomePageMediaSection6B_BannerTablets.png;;
+
+# Site Home Banner tablets
+INSERT_UPDATE BannerComponent ; $contentCV[unique=true] ; uid[unique=true]; name ; &componentRef; urlLink;content[lang=$lang];headline[lang=$lang];$picture[lang=$lang]
+;; HomePageSection6A_Banner        ; Banner tablets                   ; HomePageSection6A_Banner         ; /categoria/tablets ;;; HomePageMediaSection6A_BannerTablets
+;; HomePageSection6B_Banner        ; Banner tablets Mobile           ; HomePageSection6B_Banner        ; /categoria/tablets ;;; HomePageMediaSection6B_BannerTablets
+
+# Site Home Slot Banner tablets
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section6ASlot-Homepage;Section6A Slot for Homepage;true;HomePageSection6A_Banner;
+;;Section6BSlot-Homepage;Section6A Slot for Homepage;true;HomePageSection6B_Banner;
+
+# Site Home Slot ProductCarouselComponent tablets
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                                   ; name                                              ; products(code, $productCV)                                       ; categories(code); &componentRef
+                                      ;                          ; TelcelRecommendationsProductTabletsCarouselComponent ; Telcel Recommendations Product Carousel Component ; tracker_tablet_B08LSPTYHX_black,MiniOB22_tablet_B08LSPTYHX_black ;                 ; TelcelRecommendationsProductTabletsCarouselComponent;
+
+UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ; popup[default = false]; scroll(code);
+                               ;                          ; TelcelRecommendationsProductTabletsCarouselComponent ;                       ; allVisible  ;
+
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ;title[lang=$lang]
+                                      ;                          ; TelcelRecommendationsProductTabletsCarouselComponent ; "Te recomendamos"
+
+#Home Content Slos tablets
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]    ; name                       ; active; cmsComponents(&componentRef)
+                         ;                          ; Section6Slot-Homepage ; Section6 Slot for Homepage ; true  ; TelcelRecommendationsProductTabletsCarouselComponent
+
+#Home Content Slos For Page tablets
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section6-Homepage;Section6;;Section6Slot-Homepage;;;
+;;Section6A-Homepage;Section6A;;Section6ASlot-Homepage;;;
+;;Section6B-Homepage;Section6B;;Section6BSlot-Homepage;;;
+
+
+
+#*********************************************
+#carrousel and banner for vida conectada
+#*********************************************
+
+# Site Home Media vida conectada
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop    ; HomePageMediaSection7A_BannerInternet   ; $siteResource/vida_conectada/Vida_conectada.w31.bne.jpg ;HomePageMediaSection7A_BannerInternet.jpg;;
+;desktop    ; HomePageMediaSection7B_BannerInternet   ; $siteResource/vida_conectada/Vida_conectada.w31.bnm.jpg ;HomePageMediaSection7B_BannerInternet.jpg;;
+
+# Site Home Banner  vida conectada
+INSERT_UPDATE BannerComponent ; $contentCV[unique=true] ; uid[unique=true]; name ; &componentRef; urlLink;content[lang=$lang];headline[lang=$lang];$picture[lang=$lang]
+;; HomePageSection7A_Banner        ; Banner vida conectada                   ; HomePageSection7A_Banner         ; /categoria/vida_conectada ;;; HomePageMediaSection7A_BannerInternet
+;; HomePageSection7B_Banner        ; Banner vida conectada Mobile           ; HomePageSection7B_Banner        ; /categoria/vida_conectada ;;; HomePageMediaSection7B_BannerInternet
+
+#Home Content Slos vida conectada
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section7ASlot-Homepage;Section7A Slot for Homepage;true;HomePageSection7A_Banner;
+;;Section7BSlot-Homepage;Section7B Slot for Homepage;true;HomePageSection7B_Banner;
+
+# Site Home Slot ProductCarouselComponent vida conectada
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                                   ; name                                              ; products(code, $productCV)                                                          ; categories(code); &componentRef
+                                      ;                          ; TelcelRecommendationsProductInternetCarouselComponent ; Telcel Recommendations Product Carousel Component ; 70012925,70012924 ;                 ; TelcelRecommendationsProductInternetCarouselComponent
+
+UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ; popu
+
+UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ; popup[default = false]; scroll(code);
+                               ;                          ; TelcelRecommendationsProductInternetCarouselComponent ;                       ; allVisible  ;
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ;title[lang=$lang]
+                                      ;                          ; TelcelRecommendationsProductInternetCarouselComponent ; "Te recomendamos"
+
+#Home Content Slos  vida conectada
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]    ; name                       ; active; cmsComponents(&componentRef)
+                         ;                          ; Section7Slot-Homepage ; Section7 Slot for Homepage ; true  ; TelcelRecommendationsProductInternetCarouselComponent
+
+#Home Content Slos For Page vida conectada
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section7-Homepage;Section7;;Section7Slot-Homepage;;;
+;;Section7A-Homepage;Section7A;;Section7ASlot-Homepage;;;
+;;Section7B-Homepage;Section7B;;Section7BSlot-Homepage;;;
+
+
+
