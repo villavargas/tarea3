@@ -1,0 +1,21 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing sample compatibility policies
+
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+####################################################################################################
+## Eligibility Policy2 (general acquisition, device only and switch supplier policy):              #
+## A customer is eligible for ACQUISITION DEVICE_ONLY and SWITCH_SERVICE_PROVIDER flows in all conditions  #
+####################################################################################################
+INSERT_UPDATE TmaProcessTypesPolicyStatement; code[unique = true]                                       ; processes(code); $catalogVersion
+                                            ; acq_and_device_only_and_switch_service_provider_statement ; ACQUISITION,DEVICE_ONLY,SWITCH_SERVICE_PROVIDER
+
+INSERT_UPDATE TmaPolicyAction; code[unique = true]                                   ; statement(code, $catalogVersion)                          ; actionType(code); $catalogVersion
+                             ; allow_acq_and_device_only_and_switch_service_provider ; acq_and_device_only_and_switch_service_provider_statement ; ALLOW
+
+INSERT_UPDATE TmaCompatibilityPolicy; code[unique = true]                                         ; conditionsEvaluatorType(code); conditions(code, $catalogVersion); actions(code, $catalogVersion)                        ; onlineFrom[dateformat = dd.MM.yyyy]; onlineTo[dateformat = dd.MM.yyyy]; $catalogVersion
+                                    ; acq_and_device_only_and_switch_service_provider_eligibility ; AND                          ;                                  ; allow_acq_and_device_only_and_switch_service_provider ;
