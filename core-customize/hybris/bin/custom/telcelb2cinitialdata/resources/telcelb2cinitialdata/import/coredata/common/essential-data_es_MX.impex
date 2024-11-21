@@ -1,0 +1,106 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import essential data for the Accelerator
+#
+
+# Language
+$lang = es_MX
+
+# Languages
+UPDATE Language; isocode[unique = true]; name[lang = $lang]
+               ; en                    ; "Ingles"
+               ; es                    ; "Español"
+               ; es_MX                 ; "Español Mexico"
+
+# Currencies
+UPDATE Currency; isocode[unique = true]; name[lang = $lang]
+               ; MXN                   ; "Peso Mexicano"
+
+
+# Credit / Debit Cards
+UPDATE CreditCardType; code[unique = true] ; name[lang = $lang]
+                     ; amex                ; "American Express"
+                     ; diners              ; "Diner's Club"
+                     ; maestro             ; "Maestro"
+                     ; master              ; "Mastercard"
+                     ; mastercard_eurocard ; "Mastercard/Eurocard"
+                     ; switch              ; "Switch"
+                     ; visa                ; "Visa"
+
+# DistanceUnits for Storelocator
+UPDATE DistanceUnit; code[unique = true]; name[lang = $lang]
+                   ; km                 ; "km"
+                   ; miles              ; "millas"
+
+# MediaFormats
+UPDATE MediaFormat; qualifier[unique = true]; name[lang = $lang];
+                  ; 1200Wx1200H             ; "1200Wx1200H"
+                  ; 300Wx300H               ; "300Wx300H"
+                  ; 30Wx30H                 ; "30Wx30H"
+                  ; 365Wx246H               ; "365Wx246H"
+                  ; 515Wx515H               ; "515Wx515H"
+                  ; 65Wx65H                 ; "65Wx65H"
+                  ; 96Wx96H                 ; "96Wx96H"
+                  ; mobile                  ; "mobile"
+                  ; tablet                  ; "tablet"
+                  ; desktop                 ; "desktop"
+                  ; widescreen              ; "widescreen"
+
+# Product Tax Groups
+UPDATE ProductTaxGroup; code[unique = true]; name[lang = $lang]
+#                      ; ca-sales-tax-full  ; "CA Sales Tax"
+#                      ; eu-vat-full        ; "EU Full Tax rate"
+#                      ; eu-vat-half        ; "EU Half Tax rate"
+#                      ; jp-vat-full        ; "JP Consumption Tax"
+#                      ; us-sales-tax-full  ; "US Sales Tax"
+                      ; mx-sales-tax-full  ; "MX Impuesto de venta"
+
+# User Tax Groups
+UPDATE UserTaxGroup; code[unique = true]; name[lang = $lang]
+#                   ; ca-taxes           ; "CA Taxes"
+#                   ; de-taxes           ; "DE Taxes"
+#                   ; jp-taxes           ; "JP Taxes"
+#                   ; uk-taxes           ; "UK Taxes"
+#                   ; us-taxes           ; "US Taxes"
+                   ; mx-taxes           ; "MX Impuesto"
+
+# Tax
+UPDATE Tax; code[unique = true]; name[lang = $lang]
+#          ; ca-sales-tax-full  ; "Sales Tax"
+#          ; de-vat-full        ; "DE VAT full"
+#          ; de-vat-half        ; "DE VAT half"
+#          ; jp-vat-full        ; "Consumption Tax"
+#          ; uk-vat-full        ; "UK VAT full"
+#          ; uk-vat-half        ; "UK VAT half"
+#          ; us-sales-tax-full  ; "Sales Tax"
+          ; mx-sales-tax-full  ; "MX Impuesto de venta"
+
+# Consginment statuses
+UPDATE ConsignmentStatus; code[unique = true]; name[lang = $lang]
+                        ; CANCELLED          ; "Cancelado"
+                        ; PICKPACK           ; "Pickpack"
+                        ; PICKUP_COMPLETE    ; "Recogida completa"
+                        ; READY              ; "Listo"
+                        ; READY_FOR_PICKUP   ; "Listo para recojer"
+                        ; SHIPPED            ; "Enviado"
+                        ; WAITING            ; "Esperando"
+
+# Zone Delivery Modes
+UPDATE ZoneDeliveryMode; code[unique = true]     ; name[lang = $lang]             ; description[lang = $lang]
+                       ; premium-gross           ; "Entrega Premium"              ; "1-2 días hábiles"
+                       ; premium-net             ; "Entrega Premium"              ; "1-2 días hábiles"
+                       ; standard-gross          ; "Entrega estándar"             ; "3-5 días hábiles"
+                       ; standard-net            ; "Entrega estándar"             ; "3-5 días hábiles"
+                       ; subscription-only-gross ; "Entrega solo por suscripción" ; "0 días hábiles"
+                       ; subscription-only-net   ; "Entrega solo por suscripción" ; "0 días hábiles"
+
+# Process Types
+UPDATE TmaProcessType; code[unique = true]; name[lang = $lang]
+                     ; TERMINATION        ; "Terminación"
+
+UPDATE Country; isocode[unique = true]; name[lang = $lang];
+              ; MX                    ; "México"
+
