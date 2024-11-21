@@ -1,0 +1,27 @@
+# Language
+#$lang=en
+##$contentCatalog=telcospaContentCatalog
+##$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+#$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+#
+#$picture=media(code, $contentCV)
+
+#INSERT_UPDATE Media;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+#; telcel_logo  ; $siteResource\Logo-Menu.png ;telcel_logo.png;;
+#
+#INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+#;;SiteLogoComponent; telcel_logo
+
+# Language
+#$lang=en
+#$contentCatalog=telcospaContentCatalog
+#$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+##$siteResource=jar:mx.totalplay.initialdata.setup.InitialDataSystemSetup&/totalplayinitialdata/import/sampledata/contentCatalogs/totalplayContentCatalog
+#$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+#$picture=media(code, $contentCV)
+#
+#INSERT_UPDATE Media;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+#; telcel_logo  ; $siteResource\Logo-Menu.png ;telcel_logo.png;;
+#
+#INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+#;;SiteLogoComponent; telcel_logo
