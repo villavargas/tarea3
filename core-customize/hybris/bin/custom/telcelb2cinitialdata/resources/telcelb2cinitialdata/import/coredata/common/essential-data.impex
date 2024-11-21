@@ -1,0 +1,502 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# Import essential data for telcel store
+#
+# Includes:
+# * Languages
+# * Currencies
+# * Titles
+# * Vendors
+# * Warehouses
+# * Supported Credit/Debit cards
+# * User Groups
+# * DistanceUnits for Storelocator
+# * MediaFolders
+# * MediaFormats
+# * Tax & Tax Groups
+# * Jobs
+# * Delivery Modes
+
+$catalog-id = telcelProductCatalog
+$catalog-version = Online
+$catalogversion = catalogversion(catalog(id), version)[unique=true, default=$catalog-id:$catalog-version]
+$catalogVersions = catalogVersions(catalog(id), version);
+$vendor = telcel
+$vendorName = telcel
+$mxCurrency = MXN
+
+# Languages
+INSERT_UPDATE Language; isocode[unique = true]; fallbackLanguages(isocode); active[default = true]
+                      ; en                    ;                           ; ;
+#                      ; de                    ; en                        ; ;
+                      ; es                    ; en                        ; ;
+                      ; es_MX                 ; es                        ; ;
+
+# Currencies
+INSERT_UPDATE Currency; isocode[unique = true]; conversion; digits; symbol
+#                      ; EUR                   ; 1         ; 2     ; €
+#                      ; USD                   ; 1,4       ; 2     ; $
+                      ; MXN                   ; 1,4       ; 2     ; $
+
+# SiteMap Language Currencies
+INSERT_UPDATE SiteMapLanguageCurrency; &siteMapLanguageCurrency; language(isoCode)[unique = true]; currency(isocode)[unique = true];
+#                                     ; enUsd                   ; en                              ; USD
+#                                     ; enEur                   ; en                              ; EUR
+#                                     ; deUsd                   ; de                              ; USD
+#                                     ; deEur                   ; de                              ; EUR
+                                     ; esMxn                   ; es_MX                           ; MXN
+
+
+# Vendor
+INSERT_UPDATE Vendor; code[unique = true]; name
+                    ; $vendor            ; $vendorName
+
+# Warehouse
+INSERT_UPDATE Warehouse; code[unique = true]  ; name                 ; isocode          ; centro; nameContact                         ; numberContact; vendor(code)[default = default]; default[default = true]
+                       ; warehouse_telcel     ; Warehouse Telcel     ; warehouse_telcel ;       ;                                     ;              ; $vendor
+                       ; VL01_Guadalajara     ; VL01 Guadalajara     ; VL01             ; MX05  ; Dahén Rosas de Alba                 ; 0            ; $vendor
+                       ; CD01_Guadalajara     ; CD01 Guadalajara     ; CD01             ; MX05  ; Bertha Yolanda Nungaray Ceja        ; 0            ; $vendor
+                       ; CD18_Morelia         ; CD18 Morelia         ; CD18             ; MX05  ; Rodrigo Diaz Pastor                 ; 0            ; $vendor
+                       ; CD16_Tepic           ; CD16 Tepic           ; CD16             ; MX05  ; Nubia Zatarain Rivera               ; 0            ; $vendor
+                       ; CD20_Colima          ; CD20 Colima          ; CD20             ; MX05  ; Georgina Mendoza Aparicio           ; 0            ; $vendor
+                       ; VL01_Hermosillo      ; VL01 Hermosillo      ; VL01             ; MX02  ; Jesús Iván López Quijada            ; 0            ; $vendor
+                       ; CD01_Hermosillo      ; CD01 Hermosillo      ; CD01             ; MX02  ; Jesús Iván López Quijada            ; 0            ; $vendor
+                       ; VL01_Chihuahua       ; VL01 Chihuahua       ; VL01             ; MX03  ; Raul Alan Hernandez Acosta          ; 0            ; $vendor
+                       ; CD01_Chihuahua       ; CD01 Chihuahua       ; CD01             ; MX03  ; Raul Alan Hernandez Acosta          ; 0            ; $vendor
+                       ; VL01_Monterrey       ; VL01 Monterrey       ; VL01             ; MX04  ; Javier Gonzalez                     ; 0            ; $vendor
+                       ; CD01_Monterrey       ; CD01 Monterrey       ; CD01             ; MX04  ; Javier Gonzalez                     ; 0            ; $vendor
+                       ; VL01_Queretaro       ; VL01 Querétaro       ; VL01             ; MX06  ; Agustín Cantú Vargas                ; 0            ; $vendor
+                       ; CD02_Queretaro       ; CD02 Queretaro       ; CD02             ; MX06  ; Juan Arturo García                  ; 0            ; $vendor
+                       ; VL01_Puebla          ; VL01 Puebla          ; VL01             ; MX07  ; Jesús Flores Mondrtagón             ; 0            ; $vendor
+                       ; CD01_Puebla          ; CD01 Puebla          ; CD01             ; MX07  ; Luis Arturo Salome Martinez         ; 0            ; $vendor
+                       ; VL01_Tijuana         ; VL01 Tijuana         ; VL01             ; MX01  ; Benito Hernandez Reyes              ; 0            ; $vendor
+                       ; CD01_Tijuana         ; CD01 Tijuana         ; CD01             ; MX01  ; Benito Hernandez Reyes              ; 0            ; $vendor
+                       ; CD04_Villahermosa    ; CD04 Villahermosa    ; CD04             ; MX08  ; Lorena Elizabeth Hernandez Olivares ; 0            ; $vendor
+                       ; CD02_Tuxtla          ; CD02 Tuxtla          ; CD02             ; MX08  ; Miguel Angel Cruz Vazquez           ; 0            ; $vendor
+                       ; CD07_Mochis          ; CD07 Mochis          ; CD07             ; MX02  ; Ramon Octavio Armenta Ruiz          ; 0            ; $vendor
+                       ; CD06_Culiacan        ; CD06 Culiacan        ; CD06             ; MX02  ; Yonathan Rafael Zatarain Favela     ; 0            ; $vendor
+                       ; RU04_Torreon         ; RU04 Torreon         ; RU04             ; MX03  ; Maria Guadalupe Valdes              ; 0            ; $vendor
+                       ; CD03_Torreon         ; CD03 Torreon         ; CD03             ; MX03  ; Maria Guadalupe Valdes              ; 0            ; $vendor
+                       ; RU03_Juarez          ; RU03 Juarez          ; RU03             ; MX03  ; Erik Gonzalez                       ; 0            ; $vendor
+                       ; CD02_Juarez          ; CD02 Juárez          ; CD02             ; MX03  ; Erik Gonzalez                       ; 0            ; $vendor
+                       ; CD07_Tampico         ; CD07 Tampico         ; CD07             ; MX04  ; Alma Rosa Gonzalez Rodriguez        ; 0            ; $vendor
+                       ; CD16_Saltillo        ; CD16 Saltillo        ; CD16             ; MX04  ; Nicolas Gonzalez Hidrogo            ; 0            ; $vendor
+                       ; CD10_Reynosa         ; CD10 Reynosa         ; CD10             ; MX04  ; David Ruiz Doria                    ; 0            ; $vendor
+                       ; CD03_Leon            ; CD03 León            ; CD03             ; MX06  ; José Olalde Pacheco                 ; 0            ; $vendor
+                       ; CD04_San_Luis_Potosi ; CD04 San Luis Potosi ; CD04             ; MX06  ; Angel Guillermo Borjas Sandoval     ; 0            ; $vendor
+                       ; CD05_Aguascaliente   ; CD05 Aguascaliente   ; CD05             ; MX06  ; Mario Toscano Mendoza               ; 0            ; $vendor
+                       ; CD06_Zacatecas       ; CD06 Zacatecas       ; CD06             ; MX06  ; Jesús Armando Oswaldo Hernández     ; 0            ; $vendor
+                       ; CD04_Acapulco        ; CD04 Acapulco        ; CD04             ; MX07  ; Juan Manuel Martínez Del Carmen     ; 0            ; $vendor
+                       ; CD09_Oaxaca          ; CD09 Oaxaca          ; CD09             ; MX07  ; Mario Tonatihu Rodriguez Lopez      ; 0            ; $vendor
+                       ; CD05_Veracruz        ; CD05 Veracruz        ; CD05             ; MX07  ; Maria Del Pilar Contreras Rodríguez ; 0            ; $vendor
+                       ; CD03_CANCUN          ; CD03 CANCUN          ; CD03             ; MX08  ; Ana Laura Plascencia                ; 0            ; $vendor
+                       ; CD03_Tapachula       ; CD03 Tapachula       ; CD05             ; MX08  ; Cora Santeliz Montero               ; 0            ; $vendor
+                       ; CD01_Merida          ; CD01 Merida          ; CD01             ; MX08  ; Jose Alberto Vega Lagarda           ; 0            ; $vendor
+                       ; VL01_Merida          ; VL01 Merida          ; VL01             ; MX08  ; Jose Alberto Vega Lagarda           ; 0            ; $vendor
+                       ; VL01_CDMX            ; VL01 CDMXN           ; VL01             ; MX09  ; Jose Luis Flores Morales            ; 0            ; $vendor
+
+UPDATE Warehouse; code[unique = true]; isocode
+                ; warehouse_telcel   ; M701
+
+# Disable preview for email pages
+UPDATE CMSPageType; code[unique = true]; previewDisabled
+                  ; EmailPage          ; true
+
+INSERT_UPDATE ComponentTypeGroup; code[unique = true]
+                                ; storefinder
+
+# Titles
+INSERT_UPDATE Title; code[unique = true]; name[lang = es]; name[lang = es_MX];
+                   ; mr                 ; Sr.            ; Sr.
+                   ; mrs                ; Sra.           ; Sra.
+                   ; miss               ; Srta.          ; Srta.
+#                   ; ms
+#                   ; dr
+#                   ; rev
+
+# Media Folders
+INSERT_UPDATE MediaFolder; qualifier[unique = true]; path[unique = true]
+                         ; images                  ; images
+                         ; email-body              ; email-body
+                         ; email-attachments       ; email-attachments
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId[unique = true]
+                             ; cartRemovalJob     ; cartRemovalJob
+                             ; siteMapMediaJob    ; siteMapMediaJob
+
+# Media formats
+INSERT_UPDATE ConversionMediaFormat; qualifier[unique = true]; conversionStrategy                 ; conversion
+                                   ; 300Wx300H               ; imageMagickMediaConversionStrategy ; -resize 300x300!
+                                   ; 1200Wx1200H             ; imageMagickMediaConversionStrategy ; -resize 1200x1200!
+                                   ; 96Wx96H                 ; imageMagickMediaConversionStrategy ; -resize 96x96!
+                                   ; 30Wx30H                 ; imageMagickMediaConversionStrategy ; -resize 30x30!
+                                   ; 65Wx65H                 ; imageMagickMediaConversionStrategy ; -resize 65x65!
+                                   ; 515Wx515H               ; imageMagickMediaConversionStrategy ; -resize 515x515!
+                                   ; 365Wx246H               ; imageMagickMediaConversionStrategy ; -resize 365x246!
+
+INSERT_UPDATE ConversionGroup; code[unique = true]; name[lang = es]         ; supportedFormats(qualifier)[mode = replace]
+                             ; telcelImages       ; Telcel Conversion Group ; 300Wx300H,1200Wx1200H,96Wx96H,30Wx30H,65Wx65H,515Wx515H
+
+INSERT_UPDATE MediaFormat; qualifier[unique = true]
+                         ; mobile
+                         ; tablet
+                         ; desktop
+                         ; widescreen
+
+# Tax & Tax Groups
+INSERT_UPDATE UserTaxGroup; code[unique = true]
+#                          ; de-taxes
+#                          ; jp-taxes
+#                          ; uk-taxes
+#                          ; us-taxes
+#                          ; ca-taxes
+                          ; mx-taxes
+
+INSERT_UPDATE ProductTaxGroup; code[unique = true]
+#                             ; jp-vat-full
+#                             ; eu-vat-full
+#                             ; eu-vat-half
+#                             ; us-sales-tax-full
+#                             ; ca-sales-tax-full
+#                             ; jp-vat-full_eur
+#                             ; eu-vat-full_eur
+#                             ; eu-vat-half_eur
+#                             ; us-sales-tax-full_eur
+#                             ; ca-sales-tax-full_eur
+                             ; mx-sales-tax-full
+
+
+INSERT_UPDATE Tax; code[unique = true]; value; currency(isocode)
+#                 ; de-vat-full        ; 19
+#                 ; de-vat-half        ; 7
+#                 ; jp-vat-full        ; 5
+#                 ; uk-vat-full        ; 20
+#                 ; uk-vat-half        ; 5
+#                 ; us-sales-tax-full  ; 10
+#                 ; ca-sales-tax-full  ; 0
+                 ; mx-sales-tax-full  ; 10   ; MXN
+
+#INSERT_UPDATE Tax; code[unique = true]   ; value; currency(isocode)
+#                 ; de-vat-full_eur       ; 19   ; EUR
+#                 ; de-vat-half_eur       ; 7    ; EUR
+#                 ; jp-vat-full_eur       ; 5    ; EUR
+#                 ; uk-vat-full_eur       ; 20   ; EUR
+#                 ; uk-vat-half_eur       ; 5    ; EUR
+#                 ; us-sales-tax-full_eur ; 10   ; EUR
+#                 ; ca-sales-tax-full_eur ; 0    ; EUR
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId[unique = true]
+                             ; cartRemovalJob     ; cartRemovalJob
+                             ; siteMapMediaJob    ; siteMapMediaJob
+
+INSERT_UPDATE Country; isocode[unique = true]; name[lang = en]; active[default = true]
+#                     ; US                    ; "United States"
+                     ; MX                    ; "Mexico"
+
+# Delivery Zones
+INSERT_UPDATE Zone; code[unique = true]; countries(isocode)
+#                  ; usa                ; US
+#                  ; uk                 ; GB,GG,IM,JE
+#                  ; continentalEurope  ; AD,AL,AT,BA,BE,BG,BY,CH,CY,CZ,DE,DK,EE,ES,FI,FO,FR,GI,GL,GR,HR,HU,IE,IS,IT,LI,LT,LU,LV,MC,MD,ME,MK,MT,NL,NO,PL,PT,RO,RS,RU,SE,SI,SK,SM,TR,UA,VA
+#                  ; ca                 ; CA
+#                  ; japan              ; JP
+#                  ; china              ; CN
+#                  ; otherAsianRegions  ; VN,HK,KP,KR
+                  ; mexico             ; MX
+
+# Zone Delivery Modes
+INSERT_UPDATE ZoneDeliveryMode; code[unique = true]     ; net; active[default = true]
+                              ; premium-net             ; true
+                              ; standard-net            ; true
+                              ; subscription-only-net   ; true
+                              ; premium-gross           ; false
+                              ; standard-gross          ; false
+                              ; subscription-only-gross ; false
+                              ; delivery-cost-chip      ; true
+
+# USA
+INSERT_UPDATE ZoneDeliveryModeValue; deliveryMode(code)[unique = true]; zone(code)[default = 'mexico'][unique = true]; currency(isocode)[unique = true]; value ; minimum[unique = true]
+                                   ; premium-net                      ;                                              ; $mxCurrency                     ; 16,99 ; 0,00
+                                   ; premium-gross                    ;                                              ; $mxCurrency                     ; 19,99 ; 0,00
+                                   ; standard-net                     ;                                              ; $mxCurrency                     ; 9,99  ; 0,00
+                                   ; standard-gross                   ;                                              ; $mxCurrency                     ; 11,99 ; 0,00
+                                   ; subscription-only-net            ;                                              ; $mxCurrency                     ; 0,00  ; 0,00
+                                   ; subscription-only-gross          ;                                              ; $mxCurrency                     ; 0,00  ; 0,00
+                                   ; delivery-cost-chip               ;                                              ; $mxCurrency                     ; 0,0   ; 0,00
+#
+## uk
+#INSERT_UPDATE ZoneDeliveryModeValue; deliveryMode(code)[unique = true]; zone(code)[default = 'uk'][unique = true]; currency(isocode)[unique = true]; value ; minimum[unique = true]
+#                                   ; premium-net                      ;                                          ; $mxCurrency                     ; 16,99 ; 0,00
+#                                   ; premium-gross                    ;                                          ; $mxCurrency                     ; 19,99 ; 0,00
+#                                   ; standard-net                     ;                                          ; $mxCurrency                     ; 9,99  ; 0,00
+#                                   ; standard-gross                   ;                                          ; $mxCurrency                     ; 11,99 ; 0,00
+#                                   ; subscription-only-net            ;                                          ; $mxCurrency                     ; 0,00  ; 0,00
+#                                   ; subscription-only-gross          ;                                          ; $mxCurrency                     ; 0,00  ; 0,00
+#
+## continentalEurope
+#INSERT_UPDATE ZoneDeliveryModeValue; deliveryMode(code)[unique = true]; zone(code)[default = 'continentalEurope'][unique = true]; currency(isocode)[unique = true]; value ; minimum[unique = true]
+#                                   ; premium-net                      ;                                                         ; $mxCurrency                     ; 16,99 ; 0,00
+#                                   ; premium-gross                    ;                                                         ; $mxCurrency                     ; 19,99 ; 0,00
+#                                   ; standard-net                     ;                                                         ; $mxCurrency                     ; 9,99  ; 0,00
+#                                   ; standard-gross                   ;                                                         ; $mxCurrency                     ; 11,99 ; 0,00
+#                                   ; subscription-only-net            ;                                                         ; $mxCurrency                     ; 0,00  ; 0,00
+#                                   ; subscription-only-gross          ;                                                         ; $mxCurrency                     ; 0,00  ; 0,00
+#
+## ca
+#INSERT_UPDATE ZoneDeliveryModeValue; deliveryMode(code)[unique = true]; zone(code)[default = 'ca'][unique = true]; currency(isocode)[unique = true]; value ; minimum[unique = true]
+#                                   ; premium-net                      ;                                          ; $mxCurrency                     ; 16,99 ; 0,00
+#                                   ; premium-gross                    ;                                          ; $mxCurrency                     ; 19,99 ; 0,00
+#                                   ; standard-net                     ;                                          ; $mxCurrency                     ; 9,99  ; 0,00
+#                                   ; standard-gross                   ;                                          ; $mxCurrency                     ; 11,99 ; 0,00
+#                                   ; subscription-only-net            ;                                          ; $mxCurrency                     ; 0,00  ; 0,00
+#                                   ; subscription-only-gross          ;                                          ; $mxCurrency                     ; 0,00  ; 0,00
+#
+## japan
+#INSERT_UPDATE ZoneDeliveryModeValue; deliveryMode(code)[unique = true]; zone(code)[default = 'japan'][unique = true]; currency(isocode)[unique = true]; value ; minimum[unique = true]
+#                                   ; premium-net                      ;                                             ; $mxCurrency                     ; 16,99 ; 0,00
+#                                   ; premium-gross                    ;                                             ; $mxCurrency                     ; 19,99 ; 0,00
+#                                   ; standard-net                     ;                                             ; $mxCurrency                     ; 9,99  ; 0,00
+#                                   ; standard-gross                   ;                                             ; $mxCurrency                     ; 11,99 ; 0,00
+#                                   ; subscription-only-net            ;                                             ; $mxCurrency                     ; 0,00  ; 0,00
+#                                   ; subscription-only-gross          ;                                             ; $mxCurrency                     ; 0,00  ; 0,00
+#
+## china
+#INSERT_UPDATE ZoneDeliveryModeValue; deliveryMode(code)[unique = true]; zone(code)[default = 'china'][unique = true]; currency(isocode)[unique = true]; value ; minimum[unique = true]
+#                                   ; premium-net                      ;                                             ; $mxCurrency                     ; 16,99 ; 0,00
+#                                   ; premium-gross                    ;                                             ; $mxCurrency                     ; 19,99 ; 0,00
+#                                   ; standard-net                     ;                                             ; $mxCurrency                     ; 9,99  ; 0,00
+#                                   ; standard-gross                   ;                                             ; $mxCurrency                     ; 11,99 ; 0,00
+#                                   ; subscription-only-net            ;                                             ; $mxCurrency                     ; 0,00  ; 0,00
+#                                   ; subscription-only-gross          ;                                             ; $mxCurrency                     ; 0,00  ; 0,00
+#
+## otherAsianRegions
+#INSERT_UPDATE ZoneDeliveryModeValue; deliveryMode(code)[unique = true]; zone(code)[default = 'otherAsianRegions'][unique = true]; currency(isocode)[unique = true]; value ; minimum[unique = true]
+#                                   ; premium-net                      ;                                                         ; $mxCurrency                     ; 16,99 ; 0,00
+#                                   ; premium-gross                    ;                                                         ; $mxCurrency                     ; 19,99 ; 0,00
+#                                   ; standard-net                     ;                                                         ; $mxCurrency                     ; 9,99  ; 0,00
+#                                   ; standard-gross                   ;                                                         ; $mxCurrency                     ; 11,99 ; 0,00
+#                                   ; subscription-only-net            ;                                                         ; $mxCurrency                     ; 0,00  ; 0,00
+#                                   ; subscription-only-gross          ;                                                         ; $mxCurrency                     ; 0,00  ; 0,00
+
+##############################
+# Insert DeliveryMode taxes
+##############################
+INSERT_UPDATE ProductTaxCode; productCode[unique = true]; taxCode  ; taxArea[unique = true]
+                            ; premium-gross             ; FR000000 ; MX
+                            ; standard-gross            ; FR000000 ; MX
+                            ; standard-net              ; FR000000 ; MX
+                            ; pickup                    ; FR000000 ; MX
+                            ; premium-net               ; FR000000 ; MX
+                            ; subscription-only-gross   ; FR000000 ; MX
+                            ; subscription-only-net     ; FR000000 ; MX
+
+# Deactivate Frontend Restriction on category by default for perfomance purposes
+UPDATE SearchRestriction; code[unique = true]; active[default = false]
+                        ; Frontend_RestrictedCategory
+
+INSERT_UPDATE SearchRestriction; code[unique = true]         ; restrictedType(code)   ; active[default = true]; generate[default = false]; query                                                                                                                                                                                                                                                                                                                                          ; principal(uid)
+                               ; Frontend_TmaPolicyStatement ; TmaPolicyStatement     ;                       ;                          ; {item:catalogVersion} IN (?session.catalogversions)                                                                                                                                                                                                                                                                                            ; customergroup
+                               ; Frontend_TmaPolicyAction    ; TmaPolicyAction        ;                       ;                          ; {item:catalogVersion} IN (?session.catalogversions)                                                                                                                                                                                                                                                                                            ; customergroup
+                               ; Frontend_TmaPolicy_validity ; TmaCompatibilityPolicy ;                       ;                          ; ({onlineFrom} IS NULL AND {onlineTo} IS NULL) OR ({onlineTo} IS NULL AND ({onlineFrom} IS NOT NULL AND {onlineFrom} <= ?session.user.currentDate)) OR ({onlineFrom} IS NULL AND {onlineTo} IS NOT NULL AND {onlineTo} >= ?session.user.currentDate) OR ({onlineFrom} <= ?session.user.currentDate AND {onlineTo} >= ?session.user.currentDate) ; customergroup
+                               ; Pricerow_ValidDate          ; PriceRow               ;                       ;                          ; ( {startTime} IS NULL OR {startTime} <= ?session.user.currentDate) AND ( {endTime} IS NULL OR {endTime} >= ?session.user.currentDate)                                                                                                                                                                                                          ; customergroup
+
+INSERT_UPDATE TmaProcessType; code[unique = true]
+                            ; TERMINATION
+
+$lang = en
+$productCatalog = telcelProductCatalog
+$indexType = telcelPriceType
+$catalogVersion = catalogVersion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+# search profile
+INSERT_UPDATE AsSimpleSearchProfile; code[unique = true] ; name[lang = $lang]    ; indexType[default = $indexType]; $catalogVersion[unique = true]
+                                   ; telcelSearchProfile ; Telcel Search Profile ;                                ;
+
+# -----------------------------------------------------------------------
+INSERT_UPDATE AsSearchProfileActivationSet; indexType[unique = true]; $catalogVersion[unique = true]; searchProfiles(code, $catalogVersion)
+                                          ; telcelPriceType         ;                               ; telcelSearchProfile
+
+
+INSERT_UPDATE MotivoAyudaTicket; code[unique = true]; descripcion                    ; requiereSituacion; nota
+                               ; CambioColor        ; "Cambiar color de mi producto" ; false            ; "Los colores están sujetos a disponibilidad."
+                               ; PedidoNoLLega      ; "Mi pedido no ha llegado"      ; true             ; "Conserva el empaque en el que recibiste tu pedido, ya que podríamos requerir algunas fotografías."
+                               ; PedidoImcompleto   ; "Mi pedido llegó incompleto"   ; true             ; "Conserva el empaque en el que recibiste tu pedido, ya que podríamos requerir algunas fotografías."
+                               ; NoEsPedido         ; "No es lo que pedí"            ; true             ; "Conserva el empaque en el que recibiste tu pedido, ya que podríamos requerir algunas fotografías."
+                               ; Otro               ; "Otro"                         ; false            ; ""
+$motivos = motivos(code)
+INSERT_UPDATE AyudaTicket; code[unique = true]; descripcion               ; $motivos                                  ;
+                         ; ModificarPedido    ; "Modificar mi pedido"     ; CambioColor                               ;
+                         ; ProblemasConPedido ; "Problemas con mi pedido" ; PedidoNoLLega,PedidoImcompleto,NoEsPedido ;
+                         ; Otro               ; ""                        ; Otro                                      ;
+
+INSERT_UPDATE CorreosContactoRegion; codeRegion[unique = true]; correo;
+                                   ; R1                       ; tiendaenlineaR1@telcel.com
+                                   ; R2                       ; tiendaenlineaR2@telcel.com
+                                   ; R3                       ; tiendaenlineaR3@telcel.com
+                                   ; R4                       ; tiendaenlineaR4@telcel.com
+                                   ; R5                       ; tiendaenlineaR5@telcel.com
+                                   ; R6                       ; tiendaenlineaR6@telcel.com
+                                   ; R7                       ; tiendaenlineaR7@telcel.com
+                                   ; R8                       ; tiendaenlineaR8@telcel.com
+                                   ; R9                       ; tiendaenlinea@telcel.com
+
+$lang = en
+$productCatalog = telcelProductCatalog
+$indexType = telcelPriceType
+$catalogVersion = catalogVersion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+# search profile
+INSERT_UPDATE AsSimpleSearchProfile; code[unique = true] ; name[lang = $lang]    ; indexType[default = $indexType]; $catalogVersion[unique = true]
+                                   ; telcelSearchProfile ; Telcel Search Profile ;                                ;
+
+# -----------------------------------------------------------------------
+INSERT_UPDATE AsSearchProfileActivationSet; indexType[unique = true]; $catalogVersion[unique = true]; searchProfiles(code, $catalogVersion)
+                                          ; telcelPriceType         ;                               ; telcelSearchProfile
+
+
+
+$langEN = en
+$langESMX = es_MX
+$langES = es
+#Enums Localize
+INSERT_UPDATE ConsignmentStatus; code[unique = true]            ; name[lang = $langEN]                      ; name[lang = $langESMX]                        ; name[lang = $langES]
+                               ; READY_TO_PACK                  ; Ready to pack                             ; Listo para empaquetar                         ; Listo para empaquetar
+                               ; LABELLED                       ; Labelled                                  ; Envio Etiquetado                              ; Envio Etiquetado
+                               ; WAITING_TO_BE_SHIPPED          ; Waiting to be shipped                     ; Esperando a ser enviado                       ; Esperando a ser enviado
+                               ; ORDER_SENT                     ; Order Sent                                ; Orden Enviada                                 ; Orden Enviada
+                               ; ORDER_DELIVERED                ; Delivered                                 ; Entregado                                     ; Entregado
+                               ; DELIVERY_PROBLEM               ; Delivery problem                          ; Problema en el envio                          ; Problema en el envio
+                               ; PRE_ACTIVE_LINE                ; Pre-Active Line                           ; Linea pre-activa                              ; Linea pre-activa
+                               ; READY_FOR_SHIPPING             ; Ready for shipping                        ; Listo para envio                              ; Listo para envio
+                               ; CANCELLED                      ; Cancelled                                 ; Cancelado                                     ; Cancelado
+                               ; TAX_NOT_COMMITTED              ; Tax Not Committed                         ; Impuesto no confirmado                        ; Impuesto no confirmado
+                               ; SHIPPED                        ; Shipped                                   ; Enviado                                       ; Enviado
+                               ; DELIVERY_REJECTED              ; Delivery Reject                           ; Entrega rechazada                             ; Entrega rechazada
+                               ; READY                          ; Ready                                     ; Listo                                         ; Listo
+                               ; PAYMENT_NOT_CAPTURED           ; Payment Not Captured                      ; Pago no capturado                             ; Pago no capturado
+                               ; DELIVERY_COMPLETED             ; Delivery Completed                        ; Entrega completa                              ; Entrega completa
+                               ; PICKUP_COMPLETE                ; Pickup complete                           ; Recogida completa                             ; Recogida completa
+                               ; PICKPACK                       ; Pickpack                                  ; Recoger paquete                               ; Recoger paquete
+                               ; DELIVERING                     ; Delivering                                ; Entregando                                    ; Entregando
+                               ; WAITING                        ; Waiting                                   ; Esperando                                     ; Esperando
+                               ; READY_FOR_PICKUP               ; Ready for pickup                          ; Lista para recogida                           ; Lista para recogida
+                               ; IN_TRANSIT                     ; In Transit                                ; En tránsito                                   ; En tránsito
+                               ; WAITING_BILLING                ; Waiting  billing                          ; Esperando a ser facturado                     ; Esperando a ser facturado
+                               ; REPLACEMENT                    ; Replacement                               ; Reemplazado                                   ; Reemplazado
+                               ; REPLACEMENT_CAC                ; Replacement CAC                           ; Reemplazo CAC                                 ; Reemplazo CAC
+                               ; ERROR_PROCESSING_ACTIVATION    ; Line pre-activation error                 ; Error al pre-activar linea                    ; Error al pre-activar linea
+                               ; PROCESSING_ACTIVATION          ; Processing pre-activation                 ; En proceso de pre-activación                  ; En proceso de pre-activación
+                               ; CONSIGNMENT_BILLED             ; Consignment billed                        ; Consignación facturada                        ; Consignacion facturada
+###For RMAs
+                               ; BANK_STATEMENT                 ; Clarification/bank chargeback             ; Aclaración/Contracargo bancario               ; Aclaración/Contracargo bancario
+                               ; FRAUD_RISK                     ; Fraud risk                                ; Riesgo de fraude                              ; Riesgo de fraude
+                               ; DELIVERY_FAILED                ; Delivery failed                           ; Entrega fallida                               ; Entrega fallida
+                               ; CANCEL_PROD_TEST               ; Cancellation of production tests          ; Cancelación por pruebas productivas           ; Cancelación por pruebas productivas
+                               ; CANCEL_INCOMPLETE_ORDER        ; Cancellation for incomplete order         ; Cancelación por pedido incompleto             ; Cancelación por pedido incompleto
+                               ; CANCEL_LOSS                    ; Cancellation due to loss                  ; Cancelación por extravío                      ; Cancelación por extravío
+                               ; CANCEL_REQUEST_CLIENT          ; Cancellation at the request of the client ; Cancelación a solicitud del cliente           ; Cancelación a solicitud del cliente
+                               ; RETURN_REQUEST_CLIENT          ; Return at customer request                ; Devolución a solicitud del cliente            ; Devolución a solicitud del cliente
+                               ; CANCEL_INTERNAL_ISSUE          ; Cancellation due to internal issue        ; Cancelación por tema interno                  ; Cancelación por tema interno
+                               ; MANUFACTURING_DEFECTS          ; Wrong product has been delivered          ; Se ha entregado producto erróneo              ; Se ha entregado producto erróneo
+###For RMAs
+                               ; FRAUD_RISK_CANCEL              ; Canceled due to fraud risk                ; Cancelado por riesgo de fraude                ; Cancelado por riesgo de fraude
+                               ; DELIVERY_FAILED_CANCEL         ; Canceled due to failed delivery           ; Cancelado por entrega fallida                 ; Cancelado por entrega fallida
+                               ; CANCEL_PROD_TEST_CANCEL        ; Canceled for productive tests             ; Cancelado por pruebas productivas             ; Cancelado por pruebas productivas
+                               ; CANCEL_INCOMPLETE_ORDER_CANCEL ; Canceled due to incomplete order          ; Cancelado por pedido incompleto               ; Cancelado por pedido incompleto
+                               ; CANCEL_LOSS_CANCEL             ; Canceled due to loss                      ; Cancelado por extravío                        ; Cancelado por extravío
+                               ; CANCEL_REQUEST_CLIENT_CANCEL   ; Canceled at customer request              ; Cancelado a solicitud del cliente             ; Cancelado a solicitud del cliente
+                               ; RETURN_REQUEST_CLIENT_CANCEL   ; Return completed at customer request      ; Devolución completada a solicitud del cliente ; Devolución completada a solicitud del cliente
+                               ; CANCEL_INTERNAL_ISSUE_CANCEL   ; Canceled due to internal issue            ; Cancelado por tema interno                    ; Cancelado por tema interno
+                               ; MANUFACTURING_DEFECTS_CANCEL   ; Canceled for exchange and warranty        ; Cancelado por cambio y garantía               ; Cancelado por cambio y garantía
+                               ; WAITING_PAYMENT                ; Waiting payment                           ; Esperando pago                                ; Esperando pago
+
+
+INSERT_UPDATE OrderStatus; code[unique = true]           ; name[lang = $langEN]                      ; name[lang = $langESMX]                  ; name[lang = $langES]
+                         ; VALID_VOUCHERS                ; Valid vouchers                            ; Comprobados válidos                     ; Comprobados válidos
+                         ; INVALID_VOUCHERS              ; Invalid vouchers                          ; Comprobados no validados                ; Comprobados no validados
+                         ; WAITING_FOR_PAYMENT           ; Waiting for payment                       ; Esperando pago                          ; Esperando pago
+                         ; BILLED_ORDER                  ; Billed order                              ; Orden facturada                         ; Orden facturada
+                         ; WAITING_BILLING               ; Waiting  billing                          ; Esperando a ser facturado               ; Esperando a ser facturado
+                         ; COMPLETED                     ; Completed                                 ; Terminada                               ; Terminada
+                         ; CANCELLING                    ; Cancelling                                ; Cancelada                               ; Cancelada
+                         ; CANCELLED                     ; Cancelled                                 ; Cancelado                               ; Cancelado
+                         ; CHECKED_VALID                 ; Checked valid                             ; Checked valid                           ; Checked valid
+                         ; TAX_NOT_REQUOTED              ; Tax Not Requoted                          ; No se volvió a crear oferta de impuesto ; No se volvió a crear oferta de impuesto
+                         ; TAX_NOT_COMMITTED             ; Tax Not Committed                         ; Impuesto no confirmado                  ; Impuesto no confirmado
+                         ; TAX_NOT_VOIDED                ; Tax Not Voided                            ; Impuesto no anulado                     ; Impuesto no anulado
+                         ; PAYMENT_NOT_VOIDED            ; Payment Not Voided                        ; Pago no anulado                         ; Pago no anulado
+                         ; WAIT_FRAUD_MANUAL_CHECK       ; Waiting For Manual Validation             ; Esperando validación manual             ; Esperando validación manual
+                         ; PROCESSING_ERROR              ; Processing Error                          ; Error de procesamiento                  ; Error de procesamiento
+                         ; ORDER_SPLIT                   ; Order Split                               ; Partición de pedido                     ; Partición de pedido
+                         ; FRAUD_CHECKED                 ; Fraud Checked                             ; Fraude comprobado                       ; Fraude comprobado
+                         ; PAYMENT_NOT_CAPTURED          ; Payment Not Captured                      ; Pago no capturado                       ; Pago no capturado
+                         ; PAYMENT_AMOUNT_NOT_RESERVED   ; Payment Not Reserved                      ; Pago no reservado                       ; Pago no reservado
+                         ; PAYMENT_AMOUNT_RESERVED       ; Payment Reserved                          ; Pago reservado                          ; Pago reservado
+                         ; PAYMENT_NOT_AUTHORIZED        ; Payment Not Authorized                    ; Pago no autorizado                      ; Pago no autorizado
+                         ; PAYMENT_AUTHORIZED            ; Payment Authorized                        ; Pago autorizado                         ; Pago autorizado
+                         ; SUSPENDED                     ; Suspended                                 ; Suspendido                              ; Suspendido
+                         ; ON_VALIDATION                 ; On Validation                             ; En validación                           ; En validación
+                         ; ON_HOLD                       ; On Hold                                   ; En espera                               ; En espera
+                         ; CHECKED_INVALID               ; Checked Invalid                           ; Comprobados no válidos                  ; Comprobados no válidos
+                         ; READY                         ; Ready                                     ; Listo                                   ; Listo
+                         ; CREATED                       ; Created                                   ; Creada                                  ; Creada
+                         ; FRAUD_RISK                    ; Fraud Risk                                ; Riesgo de fraude                        ; Riesgo de fraude
+                         ; DELIVERY_FAILED               ; Delivery Failed                           ; Entrega fallida                         ; Entrega fallida
+                         ; CANCELLATION_PRODUCTIVE_TESTS ; Cancellation For Productive Tests         ; Cancelación por pruebas productivas     ; Cancelación por pruebas productivas
+                         ; DAMAGED                       ; Damaged                                   ; Siniestrado                             ; Siniestrado
+                         ; CANCELLATION_REQUEST_CLIENT   ; Cancellation At The Request Of The Client ; Cancelación a solicitud del cliente     ; Cancelación a solicitud del cliente
+                         ; RETURNED_CLIENT               ; Returned By Client                        ; Devuelto por cliente                    ; Devuelto por cliente
+                         ; CANCELLATION_INTERNAL_ISSUE   ; Cancellation To Internal Issue            ; Cancelación por tema interno            ; Cancelación por tema interno
+                         ; REPLACEMENT                   ; Replacement                               ; Reemplazo                               ; Reemplazo
+                         ; REPLACEMENT_CAC               ; Replacement CAC                           ; Reemplazo CAC                           ; Reemplazo CAC
+                         ; PROCESSING_ACTIVATION         ; Processing pre-activation                 ; En proceso de pre-activación            ; En proceso de pre-activación
+                         ; ERROR_PROCESSING_ACTIVATION   ; Line pre-activation error                 ; Error al pre-activar linea              ; Error al pre-activar linea
+                         ; MANUFACTURING_DEFECTS         ; Manufacturing defects                     ; Defecto de fabricacion                  ; Defecto de fabricacion
+                         ; PAYMENT_ON_VALIDATION         ; Payment on validation                     ; Pago en validación                      ; Pago en validación
+
+INSERT_UPDATE FedexGuidesStatus; code[unique = true]; name[lang = $langEN]; name[lang = $langESMX]; name[lang = $langES]
+                               ; SENT               ; Sent                ; Enviado               ; Enviado
+                               ; DELIVERED          ; Delivered           ; Entregado             ; Entregado
+                               ; ERROR              ; Error               ; Error                 ; Error
+
+
+
+INSERT_UPDATE PaymentStatus; code[unique = true]  ; name[lang = $langEN] ; name[lang = $langESMX]; name[lang = $langES]
+                           ; PAYMENT_NOT_MADE     ; Payment not made     ; Pago no efectuado     ; Pago no efectuado
+                           ; PAID                 ; Paid                 ; Pagado                ; Pagado
+                           ; PARTPAID             ; Part paid            ; Parcialmente pagado   ; Parcialmente pagado
+                           ; NOTPAID              ; Not Paid             ; No Pagado             ; No Pagado
+                           ; PAYMENT_ERROR        ; Payment error        ; Error en pago         ; Error en pago
+                           ; UNAUTHORIZED_PAYMENT ; Unauthorized payment ; Pago no autorizado    ; Pago no autorizado
+
+INSERT_UPDATE RefundReason; code[unique = true]   ; name[lang = $langEN]    ; name[lang = $langESMX]              ; name[lang = $langES]
+                          ; BankStatement         ; Bank Statement          ; Aclaración/Contracargo bancario     ; Aclaración/Contracargo bancario
+                          ; FraudRisk             ; Fraud Risk              ; Riesgo de fraude                    ; Riesgo de fraude
+                          ; DeliveryFailed        ; Delivery Failed         ; Entrega fallida                     ; Entrega fallida
+                          ; CancelProdTest        ; Cancel Prod Test        ; Cancelación por pruebas productivas ; Cancelación por pruebas productivas
+                          ; CancelIncompleteOrder ; Cancel Incomplete Order ; Cancelación por pedido incompleto   ; Cancelación por pedido incompleto
+                          ; CancelLoss            ; Cancel Loss             ; Cancelación por extravío            ; Cancelación por extravío
+                          ; CancelRequestClient   ; Cancel Request Client   ; Cancelación a solicitud del cliente ; Cancelación a solicitud del cliente
+                          ; ReturnRequestClient   ; Return Request Client   ; Devolución a solicitud del cliente  ; Devolución a solicitud del cliente
+                          ; CancelInternalIssue   ; Cancel Internal Issue   ; Cancelación por tema interno        ; Cancelación por tema interno
+                          ; MANUFACTURING_DEFECTS ; Wrong product delivered ; Se ha entregado producto erróneo    ; Se ha entregado producto erróneo
+
+INSERT_UPDATE CancelReason; code[unique = true]   ; name[lang = $langEN]    ; name[lang = $langESMX]              ; name[lang = $langES]
+                          ; BankStatement         ; Bank Statement          ; Aclaración/Contracargo bancario     ; Aclaración/Contracargo bancario
+                          ; FraudRisk             ; Fraud Risk              ; Riesgo de fraude                    ; Riesgo de fraude
+                          ; DeliveryFailed        ; Delivery Failed         ; Entrega fallida                     ; Entrega fallida
+                          ; CancelProdTest        ; Cancel Prod Test        ; Cancelación por pruebas productivas ; Cancelación por pruebas productivas
+                          ; CancelIncompleteOrder ; Cancel Incomplete Order ; Cancelación por pedido incompleto   ; Cancelación por pedido incompleto
+                          ; CancelLoss            ; Cancel Loss             ; Cancelación por extravío            ; Cancelación por extravío
+                          ; CancelRequestClient   ; Cancel Request Client   ; Cancelación a solicitud del cliente ; Cancelación a solicitud del cliente
+                          ; ReturnRequestClient   ; Return Request Client   ; Devolución a solicitud del cliente  ; Devolución a solicitud del cliente
+                          ; CancelInternalIssue   ; Cancel Internal Issue   ; Cancelación por tema interno        ; Cancelación por tema interno
+                          ; MANUFACTURING_DEFECTS ; Manufacturing defects   ; Defecto de fabricacion              ; Defecto de fabricacion
+
+INSERT_UPDATE ReturnStatus; code[unique = true]    ; name[lang = $langEN]   ; name[lang = $langESMX]      ; name[lang = $langES]
+                          ; REJECTED               ; Rejected               ; Rechazada                   ; Rechazada
+                          ; RETURN_COMPLETED       ; Return completed       ; Devolucion completada       ; Devolucion completada
+                          ; RETURN_COMPLETED_SIPAB ; Return completed SIPAB ; Devolucion completada SIPAB ; Devolucion completada SIPAB
+                          ; CANCELLED_SIPAB        ; Cancelled SIPAB        ; Cancelado SIPAB             ; Cancelado SIPAB
+                          ; FAILED_REFUND          ; Failed refund          ; Reembolso fallido           ; Reembolso fallido
+                          ; CANCELED               ; Canceled               ; Cancelado                   ; Cancelado
