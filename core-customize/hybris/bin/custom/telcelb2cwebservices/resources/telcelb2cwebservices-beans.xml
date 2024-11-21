@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+	<!-- DATA -->
+	<bean class="mx.com.telcel.data.UserDataList">
+		<property name="users" type="java.util.List&lt;mx.com.telcel.data.UserData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.BrandDataList">
+		<property name="brands" type="java.util.List&lt;mx.com.telcel.data.BrandData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.ConceptBillingList">
+		<property name="concepts" type="java.util.List&lt;mx.com.telcel.data.ConceptBillingData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.RegimenFiscalDataList">
+		<property name="regimenes" type="java.util.List&lt;mx.com.telcel.data.RegimenFiscalData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.RegimenCapitalDataList">
+		<property name="regimenes" type="java.util.List&lt;mx.com.telcel.data.RegimenCapitalData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.ReceiptStatusList">
+		<property name="receiptStatus" type="java.util.List&lt;mx.com.telcel.data.ReceiptStatusData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.ItemPaymentDataList">
+		<property name="itemPayment" type="java.util.List&lt;mx.com.telcel.data.ItemPaymentData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.DeviceDataList">
+		<property name="devices" type="java.util.List&lt;mx.com.telcel.data.DeviceData>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+		<property name="additionalServiceEntries" type="java.util.List&lt;mx.com.telcel.dto.order.AdditionalServiceEntryWsDTO>"/>
+		<property name="totalWithoutAdditonalServices" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/>
+		<property name="quantityBreakdown" type="java.util.List&lt;mx.com.telcel.dto.order.EntryQtyBreakdownWsDTO>"/>
+		<property name="entryQtyPos" type="java.lang.Integer"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO">
+		<property name="totalWithoutAdditonalServices" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/>
+		<property name="requireInvoice" type="java.lang.Boolean"/>
+		<property name="telcelBillingAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="holderLineAddress" type="mx.com.telcel.facades.holderline.data.HolderLineData"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.order.EntryQtyBreakdownWsDTO">
+		<property name="quantity" type="java.lang.Long"/>
+		<property name="entryQtyPos" type="java.lang.Integer"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.order.AdditionalServiceEntryWsDTO">
+		<property name="additionalServiceProduct" type="mx.com.telcel.dto.AdditionalServiceWsDTO"/>
+		<property name="basePrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/>
+		<property name="entryNumber" type="java.lang.Integer"/>
+		<property name="rejected" type="java.lang.Boolean"/>
+		<property name="deniedPayment" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.BrandData" >
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.ConceptBillingData" >
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.RegimenFiscalData" >
+		<property name="code" type="String"/>
+		<property name="description" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.RegimenCapitalData" >
+		<property name="code" type="String"/>
+		<property name="acronimo" type="String"/>
+		<property name="description" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.ItemPaymentData" >
+		<property name="sku" type="String"/>
+		<property name="name" type="String"/>
+		<property name="entrynumber" type="String"/>
+		<property name="description" type="String"/>
+		<property name="price" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.ReceiptStatusData" >
+		<property name="paymentId" type="String"/>
+		<property name="timer" type="String"/>
+		<property name="risk" type="String"/>
+		<property name="url" type="String"/>
+		<property name="msi" type="String"/>
+		<property name="status" type="String"/>
+		<property name="itemPayment" type="mx.com.telcel.data.ItemPaymentDataList"/>
+		<property name="verifiedPayment" type="boolean"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.DeviceData" >
+		<property name="code" type="String"/>
+		<property name="model" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.UserData" >
+		<property name="defaultBillingAddress" type="mx.com.telcel.data.AddressData"/>
+		<property name="defaultShippingAddress" type="mx.com.telcel.data.AddressData"/>
+		<property name="addresses" type="java.util.List&lt;mx.com.telcel.data.AddressData>"/>
+		<property name="description" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.data.AddressDataList">
+		<property name="addresses" type="java.util.List&lt;mx.com.telcel.data.AddressData>"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.data.AddressData">
+		<property name="streetname" type="String"/>
+		<property name="streetnumber" type="String"/>
+		<property name="town" type="String"/>
+		<property name="shippingAddress" type="boolean"/>
+		<property name="billingAddress" type="boolean"/>
+		<property name="defaultAddress" type="boolean"/>
+		<property name="formattedAddress" type="String"/>
+	</bean>
+
+	<!-- DTO -->
+	<bean class="mx.com.telcel.dto.SampleWsDTO">
+		<description>Sample DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">sample</hint>
+		</hints>
+		<property name="value" type="String">
+			<description>sample value</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.UsersListWsDTO">
+		<description>User list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">usersList</hint>
+		</hints>
+		<property name="users" type="java.util.List&lt;mx.com.telcel.dto.UserWsDTO>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.ConceptsBillingListWsDTO">
+		<description>Brand list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">conceptsBilling</hint>
+		</hints>
+		<property name="concepts" type="java.util.List&lt;mx.com.telcel.dto.ConceptBillingWsDTO>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.RegimenFiscalesListWsDTO">
+		<description>Brand list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">conceptsBilling</hint>
+		</hints>
+		<property name="regimenes" type="java.util.List&lt;mx.com.telcel.dto.RegimenFiscalWsDTO>"/>
+	</bean>
+
+
+	<bean class="mx.com.telcel.dto.RegimenCapitalListWsDTO">
+		<description>Brand list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">conceptsBilling</hint>
+		</hints>
+		<property name="regimenes" type="java.util.List&lt;mx.com.telcel.dto.RegimenCapitalWsDTO>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.BrandsListWsDTO">
+		<description>Brand list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">brandsList</hint>
+		</hints>
+		<property name="brands" type="java.util.List&lt;mx.com.telcel.dto.BrandWsDTO>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.ErrorsValidateStockListWsDTO">
+		<description>Brand list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">brandsList</hint>
+		</hints>
+		<property name="errorsValidateStock" type="java.util.List&lt;mx.com.telcel.dto.ErrorsValidateStockWsDTO>"/>
+	</bean>
+
+
+	<bean class="mx.com.telcel.dto.DevicesListWsDTO">
+		<description>Devices list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">devicesList</hint>
+		</hints>
+		<property name="devices" type="java.util.List&lt;mx.com.telcel.dto.DeviceWsDTO>"/>
+	</bean>
+
+
+	<bean class="mx.com.telcel.dto.AdditionalServicesListWsDTO">
+		<description>AdditionalServices list</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">additionalServices</hint>
+		</hints>
+		<property name="additionalServices" type="java.util.List&lt;mx.com.telcel.dto.AdditionalServiceWsDTO>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.UsersPageWsDTO" extends="de.hybris.platform.webservicescommons.dto.SearchPageWsDTO&lt;mx.com.telcel.dto.UserWsDTO>" >
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">usersPage</hint>
+		</hints>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+		<property name="bandaSoportada3G" type="java.lang.String"/>
+		<property name="bandaSoportadaGSM" type="java.lang.String"/>
+		<property name="bandaSoportada4G" type="java.lang.String"/>
+		<property name="bandaSoportadaVOLTE" type="java.lang.String"/>
+		<property name="frecuenciaCATM1" type="java.lang.String"/>
+		<property name="frecuenciaNGIOT" type="java.lang.String"/>
+		<property name="tecnologia" type="java.lang.String"/>
+		<property name="duracionBateriaCC" type="java.lang.String"/>
+		<property name="duracionBateriaStandby" type="java.lang.String"/>
+		<property name="duracionBateriaLC" type="java.lang.String"/>
+		<property name="procesador" type="java.lang.String"/>
+		<property name="procesadorMarca" type="java.lang.String"/>
+		<property name="procesadorModelo" type="java.lang.String"/>
+		<property name="procesadorVelocidad" type="java.lang.String"/>
+		<property name="tituloSeo" type="java.lang.String"/>
+		<property name="pdpUrl" type="java.lang.String"/>
+		<property name="pictureUrl" type="java.lang.String"/>
+		<property name="descripcionIncludeGift" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.AdditionalServiceWsDTO" extends="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+		<property name="type" type="String" />
+	</bean>
+
+	<bean class="mx.com.telcel.dto.DeviceWsDTO">
+		<description>Device DTO</description>
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+		<property name="model" type="String" />
+	</bean>
+
+	<bean class="mx.com.telcel.dto.BrandWsDTO">
+		<description>Brand DTO</description>
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+	</bean>
+
+	<bean class="mx.com.telcel.dto.ErrorsValidateStockWsDTO">
+		<description>Brand DTO</description>
+		<property name="sku" type="String" />
+		<property name="requiere" type="String" />
+		<property name="disponible" type="String" />
+	</bean>
+
+	<bean class="mx.com.telcel.dto.ConceptBillingWsDTO">
+		<description>Concept Billing DTO</description>
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+	</bean>
+
+	<bean class="mx.com.telcel.dto.RegimenFiscalWsDTO">
+		<description>Concept Billing DTO</description>
+		<property name="code" type="String" />
+		<property name="description" type="String" />
+	</bean>
+
+	<bean class="mx.com.telcel.dto.RegimenCapitalWsDTO">
+		<description>Concept Billing DTO</description>
+		<property name="code" type="String" />
+		<property name="acronimo" type="String" />
+		<property name="description" type="String" />
+	</bean>
+
+	<bean class="mx.com.telcel.dto.UserWsDTO">
+		<description>User DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">user</hint>
+		</hints>
+		<property name="addresses" type="java.util.List&lt;mx.com.telcel.dto.AddressWsDTO>"/>
+		<property name="firstName" type="String">
+			<description>First Name</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+		<property name="lastName" type="String">
+			<description>Last Name</description>
+			<hints>
+				<hint name="required">true</hint>
+			</hints>
+		</property>
+		<property name="info" type="String" />
+		<property name="billingAddress" type="mx.com.telcel.dto.AddressWsDTO">
+			<description>Billing Address</description>
+		</property>
+		<property name="shippingAddress" type="mx.com.telcel.dto.AddressWsDTO">
+			<description>Shipping Address</description>
+		</property>
+	</bean>
+	
+	<bean class="mx.com.telcel.dto.AddressListWsDTO">
+		<description>List of addresses</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">addressList</hint>
+		</hints>
+		<property name="addresses" type="java.util.List&lt;mx.com.telcel.dto.AddressWsDTO>"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.dto.AddressWsDTO">
+		<description>Address DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">address</hint>
+		</hints>
+		<property name="street" type="String"/>
+		<property name="town" type="String"/>
+		<property name="streetNumber" type="String"/>
+		<property name="razonSocial" type="String"/>
+		<property name="calle" type="String"/>
+		<property name="rfc" type="String"/>
+		<property name="concepto" type="String"/>
+		<property name="regimen" type="String"/>
+		<property name="regimenCapital" type="String"/>
+		<property name="saveAddress" type="Boolean"/>
+		<property name="conceptoDescription" type="String"/>
+		<property name="regimenDescription" type="String"/>
+		<property name="regimenCapitalDescription" type="String"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.dto.TestMapWsDTO">
+		<description>Example of DTO with map</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">testMap</hint>
+		</hints>
+		<property name="stringMap" type="java.util.Map&lt;String,String>"/>
+		<property name="integerMap" type="java.util.Map&lt;String,Integer>"/>
+	</bean>
+
+
+	<bean class="mx.com.telcel.dto.CartAddressWsDTO">
+		<description>Customer Checkout DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">cartaddress</hint>
+		</hints>
+		<property name="guid" type="String"/>
+		<property name="ip" type="String"/>
+		<property name="sessionId" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.CustomerCheckoutInfWsDTO">
+		<description>Customer Checkout DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">address</hint>
+		</hints>
+		<property name="name" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="dateOfBirth " type="String"/>
+		<property name="email " type="String"/>
+		<property name="curp " type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.GenericResponseWsDTO">
+		<description>Customer Checkout DTO</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">GenericResponse</hint>
+		</hints>
+		<property name="errorCode" type="int"/>
+		<property name="errorMessage" type="String"/>
+		<property name="wasSuccessful" type="boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO">
+		<property name="externalNumber" type="String"/>
+		<property name="interiorNumber" type="String"/>
+		<property name="references" type="String"/>
+		<property name="razonSocial" type="String"/>
+		<property name="calle" type="String"/>
+		<property name="rfc" type="String"/>
+		<property name="concepto" type="String"/>
+		<property name="regimen" type="String"/>
+		<property name="regimenCapital" type="String"/>
+		<property name="saveAddress" type="Boolean"/>
+		<property name="conceptoDescription" type="String"/>
+		<property name="regimenDescription" type="String"/>
+		<property name="regimenCapitalDescription" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="externalNumber" type="String"/>
+		<property name="interiorNumber" type="String"/>
+		<property name="references" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.TelcelEsquemaCobroWsDTO">
+		<description>Esquema Cobro</description>
+		<hints>
+			<hint name="wsRelated" />
+			<hint name="alias">esquemaCobro</hint>
+		</hints>
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="description" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.RegionTelcelData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.data.TelcelRegionsForPricesData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentWsDTO">
+		<property name="line" type="java.lang.String"/>
+		<property name="additionalServiceEntry" type="mx.com.telcel.dto.order.AdditionalServiceEntryWsDTO"/>
+	</bean>
+	
+	<!-- Beans expire token -->
+	
+	<bean class="mx.com.telcel.dto.LoginResponseTokenDTO">
+		<description>Login Response Token DTO</description>
+		<property name="access_token" type="java.lang.String"/>
+		<property name="expiredIn" type="java.lang.String"/>
+			<property name="token_type" type="java.lang.String"/>
+		<property name="refresh_token" type="java.lang.String"/>
+		<property name="scope" type="java.lang.String"/>
+		<property name="error" type="java.lang.String"/>
+		<property name="error_description" type="java.lang.String"/>
+		
+	</bean>
+	
+	
+	
+		<bean class="mx.com.telcel.dto.LoginRequestTokenDTO">
+		<description>Login Request Token DTO</description>
+		<property name="grant_type" type="java.lang.String"/>
+		<property name="username" type="java.lang.String"/>
+		<property name="password" type="java.lang.String"/>
+		<property name="scope" type="java.lang.String"/>
+		<property name="client_id" type="java.lang.String"/>
+		<property name="client_secret" type="java.lang.String"/>
+		<property name="token" type="java.lang.String"/>
+	</bean>
+</beans>
