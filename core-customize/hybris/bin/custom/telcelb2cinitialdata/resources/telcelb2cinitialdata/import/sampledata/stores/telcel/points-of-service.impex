@@ -1,0 +1,47 @@
+## ---------------------------------------------------------------------------
+## Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+## ---------------------------------------------------------------------------
+#
+## ImpEx for Telcel Store
+##% impex.setLocale( Locale.ENGLISH );
+#
+#$storeUid = telcel
+#$productCatalog = telcelProductCatalog
+#$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+#$storeImage = storeImage(qualifier, $catalogVersion)
+#
+#
+#$standardHours = b2ctelcel-mx-standard-hours
+#
+#INSERT_UPDATE OpeningSchedule; code[unique = true];
+#                             ; $standardHours     ;
+#
+#INSERT_UPDATE WeekdayOpeningDay; openingSchedule(code)[unique = true]; dayOfWeek(code)[unique = true]; openingTime[dateformat = hh:mm]; closingTime[dateformat = hh:mm];
+#                               ; $standardHours                      ; MONDAY                        ; 10:00                          ; 21:00
+#                               ; $standardHours                      ; TUESDAY                       ; 10:00                          ; 21:00
+#                               ; $standardHours                      ; WEDNESDAY                     ; 10:00                          ; 21:00
+#                               ; $standardHours                      ; THURSDAY                      ; 10:00                          ; 21:00
+#                               ; $standardHours                      ; FRIDAY                        ; 10:00                          ; 21:00
+#                               ; $standardHours                      ; SATURDAY                      ; 10:00                          ; 19:00
+#
+#INSERT_UPDATE Address; &addrID; streetname            ; streetnumber; postalcode[unique = true]; town[unique = true]; country(isocode); region(isocode); phone1       ; owner(PointOfService.name)[unique = true]
+#                     ; addr01 ; Premium Outlets Blvd. ; 1650        ; 60504                    ; Aurora             ; MX              ;                ; 630.585.9566 ; Hybris Telcel - Chicago Premium Outlets
+#                     ; addr02 ; East 42nd Street      ; 139         ; 10017                    ; New York           ; MX              ;                ; 212.661.0208 ; Hybris Telcel - Chrysler Building
+#                     ; addr03 ; Market Street         ; 865         ; 94103                    ; San Francisco      ; MX              ;                ; 949.347.8392 ; Hybris Telcel - San Francisco Center
+#                     ; addr04 ; Quil-Ceda Blvd.       ; 10600       ; 98271                    ; Tulalip            ; MX              ;                ; 360.657.2690 ; Hybris Telcel - Seattle Premium Outlets
+#                     ; addr05 ; Poydras Street        ; 1           ; 70130                    ; New Orleans        ; MX              ;                ; 504.525.9052 ; Hybris Telcel - Riverwalk Marketplace
+#
+#
+#INSERT_UPDATE StoreLocatorFeature; code[unique = true]
+#                                 ; wheelchair
+#                                 ; creche
+#                                 ; sundayWorkshops
+#                                 ; buyOnlinePickupInStore
+#
+#UPDATE PointOfService; name[unique = true]                    ; features(code)                                ;
+#                     ; Hybris Telcel - Chicago Premium Outlets ; wheelchair,creche,buyOnlinePickupInStore      ;
+#                     ; Hybris Telcel - Chrysler Building       ; wheelchair,creche,buyOnlinePickupInStore      ;
+#                     ; Hybris Telcel - San Francisco Center    ; wheelchair,creche,buyOnlinePickupInStore      ;
+#                     ; Hybris Telcel - Seattle Premium Outlets ; wheelchair,buyOnlinePickupInStore             ;
+#                     ; Hybris Telcel - Riverwalk Marketplace   ; creche,sundayWorkshops,buyOnlinePickupInStore ;
+#
