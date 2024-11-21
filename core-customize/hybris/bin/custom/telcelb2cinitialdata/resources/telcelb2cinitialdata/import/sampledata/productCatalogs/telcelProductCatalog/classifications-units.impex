@@ -1,0 +1,10 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing Units into Store
+
+# Macros / Replacement Parameter definitions
+$classificationCatalog = telcelClassification
+$systemVersion = systemVersion(catalog(id[default=$classificationCatalog]), version[default='1.0'])
+
