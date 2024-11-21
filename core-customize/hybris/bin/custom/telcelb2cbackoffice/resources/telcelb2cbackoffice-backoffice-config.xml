@@ -1,0 +1,1261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<config xmlns="http://www.hybris.com/cockpit/config"
+	    xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+		xmlns:yc="http://www.hybris.com/cockpitng/config/common"
+		xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+		xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+		xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser"
+		xmlns:cv="http://www.hybris.com/cockpitng/component/compareview"
+		xmlns:lv="http://www.hybris.com/cockpitng/component/listView"
+		xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea"
+		xmlns:et="http://www.hybris.com/cockpitng/config/explorertree"
+		xmlns:ss="http://www.hybris.com/cockpitng/config/simplesearch"
+		xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch"
+		xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms"
+		xmlns:dsb="http://www.hybris.com/cockpitng/config/dashboard"
+		xmlns:gv="http://www.hybris.com/cockpitng/component/gridView">
+
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="hmc_treenode_catalog">
+				<n:navigation-node id="backoffice.navigation-node.TelcelOfferingProducts">
+					<n:type-node code="TelcelSimpleProductOffering" id="hmc_typenode_telcel_simpleproductoffering"/>
+					<n:type-node code="TelcelPoVariant" id="hmc_typenode_telcel_povariant"/>
+				</n:navigation-node>
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+
+	<context merge-by="module" component="editorareaactions" type="Consignment">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>				
+				<y:action action-id="mx.com.telcel.backoffice.actions.confirmpickupaction" property="currentObject"/>				
+				<y:action action-id="mx.com.telcel.backoffice.actions.telcelreplacementaction" property="currentObject"/>
+				<y:action action-id="mx.com.telcel.backoffice.actions.telcelwelcomeletter" property="currentObject"/>
+			</y:group>
+		</y:actions>
+    </context>
+
+	<context component="collectioneditorareaactions" type="Consignment">
+		<y:actions>
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="com.hybris.cockpitng.action.delete" property="currentObject"/>
+				<y:action action-id="mx.com.telcel.backoffice.actions.telcelwelcomeletter" property="currentObject" />
+			</y:group>
+		</y:actions>
+	</context>
+
+	<!-- Notification Area-->
+	<context component="notification-area">
+	    <na:notification-area>	        
+	        <na:notifications eventType="telcelb2cbackoffice.confirmpickup.event" level="SUCCESS">
+	            <na:message>hmc.action.confirmpickup.success</na:message>
+	        </na:notifications>
+	   </na:notification-area>
+	</context>
+
+	<context type="Brand" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="Sector" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="Mundo" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="RegionTelcel" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="Tecnologia" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="SistemaOperativo" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="StorageUnit" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="TipoSim" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="TipoTerminal" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="Color" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="SistemaOperativoRelease" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>@labelService.getObjectLabel(sistemaOperativo)+' : '+version</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="Storage" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>storageUnit.code+' : '+storageValue</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="BandaSoportada" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>tecnologia.code+' : '+frecuencia</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="AdditionalServiceType" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="EsquemaCobro" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="Address" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>streetname+' '+@labelService.getObjectLabel(externalNumber)+' '+@labelService.getObjectLabel(interiorNumber)+', '+postalcode+' '+town</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<!--Start Config for Customersupportbackoffice-->
+	<context component="cseditorareaactions" type="ReturnRequest" merge-by="type" parent="auto" principal="customersupportmanagerrole">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.approvereturnaction"
+						  property="currentObject" merge-mode="remove" />
+				<y:action action-id="mx.com.telcel.backoffice.actions.returns.telcelapprovereturnaction"
+						  property="currentObject" position="0" merge-mode="append"/>
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.cancelreturnaction"
+						  property="currentObject" merge-mode="remove"/>
+				<y:action action-id="mx.com.telcel.backoffice.actions.returns.telcelapprovereturnsipabaction"
+						  property="currentObject" merge-mode="append" position="4"/>
+			</y:group>
+		</y:actions>
+	</context>
+	
+	
+	
+		<context component="cseditorareaactions" type="ReturnRequest" merge-by="type" parent="auto" principal="customersupportagentrole">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.approvereturnaction"
+						  property="currentObject" merge-mode="remove" />
+				<y:action action-id="mx.com.telcel.backoffice.actions.returns.telcelapprovereturnaction"
+						  property="currentObject" position="0" merge-mode="remove"/>
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.cancelreturnaction"
+						  property="currentObject" merge-mode="remove"/>
+				<y:action action-id="mx.com.telcel.backoffice.actions.returns.telcelapprovereturnsipabaction"
+						  property="currentObject" merge-mode="remove" position="4"/>
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="AbstractOrder" component="editor-area">
+		<ea:editorArea name="">
+			<ea:essentials>
+				<ea:essentialSection name="hmc.essential">
+					<ea:attribute qualifier="user"/>
+					<ea:attribute qualifier="code"/>
+				</ea:essentialSection>
+			</ea:essentials>
+			<ea:tab name="hmc.properties">
+				<ea:section name="hmc.common">
+					<ea:attribute qualifier="name"/>
+					<ea:attribute qualifier="description"/>
+					<ea:attribute qualifier="expirationTime"/>
+				</ea:section>
+			</ea:tab>
+			<ea:tab name="hmc.positions_and_prices">
+				<ea:section name="hmc.common">
+					<ea:attribute qualifier="currency"/>
+					<ea:attribute qualifier="date"/>
+					<ea:attribute qualifier="net">
+						<ea:editor-parameter>
+							<ea:name>trueLabel</ea:name>
+							<ea:value>netTrue</ea:value>
+						</ea:editor-parameter>
+						<ea:editor-parameter>
+							<ea:name>falseLabel</ea:name>
+							<ea:value>netFalse</ea:value>
+						</ea:editor-parameter>
+					</ea:attribute>
+					<ea:attribute qualifier="calculated"/>
+				</ea:section>
+				<ea:section name="hmc.positions">
+					<ea:attribute qualifier="entries"/>
+					<ea:attribute qualifier="entryGroups"/>
+					<ea:attribute qualifier="globalDiscountValues"/>
+					<ea:attribute qualifier="totalTaxValues"/>
+					<ea:attribute qualifier="paymentCost"/>
+					<ea:attribute qualifier="deliveryCost"/>
+					<ea:attribute qualifier="totalPrice"/>
+					<ea:attribute qualifier="totalTax"/>
+				</ea:section>
+			</ea:tab>
+			<ea:tab name="hmc.payment_and_delivery">
+				<ea:section name="hmc.status">
+					<ea:attribute qualifier="status"/>
+					<ea:attribute qualifier="exportStatus"/>
+					<ea:attribute qualifier="statusInfo"/>
+				</ea:section>
+				<ea:section name="hmc.payment">
+					<ea:attribute qualifier="paymentAddress"/>
+					<ea:attribute qualifier="paymentMode"/>
+					<ea:attribute qualifier="paymentStatus"/>
+					<ea:attribute qualifier="paymentInfo"/>
+				</ea:section>
+				<ea:section name="hmc.deliveryadministration">
+					<ea:attribute qualifier="deliveryAddress"/>
+					<ea:attribute qualifier="deliveryMode"/>
+					<ea:attribute qualifier="deliveryStatus"/>
+					<ea:attribute qualifier="billingAddress"/>
+				</ea:section>
+			</ea:tab>
+			<ea:tab name="hmc.tab.documents.name">
+				<ea:section name="hmc.section.documents.name">
+					<ea:customPanel name="generator" spring-bean="generateOutputDocumentSectionRenderer"/>
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<!-- Explorer Tree for Admin Perspective -->
+	<context merge-by="module" parent="auto" component="explorer-tree">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="telcelb2ccore.treenode.telcel.node">
+				<n:type-node id="telcelb2ccore.typenode.billing.concepts" code="ConceptosRfcTelcel"/>
+				<n:type-node id="telcelb2ccore.typenode.billing.regimenfiscal" code="RegimenFiscal"/>
+				<n:type-node id="telcelb2ccore.typenode.fedex.guides" code="FedexGuides"/>
+				<n:type-node id="telcelb2ccore.typenode.billing.regimencapital" code="RegimenCapital"/>
+				<n:type-node id="telcelb2ccore.typenode.billing.codigospostales" code="CodigosPostalesTelcel"/>
+				<n:type-node id="telcelb2ccore.typenode.config.msi" code="MSIConfiguration"/>
+				<n:type-node id="telcelb2ccore.typenode.config.bitacoratelcel" code="BitacoraTelcel"/>
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+
+	<!-- List View for Admin perspective -->
+	<context merge-by="type" parent="GenericItem" type="ConceptosRfcTelcel" component="listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView" refresh-after-object-creation="true">
+			<list:column qualifier="code" label="telcelb2cbackoffice.conceptos.code"/>
+			<list:column qualifier="concepto" label="telcelb2cbackoffice.conceptos.concepto"/>
+			<list:column qualifier="isMoral" label="telcelb2cbackoffice.conceptos.isMoral"/>
+			<list:column qualifier="isFisica" label="telcelb2cbackoffice.conceptos.isMoral"/>
+			<list:column qualifier="regimenFiscal" label="telcelb2cbackoffice.conceptos.regimenFiscal"/>
+		</list:list-view>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="RegimenFiscal" component="listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView" refresh-after-object-creation="true">
+			<list:column qualifier="code" label="telcelb2cbackoffice.regimenfiscal.code"/>
+			<list:column qualifier="description" label="telcelb2cbackoffice.regimenfiscal.concepto"/>
+			<list:column qualifier="isMoral" label="telcelb2cbackoffice.regimenfiscal.isMoral"/>
+			<list:column qualifier="isFisica" label="telcelb2cbackoffice.regimenfiscal.isMoral"/>
+			<list:column qualifier="startOfValidity" label="telcelb2cbackoffice.regimenfiscal.startOfValidity"/>
+			<list:column qualifier="endOfValidity" label="telcelb2cbackoffice.regimenfiscal.endOfValidity"/>
+		</list:list-view>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="FedexGuides" component="listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView" refresh-after-object-creation="true">
+			<list:column qualifier="orderId" label="telcelb2cbackoffice.fedex.guides.orderId"/>
+			<list:column qualifier="consignmentId" label="telcelb2cbackoffice.fedex.guides.consignmentId"/>
+			<list:column qualifier="consignmentProccessId" label="telcelb2cbackoffice.fedex.guides.consignmentProccessId"/>
+			<list:column qualifier="guide" label="telcelb2cbackoffice.fedex.guides.guide"/>
+		</list:list-view>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="RegimenCapital" component="listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView" refresh-after-object-creation="true">
+			<list:column qualifier="code" label="telcelb2cbackoffice.regimencapital.code"/>
+			<list:column qualifier="description" label="telcelb2cbackoffice.regimencapital.acronimo"/>
+			<list:column qualifier="isMoral" label="telcelb2cbackoffice.regimencapital.description"/>
+		</list:list-view>
+	</context>
+
+
+	<context merge-by="type" parent="GenericItem" type="CodigosPostalesTelcel" component="listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView" refresh-after-object-creation="true">
+			<list:column qualifier="codigo" label="telcelb2cbackoffice.codigospostales.codigo"/>
+			<list:column qualifier="estado" label="telcelb2cbackoffice.codigospostales.estado"/>
+			<list:column qualifier="municipio" label="telcelb2cbackoffice.codigospostales.municipio"/>
+			<list:column qualifier="ciudad" label="telcelb2cbackoffice.codigospostales.ciudad"/>
+			<list:column qualifier="colonia" label="telcelb2cbackoffice.codigospostales.colonia"/>
+			<list:column qualifier="region" label="telcelb2cbackoffice.codigospostales.region"/>
+			<list:column qualifier="tipoDeAsentamiento" label="telcelb2cbackoffice.codigospostales.tipoDeAsentamiento"/>
+			<list:column qualifier="cveBES" label="telcelb2cbackoffice.codigospostales.cveBES"/>
+			<list:column qualifier="cvePoblacion" label="telcelb2cbackoffice.codigospostales.cvePoblacion"/>
+		</list:list-view>
+	</context>
+	
+	<context merge-by="type" parent="GenericItem" type="MSIConfiguration" component="listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView" refresh-after-object-creation="true">
+			<list:column qualifier="code" label="telcelb2cbackoffice.msiconfiguration.code"/>
+			<list:column qualifier="msiMontoInferior" label="telcelb2cbackoffice.msiconfiguration.msiMontoInferior"/>
+			<list:column qualifier="msiMontoSuperior" label="telcelb2cbackoffice.msiconfiguration.msiMontoSuperior"/>
+			<list:column qualifier="msiMontoMayorMeses" label="telcelb2cbackoffice.msiconfiguration.msiMontoMayorMeses"/>
+			<list:column qualifier="msiMontoIntervaloMeses" label="telcelb2cbackoffice.msiconfiguration.msiMontoIntervaloMeses"/>
+		</list:list-view>
+	</context>
+
+	<!--Simple Search & Advanced Search for Admin Perspective-->
+	<context merge-by="type" type="ConceptosRfcTelcel" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="concepto" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="isMoral" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="isFisica" selected="true" operator="startsWith" />
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<!--Simple Search & Advanced Search for Admin Perspective-->
+	<context merge-by="type" type="CodigosPostalesTelcel" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="codigo" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="estado" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="municipio" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="ciudad" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="colonia" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="region" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="tipoDeAsentamiento" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="cveBES" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="cvePoblacion" selected="true" operator="startsWith" />
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context merge-by="type" type="RegimenFiscal" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="description" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="isMoral" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="isFisica" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="startOfValidity" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="endOfValidity" selected="true" operator="startsWith" />
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context merge-by="type" type="RegimenCapital" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="description" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="acronimo" selected="true" operator="startsWith" />
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context merge-by="type" type="FedexGuides" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="orderId" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="consignmentId" selected="false" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="consignmentProccessId" selected="false" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="guide" selected="false" operator="startsWith" />
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	
+	<context merge-by="type" type="MSIConfiguration" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="msiMontoInferior" selected="true" operator="startsWith" />
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="msiMontoSuperior" selected="true" operator="startsWith" />
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context component="explorer-tree" principal="OperativoFrauderole">
+		<et:explorer-tree>
+			<et:navigation-node id="hmc_treenode_order">
+				<et:type-node code="Order" id="hmc_typenode_order"/>
+				<et:type-node code="OrderEntry" id="hmc_typenode_orderentry"/>
+				<et:type-node code="Quote" id="hmc_typenode_quote"/>
+				<et:type-node code="QuoteEntry" id="hmc_typenode_quoteentry"/>
+				<et:type-node code="Consignment" id="Consignment"/>
+			</et:navigation-node>
+		</et:explorer-tree>
+	</context>
+
+	<context component="explorer-tree" principal="Contenidorole">
+		<et:explorer-tree>
+			<et:navigation-node id="hmc_treenode_catalog">
+				<et:type-node code="Catalog" id="hmc_typenode_catalog"/>
+				<et:type-node code="CatalogVersion" id="hmc_typenode_catalogversion"/>
+				<et:type-node code="Category" id="hmc_typenode_category"/>
+			</et:navigation-node>
+			<et:navigation-node id="hmc_treenode_medias">
+				<et:type-node code="Media" id="hmc_typenode_media"/>
+				<et:type-node code="MediaFolder" id="hmc_typenode_mediafolder"/>
+				<et:type-node code="MediaContainer" id="hmc_typenode_mediacontainer"/>
+				<et:type-node code="MediaFormat" id="hmc_typenode_mediaformat"/>
+				<et:type-node code="MediaContext" id="hmc_typenode_mediacontext"/>
+			</et:navigation-node>
+			<et:navigation-node id="hmc_treenode_order">
+				<et:type-node code="Order" id="hmc_typenode_order"/>
+				<et:type-node code="OrderEntry" id="hmc_typenode_orderentry"/>
+				<et:type-node code="Consignment" id="Consignment"/>
+				<et:type-node code="ConsignmentEntry" id="ConsignmentEntry"/>
+			</et:navigation-node>
+			<et:navigation-node id="hmc.cms2">
+				<et:type-node code="CMSSite" id="CMSSite" />
+				<et:type-node code="CMSPageType" id="CMSPageType" />
+				<et:type-node code="PageTemplate" id="PageTemplate" />
+				<et:type-node code="ContentSlotForTemplate" id="ContentSlotForTemplate" />
+				<et:type-node code="AbstractPage" id="AbstractPage" />
+				<et:type-node code="ContentSlot" id="ContentSlot" />
+				<et:type-node code="ContentSlotForPage" id="ContentSlotForPage" />
+				<et:type-node code="SimpleCMSComponent" id="SimpleCMSComponent" />
+				<et:type-node code="ComponentTypeGroup" id="ComponentTypeGroup" />
+				<et:type-node code="AbstractCMSComponentContainer" id="AbstractCMSComponentContainer" />
+				<et:type-node code="RestrictionType" id="RestrictionType" />
+				<et:type-node code="AbstractRestriction" id="AbstractRestriction" />
+				<et:type-node code="CMSNavigationNode" id="CMSNavigationNode" />
+				<et:type-node code="CMSVersion" id="CMSVersion" />
+				<et:type-node code="SimpleCMSAction" id="SimpleCMSAction" position="9"/>
+			</et:navigation-node>
+		</et:explorer-tree>
+	</context>
+
+	<context merge-by="principal" component="explorer-tree" principal="Generalrole">
+		<et:explorer-tree>
+			<et:navigation-node id="hmc_treenode_system">
+				<et:navigation-node id="hmc_type_tree_oauthserver" merge-mode="remove"/>
+				<et:navigation-node id="hmc_type_tree_corsfilter" merge-mode="remove"/>
+				<et:navigation-node id="hmc_navigationnode_scripting" merge-mode="remove"/>
+				<et:navigation-node id="hmc_treenode_apiregistry" merge-mode="remove"/>
+				<et:navigation-node id="hmc.solrfacetsearch">
+					<et:type-node code="AbstractSnSearchProviderConfiguration" id="hmc_type_tree_snsearchprovider" merge-mode="remove"/>
+					<et:type-node code="SnIndexConfiguration" id="hmc_type_tree_snindexconfiguration" merge-mode="remove"/>
+					<et:type-node code="SnIndexType" id="hmc_type_tree_snindextype" merge-mode="remove"/>
+					<et:type-node code="SnSynonymDictionary" id="hmc_type_tree_snsynonymdictionary" merge-mode="remove"/>
+				</et:navigation-node>
+			</et:navigation-node>
+			<et:navigation-node id="hmc_treenode_user" merge-mode="remove"/>
+		</et:explorer-tree>
+	</context>
+
+	<!-- Explorer Tree-->
+	<context merge-by="principal" component="cs-explorer-tree" module="customersupportbackoffice" principal="customersupportagentrole">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree" title="customer_support">
+			<n:type-node code="Customer" id="customersupport_backoffice_explorerTree_customers" merge-mode="remove"/>
+		</n:explorer-tree>
+	</context>
+
+	<context component="explorer-tree" principal="Reemplazosrole">
+		<et:explorer-tree>
+			<et:navigation-node id="hmc_treenode_order">
+				<et:type-node code="Order" id="hmc_typenode_order"/>
+				<et:type-node code="OrderEntry" id="hmc_typenode_orderentry"/>
+				<et:type-node code="Quote" id="hmc_typenode_quote"/>
+				<et:type-node code="QuoteEntry" id="hmc_typenode_quoteentry"/>
+				<et:type-node code="Consignment" id="Consignment"/>
+				<et:type-node code="ConsignmentEntry" id="ConsignmentEntry"/>
+				<et:type-node code="Consignment" id="hmc_typenode_telcelconsignment" />
+			</et:navigation-node>
+		</et:explorer-tree>
+	</context>
+
+
+	<context component="explorer-tree" principal="telcelSeguridadGPRole">
+		<et:explorer-tree>
+			<et:navigation-node id="hmc_treenode_user">
+				<et:type-node code="UserGroup" id="hmc_typenode_usergroup"/>
+				<et:type-node code="Employee" id="hmc_typenode_employee"/>
+			</et:navigation-node>
+			
+			<et:navigation-node id="telcelb2ccore.treenode.telcel.node">
+				<et:type-node id="telcelb2ccore.typenode.config.bitacoratelcel" code="BitacoraTelcel"/>
+			</et:navigation-node>
+		</et:explorer-tree>
+	</context>
+
+	<context merge-by="principal" component="explorer-tree" principal="telcelServicioClienteGPRole">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="hmc_treenode_system" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_catalog" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_medias" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_user" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_pricesettings" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_c2l" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_marketing" merge-mode="remove"/>
+			<n:navigation-node id="hmc.cms2" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce.deeplink" merge-mode="remove"/>
+			<n:navigation-node id="ruleengine" merge-mode="remove"/>
+			<n:navigation-node id="hmc_ticketsystemgroup" merge-mode="remove"/>
+			<n:navigation-node id="cxnode" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_subscription" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.CustomerInventory" merge-mode="remove"/>
+			<n:navigation-node id="warehousing.treenode.order.management" merge-mode="remove"/>
+			<n:navigation-node id="telcelb2ccore.treenode.telcel.node" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.TmaBpoPreConfig" merge-mode="remove"/>
+		</n:explorer-tree>
+	</context>
+
+	<context merge-by="principal" component="explorer-tree" principal="telcelConsultaGPRole">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="hmc_treenode_system" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_catalog" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_medias" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_user" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_pricesettings" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_c2l" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_marketing" merge-mode="remove"/>
+			<n:navigation-node id="hmc.cms2" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce.deeplink" merge-mode="remove"/>
+			<n:navigation-node id="ruleengine" merge-mode="remove"/>
+			<n:navigation-node id="hmc_ticketsystemgroup" merge-mode="remove"/>
+			<n:navigation-node id="cxnode" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_subscription" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.CustomerInventory" merge-mode="remove"/>
+			<n:navigation-node id="warehousing.treenode.order.management" merge-mode="remove"/>
+			<n:navigation-node id="telcelb2ccore.treenode.telcel.node" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.TmaBpoPreConfig" merge-mode="remove"/>
+		</n:explorer-tree>
+	</context>
+
+	<context merge-by="principal" component="explorer-tree" principal="telcelOrderManagerRole">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="hmc_treenode_system" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_catalog" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_medias" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_user" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_pricesettings" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_c2l" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_marketing" merge-mode="remove"/>
+			<n:navigation-node id="hmc.cms2" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce.deeplink" merge-mode="remove"/>
+			<n:navigation-node id="ruleengine" merge-mode="remove"/>
+			<n:navigation-node id="hmc_ticketsystemgroup" merge-mode="remove"/>
+			<n:navigation-node id="cxnode" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_subscription" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.CustomerInventory" merge-mode="remove"/>
+			<n:navigation-node id="warehousing.treenode.order.management" merge-mode="remove"/>
+			<n:navigation-node id="telcelb2ccore.treenode.telcel.node" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.TmaBpoPreConfig" merge-mode="remove"/>
+		</n:explorer-tree>
+	</context>
+
+	<context merge-by="principal" component="explorer-tree" principal="telcelCreditoYCobranzaGPRole">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="hmc_treenode_system" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_catalog" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_medias" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_user" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_pricesettings" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_c2l" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_marketing" merge-mode="remove"/>
+			<n:navigation-node id="hmc.cms2" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce" merge-mode="remove"/>
+			<n:navigation-node id="hmc.group.basecommerce.deeplink" merge-mode="remove"/>
+			<n:navigation-node id="ruleengine" merge-mode="remove"/>
+			<n:navigation-node id="hmc_ticketsystemgroup" merge-mode="remove"/>
+			<n:navigation-node id="cxnode" merge-mode="remove"/>
+			<n:navigation-node id="hmc_treenode_subscription" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.CustomerInventory" merge-mode="remove"/>
+			<n:navigation-node id="warehousing.treenode.order.management" merge-mode="remove"/>
+			<n:navigation-node id="telcelb2ccore.treenode.telcel.node" merge-mode="remove"/>
+			<n:navigation-node id="backoffice.navigation-node.TmaBpoPreConfig" merge-mode="remove"/>
+		</n:explorer-tree>
+	</context>
+
+	<context merge-by="principal" component="explorer-tree" principal="servicioClienteASGroup">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="customersupport_backoffice_explorerTree_tickets" merge-mode="remove"/>
+			<n:navigation-node id="customersupport_backoffice_explorerTree_reviews" merge-mode="remove"/>
+			<n:navigation-node id="customersupport_backoffice_explorerTree_customers" merge-mode="remove"/>
+			<n:navigation-node id="customersupport_backoffice_explorerTree_personaldatareport" merge-mode="remove"/>
+		</n:explorer-tree>
+	</context>
+
+	<context merge-by="principal" type="AbstractOrder" component="editorareaactions" principal="telcelCreditoYCobranzaGPRole,telcelConsultaGPRole,telcelOrderManagerRole,telcelServicioClienteGPRole" >
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:action action-id="de.hybris.platform.promotions.action.calculatewithpromotionsaction"  merge-mode="remove" />
+				<y:action action-id="com.hybris.cockpitng.action.delete"  merge-mode="remove" />
+				<y:action action-id="com.hybris.cockpitng.action.order.recalculatetotals" merge-mode="remove" />
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context component="cseditorareaactions" type="Order" merge-by="type">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.createreturnrequestaction" property="currentObject" merge-mode="remove" />
+				<y:action action-id="mx.com.telcel.backoffice.actions.telcelcancellationsreturnsaction" property="currentObject" position="1" />
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context merge-by="module" parent="GenericItem" type="ReturnRequest" component="cs-editor-area">
+		<ea:editorArea>
+			<ea:tab name="customersupportbackoffice.tab.general">
+				<ea:section name="customersupportbackoffice.section.returns.rma.properties">
+					<ea:panel name="customersupport_backoffice_rma_panel">
+						<ea:attribute qualifier="RMA" readonly="true" label="customersupportbackoffice.returnrequest.rma"/>
+					</ea:panel>
+					<ea:panel name="customersupport_backoffice_returnRequestOrder_panel">
+						<ea:attribute qualifier="order" readonly="true" label="customersupportbackoffice.returnrequest.order.number">
+							<ea:editor-parameter>
+								<ea:name>disableDisplayingDetails</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+						</ea:attribute>
+					</ea:panel>
+					<ea:customPanel name="customersupportbackoffice.panel.order.general.shipaddress" spring-bean="orderNestedAttributePanelRenderer">
+						<ea:attribute qualifier="order.deliveryCost" readonly="true" />
+					</ea:customPanel>
+					<ea:customPanel name="customersupport_backoffice_refundDeliveryCost_panel" spring-bean="refundDeliveryCostRenderer"/>
+					<ea:panel name="customersupport_backoffice_additionalServiceValue_panel">
+						<ea:attribute qualifier="additionalServiceValue" readonly="true" label="customersupportbackoffice.returnrequest.additionalServiceValue"/>
+					</ea:panel>
+					<ea:panel name="customersupport_backoffice_refundAdditionalService_panel">
+						<ea:attribute qualifier="refundAdditionalService" label="customersupportbackoffice.returnrequest.refundAdditionalService"/>
+					</ea:panel>
+					<ea:customPanel name="customersupportbackoffice.panel.order.general.refundAmount" spring-bean="telcelRefundAmountRenderer"/>
+					<ea:customPanel name="customersupportbackoffice.panel.order.general.consigment" spring-bean="telcelConsignmentRenderer"/>
+					<ea:panel name="customersupport_backoffice_status_panel">
+						<ea:attribute qualifier="status" readonly="true"/>
+					</ea:panel>
+					<ea:customPanel name="customersupportbackoffice.panel.order.general.totalDiscount" spring-bean="totalDiscountRenderer"/>
+					<ea:panel name="customersupport_backoffice_rollbackconfirm_panel">
+						<ea:attribute qualifier="rollBackConfirm" readonly="true" label="customersupportbackoffice.returnrequest.rollbackconfirm"/>
+					</ea:panel>
+				</ea:section>
+				<ea:section name="customersupportbackoffice.section.returns.hierarchy.descendants">
+					<ea:panel name="customersupport_backoffice_returnEntries_panel" >
+						<ea:attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="returnEntries"
+											  label="customersupportbackoffice.section.entries">
+							<ea:editor-parameter>
+								<ea:name>listConfigContext</ea:name>
+								<ea:value>referenceListViewRefundEntries</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>disableDisplayingDetails</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>disableRemoveReference</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>isNestedObjectCreationDisabled</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>restrictToType</ea:name>
+								<ea:value>RefundEntry</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>inlineEditing</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+						</ea:attribute>
+					</ea:panel>
+				</ea:section>
+				<ea:section name="customersupportbackoffice.section.returns.sipab.properties">
+					<ea:panel name="customersupport_backoffice_processBySipab_panel">
+						<ea:attribute qualifier="processBySipab" readonly="false" label="customersupportbackoffice.returnrequest.processBySipab"/>
+					</ea:panel>
+					<ea:panel name="customersupport_backoffice_amountReview_panel">
+						<ea:attribute qualifier="amountReview" readonly="true" label="customersupportbackoffice.returnrequest.amountReview"/>
+					</ea:panel>
+					<ea:customPanel name="customersupportbackoffice.panel.rma.sipab.folio.info" spring-bean="telcelSIPABFolioRenderer" />
+					<ea:panel name="customersupport_backoffice_consignmentsAmount_panel">
+						<ea:attribute qualifier="consignmentsAmount" readonly="true" label="customersupportbackoffice.returnrequest.consignmentsAmount"/>
+					</ea:panel>
+					<ea:panel name="customersupport_backoffice_sipabAmount_panel">
+						<ea:attribute qualifier="sipabAmount" readonly="true" label="customersupportbackoffice.returnrequest.sipabAmount"/>
+					</ea:panel>
+				</ea:section>
+				<ea:section name="customersupportbackoffice.section.returns.other.properties">
+					<ea:panel name="customersupport_backoffice_rollbackresponse_panel">
+						<ea:attribute qualifier="rollBackResponse" readonly="true" label="customersupportbackoffice.returnrequest.rollbackresponse"/>
+					</ea:panel>
+				</ea:section>
+				<ea:section name="customersupportbackoffice.section.returns.users.properties">
+					<ea:panel name="customersupport_backoffice_user_panel">
+						<ea:attribute qualifier="user" readonly="true" label="customersupportbackoffice.returnrequest.user"/>
+					</ea:panel>
+					<ea:panel name="customersupport_backoffice_sipabUser_panel">
+						<ea:attribute qualifier="sipabUser" readonly="true" label="customersupportbackoffice.returnrequest.sipabUser"/>
+					</ea:panel>
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context type="ReturnEntry" component="referenceListViewRefundEntries">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="notes" label="customersupportbackoffice.returnrequest.notes"/>
+			<list-view:column qualifier="reason" label="customersupportbackoffice.returnrequest.reason"/>
+			<list-view:column qualifier="orderEntry.product.code" label="customersupportbackoffice.returnentry.orderentry.product.code"/>
+			<list-view:column qualifier="orderEntry.product.name" label="customersupportbackoffice.returnentry.orderentry.product.name"/>
+			<list-view:column qualifier="orderEntry.basePrice" />
+			<list-view:column qualifier="amount" label="customersupportbackoffice.returnentry.refundamount" spring-bean="refundEntryAmountRenderer"/>
+			<list-view:column qualifier="expectedQuantity+''" label="customersupportbackoffice.expectedQuantity" />
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="TelcelReportsCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.telcelreportscronjob.telcel"
+					position="5">
+				<ea:section name="hmc.section.telcelreportscronjob.telcel.host.attributes">
+				     <ea:attribute qualifier="retrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.retry.name"/>
+				    <ea:attribute qualifier="timeRetrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.timeretry.name"/>
+					<ea:attribute qualifier="copyFileToSFTP" label="telcelb2cbackoffice.telcelreportscronjob.copyFileToSFTP.name"/>
+					<ea:attribute qualifier="resetAllReport" label="telcelb2cbackoffice.telcelreportscronjob.resetAllReport.name"/>
+					<ea:attribute qualifier="domain" label="telcelb2cbackoffice.telcelreportscronjob.domain.name" />
+					<ea:attribute qualifier="user" label="telcelb2cbackoffice.telcelreportscronjob.user.name" />
+					<ea:attribute qualifier="secret" label="telcelb2cbackoffice.telcelreportscronjob.secret.name" />
+					<ea:attribute qualifier="port" label="telcelb2cbackoffice.telcelreportscronjob.port.name" />
+					<ea:attribute qualifier="destinationPath" label="telcelb2cbackoffice.telcelreportscronjob.destinationPath.name" />
+				</ea:section>
+				<ea:section name="hmc.section.telcelreportscronjob.telcel.reports.attributes">
+					<ea:attribute qualifier="site" label="telcelb2cbackoffice.telcelreportscronjob.site.name" />
+					<ea:attribute qualifier="store" label="telcelb2cbackoffice.telcelreportscronjob.store.name" />
+					<ea:attribute qualifier="rmas" label="telcelb2cbackoffice.telcelreportscronjob.rmas.name" />
+					<ea:attribute qualifier="orders" label="telcelb2cbackoffice.telcelreportscronjob.orders.name" />
+					<ea:attribute qualifier="ordersDetail" label="telcelb2cbackoffice.telcelreportscronjob.ordersDetail.name" />
+					<ea:attribute qualifier="customers" label="telcelb2cbackoffice.telcelreportscronjob.customers.name" />
+					<ea:attribute qualifier="addresses" label="telcelb2cbackoffice.telcelreportscronjob.addresses.name" />
+					<ea:attribute qualifier="products" label="telcelb2cbackoffice.telcelreportscronjob.products.name" />
+					<ea:attribute qualifier="notifications" label="telcelb2cbackoffice.telcelreportscronjob.notifications.name" />
+					<ea:attribute qualifier="warehouses" label="telcelb2cbackoffice.telcelreportscronjob.warehouses.name" />
+					<ea:attribute qualifier="availability" label="telcelb2cbackoffice.telcelreportscronjob.availability.name" />
+					<ea:attribute qualifier="reportsResult" label="telcelb2cbackoffice.telcelreportscronjob.reportsResult.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+	
+	
+	<context merge-by="type" type="TelcelReportsFULLCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.TelcelReportsFULLCronJob.telcel"
+					position="5">
+				<ea:section name="hmc.section.TelcelReportsFULLCronJob.telcel.host.attributes">
+					<ea:attribute qualifier="copyFileToSFTP" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.copyFileToSFTP.name"/>
+					<ea:attribute qualifier="resetAllReport" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.resetAllReport.name"/>
+					<ea:attribute qualifier="domain" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.domain.name" />
+					<ea:attribute qualifier="user" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.user.name" />
+					<ea:attribute qualifier="secret" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.secret.name" />
+					<ea:attribute qualifier="port" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.port.name" />
+					<ea:attribute qualifier="destinationPath" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.destinationPath.name" />
+				</ea:section>
+				<ea:section name="hmc.section.TelcelReportsFULLCronJob.telcel.reports.attributes">
+					<ea:attribute qualifier="site" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.site.name" />
+					<ea:attribute qualifier="store" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.store.name" />
+					<ea:attribute qualifier="rmas" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.rmas.name" />
+					<ea:attribute qualifier="orders" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.orders.name" />
+					<ea:attribute qualifier="ordersDetail" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.ordersDetail.name" />
+					<ea:attribute qualifier="customers" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.customers.name" />
+					<ea:attribute qualifier="addresses" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.addresses.name" />
+					<ea:attribute qualifier="products" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.products.name" />
+					<ea:attribute qualifier="notifications" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.notifications.name" />
+					<ea:attribute qualifier="warehouses" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.warehouses.name" />
+					<ea:attribute qualifier="availability" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.availability.name" />
+					<ea:attribute qualifier="reportsResult" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.reportsResult.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+	
+	<context merge-by="type" type="TelcelReportsAlmDispCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.TelcelReportsAlmDispCronJob.telcel"
+					position="5">
+				<ea:section name="hmc.section.TelcelReportsAlmDispCronJob.telcel.host.attributes">
+				    <ea:attribute qualifier="retrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.retry.name"/>
+				    <ea:attribute qualifier="timeRetrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.timeretry.name"/>
+					<ea:attribute qualifier="copyFileToSFTP" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.copyFileToSFTP.name"/>
+					<ea:attribute qualifier="resetAllReport" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.resetAllReport.name"/>
+					<ea:attribute qualifier="domain" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.domain.name" />
+					<ea:attribute qualifier="user" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.user.name" />
+					<ea:attribute qualifier="secret" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.secret.name" />
+					<ea:attribute qualifier="port" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.port.name" />
+					<ea:attribute qualifier="destinationPath" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.destinationPath.name" />
+				</ea:section>
+				<ea:section name="hmc.section.TelcelReportsAlmDispCronJob.telcel.reports.attributes">
+					<ea:attribute qualifier="site" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.site.name" />
+					<ea:attribute qualifier="store" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.store.name" />
+					<ea:attribute qualifier="warehouses" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.warehouses.name" />
+					<ea:attribute qualifier="availability" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.availability.name" />
+					<ea:attribute qualifier="reportsResult" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.reportsResult.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+	
+	
+	
+	<context merge-by="type" type="TelcelReportsClientesCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.TelcelReportsClientesCronJob.telcel"
+					position="5">
+				<ea:section name="hmc.section.TelcelReportsAlmDispCronJob.telcel.host.attributes">
+				    <ea:attribute qualifier="retrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.retry.name"/>
+				    <ea:attribute qualifier="timeRetrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.timeretry.name"/>
+				    
+					<ea:attribute qualifier="copyFileToSFTP" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.copyFileToSFTP.name"/>
+					<ea:attribute qualifier="resetAllReport" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.name"/>
+					<ea:attribute qualifier="domain" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.domain.name" />
+					<ea:attribute qualifier="user" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.user.name" />
+					<ea:attribute qualifier="secret" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.secret.name" />
+					<ea:attribute qualifier="port" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.port.name" />
+					<ea:attribute qualifier="destinationPath" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.destinationPath.name" />
+				</ea:section>
+				<ea:section name="hmc.section.TelcelReportsClientesCronJob.telcel.reports.attributes">
+					<ea:attribute qualifier="site" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.site.name" />
+					<ea:attribute qualifier="store" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.store.name" />					
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+	
+	<context merge-by="type" type="TelcelReportsPedidosProductosCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.TelcelReportsClientesCronJob.telcel"
+					position="5">
+				<ea:section name="hmc.section.TelcelReportsAlmDispCronJob.telcel.host.attributes">
+				    <ea:attribute qualifier="retrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.retry.name"/>
+				    <ea:attribute qualifier="timeRetrySFTP" label="telcelb2cbackoffice.TelcelReportsCronJob.timeretry.name"/>
+				    
+					<ea:attribute qualifier="copyFileToSFTP" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.copyFileToSFTP.name"/>
+					<ea:attribute qualifier="resetAllReport" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.name"/>
+					<ea:attribute qualifier="domain" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.domain.name" />
+					<ea:attribute qualifier="user" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.user.name" />
+					<ea:attribute qualifier="secret" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.secret.name" />
+					<ea:attribute qualifier="port" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.port.name" />
+					<ea:attribute qualifier="destinationPath" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.destinationPath.name" />
+				</ea:section>
+				<ea:section name="hmc.section.TelcelReportsClientesCronJob.telcel.reports.attributes">
+					<ea:attribute qualifier="site" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.site.name" />
+					<ea:attribute qualifier="store" label="telcelb2cbackoffice.TelcelReportsAlmDispCronJob.store.name" />	
+					<ea:attribute qualifier="rmas" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.rmas.name" />
+					<ea:attribute qualifier="orders" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.orders.name" />
+					<ea:attribute qualifier="ordersDetail" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.ordersDetail.name" />
+					<ea:attribute qualifier="customers" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.customers.name" />
+					<ea:attribute qualifier="addresses" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.addresses.name" />
+					<ea:attribute qualifier="products" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.products.name" />
+					<ea:attribute qualifier="notifications" label="telcelb2cbackoffice.TelcelReportsFULLCronJob.notifications.name" />		
+									
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+	
+	
+
+	<context merge-by="type" type="TelcelProductPricesCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.telcelproductpricescronjob.telcel"
+					position="5">
+				<ea:section name="hmc.section.telcelproductpricescronjob.telcel.conf.attributes">
+					<ea:attribute qualifier="catalogVersion" label="telcelb2cbackoffice.telcelproductpricescronjob.catalogVersion.name" />
+					<ea:attribute qualifier="syncAndIndex" label="telcelb2cbackoffice.telcelproductpricescronjob.syncAndIndex.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context merge-by="type" type="TelcelReleaseResourcesByConsignmentCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.telcelreleaseresourcesbyconsignmentcronjob.telcel"
+					position="5">
+				<ea:section name="hmc.section.telcelreleaseresourcesbyconsignmentcronjob.telcel.linevalues.attributes">
+					<ea:attribute qualifier="consignmentsToReleaseLine" label="telcelb2cbackoffice.telcelreleaseresourcesbyconsignmentcronjob.consignmentsToReleaseLine.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+
+	<context merge-by="type" type="TelcelAvailableProductCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.telcelavailableproductcronjob.telcel"
+					position="2">
+				<ea:section name="hmc.section.telcelavailableproductcronjob.telcel.host.attributes">
+					<ea:attribute qualifier="catalogVersion" label="telcelb2cbackoffice.telcelavailableproductcronjob.catalogVersion.name" />
+					<ea:attribute qualifier="domain" label="telcelb2cbackoffice.telcelavailableproductcronjob.domain.name" />
+					<ea:attribute qualifier="user" label="telcelb2cbackoffice.telcelavailableproductcronjob.user.name" />
+					<ea:attribute qualifier="secret" label="telcelb2cbackoffice.telcelavailableproductcronjob.secret.name" />
+					<ea:attribute qualifier="port" label="telcelb2cbackoffice.telcelavailableproductcronjob.port.name" />
+					<ea:attribute qualifier="destinationPath" label="telcelb2cbackoffice.telcelavailableproductcronjob.destinationPath.name" />
+					<ea:attribute qualifier="files" label="telcelb2cbackoffice.telcelavailableproductcronjob.files.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context merge-by="module" parent="auto" component="explorer-tree">
+		<explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+			<explorer-tree:navigation-node id="hmc_treenode_order" merge-mode="append">
+				<et:type-node code="Consignment" id="hmc_typenode_telcelconsignment" />
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+
+	<context merge-by="type" type="Consignment" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.consignment.telcel"
+					position="5">
+				<ea:section name="hmc.tab.consignment.telcel.realizapedido">
+					<ea:attribute qualifier="poNoSalesDocument" label="telcelb2cbackoffice.consignment.ponosalesdocument.name" />
+					<ea:attribute qualifier="poNoDelivery" label="telcelb2cbackoffice.consignment.ponodelivery.name" />
+					<ea:attribute qualifier="poNoKunnr" label="telcelb2cbackoffice.consignment.ponokunnr.name" />
+					<ea:attribute qualifier="wasSent" label="telcelb2cbackoffice.consignment.wassent.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.facturacion">
+					<ea:attribute qualifier="telcelFactura" label="telcelb2cbackoffice.consignment.telcelfactura.name" />
+					<ea:attribute qualifier="seriesICCID" label="telcelb2cbackoffice.consignment.serieiccid.name" />
+					<ea:attribute qualifier="seriesImei" label="telcelb2cbackoffice.consignment.serieimei.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.cartaPorte">
+					<ea:attribute qualifier="letterGift" label="telcelb2cbackoffice.consignment.lettergift.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.welcomeLetter">
+					<ea:attribute qualifier="welcomeLetter" label="telcelb2cbackoffice.consignment.welcomeletter.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.guias">
+					<ea:attribute qualifier="fedexGuide" label="telcelb2cbackoffice.consignment.fedexguide.name" />
+					<ea:attribute qualifier="idCreatePickup" label="telcelb2cbackoffice.consignment.idcreatepickup.name" />
+					<ea:attribute qualifier="insuranceCost" label="telcelb2cbackoffice.consignment.insurancecost.name" />
+					<ea:attribute qualifier="labelFile" label="telcelb2cbackoffice.consignment.labelfile.name" />
+					<ea:attribute qualifier="realDeliveryDateFedex" label="telcelb2cbackoffice.consignment.realdeliverydatefedex.name" />
+					<ea:attribute qualifier="statusRetrieveTrack" label="telcelb2cbackoffice.consignment.statusretrievetrack.name" />
+					<ea:attribute qualifier="descriptionRetrieveTrack" label="telcelb2cbackoffice.consignment.descriptionretrievetrack.name" />
+					<ea:attribute qualifier="entregaExpress" label="telcelb2cbackoffice.consignment.entregaexpress.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.pagos">
+					<ea:attribute qualifier="jmsid" label="telcelb2cbackoffice.consignment.jmsid.name" />
+					<ea:attribute qualifier="wasPaymentReceived" label="telcelb2cbackoffice.consignment.waspaymentreceived.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.devoluciones.cancelaciones">
+					<ea:attribute qualifier="rollBackCancelationConfirm" label="telcelb2cbackoffice.consignment.rollbackcancelationconfirm.name" />
+					<ea:attribute qualifier="releaseResources" label="telcelb2cbackoffice.consignment.releaseresources.name" />
+					<ea:attribute qualifier="wasItReturned" label="telcelb2cbackoffice.consignment.wasitreturned.name" />
+					<ea:attribute qualifier="wasReplacement" label="telcelb2cbackoffice.consignment.wasreplacement.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.devoluciones.laststatus">
+					<ea:attribute qualifier="lastStatusDate" label="telcelb2cbackoffice.consignment.laststatusdate.name" />
+				</ea:section>
+				<ea:section name="hmc.tab.consignment.telcel.warehouses">
+					<ea:attribute qualifier="almacen" label="telcelb2cbackoffice.consignment.almacen.name" />
+					<ea:attribute qualifier="centro" label="telcelb2cbackoffice.consignment.centro.name" />
+					<ea:attribute qualifier="regionTelcel" label="telcelb2cbackoffice.consignment.regiontelcel.name" />
+					<ea:attribute qualifier="numSim" label="telcelb2cbackoffice.consignment.numsim.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context component="notification-area">
+		<na:notification-area>
+			<na:notifications eventType="telcelb2cbackoffice.telcelwelcomeletter.event" level="FAILURE">
+				<na:message>hmc.action.telcelwelcomeletter.error.message</na:message>
+			</na:notifications>
+			<na:notifications eventType="telcelb2cbackoffice.telcelwelcomeletter.event" level="SUCCESS">
+				<na:message>hmc.action.telcelwelcomeletter.confirmation.message</na:message>
+			</na:notifications>
+		</na:notification-area>
+	</context>
+
+	<context parent="GenericItem" type="Order" component="cs-editor-area" merge-by="type">
+		<ea:editorArea name="Order editor area">
+			<ea:tab name="customersupportbackoffice.order.tab.details">
+				<ea:section name="telcelb2cbackoffice.section.order.hierarchy.sipablist">
+					<ea:panel name="telcelb2cbackoffice_backoffice_sipabFile_panel">
+						<ea:attribute
+								editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor"
+								qualifier="sipabbFile" readonly="true" label="telcelb2cbackoffice.section.order.hierarchy.sipablist">
+							<ea:editor-parameter>
+								<ea:name>listConfigContext</ea:name>
+								<ea:value>referenceListViewSipab</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>disableDisplayingDetails</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>disableRemoveReference</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+							<ea:editor-parameter>
+								<ea:name>isNestedObjectCreationDisabled</ea:name>
+								<ea:value>true</ea:value>
+							</ea:editor-parameter>
+						</ea:attribute>
+					</ea:panel>
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context  merge-by="type" parent="GenericItem" type="Sipabb" component="referenceListViewSipab">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="folioSipab" label="telcelb2cbackoffice.order.hierarchy.folioSipab"/>
+			<list-view:column qualifier="anio" label="telcelb2cbackoffice.order.hierarchy.anio"/>
+			<list-view:column qualifier="estatus" label="telcelb2cbackoffice.order.hierarchy.estatus"/>
+			<list-view:column qualifier="importe" label="telcelb2cbackoffice.order.hierarchy.importe"/>
+			<list-view:column qualifier="numeroDeOrdenCommerce"
+							  label="telcelb2cbackoffice.order.hierarchy.numeroDeOrdenCommerce"/>
+			<list-view:column qualifier="itemCommerce" label="telcelb2cbackoffice.order.hierarchy.itemCommerce"/>
+			<list-view:column qualifier="fechaDeCreacion" label="telcelb2cbackoffice.order.hierarchy.fechaDeCreacion"/>
+			<list-view:column qualifier="fechaDeCierreDeFolio"
+							  label="telcelb2cbackoffice.order.hierarchy.fechaDeCierreDeFolio"/>
+			<list-view:column qualifier="fechaDeActualizacionEstatus"
+							  label="telcelb2cbackoffice.order.hierarchy.fechaDeActualizacionEstatus"/>
+			<list-view:column qualifier="facturaTelcel" label="telcelb2cbackoffice.order.hierarchy.facturaTelcel"/>
+			<list-view:column qualifier="consignments" label="telcelb2cbackoffice.order.hierarchy.consignments"/>
+		</list-view:list-view>
+	</context>
+	
+	<context merge-by="module" type="BaseStore" component="editor-area">
+	 	<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="hmc.administration">
+			    <editorArea:section name="hmc.basecommerce.administration.msi.configuration">
+			        <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="msiMontoInferior"/>
+					<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="msiMontoSuperior"/>
+					<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="msiMontoMayorMeses"/>
+					<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="msiMontoIntervaloMeses"/>
+			    </editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	 </context>
+
+	<context type="ReturnRequest" component="warehousingbackofficelistview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+			<list:column qualifier="RMA" label="warehousingbackoffice.returns.listview.rma"/>
+			<list:column qualifier="order.code" label="warehousingbackoffice.order.details.ordernumber"/>
+			<list:column qualifier="returnEntries" label="warehousingbackoffice.order.returnentries.consignment" spring-bean="consignmentFromReturnEntriesRender" position="2"/>
+			<list:column qualifier="order.user" label="warehousingbackoffice.order.details.customer"/>
+			<list:column qualifier="creationtime" label="warehousingbackoffice.order.details.created"/>
+			<list:column qualifier="status"/>
+		</list:list-view>
+	</context>
+
+	<context type="ReturnRequest" component="cs-listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+			<list:column qualifier="RMA" label="customersupportbackoffice.returns.listview.rma" />
+			<list:column qualifier="order.code" label="customersupportbackoffice.order.details.ordernumber"/>
+			<list:column qualifier="returnEntries" label="warehousingbackoffice.order.returnentries.consignment" spring-bean="consignmentFromReturnEntriesRender" position="2"/>
+			<list:column qualifier="order.user" label="customersupportbackoffice.order.details.customer"/>
+			<list:column qualifier="creationtime" label="customersupportbackoffice.order.details.created"/>
+			<list:column qualifier="status" />
+		</list:list-view>
+	</context>
+
+	<!--Simple Search & Advanced Search for Admin Perspective-->
+	<context merge-by="type" type="ReturnRequest" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="status"
+									   selected="true"/>
+				<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="orderID" operator="contains"
+									   selected="true"/>
+
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context merge-by="type" parent="Order" type="TelcelReplacementOrder" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="hmc.order.consignments.tab">
+				<editorArea:section name="hmc.order.consignments.section">
+					<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="consignment"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" type="UserGroup" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.usergroup.telcel"
+					position="5">
+				<ea:section name="hmc.tab.usergroup.telcel">
+					<ea:attribute qualifier="replicateLdap" label="telcelb2cbackoffice.usergroup.replicateldap.name" />
+					<ea:attribute qualifier="updateLdap" label="telcelb2cbackoffice.usergroup.updateldap.name" />
+					<ea:attribute qualifier="jobDescription" label="telcelb2cbackoffice.usergroup.jobdescription.name" />
+					<ea:attribute qualifier="menusList" label="telcelb2cbackoffice.usergroup.menuslist.name" />
+					<ea:attribute qualifier="isTelcelRoll" label="telcelb2cbackoffice.usergroup.istelcelroll.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+	<context merge-by="type" type="Employee" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.employee.telcel"
+					position="6">
+				<ea:section name="hmc.tab.employee.telcel">
+					<ea:attribute qualifier="replicateLdap" label="telcelb2cbackoffice.employee.replicateldap.name" />
+					<ea:attribute qualifier="updateLdap" label="telcelb2cbackoffice.employee.updateldap.name" />
+					<ea:attribute qualifier="userId" label="telcelb2cbackoffice.employee.userid.name" />
+					<ea:attribute qualifier="region" label="telcelb2cbackoffice.employee.region.name" />
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context merge-by="type" type="TelcelInactiveEmployeesCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.telcelinactiveemployeescronjob.telcel"
+					position="5">
+				<ea:section name="hmc.section.telcelinactiveemployeescronjob.telcel.attributes">
+					<ea:attribute qualifier="days" label="telcelb2cbackoffice.telcelinactiveemployeescronjob.days.name"/>
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context type="ApplicableMenus" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>description</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="ApplicableSubMenus" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>description</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context merge-by="type" type="TelcelSecurityReportsCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.telcelsecurityreportscronjob.telcel"
+					position="5">
+				<ea:section name="hmc.section.telcelsecurityreportscronjob.telcel.host.attributes">
+					<ea:attribute qualifier="copyFileToSFTP" />
+					<ea:attribute qualifier="resetAllReport" />
+					<ea:attribute qualifier="domain" />
+					<ea:attribute qualifier="user" />
+					<ea:attribute qualifier="secret" />
+					<ea:attribute qualifier="port" />
+					<ea:attribute qualifier="destinationPath" />
+					<ea:attribute qualifier="control" />
+				</ea:section>
+				<ea:section name="hmc.section.telcelsecurityreportscronjob.telcel.ldap.attributes">
+					<ea:attribute qualifier="ldapUsers"/>
+					<ea:attribute qualifier="ldapProfile"/>
+				</ea:section>
+				<ea:section name="hmc.section.telcelsecurityreportscronjob.telcel.ldap.result">
+					<ea:attribute qualifier="reportsResult"/>
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+	<context merge-by="type" type="TelcelSecurityLogReportsCronJob" component="editor-area">
+		<ea:editorArea>
+			<ea:tab name="hmc.tab.telcelsecuritylogreportscronjob.telcel"
+					position="5">
+				<ea:section name="hmc.section.telcelsecuritylogreportscronjob.telcel.host.attributes">
+					<ea:attribute qualifier="copyFileToSFTP" />
+					<ea:attribute qualifier="removeAllRecords" />
+					<ea:attribute qualifier="domain" />
+					<ea:attribute qualifier="user" />
+					<ea:attribute qualifier="secret" />
+					<ea:attribute qualifier="port" />
+					<ea:attribute qualifier="destinationPath" />
+					<ea:attribute qualifier="control" />
+				</ea:section>
+				<ea:section name="hmc.section.telcelsecuritylogreportscronjob.telcel.ldap.attributes">
+					<ea:attribute qualifier="bitacora"/>
+				</ea:section>
+				<ea:section name="hmc.section.telcelsecuritylogreportscronjob.telcel.ldap.result">
+					<ea:attribute qualifier="reportsResult"/>
+					<ea:attribute qualifier="historical"/>
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
+	</context>
+
+</config>
+
