@@ -1,0 +1,9 @@
+#$productCatalog=telcelProductCatalog
+#$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+#$lang=es_MX
+#
+#INSERT_UPDATE MediaConversionCronJob;code[unique=true];$catalogVersion;job(code);includedFormats(qualifier);sessionLanguage(isoCode[default=$lang])
+#                                    ;telcelMediaConversionCronJob;;mediaConversionJob;300Wx300H,1200Wx1200H,96Wx96H,30Wx30H,65Wx65H,515Wx515H,365Wx246H;
+#
+#INSERT_UPDATE CatalogVersionSyncCronJob;code[unique=true];job(code);sessionLanguage(isoCode[default=$lang]);logToFile[default=false];logToDataBase[default=false];forceUpdate[default=false]
+#                                       ;telcelProductMediaSyncCronJob;sync telcelProductCatalog\:Staged->Online;
