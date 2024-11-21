@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!--
+	The hybris platform provides one single Spring application context for beans located at the jalo layer.
+	Each extension can add beans to this context by specifying them at this configuration file.
+	 
+	You can use and/or redefine beans defined at configuration files of other extensions as well as
+	adding new one.
+		
+	If you want to locate this file at a different location or want to use several files for better,
+	structuring, please use the '<yourextension>.application-context' property at your project.properties file.
+	There you can specify a comma separated list of files where first is tried to find a file per classpath and
+	then per file system.
+
+	
+	If you want to configure beans for your web module please have a look at
+	your web/webroot/WEB-INF/<extname>-web-spring.xml.
+	-->
+	
+	<!--  Example how to override a manager -->
+	<!--
+	<bean id="core.productManager"   class="mx.com.telcel.jalo.Telcelb2cwebservicesProductManager" 	init-method="init"	destroy-method="destroy" />
+	-->
+	
+	
+ 	<!--  Example how to configure the class to use for jalo session creation -->
+	<!--
+	<bean id="jalosession"   class="de.hybris.platform.jalo.JaloSessionFactory">
+		<property name="targetClassName" value="mx.com.telcel.jalo.Telcelb2cwebservicesJaloSession"/>
+	</bean>
+	-->
+
+	
+	<!--  Example how to override an item  -->
+	<!-- 
+	<bean id="de.hybris.platform.jalo.product.Product" class="mx.com.telcel.jalo.Telcelb2cwebservicesProduct" scope="prototype" />		
+ 	-->
+
+	<!--  
+	 Example how to register and use an AOP aspect 
+     Also see http://static.springframework.org/spring/docs/2.5.x/reference/aop.html	
+     -->
+	
+	<!-- 
+	<bean id="telcelb2cwebservicesProfBean" class="mx.com.telcel.aop.Telcelb2cwebservicesProfilingAspect"/>
+	<aop:config proxy-target-class="true">
+  		<aop:aspect id="telcelb2cwebservicesProfAspect" ref="telcelb2cwebservicesProfBean" >
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="execution(* getModificationTime(..))" />  	            
+	   		<aop:around pointcut-ref="profiledMethods" method="profile" />
+  		</aop:aspect>
+	</aop:config>
+	 -->
+
+	
+	<!-- some other examples of a pointcut that matches everything:
+
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="bean(de.hybris.platform.jalo.user.Customer) &amp;&amp; 
+	      	            !execution(* getPK(..))" />  	            
+	       <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />	
+	  -->
+	
+	
+	<!-- Beans needed for sample code -->
+ 
+	
+	<!-- Sample Converters and Populators -->
+	<bean id="telcelb2cwebservicesSampleAddressPopulator" class="mx.com.telcel.populators.SampleAddressPopulator" />
+
+	<bean id="telcelb2cwebservicesSampleAddressConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.data.AddressData" />
+		<property name="populators">
+			<list>
+				<ref bean="telcelb2cwebservicesSampleAddressPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="telcelb2cwebservicesSampleUserPopulator" class="mx.com.telcel.populators.SampleUserPopulator">
+		<property name="addressConverter" ref="telcelb2cwebservicesSampleAddressConverter" />
+	</bean>
+
+	<bean id="telcelb2cwebservicesSampleUserConverter" parent="defaultPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.data.UserData" />
+		<property name="populators">
+			<list>
+				<ref bean="telcelb2cwebservicesSampleUserPopulator" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Sample Services -->
+	<bean id="telcelb2cwebservicesSampleUserService" class="mx.com.telcel.services.impl.SampleUserServicesImpl" />
+	
+ 	<!-- Sample facades -->
+	<alias name="telcelb2cwebservicesDefaultSampleFacades" alias="telcelb2cwebservicesSampleFacades"/>
+	<bean id="telcelb2cwebservicesDefaultSampleFacades" class="mx.com.telcel.facades.impl.DefaultSampleFacades">
+		<property name="userConverter" ref="telcelb2cwebservicesSampleUserConverter" />
+		<property name="sampleUserService" ref="telcelb2cwebservicesSampleUserService" />
+	</bean>
+	
+	<alias name="telcelSSOServiceImpl" alias="telcelSSOService"/>
+	<bean id="telcelSSOServiceImpl" 
+	    class="mx.com.telcel.services.impl.TelcelSSOServiceImpl">
+	</bean>
+	
+	<alias name="customValidationServiceImpl" alias="customValidationService"/>
+	<bean id="customValidationServiceImpl" 
+	    class="mx.com.telcel.services.impl.CustomValidationServiceImpl">
+	</bean>
+
+	
+	<alias name="jsonConverter" alias="jsonConverter"/>
+	<bean id="jsonConverter" 
+	    class="mx.com.telcel.utilities.JsonConverter">
+	</bean>
+	
+	<alias name="soapConverter" alias="soapConverter"/>
+	<bean id="soapConverter" 
+	    class="mx.com.telcel.utilities.SOAPConverter">
+	</bean>
+	
+	<alias name="fedexServiceImpl" alias="fedexService"/>
+	<bean id="fedexServiceImpl" 
+	    class="mx.com.telcel.services.impl.FedexServiceImpl">
+		<property name="telcelFedexDao" ref="telcelFedexDao" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+	
+	<alias name="cvtdatServiceImpl" alias="cvtdatService"/>
+	<bean id="cvtdatServiceImpl"
+	    class="mx.com.telcel.services.impl.CVTDATServiceImpl">
+	</bean>
+
+	<alias name="individualServiceImpl" alias="individualService"/>
+	<bean id="individualServiceImpl"
+	    class="mx.com.telcel.services.impl.IndividualServiceImpl">
+	</bean>
+	
+	<alias name="invoiceServiceImpl" alias="invoiceService"/>
+	<bean id="invoiceServiceImpl"
+	    class="mx.com.telcel.services.impl.InvoiceServiceImpl">
+	</bean>
+
+</beans>
