@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<action-definition id="mx.com.telcel.backoffice.actions.telcelwelcomeletter"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+	
+	<name>Carta de bienvenida</name>
+	<description>Action to Telcel welcome letter</description>
+	<author>hybris</author>
+	<version>1.0</version>
+	
+	<actionClassName>mx.com.telcel.backoffice.actions.TelcelWelcomeLetterAction</actionClassName>
+    <inputType>de.hybris.platform.ordersplitting.model.ConsignmentModel</inputType>
+	<outputType>java.lang.Object</outputType>
+	
+    <iconUri>icons/icon_telcel_welcome_letter_enabled.png</iconUri>
+    <iconDisabledUri>icons/icon_telcel_welcome_letter_disabled.png</iconDisabledUri>
+</action-definition>
