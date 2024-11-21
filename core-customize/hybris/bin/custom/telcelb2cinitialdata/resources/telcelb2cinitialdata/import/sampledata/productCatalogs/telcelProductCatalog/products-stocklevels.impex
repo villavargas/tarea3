@@ -1,0 +1,121 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing Products stock levels into Telcel Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog = telcelProductCatalog
+$productCatalogName = Telcel Product Catalog
+$vendor = telcel
+$warehouse = warehouse(code)[unique = true, default = 'warehouse_telcel']
+
+##################################
+#### Variant Product Offerings ###
+##################################
+
+## ImpEx for Importing Stock Levels for Smartphones
+INSERT_UPDATE StockLevel;         productCode[unique = true]; available[default = 100]; $warehouse; inStockStatus(code)[default = notSpecified]; maxPreOrder[default = 0]; maxStockLevelHistoryCount[default = -1]; overSelling[default = 0]; preOrder[default = 0]; reserved[default = 0]
+                        ; Galaxy_s21_black_128GB             ;
+                        ; Galaxy_s21_violet_128GB            ;
+                        ; Galaxy_s21_violet_1TB            ;
+                        ; Galaxy_s21_violet_64GB            ;
+                        ; Galaxy_s21Ultra_black_256GB       ;
+                        ; Galaxy_s21Ultra_black_128GB       ;
+                        ; Galaxy_s21Ultra_black_1TB       ;
+                        ; Galaxy_s21Ultra_black_64GB       ;
+                        ; iPhone_x_white_256GB       ;
+                        ; iPhone_x_white_128GB       ;
+                        ; iPhone_x_white_64GB       ;
+                        ; iPhone_13_red_256GB       ;
+                        ; iPhone_13_red_128GB       ;
+                        ; iPhone_13_red_64GB       ;
+                        ; iPhone_13_blue_256GB       ;
+                        ; iPhone_13_blue_128GB       ;
+                        ; iPhone_13_blue_64GB       ;
+                        ; iPhone_13pro_blue_1TB       ;
+                        ; iPhone_13pro_blue_256GB       ;
+
+## ImpEx for Importing Stock Levels for Accesories
+INSERT_UPDATE StockLevel;         productCode[unique = true]; available[default = 100]; $warehouse; inStockStatus(code)[default = notSpecified]; maxPreOrder[default = 0]; maxStockLevelHistoryCount[default = -1]; overSelling[default = 0]; preOrder[default = 0]; reserved[default = 0]
+                        ; HUAWEI_Freebuds4i_black       ;
+                        ; HUAWEI_Freebuds4i_red       ;
+                        ; airpods_pro_white             ;
+                        ; cargador_s10334_black       ;
+                        ;bag_QJBK-E1_black;
+                        #gadgets>selfie_stick
+                        ;selfieStick_B07FM171ST_black;
+                        #gadgets>impresora
+                        ;print_G3110_black;
+                        #gadgets>bascula
+                        ;techvida_bascula_B07K47S8RX_black;
+                        #gadgets>scooter
+                        ;scooter_FBC4022GL_black;
+                        #gadgets>pluma
+                        ;pluma_BHR4603GL_black;
+                        #gadgets>teclado_gaming
+                        ;Ballista_B07VDVFRZ8_black;
+                        #gadgets>audifonos_gaming
+                        ;audifonos_PHS-250_violet;
+                        #gadgets>mouse_gaming
+                        ;GLADIUS_10000S_black;
+                        #hogar>camaras
+                        ;MiHome_MJSXJ05CM_white;
+                        #hogar>aspirador
+                        ;xiaomi_MiRobot_Vacuum12_white;
+                        #hogar>kit_sensores
+                        ;xiaomi_MiSmart_YTC4033ES_white;
+                        #hogar>focos_inteligentes
+                        ;xiaomi_MiSmart_XM200036_white;
+                        #hogar>purificador__aire
+                        ;xiaomi_MiAir_B07ZV7BDXZ_white;
+                        #hogar>lampara_nocturna
+                        ;xiaomi_B0872SSPH7_white;
+                        #hogar>monitor_temperatura
+                        ;xiaomi_NUN4126GL_white;
+                        #memorias>micro_sd
+                        ;kingston_SDCS2_128GB;
+                        #memorias>16gb
+                        ;kingston_USB_DT100G3_16GB;
+                        #memorias>32gb
+                        ;kingston_USB_DT100G3_32GB;
+                        #memorias>64gb
+                        ;kingston_USB_DT100G3_64GB;
+                        #proteccion>cases
+                        ;magsafe_MM2Q3ZM-A_blue;
+                        #proteccion>fundas
+                        ;apple_funda_5060530233175_black;
+                        #proteccion>micas
+                        ;mica_B09HN5H11W5_transparent;
+                        #rastreadores>cellocator
+                        ;TKMARS_TK913_black;
+                        #rastreadores>concox
+                        ;MiniOB22_B08LSPTYHX_black;
+                        #rastreadores>trackers
+                        ;tracker_B08LSPTYHX_black;
+                        #router>router_wifi
+                        ;xiaomi_MiWifi_DVB4235GL_black;
+                        #router>mesh_wifi
+                        ;tp-link-mesh_AC1200_white;
+                        #soportes>soportes_celular
+                        ;UGREEN_80708_silver;
+                        #soportes>bicicleta
+                        ;UGREEN_HLBKIO104_black;
+                        #tablets_laptops>laptops_wifi
+                        ;techvida_B092VGGF2C_black;
+                        #tarjeta_cobro>billpocket
+                        ;billpocket_m20250_black;
+                        #wearables_smartwatch>bandas
+                        ;apple_banda_B0874TVXSZ_silver;
+                        ; amigo_chip_telcel;
+                        ; 7004153;
+                        ; 7006681;
+
+
+## ImpEx for Importing Stock Levels for tablets
+INSERT_UPDATE StockLevel;productCode[unique = true]; available[default = 100]; $warehouse; inStockStatus(code)[default = notSpecified]; maxPreOrder[default = 0]; maxStockLevelHistoryCount[default = -1]; overSelling[default = 0]; preOrder[default = 0]; reserved[default = 0]
+                        ;90017484;
+
+## ImpEx for Importing Stock Levels for Vida_Conectada  Reloj Watch
+INSERT_UPDATE StockLevel;productCode[unique = true]; available[default = 100]; $warehouse; inStockStatus(code)[default = notSpecified]; maxPreOrder[default = 0]; maxStockLevelHistoryCount[default = -1]; overSelling[default = 0]; preOrder[default = 0]; reserved[default = 0]
+                        ;9006890;
