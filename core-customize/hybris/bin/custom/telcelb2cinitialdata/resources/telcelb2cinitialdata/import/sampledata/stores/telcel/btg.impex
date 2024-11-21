@@ -1,0 +1,12 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing BTG configuration into Telcel Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=telcelProductCatalog
+$contentCatalog=telcelContentCatalog
+$productCatalogName= Telcel Product Catalog
+$productCatalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true]
+$contentCatalogVersion=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])[unique=true]
