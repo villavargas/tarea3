@@ -1,0 +1,25 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$lang = es_MX
+
+# Additional Service Product attributes models
+
+INSERT_UPDATE AdditionalServiceType;code[unique=true];name[lang=$lang]
+;recarga_inicial;Recarga Inicial
+
+# Additional Service Products
+
+INSERT_UPDATE TelcelAdditionalServiceProductOffering;code[unique=true];name[lang=$lang];$catalogVersion
+;recarga_inicial_activacion_esq_1_20;Amigo Sin Límite 20
+;recarga_inicial_activacion_esq_1_30;Amigo Sin Límite 30
+;recarga_inicial_activacion_esq_1_50;Amigo Sin Límite 50
+;recarga_inicial_activacion_esq_1_80;Amigo Sin Limite 80
+;recarga_inicial_activacion_esq_1_100;Amigo Sin Límite 100
+;recarga_inicial_activacion_esq_1_150;Amigo Sin Limite 150
+;recarga_inicial_activacion_esq_1_200;Amigo Sin Limite 200
+;recarga_inicial_activacion_esq_1_300;Amigo Sin Limite 300
+;recarga_inicial_activacion_esq_1_500;Amigo Sin Limite 500
