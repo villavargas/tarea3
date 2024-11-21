@@ -1,0 +1,73 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+$contentCatalog = telcelContentCatalog
+$contentCatalogName = Telcel Content Catalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$onlinecontentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$lang=es_MX
+
+
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]        ; analyticJson[default = '',lang=$lang]
+                         ;                          ; register                  ; { "event" : "pageview", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Login", "subseccion" : "Registro", "pageName" : "Login|Registro" } }
+                         ;                          ; RegistroUsuarioToken      ; { "event" : "pageview", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Login", "subseccion" : "Registro@Recuperar contrasena", "pageName" : "Login|Registro|Codigo seguridad@Login|Recuperar contrasena|Codigo seguridad" }, "tipoRegistro" : "<tipoRegistro>" }
+                         ;                          ; RegistroUsuarioSave       ; { "event" : "pageview", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Login", "subseccion" : "Registro", "pageName" : "Login|Registro|Ingresar datos" }, "tipoRegistro" : "<tipoRegistro>" }
+                         ;                          ; forgotPassword            ; { "event" : "pageview", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Login", "subseccion" : "Recuperar contrasena", "pageName" : "Login|Recuperar contrasena" } }
+                         ;                          ; ForgotPasswordSave        ; { "event" : "pageview", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Login", "subseccion" : "Recuperar contrasena", "pageName" : "Login|Recuperar contrasena|Confirma contrasena" }, "tipoRegistro" : "<tipoRegistro>" }
+                         ;                          ; login                     ; { "event" : "pageview", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Login", "subseccion" : "Login", "pageName" : "Login" } }
+                         ;                          ; notFound                  ; { "event" : "errorPage", "pagina" : { "canal" : "Tienda en Linea" } }
+    
+                         ;                          ; update-profile            ; { "event" : "miCuenta", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Mi Cuenta", "subseccion" : "Datos personales", "pageName" : "Mi Cuenta|Datos personales" } }
+                         ;                          ; address-book              ; { "event" : "miCuenta", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Mi Cuenta", "subseccion" : "Libreta de direcciones", "pageName" : "Mi Cuenta|Libreta de direcciones" } }
+                         ;                          ; updatePassword            ; { "event" : "miCuenta", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Mi Cuenta", "subseccion" : "Cambiar contrasena", "pageName" : "Mi Cuenta|Cambiar contrasena" } }
+                         ;                          ; WishListPage              ; { "event" : "miCuenta", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Mi Cuenta", "subseccion" : "Wish List", "pageName" : "Mi Cuenta|Wish List" } }
+                         ;                          ; search                    ; { "event" : "buscador", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Buscador", "subseccion" : "Buscador", "pageName" : "Resultados buscador" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "busqueda" : { "texto" : "<querySearch>", "numResultados" : "<resultQuantity>" } }
+                         ;                          ; homepage                  ; { "event" : "pageLoad", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Tienda en linea", "subseccion" : "Home", "pageName" : "Tienda en linea|Home" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "contenido" : { "banners" : "", "equipos" : "" } }
+                         ;                          ; cartPage                  ; { "event" : "carrito", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Carrito", "subseccion" : "Carrito", "pageName" : "Carrito|Resumen" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "proceso" : "Tienda", "productos" : [] }
+                         ;                          ; checkout-login            ; { "event" : "carrito", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Carrito", "subseccion" : "Sin registro", "pageName" : "Carrito|Sin registro" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "proceso" : "Tienda", "productos" : [] }
+                         ;                          ; CheckoutHolderLine        ; { "event" : "checkout", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Checkout", "subseccion" : "Datos de titular", "pageName" : "Checkout|Datos del titular" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "proceso" : "Tienda", "productos" : [] }
+                         ;                          ; CheckoutShippingAddress   ; { "event" : "checkout", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Checkout", "subseccion" : "Datos de entrega", "pageName" : "Checkout|Datos de entrega" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "proceso" : "Tienda", "productos" : [] }
+                         ;                          ; CheckoutReviewOrder       ; { "event" : "checkout", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Checkout", "subseccion" : "Revisar orden", "pageName" : "Checkout|Revisar orden" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "proceso" : "Tienda", "productos" : [] }
+                         ;                          ; orderConfirmationPage     ; { "event" : "transaccionExitosatl", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Checkout", "subseccion" : "Confirmacion de orden", "pageName" : "Checkout|Compra exitosa" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "proceso" : "Tienda", "productos" : [], "transaccion" : { "metPago" : "<Opcion de pago>", "metPagoVariante" : "<Opcion seleccionada dentro del metodo de pago>", "tipoTarjeta" : "<Tipo de tarjeta>" } }
+                         ;                          ; RecargaSaldo              ; { "event" : "pageLoad", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Tienda en linea", "subseccion" : "Recarga tu Saldo", "pageName" : "Tienda en linea|Recarga tu Saldo" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" } }
+                         ;                          ; RastreoPedido             ; { "event" : "generalTl", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Tienda en linea", "subseccion" : "Rastreador de pedido", "pageName" : "Tienda en linea|Conoce estatus de pedido" } }
+                         ;                          ; RastreoPedidoDetalle      ; { "event" : "estatusPedido", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Tienda en linea", "subseccion" : "Rastreador de pedido", "pageName" : "Tienda en linea|Producto agregado a tu carrito" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "productos" : [] }
+                         ;                          ; TicketContacto            ; { "event" : "generalTl", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Tienda en linea", "subseccion" : "Contactanos", "pageName" : "Tienda en linea|Contactanos" } }
+                         ;                          ; TicketContactoDone        ; { "event" : "contacto", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Tienda en linea", "subseccion" : "Contactanos", "pageName" : "Tienda en linea|Gracias por tu tiempo" }, "pedido": { "numeroPedido": "", "motivoContacto": "", "medioContacto": "" } }
+                         ;                          ; CheckoutPaymentDetails    ; { "event" : "checkout", "pagina": { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Checkout", "subseccion" : "Metodos de pago", "pageName" : "Checkout|Metodos de pago" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago","recogeTitular" : "No Aplica" }, "proceso" : "Tienda", "productos" : [] }
+
+
+
+
+
+
+
+INSERT_UPDATE ProductPage; $contentCV[unique = true]; uid[unique = true]    ; masterTemplate(uid, $contentCV)   ; analyticJson[default = '',lang=$lang]
+                         ;                          ; productDetails        ; ProductDetailsPageTemplate        ; { "event" : "tiendaFicha", "pagina" : { "canal" : "Tienda en Linea", "mundo" : "Personas", "seccion" : "Tienda en linea", "subseccion" : "<Categoria>", "pageName" : "Tienda en linea|<categoria>|Ficha tecnica|<Marca>|<Nombre comercial>" }, "usuario" : { "region" : "<region>", "perfil" : "Prepago" }, "contenido" : { "equipos" : "" }, "productos" : [], "disponibilidad" : "<Si esta disponible o no>" } 
+
+
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]        ; pagina[default = '',lang=$lang]
+                         ;                          ; register                  ; {"seccion":"Login", "subseccion":"Registro"}
+                         ;                          ; RegistroUsuarioToken      ; {"seccion":"Login", "subseccion":"Registro"}
+                         ;                          ; RegistroUsuarioSave       ; {"seccion":"Login", "subseccion":"Registro"}
+                         ;                          ; forgotPassword            ; {"seccion":"Login", "subseccion":"Recuperar contrasena"}
+                         ;                          ; ForgotPasswordSave        ; {"seccion":"Login", "subseccion":"Recuperar contrasena"}
+                         ;                          ; login                     ; {"seccion":"Login", "subseccion":"Login"}
+                         ;                          ; notFound                  ; {"seccion":"", "subseccion":""}
+
+                         ;                          ; update-profile            ; {"seccion":"Mi Cuenta", "subseccion":"Datos personales"}
+                         ;                          ; address-book              ; {"seccion":"Mi Cuenta", "subseccion":"Libreta de direcciones"}
+                         ;                          ; updatePassword            ; {"seccion":"Mi Cuenta", "subseccion":"Cambiar contrasena"}
+                         ;                          ; WishListPage              ; {"seccion":"Mi Cuenta", "subseccion":"Wish List"}
+                         ;                          ; cartPage                  ; {"seccion":"Carrito", "subseccion":"Carrito"}
+
+                         ;                          ; CheckoutHolderLine        ; {"seccion":"Checkout", "subseccion":"Datos de titular"}
+                         ;                          ; CheckoutShippingAddress   ; {"seccion":"Checkout", "subseccion":"Datos de entrega"}
+                         ;                          ; CheckoutPaymentDetails    ; {"seccion":"Checkout", "subseccion":"Forma de pago"}
+
+
+
+
+INSERT_UPDATE ProductPage; $contentCV[unique = true]; uid[unique = true]    ; masterTemplate(uid, $contentCV)   ; pagina[default = '',lang=$lang]
+                         ;                          ; productDetails        ; ProductDetailsPageTemplate        ; {"seccion":"Ficha técnica", "subseccion":""}
