@@ -1,0 +1,267 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+$storeUid = telcel
+$siteUid = telcel
+$defaultCurrency = MXN
+$defaultLanguage = es_MX
+$googleHost = setthethirdpartyhost
+$googleUserName = setgoogleusername
+$googlePassword = setgooglepassword
+
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+$catalogVersionOnline = catalogversion(catalog(id[default=$productCatalog]), version[default='Online'])[unique=true, default=$productCatalog:Online]
+
+
+
+INSERT_UPDATE ExportDataCronJob; code[unique = true]     ; job(code)                ; baseStore(uid); cmsSite(uid); language(isocode); currency(isocode); user(uid) ; thirdPartyHost; thirdPartyUsername; thirdPartyPassword; dataGenerationPipeline      ; sessionLanguage(isocode)
+                               ; googleLocationsB2cTelco ; exportDataJobPerformable ; $storeUid     ; $storeUid   ; $defaultLanguage ; $defaultCurrency ; anonymous ; $googleHost   ; $googleUserName   ; $googlePassword   ; exportGooglePosPipeline     ; $defaultLanguage
+                               ; googleProductsB2cTelco  ; exportDataJobPerformable ; $storeUid     ; $storeUid   ; $defaultLanguage ; $defaultCurrency ; anonymous ; $googleHost   ; $googleUserName   ; $googlePassword   ; exportGoogleProductPipeline ; $defaultLanguage
+
+INSERT_UPDATE CronJob; code[unique = true]      ; job(code)                              ; baseStore(uid); cmsSite(uid); sessionLanguage(isocode); sessionCurrency(isocode); sessionUser(uid);
+; uploadExportsB2cTelco    ; uploadDataJobPerformable               ; $siteUid      ; $siteUid    ; $defaultLanguage        ; $defaultCurrency        ; anonymous       ;
+; removeEligibilityContext ; removeEligibilityContextJobPerformable ; $siteUid      ; $siteUid    ; $defaultLanguage        ; $defaultCurrency        ; anonymous       ;
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]                    ; springId
+                             ; removeEligibilityContextJobPerformable ; removeEligibilityContextJob
+
+
+
+# Telcel Product Prices CronJob
+INSERT_UPDATE ServicelayerJob; code[unique = true]            ; springId                       ;
+                             ; telcelProductPricesPerformable ; telcelProductPricesPerformable ;
+
+INSERT_UPDATE TelcelProductPricesCronJob; code[unique = true]                        ; active; job(code)                      ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); $catalogVersion
+                                        ; "Creacion de precios para Guest y Anonimo" ; true  ; telcelProductPricesPerformable ;                                       ; USD                     ; admin           ;
+
+#INSERT_UPDATE Trigger; cronJob(code)[unique = true]               ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+#                     ; "Creacion de precios para Guest y Anonimo" ; 0     ; 20    ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]   ; cronExpression[unique = true]
+                     ;"Creacion de precios para Guest y Anonimo"; 0 10,30,50 * ? * *
+
+
+# Telcel Product Available
+INSERT_UPDATE ServicelayerJob; code[unique = true]               ; springId                          ;
+                             ; telcelAvailableProductPerformable ; telcelAvailableProductPerformable ;
+
+INSERT_UPDATE TelcelAvailableProductCronJob; code[unique = true]            ; active; job(code)                         ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); $catalogVersionOnline
+                                           ; "Productos telcel disponibles" ; true  ; telcelAvailableProductPerformable ;                                       ; USD                     ; admin           ;
+
+#INSERT_UPDATE Trigger; cronJob(code)[unique = true]   ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+#                     ; "Productos telcel disponibles" ; 0     ; 0     ; 5   ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]   ; cronExpression[unique = true]
+                     ; "Productos telcel disponibles" ; 0 0 6 1/1 * ? *
+                     ; "Productos telcel disponibles" ; 0 0 11 1/1 * ? *
+                     ; "Productos telcel disponibles" ; 0 0 18 1/1 * ? *
+
+# Telcel Reports
+INSERT_UPDATE ServicelayerJob; code[unique = true]      ; springId                 ;
+                             ; telcelReportsPerformable ; telcelReportsPerformable ;
+
+INSERT_UPDATE TelcelReportsCronJob; code[unique = true]; active; job(code)                ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                  ; "Reportes telcel"  ; true  ; telcelReportsPerformable ;                                          ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Reportes telcel"           ; -1    ; -1     ; 2  ; -1 ; -1   ; -1  ; true    ; false ; -1
+                     
+                     
+                     
+# Telcel Reports FULL
+INSERT_UPDATE ServicelayerJob; code[unique = true]      ; springId                 ;
+                             ; telcelReportsFULLPerformable ; telcelReportsFULLPerformable ;
+
+INSERT_UPDATE TelcelReportsFullCronJob; code[unique = true]; active; job(code)                ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                  ; "Reportes telcel FULL"  ; true  ; telcelReportsFULLPerformable ;                                          ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Reportes telcel FULL"           ; -1    ; 60     ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+
+# Telcel Reports Almacenes y Disponibilidad
+INSERT_UPDATE ServicelayerJob; code[unique = true]      ; springId                 ;
+                             ; telcelReportsAlmDispPerformable ; telcelReportsAlmDispPerformable ;
+
+INSERT_UPDATE TelcelReportsAlmDispCronJob; code[unique = true]; active; job(code)                ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                  ; "Reportes telcel Almacenes Disponibilidad"  ; true  ; telcelReportsAlmDispPerformable ;                                          ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Reportes telcel Almacenes Disponibilidad"           ; -1    ; 60     ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+
+
+
+# Telcel Reports Clientes
+INSERT_UPDATE ServicelayerJob; code[unique = true]      ; springId                 ;
+                             ; telcelReportsClientesPerformable ; telcelReportsClientesPerformable ;
+
+INSERT_UPDATE TelcelReportsClientesCronJob; code[unique = true]; active; job(code)                ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                  ; "Reportes Clientes"  ; true  ; telcelReportsClientesPerformable ;                                          ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Reportes Clientes"           ; -1    ; 60     ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+
+
+# Telcel Reports Ordenes y Productos
+INSERT_UPDATE ServicelayerJob; code[unique = true]      ; springId                 ;
+                             ; telcelReportsPedidosProductosPerformable ; telcelReportsPedidosProductosPerformable ;
+
+INSERT_UPDATE TelcelReportsPedidosProductosCronJob; code[unique = true]; active; job(code)                ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                  ; "Reportes Pedidos Productos"  ; true  ; telcelReportsPedidosProductosPerformable ;                                          ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Reportes Pedidos Productos"           ; -1    ; 60     ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+
+
+
+
+
+
+
+
+# Telcel Reports LDAP
+INSERT_UPDATE ServicelayerJob; code[unique = true]                       ; springId                                  ;
+                             ; telcelInactiveEmployeesCronJobPerformable ; telcelInactiveEmployeesCronJobPerformable ;
+
+INSERT_UPDATE TelcelInactiveEmployeesCronJob; code[unique = true]         ; active; job(code)                                 ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); days[default = 60]; nodeGroup
+                                            ; "Desactivacion de usuarios" ; true  ; telcelInactiveEmployeesCronJobPerformable ;                                          ; MXN                     ; admin           ;                   ; "backofficeNodeGroup"
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]; cronExpression[unique = true]; relative; active; maxAcceptableDelay
+                     ; "Desactivacion de usuarios" ; 0 0 0 * * ?                  ; true    ; true ; -1
+
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]              ; springId                         ;
+                             ; telcelSecurityReportsPerformable ; telcelSecurityReportsPerformable ;
+
+INSERT_UPDATE TelcelSecurityReportsCronJob; code[unique = true]     ; active; job(code)                        ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); nodeGroup
+                                          ; "Reportes de Seguridad" ; true  ; telcelSecurityReportsPerformable ;                                          ; MXN                     ; admin           ; "backofficeNodeGroup"
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]; cronExpression[unique = true]; relative; active; maxAcceptableDelay
+                     ; "Reportes de Seguridad"     ; 0 0 7 ? * MON                 ; true    ; true  ; -1
+
+
+
+
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]                 ; springId                            ;
+                             ; telcelSecurityLogReportsPerformable ; telcelSecurityLogReportsPerformable ;
+
+INSERT_UPDATE TelcelSecurityLogReportsCronJob; code[unique = true]                ; active; job(code)                           ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); nodeGroup
+                                             ; "Reportes de Seguridad - Bitacora" ; true  ; telcelSecurityLogReportsPerformable ;                                          ; MXN                     ; admin           ; "backofficeNodeGroup"
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]       ; cronExpression[unique = true]; relative; active; maxAcceptableDelay
+                     ; "Reportes de Seguridad - Bitacora" ; 0 0 0 ? * *                  ; true    ; true  ; -1
+
+
+
+
+# Telcel Fedex
+INSERT_UPDATE ServicelayerJob; code[unique = true]          ; springId                     ;
+                             ; telcelFedexGuidesPerformable ; telcelFedexGuidesPerformable ;
+
+INSERT_UPDATE TelcelFedexGuidesCronJob; code[unique = true]; active; job(code)                    ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid)
+                                      ; "Guias Fedex"      ; true  ; telcelFedexGuidesPerformable ;                                       ; USD                     ; admin
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Guias Fedex"               ; 0     ; 5    ; -1  ; -1 ; -1   ; -1  ; true    ; true ; -1
+
+$productCatalog=telcelProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$lang=es_MX
+
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$mediaConversionJob=$config-media.conversion.job
+
+INSERT_UPDATE MediaConversionCronJob;code[unique=true];$catalogVersion;job(code);includedFormats(qualifier);priority;asynchronous;sessionLanguage(isoCode[default=$lang])
+                                    ;$mediaConversionJob;;mediaConversionJob;300Wx300H,1200Wx1200H,96Wx96H,30Wx30H,65Wx65H,515Wx515H,365Wx246H;10;false;
+
+INSERT_UPDATE CatalogVersionSyncCronJob;code[unique=true];job(code);sessionLanguage(isoCode[default=$lang]);logToFile[default=false];logToDataBase[default=false];forceUpdate[default=false]
+                                       ;telcelProductMediaSyncCronJob;sync telcelProductCatalog\:Staged->Online;
+
+INSERT_UPDATE TelcelOfertaComercialCronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode);domain      ; user     ; secret  ; port ; destinationPath
+;ofertaComercialCobroCronJob;ofertaComercialJobPerformable;false;en; "127.0.0.1" ; "admin" ; "nimda" ; "21" ; "test_fpt" ;
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+# Run the full-telcospaIndex-cronJob at 3:20 AM every day
+;ofertaComercialCobroCronJob; 0 ; 20 ; 3  ; -1 ; -1 ; -1 ; false ; false ; -1
+
+# Telcel Google Mercant Notify
+INSERT_UPDATE ServicelayerJob; code[unique = true]                   ; springId                              ;
+                             ; telcelGoogleMercantPerformable ; telcelGoogleMercantPerformable ;
+
+INSERT_UPDATE TelcelGooogleMercantCronJob; code[unique = true]            ; active; job(code)                         ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); domain      ; user    ; secret  ; port ; destinationPath; $catalogVersionOnline
+                                         ; "Telcel Google Mercant Notify" ; true  ; telcelGoogleMercantPerformable ;                                       ; USD                     ; admin           ; "127.0.0.1" ; "admin" ; "nimda" ; "21" ; "test_fpt"     ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]    ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Telcel Google Mercant Notify" ;0 ; 0 ; 6  ; -1 ; -1 ; -1 ; false ; false ; -1
+
+######################################################################################################Disabled Cronjobs
+# Payment Commerce MQ
+# Telcel Actuliza Pago Response
+INSERT_UPDATE ServicelayerJob; code[unique = true]                   ; springId                              ;
+                             ; paymentCommerceMQResponsePerformable  ; paymentCommerceMQResponsePerformable  ;
+                             ; telcelActulizaPagoResponsePerformable ; telcelActulizaPagoResponsePerformable ;
+
+#% if: !needDisableCronjob
+INSERT_UPDATE paymentCommerceMQResponseCronJob; code[unique = true]   ; active; job(code)                            ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                              ; "Payment Commerce MQ" ; true  ; paymentCommerceMQResponsePerformable ;                                       ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Payment Commerce MQ"       ; 0     ; 5     ; -1  ; -1 ; -1   ; -1  ; true    ; true  ; -1
+
+INSERT_UPDATE TelcelActulizaPagoResponseCronJob; code[unique = true]             ; active; job(code)                             ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                               ; "Telcel Actuliza Pago Response" ; true  ; telcelActulizaPagoResponsePerformable ;                                       ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]    ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Telcel Actuliza Pago Response" ; 0     ; 5    ; -1  ; -1 ; -1   ; -1  ; true    ; true ; -1
+#% endif:
+#% if: needDisableCronjob
+INSERT_UPDATE paymentCommerceMQResponseCronJob; code[unique = true]   ; active; job(code)                            ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                              ; "Payment Commerce MQ" ; false  ; paymentCommerceMQResponsePerformable ;                                       ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Payment Commerce MQ"       ; 0     ; 5     ; -1  ; -1 ; -1   ; -1  ; true    ; false  ; -1
+
+INSERT_UPDATE TelcelActulizaPagoResponseCronJob; code[unique = true]             ; active; job(code)                             ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                               ; "Telcel Actuliza Pago Response" ; false  ; telcelActulizaPagoResponsePerformable ;                                       ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]    ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Telcel Actuliza Pago Response" ; 0     ; 5    ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+#% endif:
+
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]       ; springId                  ;
+                             ; telcelRollbackPerformable ; telcelRollbackPerformable ;
+
+INSERT_UPDATE CronJob; code[unique = true]; active; job(code)                 ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); nodeGroup
+                     ; "Telcel Rollback"  ; true  ; telcelRollbackPerformable ;                                          ; MXN                     ; admin           ; "backofficeNodeGroup"
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true] ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Telcel Rollback"            ; 0     ; 5    ; -1  ; -1 ; -1   ; -1  ; true    ; true ; -1
+
+# Media RealName CronJob
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$mediaRealNameJob=$config-media.real.name.cronjob
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]       ; springId                  ;
+                             ; mediaRealNamePerformable ; mediaRealNamePerformable ;
+
+INSERT_UPDATE CronJob; code[unique = true]; active; job(code) ; sessionLanguage(isoCode)[default = es_MX]; sessionCurrency(isocode); sessionUser(uid); nodeGroup
+                     ; $mediaRealNameJob  ; true  ; mediaRealNamePerformable ;  ; MXN                     ; admin           ; "backofficeNodeGroup"
+
+# Bitacora Telcel Delete Items Job
+INSERT_UPDATE ServicelayerJob; code[unique = true]                   ; springId                              ;
+                             ; bitacoraTelcelDeleteItemsPerformable ; bitacoraTelcelDeleteItemsPerformable ;
+
+INSERT_UPDATE BitacoraTelcelDeleteItemsCronJob; code[unique = true]            ; active; job(code)                            ; maxDaysDeleteItems; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); store(uid)[default = $storeUid]; site(uid)[default = $siteUid];
+                                              ; "Bitacora Telcel Borrar Datos" ; true  ; bitacoraTelcelDeleteItemsPerformable ; 30                ;                                       ; USD                     ; admin           ;                                ;                              ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]    ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Bitacora Telcel Borrar Datos" ;0 ; 0 ; 22  ; -1 ; -1 ; -1 ; false ; false ; -1
+					 
+					 
