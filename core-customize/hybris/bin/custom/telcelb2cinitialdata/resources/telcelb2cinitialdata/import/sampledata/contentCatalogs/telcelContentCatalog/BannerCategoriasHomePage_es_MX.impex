@@ -1,0 +1,53 @@
+# Language
+$lang=es_MX
+$contentCatalog=telcelContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+#$siteResource=file:\\\D:\TELCEL\Imagenes
+$picture=media(code, $contentCV)
+$medias=medias(code, $contentCV)
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+# Site Home Media Banner 1
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/png'];$contentCV[unique=true];folder(qualifier)[default=images];
+;desktop    ; HomePageMediaSection2A_Mobile   ; $siteResource/dispositivos-telefonos.jpg ;HomePageMediaSection2A_Mobile.jpg;;
+;mobile    	; HomePageMediaSection2A_Mobile_mobile   ; $siteResource/dispositivos-telefonos-mobile.jpg ;HomePageMediaSection2A_Mobile_mobile.jpg;;
+;desktop    ; HomePageMediaSection2A_Balance   ; $siteResource/dispositivos-balance.jpg ;HomePageMediaSection2A_Balance.jpg;;
+;mobile    	; HomePageMediaSection2A_Balance_mobile   ; $siteResource/dispositivos-balance-mobile.jpg ;HomePageMediaSection2A_Balance_mobile.jpg;;
+;desktop    ; HomePageMediaSection2A_Chip   ; $siteResource/dispositivos-chip-desktop.jpg ;HomePageMediaSection2A_Chip-desktop.jpg;;
+;mobile    ; HomePageMediaSection2A_Chip_mobile; $siteResource/dispositivos-chip-mobile.jpg ;HomePageMediaSection2A_Chip-mobile.jpg;;
+;desktop    ; HomePageMediaSection2A_Tablet   ; $siteResource/dispositivos-tabletas.jpg ;HomePageMediaSection2A_Tablet.jpg;;
+;mobile    ; HomePageMediaSection2A_Tablet_mobile; $siteResource/dispositivos-tabletas.jpg ;HomePageMediaSection2A_Tablet.jpg;;
+;desktop    ; HomePageMediaSection2A_Conected   ; $siteResource/dispositivos-iot.jpg ;HomePageMediaSection2A_Conected.jpg;;
+;mobile    ; HomePageMediaSection2A_Conected_mobile; $siteResource/dispositivos-iot.jpg ;HomePageMediaSection2A_Conected.jpg;;
+;desktop    ; HomePageMediaSection2A_Accesories   ; $siteResource/dispositivos-accesorios.jpg ;HomePageMediaSection2A_Accesories.jpg;;
+;mobile    ; HomePageMediaSection2A_Accesories_mobile; $siteResource/dispositivos-accesorios.jpg ;HomePageMediaSection2A_Accesories.jpg;;
+
+
+# Site Home Media Container Banner 1
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;HomePageSection2A_1_ImgContainer;HomePageMediaSection2A_Mobile,HomePageMediaSection2A_Mobile,HomePageMediaSection2A_Mobile,HomePageMediaSection2A_Mobile_mobile
+;HomePageSection2A_2_ImgContainer;HomePageMediaSection2A_Balance,HomePageMediaSection2A_Balance,HomePageMediaSection2A_Balance, HomePageMediaSection2A_Balance_mobile
+;HomePageSection2A_3_ImgContainer;HomePageMediaSection2A_Chip,HomePageMediaSection2A_Chip,HomePageMediaSection2A_Chip, HomePageMediaSection2A_Chip_mobile
+;HomePageSection2A_4_ImgContainer;HomePageMediaSection2A_Tablet,HomePageMediaSection2A_Tablet,HomePageMediaSection2A_Tablet, HomePageMediaSection2A_Tablet_mobile
+;HomePageSection2A_5_ImgContainer;HomePageMediaSection2A_Conected,HomePageMediaSection2A_Conected,HomePageMediaSection2A_Conected, HomePageMediaSection2A_Conected_mobile
+;HomePageSection2A_6_ImgContainer;HomePageMediaSection2A_Accesories,HomePageMediaSection2A_Accesories,HomePageMediaSection2A_Accesories, HomePageMediaSection2A_Accesories_mobile
+
+# Site Home Banner 1
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];urlLink;name;$mediaContainer;&componentRef
+;;HomePageSection2A_1_Banner;/categoria/telefonos-y-smartphones;Teléfonos y Smartphones;HomePageSection2A_1_ImgContainer;HomePageSection2A_1_Banner
+;;HomePageSection2A_2_Banner;/recarga-saldo;Recarga saldo;HomePageSection2A_2_ImgContainer;HomePageSection2A_2_Banner
+;;HomePageSection2A_3_Banner;/categoria/amigo_chip;Amigo Chip;HomePageSection2A_3_ImgContainer;HomePageSection2A_3_Banner
+;;HomePageSection2A_4_Banner;/categoria/tablets;Tabletas;HomePageSection2A_4_ImgContainer;HomePageSection2A_4_Banner
+;;HomePageSection2A_5_Banner;/categoria/vida_conectada;Vida Conectada;HomePageSection2A_5_ImgContainer;HomePageSection2A_5_Banner
+;;HomePageSection2A_6_Banner;/categoria/accesorios;Accesorios;HomePageSection2A_6_ImgContainer;HomePageSection2A_6_Banner
+
+
+# Site Home Slot Banner 1
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+#;;Section2ASlot-Homepage;Section2A Slot for Homepage;true;HomePageSection2A_1_Banner,HomePageSection2A_2_Banner,HomePageSection2A_3_Banner,HomePageSection2A_4_Banner
+;;Section2ASlot-Homepage;Section2A Slot for Homepage;true;HomePageSection2A_1_Banner,HomePageSection2A_2_Banner,HomePageSection2A_3_Banner,HomePageSection2A_4_Banner,HomePageSection2A_5_Banner,HomePageSection2A_6_Banner
+
+
+
+
