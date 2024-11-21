@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+            
+    
+    <extension abstractclassprefix="Generated" classprefix="Telb2cocc" description="telb2cocc extension" managername="Telb2coccManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="telb2cocc">
+
+
+        <!-- you should add all required extensions to this list, except platform extensions which are automatically required -->
+
+        <requires-extension name="telcelb2cfacades"/>
+        
+        <requires-extension name="commercewebservices"/>
+
+        
+        <coremodule generated="true" manager="mx.com.telcel.jalo.Telb2coccManager" packageroot="mx.com.telcel"/>
+             
+    
+    </extension>
+        
+
+</extensioninfo>
