@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/security
+		   http://www.springframework.org/schema/security/spring-security.xsd
+		   http://www.springframework.org/schema/security/oauth2
+     	   http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+     	   http://www.springframework.org/schema/util
+     	   http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan
+            base-package="mx.com.telcel.controllers"/>
+
+    <!-- Cache manager for addon -->
+    <alias name="defaultTelb2coccCacheManager"
+           alias="telb2coccCacheManager"/>
+    <bean id="defaultTelb2coccCacheManager"
+          class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="telb2coccEhcache"/>
+    </bean>
+
+    <alias name="defaultTelb2coccEhcache"
+           alias="telb2coccEhcache"/>
+    <bean id="defaultTelb2coccEhcache"
+          class="de.hybris.platform.webservicescommons.cache.TenantAwareEhCacheManagerFactoryBean">
+        <property name="cacheNamePrefix"
+                  value="telb2coccCache_"/>
+        <property name="configLocation"
+                  value="/WEB-INF/cache/ehcache.xml"/>
+    </bean>
+
+    <bean depends-on="wsCacheManagerList" parent="listMergeDirective">
+        <property name="add" ref="telb2coccCacheManager"/>
+    </bean>
+
+    <!-- Filters -->
+
+    <alias name="defaultTmaOccEligibilityContextFilter"
+           alias="tmaOccEligibilityContextFilter"/>
+    <bean id="defaultTmaOccEligibilityContextFilter"
+          class="mx.com.telcel.filters.TmaEligibilityContextFilter">
+        <constructor-arg name="regexp" value="^/[^/]+/users/([^/]+)"/>
+        <constructor-arg name="regexpProductApi" value="^/[^/]+/products/([^/]+)"/>
+        <constructor-arg name="eligibilityContextService"
+                         ref="tmaEligibilityContextService"/>
+        <constructor-arg name="configurationService" ref="configurationService"/>
+        <constructor-arg name="tmaCustomerFacade" ref="tmaCustomerFacade"/>
+    </bean>
+
+    <alias name="defaultTmaAllowedPrincipalFilter" alias="tmaAllowedPrincipalFilter"/>
+    <bean id="defaultTmaAllowedPrincipalFilter"
+          class="mx.com.telcel.filters.TmaAllowedPrincipalFilter">
+        <constructor-arg name="regexp" value="^/[^/]+/users/([^/]+)"/>
+        <constructor-arg name="regexpProductApi" value="^/[^/]+/products/([^/]+)"/>
+        <constructor-arg name="configurationService" ref="configurationService"/>
+        <constructor-arg name="sessionService" ref="sessionService"/>
+    </bean>
+
+    <bean depends-on="defaultCommerceWebServicesFilterChainListV2"
+          parent="listMergeDirective">
+        <property name="add" ref="tmaOccEligibilityContextFilter"/>
+        <property name="afterBeanNames">
+            <list value-type="java.lang.String">
+                <value>baseSiteMatchingFilter</value>
+                <value>userMatchingFilter</value>
+            </list>
+        </property>
+    </bean>
+    <bean depends-on="defaultCommerceWebServicesFilterChainListV2"
+          parent="listMergeDirective">
+        <property name="add" ref="tmaAllowedPrincipalFilter"/>
+        <property name="afterBeanNames">
+            <list value-type="java.lang.String">
+                <value>baseSiteMatchingFilter</value>
+                <value>userMatchingFilter</value>
+            </list>
+        </property>
+    </bean>
+    <!-- Validators -->
+    <alias name="defaultTmaOrderEntryCreateValidator" alias="tmaOrderEntryCreateValidatorCustom"/>
+    <bean id="defaultTmaOrderEntryCreateValidator" class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+        <property name="validators">
+            <list>
+                <bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyValidator">
+                    <property name="fieldPath" value="quantity"/>
+                </bean>
+                <ref bean="quantityGreaterThanZeroValidator"/>
+                <ref bean="pointOfServiceInOrderEntryValidator"/>
+                <ref bean="tmaSubscribedProductActionValidator"/>
+                <ref bean="tmaCartEntryPlaceValidator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultTmaOrderEntryUpdateValidator" alias="tmaOrderEntryUpdateValidator"/>
+    <bean id="defaultTmaOrderEntryUpdateValidator" class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+        <property name="validators">
+            <list>
+                <ref bean="pointOfServiceInOrderEntryValidator"/>
+                <ref bean="tmaCartEntryPlaceValidator"/>
+                <ref bean="tmaSubscribedProductActionValidator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultTmaOrderEntryReplaceValidator" alias="tmaOrderEntryReplaceValidator"/>
+    <bean id="defaultTmaOrderEntryReplaceValidator"
+          class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+        <property name="validators">
+            <list>
+                <bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyValidator">
+                    <property name="fieldPath" value="quantity"/>
+                </bean>
+                <ref bean="quantityGreaterThanZeroValidator"/>
+                <ref bean="pointOfServiceInOrderEntryValidator"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.cmsocc.data.MediaWsDTO" />
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="code,url,altText" />
+                <entry key="DEFAULT" value="BASIC,mime,titleText" />
+                <entry key="FULL" value="DEFAULT,downloadUrl,description,catalogId" />
+            </map>
+        </property>
+    </bean>
+
+</beans>
