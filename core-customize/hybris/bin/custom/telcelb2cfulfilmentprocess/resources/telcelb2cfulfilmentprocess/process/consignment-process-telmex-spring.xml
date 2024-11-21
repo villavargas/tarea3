@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/>
+
+	<!-- Consignment Process Actions -->
+
+	<bean id="waitBeforeTransmissionTelmexAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.WaitBeforeTransmissionTelmexAction"  parent="abstractAction"/>
+
+	<bean id="sendTelmexConsignmentToWarehouseAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.SendTelmexConsignmentToWarehouseAction"  parent="abstractAction">
+		<property name="process2WarehouseAdapter" ref="process2WarehouseAdapter"/>
+	</bean>
+
+	<bean id="receiveTelmexConsignmentStatusAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.ReceiveTelmexConsignmentStatusAction"  parent="abstractAction"/>
+
+	<bean id="telmexActivationAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.TelmexActivationAction"  parent="abstractAction" />
+
+	<bean id="fedexTelmexInformationAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.FedexTelmexInformationAction"  parent="abstractAction">
+		<property name="fedexService" ref="fedexService" />
+	</bean>
+
+	<bean id="telmexReadyToShipAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.TelmexReadyToShipAction"  parent="abstractAction">
+	</bean>
+
+	<bean id="waitingToTelmexBeShippedAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.WaitingToTelmexBeShippedAction"  parent="abstractAction">
+	</bean>
+
+	<bean id="allowShipmentTelmexAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.AllowShipmentTelmexAction"  parent="abstractAction">
+		<property name="process2WarehouseAdapter" ref="process2WarehouseAdapter"/>
+	</bean>
+
+	<bean id="waitingTelmexDeliveredAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.WaitingTelmexDeliveredAction"  parent="abstractAction">
+	</bean>
+
+	<bean id="sendTelmexReadyForPickupMessageAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.SendTelmexReadyForPickupMessageAction"  parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+	<bean id="confirmTelmexConsignmentPickupAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.ConfirmTelmexConsignmentPickupAction"  parent="abstractAction"/>
+
+	<bean id="sendTelmexPickedUpMessageAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.SendTelmexPickedUpMessageAction"  parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+	<bean id="cancelTelmexConsignmentAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.CancelTelmexConsignmentAction"  parent="abstractAction"/>
+
+	<bean id="sendTelmexCancelMessageAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.SendTelmexCancelMessageAction"  parent="abstractAction"/>
+
+	<bean id="telmexSubprocessEndAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.TelmexSubprocessEndAction"  parent="abstractAction">
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="telmexGuideTypeAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.TelmexGuideTypeAction"  parent="abstractAction">
+	</bean>
+
+	<bean id="telmexContinueProcessForGuideTypeAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.TelmexContinueProcessForGuideTypeAction" parent="abstractAction">
+	</bean>
+
+	<bean id="telmexGuideExpressDeliveredAction" class="mx.com.telcel.fulfilmentprocess.actions.consignment.telmex.TelmexGuideExpressDeliveredAction"  parent="abstractAction" />
+
+</beans>
