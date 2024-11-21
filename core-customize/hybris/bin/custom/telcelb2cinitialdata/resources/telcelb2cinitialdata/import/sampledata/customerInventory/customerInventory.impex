@@ -1,0 +1,216 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for importing the customer product inventory.
+
+$defaultPassword = 1234
+$catalog-id = telcelProductCatalog
+$catalog-version = Online
+$catalogVersion = catalogversion(catalog(id[default = $catalog-id]), version[default = $catalog-version])[unique = true, default = $catalog-id:$catalog-version]
+$storeUid = telcel
+$siteUid = telcel
+
+# Import sample subscribed products (tmForum/SID Product equivalent)
+#INSERT_UPDATE TmaSubscribedProduct ; id[unique = true] ; serviceType(code) ; startDate[dateformat = dd.MM.yyyy] ; endDate[dateformat = dd.MM.yyyy] ; billingFrequency ; productCode            ; name                     ; bundledProductCode ; subscriptionStatus ; contractDuration ; billingsystemId[unique = true] ; billingSubscriptionId ; contractFrequency ; paymentMethodId ; productSpecification(id, $catalogVersion) ; orderNumber ; orderEntryNumber
+## standalone gsm subscribed products
+#                                   ; 2110000001        ; TARIFF_PLAN       ; 13.10.2019                         ; 12.10.2020                       ; monthly          ; signatureUnlimitedPlan ; Signature Unlimited Plan ;                    ; ACTIVE             ; 12               ; IN                             ; bsid10001             ; months            ; 9874687087554   ; unlimited5GPlans                          ; 90000001    ; 0
+#                                   ; 1110000002        ; ADD_ON            ; 13.10.2019                         ; 12.10.2020                       ; monthly          ; internet_pack_smart    ; Internet: 1000mb         ;                    ; ACTIVE             ; 12               ; IN                             ; bsid1001              ; months            ; 9874687087554   ;                                           ; 90000001    ; 1
+#
+## mobile deal gsm subsribed products
+#                                   ; 2110000003        ; TARIFF_PLAN       ; 27.11.2019                         ; 26.11.2020                       ; monthly          ; unlimitedPremiumPlan   ; Unlimited Premium Plan   ; mobileDeal         ; ACTIVE             ; 12               ; IN                             ; bsid10021             ; months            ; 9874687087554   ; unlimitedPlans                            ; 90000002    ; 1
+#                                   ; 2110000004        ; TARIFF_PLAN       ; 01.02.2020                         ; 31.01.2021                       ; monthly          ; doMoreNoLimit5GPlan    ; Do More No Limit 5G Plan ; mobileDeal         ; EXPIRED            ; 12               ; IN                             ; bsid10031             ; months            ; noLimitPlans    ;                                           ; 90000002    ; 2
+#
+## guad play gsm subscribed products
+#                                   ; 2000002100        ; TARIFF_PLAN       ; 20.08.2020                         ; 19.09.2021                       ; monthly          ; premiumUnlimitedPlan   ; Premium Unlimited Plan   ; quadPlay           ; ACTIVE             ; 2                ; IN                             ; bsid10041             ; years             ; 9874687087554   ; unlimited5GPlans                          ; 90000003    ; 2
+#                                   ; 1000002101        ; ADD_ON            ; 20.08.2020                         ; 19.09.2021                       ; monthly          ; internet_pack_smart    ; Internet: 1000mb         ; quadPlay           ; ACTIVE             ; 2                ; IN                             ; bsid1005              ; years             ; 9874687087554   ;                                           ; 90000003    ; 3
+#
+## quad play subscribed products
+#                                   ; 1000002102        ; TARIFF_PLAN       ; 20.02.2020                         ; 19.02.2021                       ; monthly          ; fiber_internet         ; Fiber Internet           ;                    ; ACTIVE             ; 12               ; IN                             ; bsid1006              ; months            ; 9874687087554   ; internet                                  ; 90000004    ; 0
+#                                   ; 1000002103        ; TARIFF_PLAN       ; 20.03.2020                         ; 19.03.2021                       ; monthly          ; tv_premium             ; TV Premium               ; quadPlay           ; ACTIVE             ; 12               ; IN                             ; bsid1007              ; months            ; 9874687087554   ; tv                                        ; 90000005    ; 3
+#                                   ; 1000002104        ; ADD_ON            ; 20.03.2020                         ; 19.03.2021                       ; monthly          ; movies_go              ; Movies GO                ; quadPlay           ; ACTIVE             ; 12               ; IN                             ; bsid1008              ; months            ; 9874687087554   ;                                           ; 90000005    ; 4
+#                                   ; 1000002105        ; ADD_ON            ; 20.03.2020                         ; 19.03.2021                       ; monthly          ; sports                 ; Sports Pack              ; quadPlay           ; ACTIVE             ; 12               ; IN                             ; bsid1009              ; months            ; 9874687087554   ;                                           ; 90000005    ; 5
+#                                   ; 2000002106        ; TARIFF_PLAN       ; 11.09.2019                         ; 10.09.2020                       ; monthly          ; unlimitedStarterPlan   ; Unlimited Starter Plan   ; quadPlay           ; SUSPENDED          ; 12               ; IN                             ; bsid10101             ; months            ; 9874687087554   ; unlimited5GPlans                          ; 90000006    ; 2
+#
+## home deal subscribed products
+#                                   ; 1000003101        ; TARIFF_PLAN       ; 14.06.2020                         ; 13.01.2021                       ; monthly          ; fiber_internet         ; Fiber Internet            ; homeDeal           ; ACTIVE             ; 18               ; IN                             ; bsid1012              ; months            ; 9874687087554   ; internet                                  ; 90000007    ; 2
+#                                   ; 1000003102        ; TARIFF_PLAN       ; 14.06.2020                         ; 13.01.2021                       ; monthly          ; tv_unlimited           ; TV Unlimited              ; homeDeal           ; ACTIVE             ; 18               ; IN                             ; bsid1013              ; months            ; 9874687087554   ; tv                                        ; 90000008    ; 2
+#
+#                                   ; hd_fiber_223411   ; TARIFF_PLAN       ; 20.12.2019 03:03                   ; 20.12.2021                       ; monthly          ; fiber_internet         ; Fiber Internet            ;                    ; ACTIVE             ; 24               ; IN                             ; bsid19913             ; months            ; 9874687087554   ; internet                                  ; 90000016    ; 0
+#                                   ; sup_223421        ; TARIFF_PLAN       ; 15.01.2021 03:03                   ; 14.01.2024                       ; monthly          ; signatureUnlimitedPlan ; Signature Unlimited Plan  ;                    ; ACTIVE             ; 36               ; IN                             ; bsid19914             ; months            ; 9874687087554   ; unlimited5GPlans                          ; 90000017    ; 0
+#                                   ; movies_223422     ; TARIFF_PLAN       ; 20.12.2019 03:03                   ; 20.12.2021                       ; monthly          ; movies_go              ; Movies GO                 ;                    ; ACTIVE             ; 24               ; IN                             ; bsid19915             ; months            ; 9874687087554   ;                                           ; 90000018    ; 0
+#
+#                                   ; hd_fiber_223422   ; TARIFF_PLAN       ; 31.03.2020 03:03                   ; 30.03.2021                       ; monthly          ; fiber_internet         ; Fiber Internet            ;                    ; ACTIVE             ; 12               ; IN                             ; bsid19916             ; months            ; 9874687087554   ; internet                                  ; 90000019    ; 0
+#                                   ; sup_223422        ; TARIFF_PLAN       ; 31.03.2020 03:03                   ; 30.03.2021                       ; monthly          ; signatureUnlimitedPlan ; Signature Unlimited Plan  ;                    ; PENDING_TERMINATE   ; 12               ; IN                             ; bsid19917             ; months            ; 9874687087554   ; unlimited5GPlans                          ; 90000017    ; 0
+#
+#
+#
+## Import sample subscription bases with associated subscribed products and subscription accesses
+#INSERT_UPDATE TmaSubscriptionBase ; subscriberIdentity[unique = true] ; billingSystemId[unique = true] ; subscribedProducts(id)
+#                                  ; 1040123111111                     ; IN                             ; 2110000001,1110000002
+#                                  ; 1040123222222                     ; IN                             ; 2110000003,2110000004
+#                                  ; 1040123333333                     ; IN                             ; 2000002100, 1000002101
+#                                  ; internet_1                        ; IN                             ; 1000002102
+#                                  ; tv_deal_1234                      ; IN                             ; 1000002103,1000002104,1000002105
+#                                  ; 1040123444444                     ; IN                             ; 2000002106
+#                                  ; home_deal_1                       ; IN                             ; 1000003101
+#                                  ; tv_unlimited_1234                 ; IN                             ; 1000003102
+#
+#                                  ; internet_22341                    ; IN                             ; hd_fiber_223411
+#                                  ; gsm_22342                         ; IN                             ; sup_223421
+#                                  ; movies_22343                      ; IN                             ; movies_223422
+#
+#                                  ; internet_22342                    ; IN                             ; hd_fiber_223422
+#                                  ; gsm_22344                         ; IN                             ; sup_223422
+#
+#
+#
+## Import sample subscription accesses for B2C customers
+#INSERT_UPDATE TmaSubscriptionAccess ; principal(uid)[unique = true] ; subscriptionBase(billingSystemId, subscriberIdentity)[unique = true] ; accessType(code)
+#                                    ; mark.johnson@hybris.com       ; IN:1040123111111                                                     ; OWNER
+#                                    ; emma.smith@hybris.com         ; IN:1040123222222                                                     ; OWNER
+#                                    ; emma.smith@hybris.com         ; IN:1040123111111                                                     ; BENEFICIARY
+#                                    ; anne.taylor@hybris.com        ; IN:1040123333333                                                     ; OWNER
+#                                    ; anne.taylor@hybris.com        ; IN:1040123444444                                                     ; BENEFICIARY
+#                                    ; david.brown@hybris.com        ; IN:internet_1                                                        ; OWNER
+#                                    ; david.brown@hybris.com        ; IN:tv_deal_1234                                                      ; OWNER
+#                                    ; david.brown@hybris.com        ; IN:1040123444444                                                     ; OWNER
+#                                    ; david.brown@hybris.com        ; IN:1040123333333                                                     ; BENEFICIARY
+#                                    ; joseph.williams@hybris.com    ; IN:home_deal_1                                                       ; OWNER
+#                                    ; joseph.williams@hybris.com    ; IN:tv_unlimited_1234                                                 ; OWNER
+#                                    ; joseph.williams@hybris.com    ; IN:tv_deal_1234                                                      ; BENEFICIARY
+#
+#                                    ; etta.berg@hybris.com          ; IN:internet_22341                                                    ; OWNER
+#                                    ; etta.berg@hybris.com          ; IN:gsm_22342                                                         ; OWNER
+#                                    ; etta.berg@hybris.com          ; IN:movies_22343                                                      ; OWNER
+#                                    ; tim.james@hybris.com          ; IN:internet_22341                                                    ; BENEFICIARY
+#
+#                                    ; etta.berg@hybris.com          ; IN:internet_22342                                                    ; OWNER
+#                                    ; tim.james@hybris.com          ; IN:internet_22342                                                    ; BENEFICIARY
+#                                    ; etta.berg@hybris.com          ; IN:gsm_22344                                                         ; OWNER
+#
+## Import sample billing accounts
+#INSERT_UPDATE TmaBillingAccount ; billingAccountId[unique = true] ; billingSystemId[unique = true] ; subscriptionBases(subscriberIdentity) ; parent(billingAccountId, billingSystemId)
+#                                ; BACC-24564                      ; IN                             ; 1040123111111,1040123222222           ;
+#                                ; BACC-89761                      ; IN                             ; 1040123333333,internet_1,tv_deal_1234 ; BACC-24564:IN
+#                                ; BACC-45499                      ; IN                             ; home_deal_1,tv_unlimited_1234         ; BACC-89761:IN
+#
+#                                ; BACC-99901                      ; IN                             ; internet_22341
+#                                ; BACC-99902                      ; IN                             ; gsm_22342
+#                                ; BACC-99903                      ; IN                             ; movies_22343
+#
+#                                ; BACC-99904                      ; IN                             ; internet_22342
+#                                ; BACC-99905                      ; IN                             ; gsm_22344
+#
+## Import sample billing agreement and billing agreement item
+#INSERT_UPDATE TmaBillingAgreementItem ; id[unique = true]                               ; subscribedProducts(id)
+#                                      ; signatureUnlimitedPlan_baItem                   ; 2110000001
+#                                      ; internet_pack_smart_baItem                      ; 1110000002
+#                                      ; unlimitedPremiumPlan_baItem                     ; 2110000003
+#                                      ; doMoreNoLimit5GPlan_baItem                      ; 2110000004
+#                                      ; premiumUnlimitedPlan_internet_pack_smart_baItem ; 2000002100,1000002101
+#                                      ; fiber_internet_baItem                           ; 1000002102
+#                                      ; tv_deal_1234_baItem                             ; 1000002103,1000002104,1000002105
+#                                      ; gsm_baItem                                      ; 2000002106
+#                                      ; fiber_internet_baItem1                          ; 1000003101
+#                                      ; tv_unlimited_1234_baItem                        ; 1000003102
+#
+#                                      ; internet_22341_item                             ; hd_fiber_223411
+#                                      ; gsm_22342_item                                  ; sup_223421
+#                                      ; movies_22343_item                               ; movies_223422
+#
+#                                      ; internet_22342_item                             ; hd_fiber_223422
+#                                      ; gsm_22344_item                                  ; sup_223422
+#
+#INSERT_UPDATE TmaBillingAgreementTerm ; id[unique = true]                     ; billingSystemId ; start[dateformat = dd.MM.yyyy] ; end[dateformat = dd.MM.yyyy] ; length ; frequency(code) ; offerTermRef
+#                                      ; gsm_monthly_term                      ; IN              ; 13.10.2019                     ; 12.10.2020                   ; 12     ; monthly         ; monthly_12
+#                                      ; gsm_unlimitedPremiumPlan_monthly_term ; IN              ; 27.11.2019                     ; 26.11.2020                   ; 12     ; monthly         ; monthly_12
+#                                      ; gsm_doMoreNoLimit5GPlan_monthly_term  ; IN              ; 01.02.2020                     ; 31.01.2021                   ; 12     ; monthly         ; monthly_12
+#                                      ; guad_play_gsm_anually_term            ; IN              ; 20.08.2020                     ; 19.09.2021                   ; 2      ; annually        ; annually_2
+#                                      ; quad_play_monthly_term                ; IN              ; 20.03.2020                     ; 19.03.2021                   ; 12     ; monthly         ; monthly_12
+#                                      ; internet_1_monthly_term               ; IN              ; 20.02.2020                     ; 19.02.2021                   ; 12     ; monthly         ; monthly_12
+#
+#                                      ; internet_22341_term                   ; IN              ; 20.12.2019                     ; 20.12.2021                   ; 24     ; monthly         ; monthly_24
+#                                      ; gsm_22342_term                        ; IN              ; 15.01.2021                     ; 14.01.2024                   ; 36     ; monthly         ; monthly_36
+#                                      ; movies_22343_term                     ; IN              ; 20.12.2019                     ; 20.12.2021                   ; 24     ; monthly         ; monthly_24
+#
+#                                      ; internet_22342_term                   ; IN              ; 31.03.2020                     ; 30.03.2021                   ; 12     ; monthly         ; monthly_12
+#                                      ; gsm_22344_term                        ; IN              ; 31.03.2020                     ; 30.03.2021                   ; 12     ; monthly         ; monthly_12
+#
+#INSERT_UPDATE TmaBillingAgreement ; id[unique = true]                            ; billingSystemId ; term(id)                              ; agreementItems(id)
+#                                  ; gsm_contract_ 13_10_2017                     ; IN              ; gsm_monthly_term                      ; signatureUnlimitedPlan_baItem,internet_pack_smart_baItem
+#                                  ; gsm_guad_play_contract_20_08_2017            ; IN              ; guad_play_gsm_anually_term            ; premiumUnlimitedPlan_internet_pack_smart_baItem
+#                                  ; gsm_unlimitedPremiumPlan_contract_27_11_2017 ; IN              ; gsm_unlimitedPremiumPlan_monthly_term ; unlimitedPremiumPlan_baItem
+#                                  ; gsm_doMoreNoLimit5GPlan_contract_01_02_2017  ; IN              ; gsm_doMoreNoLimit5GPlan_monthly_term  ; doMoreNoLimit5GPlan_baItem
+#                                  ; quad_play_contract_20_03_2018                ; IN              ; quad_play_monthly_term                ; tv_deal_1234_baItem,gsm_baItem
+#                                  ; internet_1_contract_20_02_2020               ; IN              ; quad_play_monthly_term                ; fiber_internet_baItem
+#
+#                                  ; internet_22341_20_12_2019                    ; IN              ; internet_22341_term                   ; internet_22341_item
+#                                  ; gsm_22342_15_01_2021                         ; IN              ; gsm_22342_term                        ; gsm_22342_item
+#                                  ; movies_22343_20_12_2019                      ; IN              ; movies_22343_term                     ; movies_22343_item
+#
+#                                  ; internet_22342_12_03_2020                    ; IN              ; internet_22342_term                   ; internet_22342_item
+#                                  ; gsm_22344_12_03_2020                         ; IN              ; gsm_22344_term                        ; gsm_22344_item
+#
+#INSERT_UPDATE TmaAverageServiceUsage ; id[unique = true]                      ; value ; unitOfMeasure(id) ; subscribedProduct(id) ; pscvId        ; usageType(code) ; startDate[dateformat = dd.MM.yyyy] ; endDate[dateformat = dd.MM.yyyy] ;
+#                                     ; internet_pack_smart_data_usage         ; 950   ; mb                ; 1000002101            ; 1000_mb       ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#                                     ; internet_pack_smart_data_usage_1       ; 129   ; mb                ; 1000002101            ; 1000_mb       ; HISTORIC        ; 01.06.2020                         ; 30.06.2020                       ;
+#                                     ; internet_pack_smart_data_usage_2       ; 200   ; mb                ; 1000002101            ; 1000_mb       ; HISTORIC        ; 01.06.2020                         ; 30.06.2020                       ;
+#                                     ; internet_pack_smart_data_usage_3       ; 35    ; mb                ; 1000002102            ; 100_mb        ; CURRENT         ; 19.08.2020                         ; 18.09.2020                       ;
+#
+#                                     ; unlimited_Premium_Plan_sms_usage       ; 400   ; sms               ; 2110000003            ; unlimited_sms ; HISTORIC         ; 01.08.2020                         ; 31.08.2020                      ;
+#                                     ; unlimited_Premium_Plan_sms_usage_1     ; 77    ; sms               ; 2110000003            ; unlimited_sms ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#                                     ; unlimited_Premium_Plan_data_usage_     ; 300   ; mb                ; 2110000003            ; unlimited_mb  ; HISTORIC         ; 01.08.2020                         ; 31.08.2020                      ;
+#                                     ; unlimited_Premium_Plan_data_usage_1    ; 300   ; mb                ; 2110000003            ; unlimited_mb  ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#                                     ; unlimited_Premium_Plan_voice_usage     ; 980   ; phone_minutes     ; 2110000003            ; unlimited_min ; HISTORIC         ; 01.08.2020                         ; 31.08.2020                      ;
+#                                     ; unlimited_Premium_Plan_voice_usage_1   ; 400   ; phone_minutes     ; 2110000003            ; unlimited_min ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#
+#                                     ; signature_Unlimited_Plan_voice_usage   ; 580   ; phone_minutes     ; 2110000001            ; 600_min       ; HISTORIC         ; 01.08.2020                         ; 31.08.2020                      ;
+#                                     ; signature_Unlimited_Plan_voice_usage_1 ; 60    ; phone_minutes     ; 2110000001            ; 600_min       ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#                                     ; signature_Unlimited_Plan_sms_usage     ; 550   ; sms               ; 2110000001            ; 600_sms       ; HISTORIC         ; 01.08.2020                         ; 31.08.2020                      ;
+#                                     ; signature_Unlimited_Plan_sms_usage_1   ; 100   ; sms               ; 2110000001            ; 600_sms       ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#
+#                                     ; do_More_No_Limit_5GPlan_voice_usage    ; 1150  ; phone_minutes     ; 2110000004            ; 1200_min      ; HISTORIC         ; 01.06.2020                         ; 30.06.2020                      ;
+#                                     ; do_More_No_Limit_5GPlan_voice_usage_1  ; 81    ; phone_minutes     ; 2110000004            ; 1200_min      ; HISTORIC         ; 01.07.2020                         ; 31.07.2020                      ;
+#                                     ; do_More_No_Limit_5GPlan_voice_usage_2  ; 700   ; sms               ; 2110000004            ; 1200_sms      ; HISTORIC         ; 01.08.2020                         ; 31.08.2020                      ;
+#                                     ; do_More_No_Limit_5GPlan_voice_usage_3  ; 100   ; sms               ; 2110000004            ; 1200_sms      ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#
+#                                     ; premium_Unlimited_Plan_voice_usage     ; 725   ; phone_minutes     ; 2000002100            ; 1200_min      ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#                                     ; premium_Unlimited_Plan_sms_usage       ; 650   ; sms               ; 2000002100            ; 1200_sms      ; CURRENT         ; 01.09.2020                         ; 30.09.2020                       ;
+#
+#                                     ; unlimited_Starter_Plan_sms_usage       ; 26    ; sms               ; 2000002106            ; 300_sms       ; CURRENT         ; 10.08.2020                         ; 10.09.2020                       ;
+#                                     ; unlimited_Starter_Plan_data_usage      ; 21    ; mb                ; 2000002106            ; 100_mb        ; CURRENT         ; 10.08.2020                         ; 10.09.2020                       ;
+#                                     ; unlimited_Starter_Plan_voice_usage     ; 189   ; phone_minutes     ; 2000002106            ; 300_min       ; CURRENT         ; 10.08.2020                         ; 10.09.2020                       ;
+#
+#
+##Import sample Usage unit conversion map
+#INSERT_UPDATE UsageUnit ; id[unique = true]       ; unitConversionMap(key(UsageUnit(code)), value)[map-delimiter = |]
+#                        ; gb                      ; mb->1024|gb->1
+#                        ; radio_stations          ; radio_stations->1
+#                        ; theme_packages          ; theme_packages->1
+#                        ; movies_on_demand        ; movies_on_demand->1
+#                        ; documentaries_on_demand ; documentaries_on_demand->1
+#                        ; blockbusters_on_demand  ; blockbusters_on_demand->1
+#                        ; videos_on_demand        ; videos_on_demand->1
+#                        ; sessions                ; sessions->1
+#                        ; channels                ; channels->1
+#                        ; unit                    ; unit->1
+#                        ; phone_minutes           ; phone_minutes->1
+#                        ; sms                     ; sms->1
+#                        ; mobile_data             ; mobile_data->1|mb->1|gb->0.0009765625
+#                        ; music_pieces            ; music_pieces->1
+#                        ; replacements            ; replacements->1
+#                        ; mb                      ; mb->1|gb->0.0009765625
+#                        ; gbps                    ; gbps->1|mbps->1024
+#                        ; mbps                    ; mbps->1|gbps->0.0009765625
+#
+##Identification sample data
+#INSERT_UPDATE TmaIdentification ; identificationType(code) ; identificationNumber[unique = true] ; customers(uid)
+#                                ; DRIVING_LICENSE          ; NHL12506878                         ; mark.johnson@hybris.com
+#                                ; NATIONAL_ID              ; 380645180851                        ; emma.smith@hybris.com
+#                                ; PASSPORT                 ; J8369867                            ; anne.taylor@hybris.com
+#                                ; SOCIAL_SECURITY          ; 67925538927                         ; david.brown@hybris.com
+#                                ; SOCIAL_SECURITY          ; 67925538928                         ; etta.berg@hybris.com
+#                                ; SOCIAL_SECURITY          ; 67925538929                         ; tim.james@hybris.com
+#
+#
