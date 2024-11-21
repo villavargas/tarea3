@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
+<!--    Remove filter to show all consignments to do a replacement order-->
+    <!--<widget-extension widgetId="explorerTree">
+        <widget id="initTelcelReplacementAdvancedSearch"
+                widgetDefinitionId="com.hybris.cockpitng.widgets.common.advancedsearchengine.genericinitializer"
+                slotId="cockpitWidgetChildrenInvisible" template="false">
+            <setting key="requiredTypeCode" type="String" value="Consignment"/>
+            <setting key="navigationNodeId" type="String" value="hmc_typenode_telcelconsignment"/>
+            <setting key="handlerBeanId" type="String" value="sourceRuleAdvancedSearchInitHandler"/>
+            <virtual-sockets/>
+        </widget>
+    </widget-extension>
+
+    <widget-connection sourceWidgetId="explorerTree" outputId="nodeSelected"
+                       targetWidgetId="initTelcelReplacementAdvancedSearch" inputId="nodeSelected"/>
+    <widget-connection sourceWidgetId="initTelcelReplacementAdvancedSearch" outputId="outContext"
+                       targetWidgetId="advancedSearch" inputId="initContext"/>-->
+
+    <widget-extension widgetId="backofficeMainSlot">
+
+        <widget id="omsTelcelReplacementRequestPopup"
+                widgetDefinitionId="de.hybris.ordermanagementbackoffice.widgets.createtelcelreplacementrequest"
+                slotId="cockpitWidgetChildrenInvisible"
+                title="Create Telcel Replacement Request" template="true">
+
+            <instance-settings socketEventRoutingMode="LAST_USED">
+                <create onInit="false" reuseExisting="true">
+                    <all-incoming-events/>
+                </create>
+                <close>
+                    <all-outgoing-events/>
+                </close>
+                <select onInit="false">
+                    <all-incoming-events/>
+                </select>
+            </instance-settings>
+
+            <setting key="widgetStyleClass" type="String"></setting>
+            <setting key="__externalLocationPath" type="String">extension://telcelb2cbackoffice</setting>
+            <setting key="widgetStyleAttribute" type="String"></setting>
+            <setting key="_width" type="String">1200px</setting>
+            <setting key="_height" type="String">700px</setting>
+            <virtual-sockets/>
+        </widget>
+
+        <widget id="omsTelcelCancellationsReturnsRequestPopup"
+                widgetDefinitionId="de.hybris.ordermanagementbackoffice.widgets.createtelcelcancellationsreturnsrequest"
+                slotId="cockpitWidgetChildrenInvisible"
+                title="Create Telcel cellations and returns Request" template="true">
+
+            <instance-settings socketEventRoutingMode="LAST_USED">
+                <create onInit="false" reuseExisting="true">
+                    <all-incoming-events/>
+                </create>
+                <close>
+                    <all-outgoing-events/>
+                </close>
+                <select onInit="false">
+                    <all-incoming-events/>
+                </select>
+            </instance-settings>
+
+            <setting key="widgetStyleClass" type="String"></setting>
+            <setting key="__externalLocationPath" type="String">extension://telcelb2cbackoffice</setting>
+            <setting key="widgetStyleAttribute" type="String"></setting>
+            <setting key="_width" type="String">1200px</setting>
+            <setting key="_height" type="String">700px</setting>
+            <virtual-sockets/>
+        </widget>
+
+    </widget-extension>
+
+    <widget-connection
+            sourceWidgetId="STUB_mx.com.telcel.backoffice.actions.telcelreplacementaction"
+            outputId="createTelcelReplacementRequestContext" targetWidgetId="omsTelcelReplacementRequestPopup"
+            inputId="inputObject"/>
+
+    <widget-connection
+            sourceWidgetId="STUB_mx.com.telcel.backoffice.actions.telcelcancellationsreturnsaction"
+            outputId="createTelcelCancellationsReturnsRequestContext" targetWidgetId="omsTelcelCancellationsReturnsRequestPopup"
+            inputId="inputObject"/>
+
+
+</widgets>
+
