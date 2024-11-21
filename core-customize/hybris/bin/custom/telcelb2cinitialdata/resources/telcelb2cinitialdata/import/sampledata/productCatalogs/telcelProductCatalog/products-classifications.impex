@@ -1,0 +1,26 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing Product Classifications into Telcel Store
+
+#% impex.setLocale(Locale.ENGLISH);
+
+# Macros / Replacement Parameter definitions
+$productCatalog = telcelProductCatalog
+# ImpEx for Importing Product Classifications
+$systemName = telcelClassification
+$systemVersion = 1.0;
+$catVer = catalogVersion(version[default = 'Staged'], catalog(id[default = $productCatalog]));
+$clSysVer = catalogVersion(version[default = '$systemVersion'], catalog(id[default = '$systemName']));
+
+# 1. assign class to category so that all
+#    contained products are automatically classified as such
+UPDATE Category; $catVer[virtual = true, unique = true]; code[unique = true]       ; supercategories(code, $clSysVer)[mode = append];
+; telefonos-y-smartphones;smartphoneclassification  ;
+; accesorios;accesoriosclassification  ;
+; tablets;tabletsclassification
+; vida_conectada;vida_conectadaclassification
+; internet_movil;internet_movilclassification
+; renueva_plan;renueva_planclassification
+; amigo_chip;amigo_chipclassification
