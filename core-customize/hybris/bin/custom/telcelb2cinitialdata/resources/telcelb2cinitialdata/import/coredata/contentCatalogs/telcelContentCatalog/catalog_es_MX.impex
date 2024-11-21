@@ -1,0 +1,15 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import the Telcel Content Catalog
+#
+
+# Language
+$lang = es_MX
+$contentCatalog = telcelContentCatalog
+
+# Create Content Catalog
+UPDATE ContentCatalog; id[unique = true]; name[lang = $lang]
+                     ; $contentCatalog  ; "Catálogo de contenido de Telcel"
