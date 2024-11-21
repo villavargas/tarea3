@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="mx.com.telcel.dto.sso.SSOUserDTO">
+		<property name="userpreferredlanguage" type="java.lang.String"/>
+		<property name="locale" type="java.lang.String"/>
+		<property name="timezone" type="java.lang.String"/>
+		<property name="loginname" type="String[]"/>
+		<property name="creationsource" type="java.lang.String"/>
+		<property name="phonenumberone" type="java.lang.String"/>
+		<property name="emailone" type="java.lang.String"/>
+		<property name="id" type="java.lang.String"/>
+		<property name="traceflag" type="java.lang.Boolean"/>
+		<property name="registrationcompleted" type="java.lang.Boolean"/>
+		<property name="creationdate" type="java.lang.Long"/>
+		<property name="passwordfailedattemptscounter" type="java.lang.Integer"/>
+		<property name="passwordfailedattemptsdate" type="java.lang.Long"/>
+		<property name="pinfailedattemptscounter" type="java.lang.Integer"/>
+		<property name="pinfailedattemptsdate" type="java.lang.Long"/>
+		<property name="requestedpasswordate" type="java.lang.Long"/>
+		<property name="requestedpasswordcounter" type="java.lang.Integer"/>
+		<property name="externalid" type="java.lang.String"/>
+		<property name="username" type="java.lang.String"/>
+		<property name="password" type="java.lang.String"/>
+		<property name="pin" type="java.lang.String"/>
+		<property name="userformattedname" type="java.lang.String"/>
+		<property name="userfamilyname" type="java.lang.String"/>
+		<property name="usergivenname" type="java.lang.String"/>
+		<property name="honorificprefix" type="java.lang.String"/>
+		<property name="honorificsuffix" type="java.lang.String"/>
+		<property name="userdisplayname" type="java.lang.String"/>
+		<property name="nickname" type="java.lang.String"/>
+		<property name="gender" type="java.lang.String"/>
+		<property name="birthdate" type="java.lang.String"/>
+		<property name="region" type="java.lang.Integer"/>
+		<property name="profileurl" type="java.lang.String"/>
+		<property name="photourl" type="java.lang.String"/>
+		<property name="usertitle" type="java.lang.String"/>
+		<property name="usertype" type="java.lang.String"/>
+		<property name="active" type="java.lang.Boolean"/>
+		<property name="group" type="java.lang.String"/>
+		<property name="promotionflag" type="java.lang.Boolean"/>
+		<property name="advertisementconsentflag" type="java.lang.Boolean"/>
+		<property name="confidentialityagreement" type="java.lang.Boolean"/>
+		<property name="updatedate" type="java.lang.Long"/>
+		<property name="updatesource" type="java.lang.String"/>
+		<property name="lastaccessdate" type="java.lang.Long"/>
+		<property name="securityquestion" type="java.lang.String"/>
+		<property name="securityanswer" type="java.lang.String"/>
+		<property name="addressformattedone" type="java.lang.String"/>
+		<property name="addressstreetone" type="java.lang.String"/>
+		<property name="addresslocalityone" type="java.lang.String"/>
+		<property name="addressregionone" type="java.lang.String"/>
+		<property name="addresspostalcodeone" type="java.lang.String"/>
+		<property name="addresscountryone" type="java.lang.String"/>
+		<property name="addresstypeone" type="java.lang.String"/>
+		<property name="addressprimaryone" type="java.lang.Boolean"/>
+		<property name="addressformattedtwo" type="java.lang.String"/>
+		<property name="addressstreettwo" type="java.lang.String"/>
+		<property name="addresslocalitytwo" type="java.lang.String"/>
+		<property name="addressregiontwo" type="java.lang.String"/>
+		<property name="addresspostalcodetwo" type="java.lang.String"/>
+		<property name="addresscountrytwo" type="java.lang.String"/>
+		<property name="addresstypetwo" type="java.lang.String"/>
+		<property name="addressprimarytwo" type="java.lang.Boolean"/>
+		<property name="emailtypeone" type="java.lang.String"/>
+		<property name="emailprimaryone" type="java.lang.Boolean"/>
+		<property name="emailverifiedone" type="java.lang.Boolean"/>
+		<property name="emailtwo" type="java.lang.String"/>
+		<property name="emailtypetwo" type="java.lang.String"/>
+		<property name="emailprimarytwo" type="java.lang.Boolean"/>
+		<property name="emailverifiedtwo" type="java.lang.Boolean"/>
+		<property name="phonenumbertypeone" type="java.lang.String"/>
+		<property name="phonenumberprimaryone" type="java.lang.Boolean"/>
+		<property name="phonenumberverifiedone" type="java.lang.Boolean"/>
+		<property name="phonenumbertwo" type="java.lang.String"/>
+		<property name="phonenumbertypetwo" type="java.lang.String"/>
+		<property name="phonenumberprimarytwo" type="java.lang.Boolean"/>
+		<property name="phonenumberverifiedtwo" type="java.lang.Boolean"/>
+		<property name="imone" type="java.lang.String"/>
+		<property name="imtypeone" type="java.lang.String"/>
+		<property name="imtwo" type="java.lang.String"/>
+		<property name="imtypetwo" type="java.lang.String"/>
+		<property name="serviceprovider" type="java.lang.String"/>
+		<property name="lockdate" type="java.lang.Long"/>
+		<property name="suspended" type="java.lang.Boolean"/>
+		<property name="suspendeddate" type="java.lang.Long"/>
+		<property name="Serviciossso" type="java.lang.String"/>
+		<property name="Fechamail" type="java.lang.Long"/>
+		<property name="Fechaenvmail" type="java.lang.Long"/>
+		<property name="Emailrecibe" type="java.lang.String"/>
+		<property name="Tipoenviofactura" type="java.lang.Integer"/>
+		<property name="Fechaenviofactura" type="java.lang.Long"/>
+		<property name="Sid" type="java.lang.String"/>
+		<property name="Sidacceso" type="java.lang.String"/>
+		<property name="Tipoplan" type="java.lang.Integer"/>
+		<property name="Cuenta" type="java.lang.Integer"/>
+		<property name="Cuentaconsolidada" type="java.lang.Integer"/>
+		<property name="RFC" type="java.lang.String"/>
+		<property name="otpexpiresat" type="java.lang.Long"/>
+		<property name="onetimepassword" type="java.lang.String"/>
+		<property name="encrypttype" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.sso.SSOParameterDTO">
+		<property name="key" type="java.lang.String"/>
+		<property name="value" type="java.lang.String"/>
+		<property name="type" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.sso.SSOErrorDTO">
+		<property name="description" type="java.lang.String"/>
+		<property name="code" type="java.lang.Integer"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.sso.request.SSOUserRequestDTO">
+		<property name="source" type="java.lang.String"/>
+		<property name="user" type="mx.com.telcel.dto.sso.SSOUserDTO"/>
+		<property name="parameters" type="java.util.List&lt;mx.com.telcel.dto.sso.SSOParameterDTO>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.sso.response.SSOUserResponseDTO">
+		<property name="error" type="mx.com.telcel.dto.sso.SSOErrorDTO"/>
+		<property name="user" type="mx.com.telcel.dto.sso.SSOUserDTO"/>
+		<property name="parameters" type="java.util.List&lt;mx.com.telcel.dto.sso.SSOParameterDTO>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.dto.sso.response.SSOMessageResponseDTO">
+		<property name="responseCode" type="java.lang.String"/>
+		<property name="responseMessage" type="java.lang.String"/>
+	</bean>
+
+</beans>
