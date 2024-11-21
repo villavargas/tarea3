@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<action-definition id="mx.com.telcel.backoffice.actions.telcelcancellationsreturnsaction"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+	
+	<name>telcelcancellationsreturnsaction.action</name>
+	<description>Action to Telcel cellations and returns</description>
+	<author>hybris</author>
+	<version>1.0</version>
+
+	<actionClassName>mx.com.telcel.backoffice.actions.CreateTelcelCancellationsReturnsRequestAction</actionClassName>
+	<inputType>de.hybris.platform.core.model.order.OrderModel</inputType>
+	<outputType>de.hybris.platform.core.model.order.OrderModel</outputType>
+
+	<iconUri>icons/icon_telcelcancellationsreturnsaction_default.png</iconUri>
+	<iconDisabledUri>icons/icon_telcelcancellationsreturnsaction_disabled.png</iconDisabledUri>
+	<iconHoverUri>icons/icon_telcelcancellationsreturnsaction_hover.png</iconHoverUri>
+
+	<settings>
+		<setting key="viewMode" default-value="iconAndText"/>
+	</settings>
+
+	<!-- Sockets definition-->
+	<sockets>
+		<output id="createTelcelCancellationsReturnsRequestContext"/>
+	</sockets>
+
+</action-definition>
