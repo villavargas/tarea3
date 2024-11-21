@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<widget xmlns="http://www.zkoss.org/2005/zul" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.hybris.com/schema/cockpitng/zul/zul.xsd"
+        sclass="oms-widget-createtelcelreplacement-configuration"
+        id="createtelcelreplacementview" height="100%" width="100%">
+
+    <hlayout sclass="oms-widget-createtelcelreplacement-header">
+        <hbox sclass="oms-widget-createtelcelreplacement-header--order__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--order__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--order__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.ordernumber}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--order__textbox"
+                         readonly="true"
+                         id="orderCode"
+                         width="240px"/>
+            </vbox>
+        </hbox>
+
+        <hbox sclass="oms-widget-createtelcelreplacement-header--customer__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--customer__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--customer__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.customer}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--customer__textbox"
+                         readonly="true"
+                         id="customer"
+                         width="240px"/>
+            </vbox>
+        </hbox>
+
+        <hbox sclass="oms-widget-createtelcelreplacement-header--consignmentCode__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--consignmentCode__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--consignmentCode__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.consignmentcode}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--consignmentCode__textbox"
+                         readonly="true"
+                         id="consignmentCode"
+                         width="240px"/>
+            </vbox>
+        </hbox>
+
+        <hbox sclass="oms-widget-createtelcelreplacement-header--salesDocument__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--salesDocument__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--salesDocument__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.salesdocument}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--salesDocument__textbox"
+                         readonly="true"
+                         id="salesDocument"
+                         width="240px"/>
+            </vbox>
+        </hbox>
+
+
+    </hlayout>
+
+    <hlayout sclass="oms-widget-createtelcelreplacement-middle">
+        <hbox sclass="oms-widget-createtelcelreplacement-header--address__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--address__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--address__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.address}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--address__textbox"
+                         readonly="true"
+                         id="address"
+                         width="190px"/>
+            </vbox>
+        </hbox>
+
+        <hbox sclass="oms-widget-createtelcelreplacement-header--invoiceNumber__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--invoiceNumber__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--invoiceNumber__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.invoicenumber}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--invoiceNumber__textbox"
+                         readonly="true"
+                         id="invoiceNumber"
+                         width="190px"/>
+            </vbox>
+        </hbox>
+
+        <hbox sclass="oms-widget-createtelcelreplacement-header--seriesIMEI__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--seriesIMEI__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--invoiceNumber__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.seriesimei}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--seriesIMEI__textbox"
+                         readonly="true"
+                         id="seriesIMEI"
+                         width="190px"/>
+            </vbox>
+        </hbox>
+
+        <hbox sclass="oms-widget-createtelcelreplacement-header--seriesICCID__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--seriesICCID__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--seriesICCID__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.seriesiccid}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--seriesICCID__textbox"
+                         readonly="true"
+                         id="seriesICCID"
+                         width="190px"/>
+            </vbox>
+        </hbox>
+
+        <hbox sclass="oms-widget-createtelcelreplacement-header--linea__hbox">
+            <vbox sclass="oms-widget-createtelcelreplacement-header--linea__vbox">
+                <label sclass="oms-widget-createtelcelreplacement-header--linea__label"
+                       value="${labels.telcelb2cbackoffice.createtelcelreplacement.linea}"
+                       width="100%"/>
+                <textbox sclass="oms-widget-createtelcelreplacement-header--linea_textbox"
+                         readonly="true"
+                         id="linea"
+                         width="190px"/>
+            </vbox>
+        </hbox>
+    </hlayout>
+    <hlayout sclass="oms-widget-createtelcelreplacement--title-container" style="text-align:center;">
+        <div sclass="oms-widget-createtelcelreplacement--title">
+            <label sclass="oms-widget-createtelcelreplacement-header--title__label"
+                   value="${labels.telcelb2cbackoffice.createtelcelreplacement.product.title}"
+                   width="100%" style="font-size:24px;"/>
+        </div>
+    </hlayout>
+    <hlayout sclass="oms-widget-createtelcelreplacement--body" style="padding-right:20px;padding-left:20px;">
+        <div sclass="oms-widget-createtelcelreplacement-list-container">
+            <hbox sclass="oms-widget-createtelcelreplacement-header--Container__hbox">
+                <vbox sclass="oms-widget-createtelcelreplacement-header--productCode__vbox" style="margin-right: 5px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--productCode__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.productcode}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--productCode_textbox"
+                             readonly="true"
+                             id="productCode"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--productName__vbox" style="margin-right: 5px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--productName__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.productname}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--productName_textbox"
+                             readonly="true"
+                             id="productName"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--bpWoTaxes__vbox" style="margin-right: 5px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--bpWoTaxes__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.bpwotaxes}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--bpWoTaxes_textbox"
+                             readonly="true"
+                             id="bpWoTaxes"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--basePricevalue__vbox" style="margin-right: 5px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--basePricevalue__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.basepricevalue}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--basePricevalue_textbox"
+                             readonly="true"
+                             id="basePricevalue"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--currentPPWoTaxes__vbox" style="margin-right: 5px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--currentPPWoTaxes__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.currentppwotaxes}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--currentPPWoTaxes_textbox"
+                             readonly="true"
+                             id="currentPPWoTaxes"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--productMaxPrice__vbox" style="margin-right: 5px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--productMaxPrice__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.productmaxprice}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--productMaxPrice_textbox"
+                             readonly="true"
+                             id="productMaxPrice"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--value__vbox">
+                    <label sclass="oms-widget-createtelcelreplacement-header--value__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.value}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--value_textbox"
+                             readonly="true"
+                             id="value"
+                             width="150px"/>
+                </vbox>
+            </hbox>
+        </div>
+
+    </hlayout>
+    <hlayout sclass="oms-widget-createtelcelreplacement--selector" style="text-align:center;">
+        <div sclass="oms-widget-createtelcelreplacement-selector-container" style="display:block;">
+            <hbox sclass="oms-widget-createtelcelreplacement-header--productSelector__hbox" style="text-align:center;">
+                <vbox sclass="oms-widget-createtelcelreplacement-header--productSelector__vbox" style="margin-right: 15px">
+                    <label sclass="oms-widget-createtelcelreplacement-header--productSelector__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.productselector}"
+                           width="100%" style="font-size:18px"/>
+                    <combobox sclass="oms-widget-createtelcelreplacement-listbox--row__productSelector"
+                              placeholder="${labels.telcelb2cbackoffice.createtelcelreplacement.placeholder.productSelector}"
+                              name="productSelector" id="productSelector">
+                    </combobox>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--warehouseSelector__vbox" style="margin-left: 15px">
+                    <label sclass="oms-widget-createtelcelreplacement-header--warehouseSelector__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.warehouseselector}"
+                           width="100%" style="font-size:18px"/>
+                    <combobox sclass="oms-widget-createtelcelreplacement-listbox--row__warehouseSelector"
+                              placeholder="${labels.telcelb2cbackoffice.createtelcelreplacement.placeholder.warehouseSelector}"
+                              name="warehouseSelector" id="warehouseSelector">
+                    </combobox>
+                </vbox>
+            </hbox>
+        </div>
+    </hlayout>
+
+    <hlayout sclass="oms-widget-createtelcelreplacement--selectorinf" style="padding-right:20px;padding-left:20px;">
+        <div class="oms-widget-createtelcelreplacement-selectorinf-container">
+            <hbox sclass="oms-widget-createtelcelreplacement-header--selectorinf__hbox">
+                <vbox sclass="oms-widget-createtelcelreplacement-header--selectorinfCode__vbox" style="margin-right: 3px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--selectorinfCode__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.selectorinfcode}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--selectorinfCode_textbox"
+                             readonly="true"
+                             id="selectorinfCode"
+                             width="150px"/>
+                </vbox>
+                <vbox sclass="oms-widget-createtelcelreplacement-header--selectorinfName__vbox" style="margin-right: 3px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--selectorinfName__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.selectorinfname}"
+                           width="100%"/>
+                    <textbox sclass="oms-widget-createtelcelreplacement-header--selectorinfName_textbox"
+                             readonly="true"
+                             id="selectorinfName"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--bpWoTaxesinf__vbox" style="margin-right: 3px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--bpWoTaxesinf__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.bpwotaxesinf}"
+                           width="100%"/>
+                    <doublebox sclass="oms-widget-createtelcelreplacement-header--bpWoTaxesinf_textbox"
+                             readonly="true" format="0.00"
+                             id="bpWoTaxesinf"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--basePricevalueinf__vbox" style="margin-right: 3px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--basePricevalueinf__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.basepricevalueinf}"
+                           width="100%"/>
+                    <doublebox sclass="oms-widget-createtelcelreplacement-header--basePricevalueinf_textbox"
+                             readonly="true" format="0.00"
+                             id="basePricevalueinf"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--currentPPWoTaxesinf__vbox" style="margin-right: 3px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--currentPPWoTaxesinf__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.currentppwotaxesinf}"
+                           width="100%"/>
+                    <doublebox sclass="oms-widget-createtelcelreplacement-header--currentPPWoTaxesinf_textbox"
+                             readonly="true" format="0.00"
+                             id="currentPPWoTaxesinf"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--maxPriceinf__vbox" style="margin-right: 3px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--maxPriceinf__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.maxpriceinf}"
+                           width="100%"/>
+                    <doublebox sclass="oms-widget-createtelcelreplacement-header--maxPriceinf_textbox"
+                               readonly="true" format="0.00"
+                               id="maxPriceinf"
+                               width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--valueinf__vbox">
+                    <label sclass="oms-widget-createtelcelreplacement-header--valueinf__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacementinf.value}"
+                           width="100%"/>
+                    <doublebox sclass="oms-widget-createtelcelreplacement-header--valueinf_textbox"
+                             readonly="true" format="0.00"
+                             id="valueinf"
+                             width="150px"/>
+                </vbox>
+            </hbox>
+        </div>
+    </hlayout>
+
+    <hlayout sclass="oms-widget-createtelcelreplacement--selectorinfadditional" style="padding-right:20px;padding-left:20px;">
+        <div class="oms-widget-createtelcelreplacement-selectorinfadditional-container">
+            <hbox sclass="oms-widget-createtelcelreplacement-header--selectorinfadditional_hbox">
+                <vbox sclass="oms-widget-createtelcelreplacement-header--addtitionalService__vbox" style="margin-right: 3px;">
+                    <label sclass="oms-widget-createtelcelreplacement-header--addtitionalService__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.addtitionalService}"
+                           width="100%"/>
+                    <doublebox sclass="oms-widget-createtelcelreplacement-header--addtitionalService_textbox"
+                             readonly="true" format="0.00"
+                             id="addtitionalService"
+                             width="150px"/>
+                </vbox>
+
+                <vbox sclass="oms-widget-createtelcelreplacement-header--deliverycost__vbox">
+                    <label sclass="oms-widget-createtelcelreplacement-header--deliverycost__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.deliverycost}"
+                           width="100%"/>
+                    <doublebox sclass="oms-widget-createtelcelreplacement-header--deliverycost_textbox"
+                             readonly="true" format="0.00"
+                             id="deliverycost"
+                             width="150px"/>
+                </vbox>
+            </hbox>
+        </div>
+    </hlayout>
+
+    <div sclass="oms-widget-createtelcelreplacement-footer">
+        <div style="float: left;">
+            <checkbox id="runRollback"
+                      label="${labels.telcelb2cbackoffice.createtelcelreplacement.checkbox.rollback}"
+                      class="oms-widget-createtelcelreplacement-confirm-area__checkbox" checked="true"/>
+        </div>
+        <div width="40%" sclass="oms-widget-createtelcelreplacement-refund-amount-area">
+            <div style="margin-right: 7px;" sclass="oms-widget-createtelcelreplacement-refund-amount-area--delivery-cost">
+                <div sclass="oms-widget-createtelcelreplacement-refund-amount-area--delivery-cost--wrapper">
+                    <label sclass="oms-widget-createtelcelreplacement-header--deliverycost__label"
+                           value="${labels.telcelb2cbackoffice.createtelcelreplacement.deliverycostsummary}"
+                           width="100%"/>
+                    <doublebox id="deliveryCostSummary"
+                               format="0.00"
+                               readonly="true"
+                               sclass="oms-widget-createtelcelreplacement-refund-amount-area--delivery-cost--wrapper__cost" />
+                </div>
+            </div>
+
+            <div sclass="oms-widget-createtelcelreplacement-refund-amount-area--total-refund">
+                <div sclass="oms-widget-createtelcelreplacement-refund-amount-area--total-refund--wrapper">
+                    <label value="${labels.telcelb2cbackoffice.createtelcelreplacement.totalreplacement}"
+                           sclass="oms-widget-createtelcelreplacement-refund-amount-area--total-refund-label" />
+                    <doublebox id="totalReplacement"
+                               format="0.00"
+                               sclass="oms-widget-createtelcelreplacement-refund-amount-area--total-refund-field"
+                               readonly="true" constraint="no empty,no negative: Quantity Must be Greater Than Zero"/>
+                </div>
+            </div>
+        </div>
+        <div sclass="oms-widget-createtelcelreplacement-controller-area">
+            <div sclass="oms-widget-createtelcelreplacement-controller-area--wrapper">
+                <button id="resetcreatetelcelreplacement"
+                        label="${labels.telcelb2cbackoffice.createtelcelreplacement.button.reset}"
+                        sclass="oms-widget-createtelcelreplacement-configuration-button oms-widget-createtelcelreplacement-configuration-revert-button"/>
+                <div sclass="oms-widget-createtelcelreplacement-confirm-area">
+                    <button id="confirmcreatetelcelreplacement"
+                            label="${labels.telcelb2cbackoffice.createtelcelreplacement.button.confirm}"
+                            sclass="y-btn-primary oms-widget-createtelcelreplacement-configuration-button oms-widget-createtelcelreplacement-configuration-save-button"/>
+                </div>
+            </div>
+        </div>
+        <style>
+            .z-comboitem:hover .z-comboitem-inner, .z-comboitem:hover .z-comboitem-content {
+                color: black;
+            }
+        </style>
+    </div>
+
+</widget>
