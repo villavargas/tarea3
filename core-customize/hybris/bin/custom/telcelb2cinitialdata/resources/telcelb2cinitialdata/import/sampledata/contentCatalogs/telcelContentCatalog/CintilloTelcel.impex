@@ -1,0 +1,248 @@
+# Language
+$lang = es_MX
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+#$siteResource=file:\\\D:\TELCEL\Imagenes
+$picture = media(code, $contentCV)
+$medias = medias(code, $contentCV)
+$mediaContainer = media(qualifier, $contentCV)[lang=$lang];
+$mediaIconContainer = mediaIcon(qualifier, $contentCV)[lang=$lang];
+
+
+
+$siteResourceSite = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/site
+
+INSERT_UPDATE CMSTelcelFAQComponent; $contentCV[unique = true]; uid[unique = true]    ; title[lang = $lang]    ; caption[lang = $lang]; content[lang = $lang]                                                                                                                                                                                                                             ; &componentRef
+                                   ;                          ; CMSTelcelFAQComponent ; "Preguntas frecuentes" ; "¿Necesitas ayuda?"  ; "Visita nuestro<span class='help-options chatbot'>TelcelBot</span>, consulta nuestra sección de<span class='help-options'><a href='https://www.telcel.com/personas/atencion-a-clientes/preguntas-frecuentes'>preguntas frecuentes</a></span> o contáctanos<span class='help-options'><a href='/ticket-contacto'>aquí.</a></span>" ; CMSTelcelFAQComponent
+
+# Site Home Media Banner 1
+INSERT_UPDATE Media; mediaFormat(qualifier); code[unique = true]                     ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite = true]; realfilename                                ; altText; mime[default = 'image/jpg']; $contentCV[unique = true]; folder(qualifier)[default = images];
+                   ; desktop               ; CintilloMediaSection2A_Efectivo         ; $siteResourceSite/beneficio-efectivo.png                                                       ; CintilloMediaSection2A_Efectivo.png         ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Envio            ; $siteResourceSite/beneficio-envio.png                                                          ; CintilloMediaSection2A_Envio.png            ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Garantia         ; $siteResourceSite/beneficio-garantia.png                                                       ; CintilloMediaSection2A_Garantia.png         ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Meses            ; $siteResourceSite/beneficio-meses.png                                                          ; CintilloMediaSection2A_Meses.png            ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Promociones      ; $siteResourceSite/beneficio-promociones.png                                                    ; CintilloMediaSection2A_Promociones.png      ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Renueva          ; $siteResourceSite/beneficio-renueva.png                                                        ; CintilloMediaSection2A_Renueva.png          ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Wallet           ; $siteResourceSite/beneficio-wallet.png                                                         ; CintilloMediaSection2A_Wallet.png           ;        ;
+
+                   ; desktop               ; Icon_CintilloMediaSection2A_Efectivo    ; $siteResourceSite/icon-efectivo.png                                                            ; Icon_CintilloMediaSection2A_Efectivo.png    ;        ;
+                   ; desktop               ; Icon_CintilloMediaSection2A_Envio       ; $siteResourceSite/icon-envio.png                                                               ; Icon_CintilloMediaSection2A_Envio.png       ;        ;
+                   ; desktop               ; Icon_CintilloMediaSection2A_Garantia    ; $siteResourceSite/icon-garantia.png                                                            ; Icon_CintilloMediaSection2A_Garantia.png    ;        ;
+                   ; desktop               ; Icon_CintilloMediaSection2A_Meses       ; $siteResourceSite/icon-meses.png                                                               ; Icon_CintilloMediaSection2A_Meses.png       ;        ;
+                   ; desktop               ; Icon_CintilloMediaSection2A_Promociones ; $siteResourceSite/icon-promociones.png                                                         ; Icon_CintilloMediaSection2A_Promociones.png ;        ;
+                   ; desktop               ; Icon_CintilloMediaSection2A_Renueva     ; $siteResourceSite/icon-renueva.png                                                             ; Icon_CintilloMediaSection2A_Renueva.png     ;        ;
+                   ; desktop               ; Icon_CintilloMediaSection2A_Wallet      ; $siteResourceSite/beneficio-wallet.png                                                         ; Icon_CintilloMediaSection2A_Wallet.png      ;        ;
+
+                   ; desktop               ; CintilloMediaSection2A_Home1            ; $siteResourceSite/icon-home-cintillo1.png                                                      ; CintilloMediaSection2A_Home1.png            ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Home2            ; $siteResourceSite/icon-home-cintillo2.png                                                      ; CintilloMediaSection2A_Home2.png            ;        ;
+                   ; desktop               ; CintilloMediaSection2A_Home3            ; $siteResourceSite/icon-home-cintillo3.png                                                      ; CintilloMediaSection2A_Home3.png            ;        ;
+
+# Site Home Media Container Banner 1
+INSERT_UPDATE MediaContainer; qualifier[unique = true]                  ; $medias; $contentCV[unique = true]
+                            ; CintilloMediaSection2A_1_ImgContainer     ; CintilloMediaSection2A_Efectivo,CintilloMediaSection2A_Efectivo,CintilloMediaSection2A_Efectivo
+                            ; CintilloMediaSection2A_2_ImgContainer     ; CintilloMediaSection2A_Envio,CintilloMediaSection2A_Envio,CintilloMediaSection2A_Envio
+                            ; CintilloMediaSection2A_3_ImgContainer     ; CintilloMediaSection2A_Garantia,CintilloMediaSection2A_Garantia,CintilloMediaSection2A_Garantia
+                            ; CintilloMediaSection2A_4_ImgContainer     ; CintilloMediaSection2A_Meses,CintilloMediaSection2A_Meses,CintilloMediaSection2A_Meses
+                            ; CintilloMediaSection2A_5_ImgContainer     ; CintilloMediaSection2A_Promociones,CintilloMediaSection2A_Promociones,CintilloMediaSection2A_Promociones
+                            ; CintilloMediaSection2A_6_ImgContainer     ; CintilloMediaSection2A_Renueva,CintilloMediaSection2A_Renueva,CintilloMediaSection2A_Renueva
+                            ; CintilloMediaSection2A_7_ImgContainer     ; CintilloMediaSection2A_Wallet,CintilloMediaSection2A_Wallet,CintilloMediaSection2A_Wallet
+
+                            ; CintilloMediaSection2A_8_ImgContainer     ; Icon_CintilloMediaSection2A_Efectivo,Icon_CintilloMediaSection2A_Efectivo,Icon_CintilloMediaSection2A_Efectivo
+                            ; CintilloMediaSection2A_9_ImgContainer     ; Icon_CintilloMediaSection2A_Envio,Icon_CintilloMediaSection2A_Envio,Icon_CintilloMediaSection2A_Envio
+                            ; CintilloMediaSection2A_10_ImgContainer    ; Icon_CintilloMediaSection2A_Garantia,Icon_CintilloMediaSection2A_Garantia,Icon_CintilloMediaSection2A_Garantia
+                            ; CintilloMediaSection2A_11_ImgContainer    ; Icon_CintilloMediaSection2A_Meses,Icon_CintilloMediaSection2A_Meses,Icon_CintilloMediaSection2A_Meses
+                            ; CintilloMediaSection2A_12_ImgContainer    ; Icon_CintilloMediaSection2A_Promociones,Icon_CintilloMediaSection2A_Promociones,Icon_CintilloMediaSection2A_Promociones
+                            ; CintilloMediaSection2A_13_ImgContainer    ; Icon_CintilloMediaSection2A_Renueva,Icon_CintilloMediaSection2A_Renueva,Icon_CintilloMediaSection2A_Renueva
+                            ; CintilloMediaSection2A_14_ImgContainer    ; Icon_CintilloMediaSection2A_Wallet,Icon_CintilloMediaSection2A_Wallet,Icon_CintilloMediaSection2A_Wallet
+
+                            ; CintilloHomeMediaSection2A_1_ImgContainer ; CintilloMediaSection2A_Home1,CintilloMediaSection2A_Home1,CintilloMediaSection2A_Home1 
+                            ; CintilloHomeMediaSection2A_2_ImgContainer ; CintilloMediaSection2A_Home2,CintilloMediaSection2A_Home2,CintilloMediaSection2A_Home2
+                            ; CintilloHomeMediaSection2A_3_ImgContainer ; CintilloMediaSection2A_Home3,CintilloMediaSection2A_Home3,CintilloMediaSection2A_Home3
+
+INSERT_UPDATE TelcelSimpleResponsiveBannerComponent; $contentCV[unique = true]; uid[unique = true]   ; urlLink; name                   ; $mediaContainer                       ; $mediaIconContainer                    ; &componentRef        ; titleBenefit                                         ; informationText
+                                                   ;                          ; Beneficio2A_1_Banner ; #      ; Pago en efectivo       ; CintilloMediaSection2A_1_ImgContainer ; CintilloMediaSection2A_8_ImgContainer  ; Beneficio2A_1_Banner ; Pago en efectivo                                     ; Para tu comodidad, la tienda en línea pone a tu disposición más de 1,000 tiendas, comercios y bancos en todo el país, para realizar tu pago en efectivo sin complicaciones.
+                                                   ;                          ; Beneficio2A_2_Banner ; #      ; Envios por contigencia ; CintilloMediaSection2A_2_ImgContainer ; CintilloMediaSection2A_9_ImgContainer  ; Beneficio2A_2_Banner ; Información importante sobre envíos por contingencia ; En Telcel estamos haciendo todos los esfuerzos para entregarte en la fecha programada, sin embargo, debido a la semana santa nuestros tiempos de entrega pueden llegar a ser más largos de lo habitual. Consulta el estatus de tu pedido en la sección “Mis Pedidos”, para mayor información.
+                                                   ;                          ; Beneficio2A_3_Banner ; #      ; Garantia Telcel        ; CintilloMediaSection2A_3_ImgContainer ; CintilloMediaSection2A_10_ImgContainer ; Beneficio2A_3_Banner ; Garantía Telcel                                      ; Con Telcel obtienes 12 meses de garantía. Compra segura con todas las formas de pago disponibles en la Tienda en línea. Con nosotros tus datos están protegidos. Conoce nuestro Aviso de Privacidad
+                                                   ;                          ; Beneficio2A_4_Banner ; #      ; Meses sin intereses    ; CintilloMediaSection2A_4_ImgContainer ; CintilloMediaSection2A_11_ImgContainer ; Beneficio2A_4_Banner ; Meses sin Intereses                                  ; 6 Meses sin intereses con tarjetas: Inbursa, Santander, HSBC, ScotiaBank, BanBajío, Invex y Banamex. Monto mínimo $900.00.  12 Meses sin intereses con tarjetas: Inbursa, Santander, HSBC, ScotiaBank, BanBajio, Invex y Banamex. Monto mínimo $2,500.00. 13 Meses sin intereses con tarjetas BBVA Monto mínimo $2,500.00
+                                                   ;                          ; Beneficio2A_5_Banner ; #      ; Promociones            ; CintilloMediaSection2A_5_ImgContainer ; CintilloMediaSection2A_12_ImgContainer ; Beneficio2A_5_Banner ; Promociones                                ; Contamos con lo último en teléfonos y smartphones de las marcas de mayor prestigio,  un catálogo de más de 200 modelos.Encuentra promociones y precios especiales, exclusivos de la Tienda en línea.
+                                                   ;                          ; Beneficio2A_6_Banner ; #      ; Renueva tu plan        ; CintilloMediaSection2A_6_ImgContainer ; CintilloMediaSection2A_13_ImgContainer ; Beneficio2A_6_Banner ; Renueva tu plan con equipo nuevo                     ; Ahora renovar tu línea es más fácil, rápido y seguro ; renueva en línea sin salir de casa y encuentra los mejores equipos, planes y promociones que la Tienda en Línea de Telcel tiene para ti.
+                                                   ;                          ; Beneficio2A_7_Banner ; #      ; Pago con wallet        ; CintilloMediaSection2A_7_ImgContainer ; CintilloMediaSection2A_14_ImgContainer ; Beneficio2A_7_Banner ; Pago con wallet                                      ; Pago con wallet      Adicional text
+
+INSERT_UPDATE TelcelSimpleResponsiveBannerHomeComponent; $contentCV[unique = true]; uid[unique = true]    ; urlLink; name                    ; $mediaContainer                           ;  &componentRef         ; titleCintillo           ; informationText
+                                                       ;                          ; Beneficio2A_1_HBanner ; #      ; Compra segura           ; CintilloHomeMediaSection2A_2_ImgContainer ;  Beneficio2A_1_HBanner ; Compra segura           ; Todos tus productos tienen garantía Telcel. Con nosotros tus datos están protegidos, conoce nuestro Aviso de privacidad.
+                                                       ;                          ; Beneficio2A_2_HBanner ; #      ; Formas de pago          ; CintilloHomeMediaSection2A_3_ImgContainer ;  Beneficio2A_2_HBanner ; Formas de pago          ; Para tu comodidad, la Tienda en Línea cuenta con pago en efectivo, meses sin intereses o pago con wallet.
+                                                       ;                          ; Beneficio2A_3_HBanner ; #      ; Estatus de mi pedido    ; CintilloHomeMediaSection2A_1_ImgContainer ;  Beneficio2A_3_HBanner ; Estatus de mi pedido    ; Tu entrega puede tardar más de lo habitual, consulta el estatus de tus pedidos en la sección “Mis pedidos”, para mayor información.
+
+INSERT_UPDATE CMSTelcelCintilloComponent; $contentCV[unique = true]; uid[unique = true]; cintillos(uid, $contentCV)                                                                                                    ; &componentRef
+                                        ;                          ; TelcelCintillo    ; Beneficio2A_6_Banner,Beneficio2A_3_Banner,Beneficio2A_2_Banner,Beneficio2A_5_Banner,Beneficio2A_4_Banner,Beneficio2A_1_Banner ; TelcelCintillo
+
+INSERT_UPDATE CMSTelcelCintilloHomeComponent; $contentCV[unique = true]; uid[unique = true] ; cintillos(uid, $contentCV)                                        ; &componentRef
+                                            ;                          ; TelcelHomeCintillo ; Beneficio2A_1_HBanner,Beneficio2A_2_HBanner,Beneficio2A_3_HBanner ; TelcelHomeCintillo
+
+
+# Site Home Slot Banner 1
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]    ; name                        ; active; cmsComponents(uid, $contentCV)
+                         ;                          ; SectionCintillo-Homepage ; SectionCintillo Slot for Homepage ; true  ; TelcelHomeCintillo,CMSTelcelFAQComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+                                ;;SectionCintillo-Homepage;SectionCintillo;;SectionCintillo-Homepage;;;
+
+
+INSERT_UPDATE CMSProductListComponent; $contentCV[unique = true]; uid[unique = true]   ; &componentRef
+                                     ;                          ; ProductListComponent ; ProductListComponent
+
+INSERT_UPDATE CMSFlexComponent; $contentCV[unique = true]; uid[unique = true]            ; name                          ; flexType                      ; &componentRef
+                              ;                          ; ProductListPaginatorComponent ; ProductListPaginatorComponent ; ProductListPaginatorComponent ; ProductListPaginatorComponent
+                              ;                          ; ProductListBottomComponent    ; ProductListBottomComponent    ; ProductListBottomComponent    ; ProductListBottomComponent
+
+INSERT_UPDATE ContentSlot; uid[unique = true]    ; name                               ; cmsComponents(&componentRef); active[default = true]; $contentCV[unique = true]
+                         ; ProductListSlot       ; Product List Slot for Product List ; ProductListComponent
+                         ; ProductListBottomSlot ;                                    ; ProductListPaginatorComponent,TelcelCintillo,ProductListBottomComponent,CMSTelcelFAQComponent
+
+#INSERT_UPDATE ContentSlot; uid[unique = true]     ; cmsComponents(&componentRef); $contentCV[unique = true]
+#                         ; PlaceholderContentSlot ; TelcelCintillo
+#
+
+
+
+##Banner categorias
+
+$lang = es_MX
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+#$siteResource=file:\\\D:\TELCEL\Imagenes
+$picture = media(code, $contentCV)
+$medias = medias(code, $contentCV)
+$mediaContainer = media(qualifier, $contentCV)[lang=$lang];
+
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogVersion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+
+
+$siteResourceSite = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/site
+
+
+# Site Home Media Banner 1
+INSERT_UPDATE Media; mediaFormat(qualifier); code[unique = true]                              ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite = true]; realfilename                                         ; altText; mime[default = 'image/jpg']; $contentCV[unique = true]; folder(qualifier)[default = images];
+                   ; desktop               ; BannerRotativoMediaSection2A_1_Smartphone        ; $siteResourceSite/smartphones_banner1.jpg                                                      ; BannerRotativoMediaSection2A_1_Smartphone.png        ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_2_Smartphone        ; $siteResourceSite/smartphones_banner2.jpg                                                      ; BannerRotativoMediaSection2A_2_Smartphone.png        ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_3_Smartphone        ; $siteResourceSite/smartphones_banner3.jpg                                                      ; BannerRotativoMediaSection2A_3_Smartphone.png        ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_1_Smartphone    ; $siteResourceSite/10gigas_primavera_w9.bnm.jpg                                                 ; Mob_BannerRotativoMediaSection2A_1_Smartphone.png    ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_2_Smartphone    ; $siteResourceSite/moto_mesmoto_w10.bnm.jpg                                                     ; Mob_BannerRotativoMediaSection2A_2_Smartphone.png    ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_3_Smartphone    ; $siteResourceSite/xiaomi_redminote10_w10.bne.jpg                                               ; Mob_BannerRotativoMediaSection2A_3_Smartphone.png    ;        ;
+
+                   ; desktop               ; BannerRotativoMediaSection2A_1_Tablets           ; $siteResourceSite/tablets_banner1.png                                                          ; BannerRotativoMediaSection2A_1_Tablets.png           ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_1_Tablets       ; $siteResourceSite/promocion_tablet_13msi_w9.bnm.jpg                                            ; Mob_BannerRotativoMediaSection2A_1_Tablets.png       ;        ;
+
+                   ; desktop               ; BannerRotativoMediaSection2A_1_VidaConectada     ; $siteResourceSite/vidaConectada_banner1.png                                                    ; BannerRotativoMediaSection2A_1_VidaConectada.png     ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_2_VidaConectada     ; $siteResourceSite/vidaConectada_banner2.png                                                    ; BannerRotativoMediaSection2A_2_VidaConectada.png     ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_3_VidaConectada     ; $siteResourceSite/vidaConectada_banner3.png                                                    ; BannerRotativoMediaSection2A_3_VidaConectada.png     ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_4_VidaConectada     ; $siteResourceSite/vidaConectada_banner1.png                                                    ; BannerRotativoMediaSection2A_4_VidaConectada.png     ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_5_VidaConectada     ; $siteResourceSite/vidaConectada_banner2.png                                                    ; BannerRotativoMediaSection2A_5_VidaConectada.png     ;        ;
+
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_1_VidaConectada ; $siteResourceSite/vida_conectada_ecosistema_w52.bnm.jpg                                        ; Mob_BannerRotativoMediaSection2A_1_VidaConectada.png ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_2_VidaConectada ; $siteResourceSite/pomo_waflee_w9.bnm.jpg                                                       ; Mob_BannerRotativoMediaSection2A_2_VidaConectada.png ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_3_VidaConectada ; $siteResourceSite/kodakwatch_correa_w10.bnm.jpg                                                ; Mob_BannerRotativoMediaSection2A_3_VidaConectada.png ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_4_VidaConectada ; $siteResourceSite/vida_conectada_ecosistema_w52.bnm.jpg                                        ; Mob_BannerRotativoMediaSection2A_4_VidaConectada.png ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_5_VidaConectada ; $siteResourceSite/pomo_waflee_w9.bnm.jpg                                                       ; Mob_BannerRotativoMediaSection2A_5_VidaConectada.png ;        ;
+
+                   ; desktop               ; BannerRotativoMediaSection2A_1_Accesorios        ; $siteResourceSite/accesorios_banner1.png                                                       ; BannerRotativoMediaSection2A_1_Accesorios.png        ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_2_Accesorios        ; $siteResourceSite/accesorios_banner2.png                                                       ; BannerRotativoMediaSection2A_2_Accesorios.png        ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_3_Accesorios        ; $siteResourceSite/accesorios_banner3.png                                                       ; BannerRotativoMediaSection2A_3_Accesorios.png        ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_4_Accesorios        ; $siteResourceSite/accesorios_banner1.png                                                       ; BannerRotativoMediaSection2A_4_Accesorios.png        ;        ;
+                   ; desktop               ; BannerRotativoMediaSection2A_5_Accesorios        ; $siteResourceSite/accesorios_banner2.png                                                       ; BannerRotativoMediaSection2A_5_Accesorios.png        ;        ;
+
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_1_Accesorios    ; $siteResourceSite/accesorios_13msi_w9.bnm.jpg                                                  ; Mob_BannerRotativoMediaSection2A_1_Accesorios.png    ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_2_Accesorios    ; $siteResourceSite/mi_xiaomi_earbuds2_w48.bnm.jpg                                               ; Mob_BannerRotativoMediaSection2A_2_Accesorios.png    ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_3_Accesorios    ; $siteResourceSite/tcl_socl500_w9.bnm.jpg                                                       ; Mob_BannerRotativoMediaSection2A_3_Accesorios.png    ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_4_Accesorios    ; $siteResourceSite/accesorios_13msi_w9.bnm.jpg                                                  ; Mob_BannerRotativoMediaSection2A_4_Accesorios.png    ;        ;
+                   ; mobile                ; Mob_BannerRotativoMediaSection2A_5_Accesorios    ; $siteResourceSite/mi_xiaomi_earbuds2_w48.bnm.jpg                                               ; Mob_BannerRotativoMediaSection2A_5_Accesorios.png    ;        ;
+
+
+# Site Home Media Container Banner 1
+INSERT_UPDATE MediaContainer; qualifier[unique = true]                                  ; $medias; $contentCV[unique = true]
+                            ; BannerRotativoMediaSection2A_1_Smartphone_ImgContainer    ; BannerRotativoMediaSection2A_1_Smartphone,BannerRotativoMediaSection2A_1_Smartphone,BannerRotativoMediaSection2A_1_Smartphone,Mob_BannerRotativoMediaSection2A_1_Smartphone
+                            ; BannerRotativoMediaSection2A_2_Smartphone_ImgContainer    ; BannerRotativoMediaSection2A_2_Smartphone,BannerRotativoMediaSection2A_2_Smartphone,BannerRotativoMediaSection2A_2_Smartphone,Mob_BannerRotativoMediaSection2A_2_Smartphone
+                            ; BannerRotativoMediaSection2A_3_Smartphone_ImgContainer    ; BannerRotativoMediaSection2A_3_Smartphone,BannerRotativoMediaSection2A_3_Smartphone,BannerRotativoMediaSection2A_3_Smartphone,Mob_BannerRotativoMediaSection2A_3_Smartphone
+
+                            ; BannerRotativoMediaSection2A_1_Tablets_ImgContainer       ; BannerRotativoMediaSection2A_1_Tablets,BannerRotativoMediaSection2A_1_Tablets,BannerRotativoMediaSection2A_1_Tablets,Mob_BannerRotativoMediaSection2A_1_Tablets
+
+                            ; BannerRotativoMediaSection2A_1_VidaConectada_ImgContainer ; BannerRotativoMediaSection2A_1_VidaConectada,BannerRotativoMediaSection2A_1_VidaConectada,BannerRotativoMediaSection2A_1_VidaConectada,Mob_BannerRotativoMediaSection2A_1_VidaConectada
+                            ; BannerRotativoMediaSection2A_2_VidaConectada_ImgContainer ; BannerRotativoMediaSection2A_2_VidaConectada,BannerRotativoMediaSection2A_2_VidaConectada,BannerRotativoMediaSection2A_2_VidaConectada,Mob_BannerRotativoMediaSection2A_2_VidaConectada
+                            ; BannerRotativoMediaSection2A_3_VidaConectada_ImgContainer ; BannerRotativoMediaSection2A_3_VidaConectada,BannerRotativoMediaSection2A_3_VidaConectada,BannerRotativoMediaSection2A_3_VidaConectada,Mob_BannerRotativoMediaSection2A_3_VidaConectada
+                            ; BannerRotativoMediaSection2A_4_VidaConectada_ImgContainer ; BannerRotativoMediaSection2A_4_VidaConectada,BannerRotativoMediaSection2A_4_VidaConectada,BannerRotativoMediaSection2A_4_VidaConectada,Mob_BannerRotativoMediaSection2A_4_VidaConectada
+                            ; BannerRotativoMediaSection2A_5_VidaConectada_ImgContainer ; BannerRotativoMediaSection2A_5_VidaConectada,BannerRotativoMediaSection2A_5_VidaConectada,BannerRotativoMediaSection2A_5_VidaConectada,Mob_BannerRotativoMediaSection2A_5_VidaConectada
+
+                            ; BannerRotativoMediaSection2A_1_Accesorios_ImgContainer    ; BannerRotativoMediaSection2A_1_Accesorios,BannerRotativoMediaSection2A_1_Accesorios,BannerRotativoMediaSection2A_1_Accesorios,Mob_BannerRotativoMediaSection2A_1_Accesorios
+                            ; BannerRotativoMediaSection2A_2_Accesorios_ImgContainer    ; BannerRotativoMediaSection2A_2_Accesorios,BannerRotativoMediaSection2A_2_Accesorios,BannerRotativoMediaSection2A_2_Accesorios,Mob_BannerRotativoMediaSection2A_2_Accesorios
+                            ; BannerRotativoMediaSection2A_3_Accesorios_ImgContainer    ; BannerRotativoMediaSection2A_3_Accesorios,BannerRotativoMediaSection2A_3_Accesorios,BannerRotativoMediaSection2A_3_Accesorios,Mob_BannerRotativoMediaSection2A_3_Accesorios
+                            ; BannerRotativoMediaSection2A_4_Accesorios_ImgContainer    ; BannerRotativoMediaSection2A_4_Accesorios,BannerRotativoMediaSection2A_4_Accesorios,BannerRotativoMediaSection2A_4_Accesorios,Mob_BannerRotativoMediaSection2A_4_Accesorios
+                            ; BannerRotativoMediaSection2A_5_Accesorios_ImgContainer    ; BannerRotativoMediaSection2A_5_Accesorios,BannerRotativoMediaSection2A_5_Accesorios,BannerRotativoMediaSection2A_5_Accesorios,Mob_BannerRotativoMediaSection2A_5_Accesorios
+
+
+INSERT_UPDATE SimpleResponsiveBannerComponent; $contentCV[unique = true]; uid[unique = true]                      ; urlLink; name    ; $mediaContainer                                           ; &componentRef                           ;
+                                             ;                          ; BannerRotativo2A_1_Banner               ; #      ; Banner1 ; BannerRotativoMediaSection2A_1_Smartphone_ImgContainer    ; BannerRotativo2A_1_Banner               ;
+                                             ;                          ; BannerRotativo2A_2_Banner               ; #      ; Banner2 ; BannerRotativoMediaSection2A_2_Smartphone_ImgContainer    ; BannerRotativo2A_2_Banner               ;
+                                             ;                          ; BannerRotativo2A_3_Banner               ; #      ; Banner3 ; BannerRotativoMediaSection2A_3_Smartphone_ImgContainer    ; BannerRotativo2A_3_Banner               ;
+
+                                             ;                          ; BannerRotativo2A_1_Tablets_Banner       ; #      ; Banner1 ; BannerRotativoMediaSection2A_1_Tablets_ImgContainer       ; BannerRotativo2A_1_Tablets_Banner       ;
+                                             ;                          ; BannerRotativo2A_2_Tablets_Banner       ; #      ; Banner2 ; BannerRotativoMediaSection2A_2_Tablets_ImgContainer       ; BannerRotativo2A_2_Tablets_Banner       ;
+                                             ;                          ; BannerRotativo2A_3_Tablets_Banner       ; #      ; Banner3 ; BannerRotativoMediaSection2A_3_Tablets_ImgContainer       ; BannerRotativo2A_3_Tablets_Banner       ;
+                                             ;                          ; BannerRotativo2A_4_Tablets_Banner       ; #      ; Banner4 ; BannerRotativoMediaSection2A_4_Tablets_ImgContainer       ; BannerRotativo2A_4_Tablets_Banner       ;
+                                             ;                          ; BannerRotativo2A_5_Tablets_Banner       ; #      ; Banner5 ; BannerRotativoMediaSection2A_5_Tablets_ImgContainer       ; BannerRotativo2A_5_Tablets_Banner       ;
+
+                                             ;                          ; BannerRotativo2A_1_VidaConectada_Banner ; #      ; Banner1 ; BannerRotativoMediaSection2A_1_VidaConectada_ImgContainer ; BannerRotativo2A_1_VidaConectada_Banner ;
+                                             ;                          ; BannerRotativo2A_2_VidaConectada_Banner ; #      ; Banner2 ; BannerRotativoMediaSection2A_2_VidaConectada_ImgContainer ; BannerRotativo2A_2_VidaConectada_Banner ;
+                                             ;                          ; BannerRotativo2A_3_VidaConectada_Banner ; #      ; Banner3 ; BannerRotativoMediaSection2A_3_VidaConectada_ImgContainer ; BannerRotativo2A_3_VidaConectada_Banner ;
+                                             ;                          ; BannerRotativo2A_4_VidaConectada_Banner ; #      ; Banner4 ; BannerRotativoMediaSection2A_4_VidaConectada_ImgContainer ; BannerRotativo2A_4_VidaConectada_Banner ;
+                                             ;                          ; BannerRotativo2A_5_VidaConectada_Banner ; #      ; Banner5 ; BannerRotativoMediaSection2A_5_VidaConectada_ImgContainer ; BannerRotativo2A_5_VidaConectada_Banner ;
+
+                                             ;                          ; BannerRotativo2A_1_Accesorios_Banner    ; #      ; Banner1 ; BannerRotativoMediaSection2A_1_Accesorios_ImgContainer    ; BannerRotativo2A_1_Accesorios_Banner    ;
+                                             ;                          ; BannerRotativo2A_2_Accesorios_Banner    ; #      ; Banner2 ; BannerRotativoMediaSection2A_2_Accesorios_ImgContainer    ; BannerRotativo2A_2_Accesorios_Banner    ;
+                                             ;                          ; BannerRotativo2A_3_Accesorios_Banner    ; #      ; Banner3 ; BannerRotativoMediaSection2A_3_Accesorios_ImgContainer    ; BannerRotativo2A_3_Accesorios_Banner    ;
+                                             ;                          ; BannerRotativo2A_4_Accesorios_Banner    ; #      ; Banner4 ; BannerRotativoMediaSection2A_4_Accesorios_ImgContainer    ; BannerRotativo2A_4_Accesorios_Banner    ;
+                                             ;                          ; BannerRotativo2A_5_Accesorios_Banner    ; #      ; Banner5 ; BannerRotativoMediaSection2A_5_Accesorios_ImgContainer    ; BannerRotativo2A_5_Accesorios_Banner    ;
+
+                                             ;                          ; BannerRotativo2A_1_Chip_Banner          ; #      ; Banner1 ; BannerRotativoMediaSection2A_1_ChipExpress_ImgContainer    ; BannerRotativo2A_1_Chip_Banner          ;
+                                             ;                          ; BannerRotativo2A_2_Chip_Banner          ; #      ; Banner2 ; BannerRotativoMediaSection2A_2_ChipExpress_ImgContainer    ; BannerRotativo2A_2_Chip_Banner          ;
+                                             ;                          ; BannerRotativo2A_3_Chip_Banner          ; #      ; Banner3 ; BannerRotativoMediaSection2A_3_ChipExpress_ImgContainer    ; BannerRotativo2A_3_Chip_Banner          ;
+                                             ;                          ; BannerRotativo2A_4_Chip_Banner          ; #      ; Banner4 ; BannerRotativoMediaSection2A_4_ChipExpress_ImgContainer    ; BannerRotativo2A_4_Chip_Banner          ;
+                                             ;                          ; BannerRotativo2A_5_Chip_Banner          ; #      ; Banner5 ; BannerRotativoMediaSection2A_5_ChipExpress_ImgContainer    ; BannerRotativo2A_5_Chip_Banner          ;
+
+
+INSERT_UPDATE CMSCategoryRestriction; $contentCV[unique = true]; name                      ; recursive[allownull = true]; uid[unique = true]        ; &restrictionRef
+                                    ;                          ; Restriction_Smartphone    ; false                      ; Restriction_Smartphone    ; Restriction_Smartphone    ;
+                                    ;                          ; Restriction_Tablets       ; false                      ; Restriction_Tablets       ; Restriction_Tablets       ;
+                                    ;                          ; Restriction_Vidaconectada ; false                      ; Restriction_Vidaconectada ; Restriction_Vidaconectada ;
+                                    ;                          ; Restriction_Accesorios    ; false                      ; Restriction_Accesorios    ; Restriction_Accesorios    ;
+                                    ;                          ; Restriction_Chip          ; false                      ; Restriction_Chip          ; Restriction_Chip          ;
+
+
+
+UPDATE Category; code[unique = true]     ; $catalogVersion; restrictions(name, $contentCV)
+               ; telefonos-y-smartphones ;                ; Restriction_Smartphone
+               ; tablets                 ;                ; Restriction_Tablets
+               ; vida_conectada          ;                ; Restriction_Vidaconectada
+               ; accesorios              ;                ; Restriction_Accesorios
+               ; amigo_chip              ;                ; Restriction_Chip
+
+
+
+INSERT_UPDATE CMSTelcelBannerCategoryComponent; $contentCV[unique = true]; uid[unique = true]         ; restrictions(&restrictionRef); banners(uid, $contentCV)                                                                                                                                                                                  ; &componentRef
+                                              ;                          ; TelcelSmartPhoneBanners    ; Restriction_Smartphone       ; BannerRotativo2A_1_Banner,BannerRotativo2A_2_Banner,BannerRotativo2A_3_Banner,BannerRotativo2A_4_Banner,BannerRotativo2A_5_Banner                                                                         ; TelcelSmartPhoneBanners
+                                              ;                          ; TelcelTabletsBanners       ; Restriction_Tablets          ; BannerRotativo2A_1_Tablets_Banner,BannerRotativo2A_2_Tablets_Banner,BannerRotativo2A_3_Tablets_Banner,BannerRotativo2A_4_Tablets_Banner,BannerRotativo2A_5_Tablets_Banner                                 ; TelcelTabletsBanners
+                                              ;                          ; TelcelVidaConectadaBanners ; Restriction_Vidaconectada    ; BannerRotativo2A_1_VidaConectada_Banner,BannerRotativo2A_2_VidaConectada_Banner,BannerRotativo2A_3_VidaConectada_Banner,BannerRotativo2A_4_VidaConectada_Banner,BannerRotativo2A_5_VidaConectada_Banner   ; TelcelVidaConectadaBanners
+                                              ;                          ; TelcelAccesoriosBanners    ; Restriction_Accesorios       ; BannerRotativo2A_1_Accesorios_Banner,BannerRotativo2A_2_Accesorios_Banner,BannerRotativo2A_3_Accesorios_Banner,BannerRotativo2A_4_Accesorios_Banner,BannerRotativo2A_5_Accesorios_Banner                  ; TelcelAccesoriosBanners
+                                              ;                          ; TelcelChipsBanners         ; Restriction_Chip             ; BannerRotativo2A_1_Chip_Banner,BannerRotativo2A_2_Chip_Banner,BannerRotativo2A_3_Chip_Banner,BannerRotativo2A_4_Chip_Banner,BannerRotativo2A_5_Chip_Banner                                                ; TelcelChipsBanners
+
+# Product List Page Template
+INSERT_UPDATE ContentSlotName; name[unique = true]            ; template(uid, $contentCV)[unique = true][default = 'ProductListPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+                             ; ProductListBannersCategorySlot ;                                                                              ;                          ; wide
+
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]             ; name                              ; active; cmsComponents(&componentRef)
+                         ;                          ; ProductListBannersCategorySlot ; ProductList Banners Category Slot ; true  ; TelcelSmartPhoneBanners,TelcelTabletsBanners,TelcelVidaConectadaBanners,TelcelAccesoriosBanners,TelcelChipsBanners
+
+
