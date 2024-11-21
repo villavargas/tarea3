@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+		
+	<context:annotation-config/> 
+
+	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade"/>
+	<bean id="defaultSimpleSuggestionFacade" class="mx.com.telcel.facades.suggestion.impl.DefaultSimpleSuggestionFacade" >
+		<property name="simpleSuggestionService" ref="simpleSuggestionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
+		<property name="productConverter" ref="carouselProductConverter"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+	
+	<bean id="carouselProductConverter" parent="defaultProductConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productPricePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorVariantOptionDataConverter" alias="variantOptionDataConverter"/> 
+	<bean id="acceleratorVariantOptionDataConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="variantOptionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="acceleratorVariantOptionDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultAcceleratorVariantOptionDataPopulator" alias="acceleratorVariantOptionDataPopulator"/>
+	<bean id="defaultAcceleratorVariantOptionDataPopulator"  class="mx.com.telcel.facades.populators.AcceleratorVariantOptionDataPopulator"
+	      parent="variantOptionDataPopulator" >
+		<property name="mediaService" ref="mediaService"/>
+		<property name="mediaContainerService" ref="mediaContainerService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="imageFormatMapping" ref="imageFormatMapping"/>
+		<property name="variantAttributeMapping">
+			<map>
+				<entry key="ApparelStyleVariantProduct.style" value="styleSwatch"/>
+			</map>
+		</property>
+	</bean>
+
+
+	<alias name="acceleratorGenderConverter" alias="genderConverter"/> 
+	<bean id="acceleratorGenderConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.facades.product.data.GenderData"/>
+			<property name="populators">
+				<list>
+					<ref bean="genderDataPopulator"/>
+				</list>
+			</property>
+	</bean>
+
+	<alias name="defaultGenderDataPopulator" alias="genderDataPopulator"/>
+	<bean id="defaultGenderDataPopulator" class="mx.com.telcel.facades.populators.GenderDataPopulator" >
+		<property name="typeService" ref="typeService"/>
+	</bean>
+
+	<bean id="apparelProductPopulator" class="mx.com.telcel.facades.populators.ApparelProductPopulator" >
+		<property name="genderConverter" ref="genderConverter"/>
+	</bean>
+
+	<!-- Add the apparelProductPopulator to the productConverter -->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="apparelProductPopulator"/>
+	</bean>
+
+	<!-- accelerator Image Format Mappings -->
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="superZoom" value="1200Wx1200H"/>
+				<entry key="zoom" value="515Wx515H"/>
+				<entry key="store" value="365Wx246H"/>
+				<entry key="product" value="300Wx300H"/>
+				<entry key="thumbnail" value="96Wx96H"/>
+				<entry key="cartIcon" value="65Wx65H"/>
+				<entry key="styleSwatch" value="30Wx30H"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator" />
+	<bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
+		<property name="imageFormats">
+			<list>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+				<value>cartIcon</value>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator" />
+	<bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+		<property name="imageFormats">
+			<list>
+				<value>superZoom</value>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="customerEmailContext" class="mx.com.telcel.facades.process.email.context.CustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="forgottenPasswordEmailContext" class="mx.com.telcel.facades.process.email.context.ForgottenPasswordEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="orderNotificationEmailContext" class="mx.com.telcel.facades.process.email.context.OrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<bean id="quoteNotificationEmailContext" class="mx.com.telcel.facades.process.email.context.QuoteNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="quoteService" ref="quoteService"/>
+		<property name="quoteConverter" ref="quoteConverter"/>
+	</bean>
+	
+	<bean id="deliverySentEmailContext" class="mx.com.telcel.facades.process.email.context.DeliverySentEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="readyForPickupEmailContext" class="mx.com.telcel.facades.process.email.context.ReadyForPickupEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="orderCancelledEmailContext" class="mx.com.telcel.facades.process.email.context.OrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	
+	<bean id="orderRefundEmailContext" class="mx.com.telcel.facades.process.email.context.OrderRefundEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext" class="mx.com.telcel.facades.process.email.context.ConsignmentCollectionReminderEmailContext" parent="abstractEmailContext" scope="prototype">
+        <property name="consignmentConverter" ref="consignmentConverter"/>
+        <property name="formatFactory" ref="formatFactory"/>
+        <property name="customerServiceUncollectedConsignmentStrategy" ref="customerServiceUncollectedConsignmentStrategy" />
+        <property name="orderConverter" ref="orderConverter"/>
+    </bean>
+
+	<bean id="orderPartiallyModifiedEmailContext" class="mx.com.telcel.facades.process.email.context.OrderPartiallyModifiedEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>		
+	</bean>
+
+	<bean id="orderPartiallyCanceledEmailContext" class="mx.com.telcel.facades.process.email.context.OrderPartiallyCanceledEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext" class="mx.com.telcel.facades.process.email.context.OrderPartiallyRefundedEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext" class="mx.com.telcel.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
+	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="mx.com.telcel.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
+		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
+	</bean>
+
+	<bean id="genderData" class="mx.com.telcel.facades.product.data.GenderData" scope="prototype"/>
+
+	<bean id="telcelSearchProductPopulator" class="mx.com.telcel.facades.populators.TelcelSearchProductPopulator" />
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="commerceSearchResultProductConverter"/>
+		<property name="add" ref="telcelSearchProductPopulator"/>
+	</bean>
+
+	<!-- Telcel Registration Token Email Context-->
+	<bean id="registrationTokenEmailContext"
+		  class="mx.com.telcel.facades.process.email.context.RegistrationTokenEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!-- Telcel Welcome Email Context-->
+	<bean id="welcomeEmailContext"
+		  class="mx.com.telcel.facades.process.email.context.WelcomeEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!-- Telcel PwdConfirmation Email Context-->
+	<bean id="pwdConfirmationEmailContext"
+		  class="mx.com.telcel.facades.process.email.context.PwdConfirmationEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!-- Telcel BlockedAccount Email Context-->
+	<bean id="blockedAccountEmailContext"
+		  class="mx.com.telcel.facades.process.email.context.BlockedAccountEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!-- Telcel Back In Stock Notification Email-->
+	<bean id="telcelBackInStockNotificationEmailContext"
+		  class="mx.com.telcel.facades.process.email.context.TelcelBackInStockNotificationEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="productConverter" ref="productConverter"/>
+		<property name="productPriceAndStockConverter" ref="productPriceAndStockConverter"/>
+		<property name="commerceProductReferenceService" ref="commerceProductReferenceService"/>
+	</bean>
+
+
+	<alias name="defaultTelcelTokenFacade" alias="telcelTokenFacade" />
+	<bean id="defaultTelcelTokenFacade" class="mx.com.telcel.facades.registration.impl.DefaultTelcelTokenFacade" >
+		<property name="telcelTokenService" ref="telcelTokenService" />
+	</bean>
+
+
+
+	<bean id="telcelSearchResultProductPopulator" class="mx.com.telcel.facades.populators.TelcelSearchResultProductPopulator" >
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="commerceSearchResultProductConverter"/>
+		<property name="add" ref="telcelSearchResultProductPopulator"/>
+	</bean>
+
+
+	<bean id="telcelProductPopulator" class="mx.com.telcel.facades.populators.TelcelProductPopulator">
+		<property name="productModelUrlResolver" ref="productModelUrlResolver"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="telcelProductPopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelTmaProductSpecificationAttributeMapper"
+		   alias="tmaProductSpecificationAttributeMapper"/>
+	<bean id="defaultTelcelTmaProductSpecificationAttributeMapper"
+		  class="mx.com.telcel.facades.mappers.TelcelTmaProductSpecificationAttributeMapper" parent="defaultTmaProductSpecificationAttributeMapper">
+		<property name="sourceAttributeName"
+				  value="productSpecifications"/>
+		<property name="targetAttributeName"
+				  value="productSpecification"/>
+		<property name="mapperFacade" ref="dataMapper"/>
+		<property name="priceValueFormatter" ref="tmaPriceValueFormatter"/>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+
+	</bean>
+
+
+	<alias name="defaultTelcelVariantProductSpecificationAttributeMapper"
+		   alias="telcelVariantProductSpecificationAttributeMapper"/>
+	<bean id="defaultTelcelVariantProductSpecificationAttributeMapper"
+		  class="mx.com.telcel.facades.mappers.TelcelVariantProductSpecificationAttributeMapper">
+		<property name="sourceAttributeName"
+				  value="color"/>
+		<property name="targetAttributeName"
+				  value="color"/>
+		<property name="mapperFacade" ref="dataMapper"/>
+	</bean>
+
+	<alias name="defaultTelcelTmaProductEntityMapper"
+		   alias="telcelTmaProductEntityMapper"/>
+	<bean id="defaultTelcelTmaProductEntityMapper"
+		  parent="abstractCustomMapper"
+		  class="de.hybris.platform.b2ctelcofacades.mappers.TmaEntityMapper">
+		<property name="sourceClass"
+				  value="de.hybris.platform.commercefacades.product.data.VariantOptionData"/>
+		<property name="targetClass"
+				  value="de.hybris.platform.commercewebservicescommons.dto.product.VariantOptionWsDTO"/>
+		<property name="attributeMappers">
+			<list>
+				<ref bean="telcelVariantProductSpecificationAttributeMapper"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultTelcelTmaVariantOptionAllDataPopulator" alias="tmaVariantOptionDataFullPopulator"/>
+	<bean id="defaultTelcelTmaVariantOptionAllDataPopulator"
+		  class="mx.com.telcel.facades.populators.TelcelTmaPoVariantOptionDataPopulator" parent="defaultTmaVariantOptionAllDataPopulator">
+		<property name="modelService" ref="modelService"/>
+		<property name="productVariantOptionList">
+			<list>
+				<value>URL</value>
+				<value>MEDIA</value>
+			</list>
+		</property>
+		<property name="variantOptionDataPopulator" ref="tmaVariantOptionDataConfigurablePopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelTmaPoVariantMatrixPopulator" alias="tmaPoVariantMatrixPopulator"/>
+	<bean id="defaultTelcelTmaPoVariantMatrixPopulator" class="mx.com.telcel.facades.populators.TelcelTmaPoVariantMatrixPopulator" parent="defaultTmaPoVariantMatrixPopulator">
+	</bean>
+
+
+<!--	<alias name="defaultTelUserFacade" alias="userFacade"/>-->
+<!--	<bean id="defaultTelUserFacade"-->
+<!--		  class="mx.com.telcel.facades.user.impl.TelcelDefaultUserFacade" parent="defaultUserFacade">-->
+<!--	</bean>-->
+
+	<alias name="tmaCartFacade" alias="cartFacade" />
+	<alias name="defaultTelcelTmaCartFacade" alias="tmaCartFacade" />
+	<bean id="defaultTelcelTmaCartFacade"
+		  class="mx.com.telcel.facades.orders.impl.DefaultTelcelTmaCartFacade"
+		  parent="defaultTmaCartFacade">
+		<property name="tmaPoService" ref="tmaPoService" />
+		<property name="subscriptionTermService" ref="tmaSubscriptionTermService" />
+		<property name="customerFacade" ref="customerFacade" />
+		<property name="cartStrategyMapping" ref="tmaCartStrategyMapping" />
+		<property name="tmaCommerceCartParameterConverter" ref="tmaCommerceCartParameterConverter" />
+		<property name="tmaSubscribedProductFacade" ref="tmaSubscribedProductFacade" />
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+		<property name="commerceCartCalculationStrategy" ref="commerceCartCalculationStrategy"/>
+		<constructor-arg name="cartStrategyMap" ref="tmaCartStrategyMap" />
+		<constructor-arg name="saveCartTextGenerationStrategy" ref="commerceSaveCartTextGenerationStrategy" />
+		<constructor-arg name="configurationService" ref="configurationService" />
+		<constructor-arg name="enumerationService" ref="enumerationService" />
+	</bean>
+
+	<alias name="defaultTelcUserFacade" alias="userFacade"/>
+	<bean id="defaultTelcUserFacade"
+		  class="mx.com.telcel.facades.user.impl.TelcelDefaultUserFacade" parent="defaultTmaUserFacade">
+		<property name="telcelAddressReversePopulator" ref="telcelAddressReversePopulator"/>
+	</bean>
+
+
+	<alias name="defaultHolderLineReverseConverter" alias="holderLineReverseConverter"/>
+	<bean id="defaultHolderLineReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value=" mx.com.telcel.core.model.HolderLineModel"/>
+		<property name="populators">
+			<list>
+				<ref bean="holderLineReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultHolderLineReversePopulator" alias="holderLineReversePopulator" />
+	<bean id="defaultHolderLineReversePopulator" class="mx.com.telcel.facades.converters.populator.HolderLineReversePopulator" />
+
+	<alias name="defaultHolderLinePopulator" alias="holderLinePopulator" />
+	<bean id="defaultHolderLinePopulator" class="mx.com.telcel.facades.converters.populator.HolderLinePopulator" />
+
+	<alias name="defaultHolderLineConverter" alias="holderLineConverter"/>
+	<bean id="defaultHolderLineConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.facades.holderline.data.HolderLineData"/>
+		<property name="populators">
+			<list>
+				<ref bean="holderLinePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultTelcelAddressReversePopulator" alias="telcelAddressReversePopulator"/>
+	<bean id="defaultTelcelAddressReversePopulator"
+		  class="mx.com.telcel.facades.converters.populator.TelcelAddressReversePopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="addressReverseConverter"/>
+		<property name="add" ref="telcelAddressReversePopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelAddressPopulator" alias="telcelAddressPopulator"/>
+	<bean id="defaultTelcelAddressPopulator"
+		  class="mx.com.telcel.facades.converters.populator.TelcelAddressPopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="addressConverter"/>
+		<property name="add" ref="telcelAddressPopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelCustomerPopulator" alias="telcelCustomerPopulator"/>
+	<bean id="defaultTelcelCustomerPopulator"
+		class="mx.com.telcel.facades.converters.populator.TelcelCustomerPopulator">
+	</bean>
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="customerConverter"/>
+		<property name="add" ref="telcelCustomerPopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelCustomerReversePopulator" alias="customerReversePopulator"/>
+	<bean id="defaultTelcelCustomerReversePopulator"
+		  class="mx.com.telcel.facades.converters.populator.TelcelCustomerReversePopulator" parent="defaultCustomerReversePopulator">
+	</bean>
+
+
+	<bean id="defaultTelcelTmaComponentProdOfferPricePopulator" class="mx.com.telcel.facades.populators.TelcelTmaComponentProdOfferPricePopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="tmaComponentProdOfferPriceChargeConverter"/>
+		<property name="add" ref="defaultTelcelTmaComponentProdOfferPricePopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelTmaPopPriceBaseAttributeMapper" alias="telcelTmaPopPriceBaseAttributeMapper"/>
+	<bean id="defaultTelcelTmaPopPriceBaseAttributeMapper"
+		  class="mx.com.telcel.facades.mappers.TelcelTmaPopPriceBaseAttributeMapper">
+		<property name="sourceAttributeName" value="price"/>
+		<property name="targetAttributeName" value="price"/>
+	</bean>
+
+	<alias name="defaultTmaPopComponentEntityMapper" alias="tmaPopComponentEntityMapper"/>
+	<bean id="defaultTmaPopComponentEntityMapper" parent="tmaPopDataEntityMapper"
+		  class="de.hybris.platform.b2ctelcofacades.mappers.TmaEntityMapper">
+		<property name="sourceClass" value="de.hybris.platform.b2ctelcofacades.data.TmaComponentProdOfferPriceData"/>
+		<property name="targetClass" value="de.hybris.platform.b2ctelcocommercewebservicescommons.dto.ProductOfferingPriceWsDTO"/>
+		<property name="attributeMappers">
+			<list merge="true">
+				<ref bean="tmaPopPriceAttributeMapper"/>
+				<ref bean="tmaPopPriceTypeAttributeMapper"/>
+				<ref bean="tmaPopPricingLogicAlgorithmAttributeMapper"/>
+				<ref bean="telcelTmaPopPriceBaseAttributeMapper"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultCommerceSearchResponseFacetsPopulator" alias="commerceSearchResponseFacetsPopulator" />
+	<bean id="defaultCommerceSearchResponseFacetsPopulator"
+		  class="mx.com.telcel.facades.populators.TelcelSearchResponseFacetsPopulator" />
+
+	<!-- Entity mapper for OrderEntryWsDTO (from OrderEntryData) -->
+	<alias name="telcelCartItemEntityMapper" alias="orderEntryFieldMapper"/>
+	<alias name="telcelCartItemEntityMapper" alias="tmaCartItemEntityMapper"/>
+	<bean id="telcelCartItemEntityMapper"
+		  parent="abstractCustomMapper"
+		  class="mx.com.telcel.facades.mappers.TelcelEntityMapper">
+		<property name="sourceClass" value="de.hybris.platform.commercefacades.order.data.OrderEntryData"/>
+		<property name="targetClass" value="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO"/>
+		<property name="attributeMappers">
+			<list>
+				<ref bean="tmaCartEntriesTermAttributeMapper"/>
+				<ref bean="tmaCartEntriesProcessTypeAttributeMapper"/>
+				<ref bean="tmaCartEntriesPriceAttributeMapper"/>
+				<ref bean="tmaCartEntriesRootBpoCodeAttributeMapper"/>
+				<ref bean="tmaCartEntriesActionAttributeMapper"/>
+				<ref bean="tmaSubscribedProductAttributeMapper"/>
+				<ref bean="tmaCartEntriesAppointmentAttributeMapper"/>
+				<ref bean="tmaOrderEntryProductOfferingAttributeMapper"/>
+			</list>
+		</property>
+		<property name="telcelAttributeMappers">
+			<list>
+				<ref bean="telcelOrderEntriesReturnsAttributesMapper"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="telcelOrderEntriesReturnsAttributesMapper"
+		  class="mx.com.telcel.facades.mappers.TelcelOrderEntriesReturnsAttributesMapper">
+		<property name="sourceAttributeName" value="returnedItemsPrice"/>
+		<property name="targetAttributeName" value="returnedItemsPrice"/>
+		<property name="mapperFacade" ref="dataMapper"/>
+	</bean>
+
+	<bean id="telcelEsquemaCobroPopulator" class="mx.com.telcel.facades.populators.TelcelEsquemaCobroPopulator" />
+
+	<alias name="defaultTelcelBasicMediaPopulator" alias="basicMediaModelPopulator" />
+	<bean id="defaultTelcelBasicMediaPopulator" class="mx.com.telcel.facades.populators.TelcelBasicMediaPopulator" parent="defaultCmsBasicMediaModelPopulator">
+	</bean>
+
+	<alias name="defaultTelcelImagePopulator" alias="imagePopulator"/>
+	<bean id="defaultTelcelImagePopulator"
+		  class="mx.com.telcel.facades.populators.TelcelImagePopulator" parent="defaultImagePopulator"/>
+
+
+	<bean id="esquemaCobroConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.facades.esquemacobro.data.TelcelEsquemaCobroDTO" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="telcelEsquemaCobroPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderEntryConverter"/>
+		<property name="add" ref="telcelOrderEntryPopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelEsquemaCobroFacade" alias="telcelEsquemaCobroFacade"/>
+	<bean id="defaultTelcelEsquemaCobroFacade"
+		  class="mx.com.telcel.facades.esquemacobro.impl.DefualtTelcelEsquemaCobroFacade">
+		<property name="esquemaCobroConverter" ref="esquemaCobroConverter"/>
+	</bean>
+
+	<alias name="defaultTelcelOrderEntryPopulator" alias="telcelOrderEntryPopulator"/>
+	<bean id="defaultTelcelOrderEntryPopulator" class="mx.com.telcel.facades.populators.TelcelOrderEntryPopulator">
+		<property name="additionalServiceEntryConverter" ref="additionalServiceEntryConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<alias name="defaultTelcelTmaCartRootGroupsAttributeMapper"
+		   alias="tmaCartRootGroupsAttributeMapper"/>
+	<bean id="defaultTelcelTmaCartRootGroupsAttributeMapper"
+		  class="mx.com.telcel.facades.mappers.TelcelTmaCartRootGroupsAttributeMapper">
+		<property name="sourceAttributeName" value="rootGroups"/>
+		<property name="targetAttributeName" value="rootGroups"/>
+		<property name="mapperFacade" ref="dataMapper"/>
+	</bean>
+
+	<alias name="defaultTelcelCartEntryPopulator" alias="telcelCartEntryPopulator"/>
+	<bean id="defaultTelcelCartEntryPopulator"
+		  class="mx.com.telcel.facades.converters.populator.TelcelCartEntryPopulator">
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderEntryConverter"/>
+		<property name="add" ref="telcelCartEntryPopulator"/>
+	</bean>
+
+	<alias name="defaultTmaSolrDocumentComponentPopPopulator" alias="tmaSolrDocumentComponentPopPopulator"/>
+	<bean id="defaultTmaSolrDocumentComponentPopPopulator"
+		  class="mx.com.telcel.facades.populators.TelcelTmaSolrDocumentComponentPopPopulator"
+		  parent="tmaSolrDocumentProductOfferingPricePopulator">
+		<constructor-arg name="pricingLogicAlgorithmConverter" ref="tmaSolrDocumentPlaConverter"/>
+	</bean>
+
+	<alias name="defaultTelcelTmaCustomerFacade" alias="telcelCustomerFacade"/>
+	<bean id="defaultTelcelTmaCustomerFacade"
+		  class="mx.com.telcel.facades.customer.impl.DefaultTelcelTmaCustomerFacade" parent="defaultCustomerFacade">
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+	<alias name="defaultTelcelProductFacade" alias="productFacade"/>
+	<bean id="defaultTelcelProductFacade" class="mx.com.telcel.facades.product.impl.DefaultTelcelProductFacade" parent="defaultTmaProductFacade">
+		<constructor-arg name="tmaPoService" ref="tmaPoService"/>
+		<property name="telcelPoService" ref="telcelPoService"/>
+	</bean>
+
+
+	<alias name="defaultAdditionalServiceConverter" alias="additionalServiceConverter"/>
+	<bean id="defaultAdditionalServiceConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.facades.product.data.AdditionalServiceData"/>
+		<property name="populators">
+			<list>
+				<ref bean="additionalServicePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultAdditionalServiceEntryConverter" alias="additionalServiceEntryConverter"/>
+	<bean id="defaultAdditionalServiceEntryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.facades.order.data.AdditionalServiceEntryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="additionalServiceEntryBasePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultAdditionalServicePopulator" alias="additionalServicePopulator" />
+	<bean id="defaultAdditionalServicePopulator" class="mx.com.telcel.facades.converters.populator.AdditionalServicePopulator">
+		<property name="productDescriptionPopulator" ref="productDescriptionPopulator"/>
+		<property name="tmaProductOfferingPricesPopulator" ref="tmaProductOfferingPricesPopulator"/>
+		<property name="productPrimaryImagePopulator" ref="productPrimaryImagePopulator"/>
+	</bean>
+
+	<alias name="defaultAdditionalServiceEntryBasePopulator" alias="additionalServiceEntryBasePopulator" />
+	<bean id="defaultAdditionalServiceEntryBasePopulator" class="mx.com.telcel.facades.converters.populator.AdditionalServiceEntryBasePopulator">
+		<property name="additionalServiceConverter" ref="additionalServiceConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<alias name="telcelTmaCommerceCartParameterPopulator" alias="tmaCommerceCartParameterPopulator"/>
+	<bean id="telcelTmaCommerceCartParameterPopulator" class="mx.com.telcel.facades.converters.populator.TelcelTmaCommerceCartParameterPopulator" parent="defaultTmaCommerceCartParameterPopulator">
+		<property name="esquemasCobroService" ref="esquemasCobroService"/>
+		<property name="telcelPoService" ref="telcelPoService"/>
+	</bean>
+	
+	<!-- CVTs and DATs User Info Converters-->
+	<alias name="userInfoCVTPopulator" alias="userInfoCVTPopulator"/>
+	<bean id="userInfoCVTPopulator"
+	class="mx.com.telcel.facades.populators.UserInfoCVTPopulator" >
+	</bean>
+		
+	<alias name="userInfoCVTConverter" alias="userInfoCVTConverter"/>
+	<bean id="userInfoCVTConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.facades.cvtdat.data.UserInfoCVTData"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="userInfoCVTPopulator"/>
+		 </list>
+	    </property>
+	</bean>
+	
+	<alias name="userInfoCVTReversePopulator" alias="userInfoCVTReversePopulator"/>
+	<bean id="userInfoCVTReversePopulator"
+	class="mx.com.telcel.facades.populators.UserInfoCVTReversePopulator" >
+	</bean>
+		
+	<alias name="userInfoCVTReverseConverter" alias="userInfoCVTReverseConverter"/>
+	<bean id="userInfoCVTReverseConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.core.model.UserInfoCVTModel"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="userInfoCVTReversePopulator"/>
+		 </list>
+	    </property>
+	</bean>
+	
+	<alias name="userInfoDATPopulator" alias="userInfoDATPopulator"/>
+	<bean id="userInfoDATPopulator"
+	class="mx.com.telcel.facades.populators.UserInfoDATPopulator" >
+	</bean>
+		
+	<alias name="userInfoDATConverter" alias="userInfoDATConverter"/>
+	<bean id="userInfoDATConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.facades.cvtdat.data.UserInfoDATData"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="userInfoDATPopulator"/>
+		 </list>
+	    </property>
+	</bean>
+	
+	<alias name="userInfoDATReversePopulator" alias="userInfoDATReversePopulator"/>
+	<bean id="userInfoDATReversePopulator"
+	class="mx.com.telcel.facades.populators.UserInfoDATReversePopulator" >
+	</bean>
+		
+	<alias name="userInfoDATReverseConverter" alias="userInfoDATReverseConverter"/>
+	<bean id="userInfoDATReverseConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.core.model.UserInfoDATModel"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="userInfoDATReversePopulator"/>
+		 </list>
+	    </property>
+	</bean>
+
+	<alias name="defaultTelcelOrdersFacade" alias="telcelOrdersFacade"/>
+	<bean id="defaultTelcelOrdersFacade"
+		  class="mx.com.telcel.facades.orders.impl.DefaultTelcelOrdersFacade">
+		<property name="modelService" ref="modelService"/>
+		<property name="productConverter" ref="productConverter"/>
+	</bean>
+
+	<alias name="defaultTicketTelcelFacade" alias="ticketTelcelFacade"/>
+	<bean id="defaultTicketTelcelFacade"
+		  class="mx.com.telcel.facades.ticket.impl.DefaultTicketTelcelFacade">
+		<property name="ayudaTicketConverter" ref="ayudaTicketConverter"/>
+		<property name="customerNameStrategy" ref="customerNameStrategy"/>
+		<property name="ticketTelcelCodeGenerator" ref="ticketTelcelCodeGenerator"/>
+	</bean>
+
+	<bean id="telcelAyudaTicketPopulator" class="mx.com.telcel.facades.populators.TelcelAyudaTicketPopulator" />
+
+	<bean id="ayudaTicketConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.facades.ticket.data.AyudaTicket" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="telcelAyudaTicketPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Telcel Ticket Customer Email Context-->
+	<bean id="ticketNotificationCustomerEmailContext"
+		  class="mx.com.telcel.facades.process.email.context.TicketNotificationCustomerEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+	</bean>
+
+	<!-- Telcel Ticket Agent Email Context-->
+	<bean id="ticketNotificationAgentEmailContext"
+		  class="mx.com.telcel.facades.process.email.context.TicketNotificationAgentEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+	</bean>
+
+	<alias name="defaultTelcelDeliveryModeFacade" alias="telcelDeliveryModeFacade"/>
+	<bean id="defaultTelcelDeliveryModeFacade" class="mx.com.telcel.facades.checkout.impl.DefaultTelcelDeliveryModeFacade">
+		<property name="modelService" ref="modelService"/>
+		<property name="commerceCartService" ref="commerceCartService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="cartConverter" ref="cartConverter"/>
+		<property name="userService" ref="userService"/>
+		<property name="zoneDeliveryModeService" ref="defaultZoneDeliveryModeService"/>
+	</bean>
+	
+	<alias name="orderHeaderPopulator" alias="orderHeaderPopulator"/>
+	<bean id="orderHeaderPopulator"
+	class="mx.com.telcel.facades.populators.OrderHeaderPopulator" >
+	</bean>
+		
+	<alias name="orderHeaderConverter" alias="orderHeaderConverter"/>
+	<bean id="orderHeaderConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.facades.order.data.OrderHeaderData"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="orderHeaderPopulator"/>
+		 </list>
+	    </property>
+	</bean>
+	
+	<alias name="orderDetailPopulator" alias="orderDetailPopulator"/>
+	<bean id="orderDetailPopulator"
+	class="mx.com.telcel.facades.populators.OrderDetailPopulator" >
+	</bean>
+		
+	<alias name="orderDetailConverter" alias="orderDetailConverter"/>
+	<bean id="orderDetailConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.facades.order.data.OrderDetailData"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="orderDetailPopulator"/>
+		 </list>
+	    </property>
+	</bean>
+	
+	<alias name="orderDetailConsignmentPopulator" alias="orderDetailConsignmentPopulator"/>
+	<bean id="orderDetailConsignmentPopulator"
+	class="mx.com.telcel.facades.populators.OrderDetailConsignmentPopulator" >
+	</bean>
+		
+	<alias name="orderDetailConsignmentConverter" alias="orderDetailConsignmentConverter"/>
+	<bean id="orderDetailConsignmentConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.facades.order.data.OrderDetailData"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="orderDetailConsignmentPopulator"/>
+		 </list>
+	    </property>
+	</bean>
+
+	<alias alias="customerEmailResolutionService" name="defaultTelcelCustomerEmailResolutionService"/>
+	<bean id="defaultTelcelCustomerEmailResolutionService"
+		  class="mx.com.telcel.facades.customer.impl.DefaultTelcelCustomerEmailResolutionService">
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<alias name="paymentCommerceInfoPopulator" alias="paymentCommerceInfoPopulator"/>
+	<bean id="paymentCommerceInfoPopulator"
+	class="mx.com.telcel.facades.populators.PaymentCommerceInfoPopulator" >
+	</bean>
+
+	<alias name="paymentCommerceInfoConverter" alias="paymentCommerceInfoConverter"/>
+	<bean id="paymentCommerceInfoConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.facades.paymentcommerce.data.PaymentCommerceInfoData"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="paymentCommerceInfoPopulator"/>
+		 </list>
+	    </property>
+	</bean>
+
+
+
+	<alias name="defaultPaymentTelcelInfoResultPopulator" alias="paymentInfoHopResultPopulator"/>
+	<bean id="defaultPaymentTelcelInfoResultPopulator"
+		  class="mx.com.telcel.facades.populators.PaymentTelcelInfoResultPopulator"
+		  parent="defaultPaymentInfoResultPopulator"/>
+
+	<alias name="defaultTelcelCreditCardPaymentInfoPopulator" alias="creditCardPaymentInfoPopulator"/>
+	<bean id="defaultTelcelCreditCardPaymentInfoPopulator"
+		  class="mx.com.telcel.facades.populators.TelcelCreditCardPaymentInfoPopulator" parent="defaultCreditCardPaymentInfoPopulator"
+	>
+	</bean>
+
+	<alias name="defaultTelcelCardTypePopulator" alias="cardTypePopulator"/>
+	<bean id="defaultTelcelCardTypePopulator"
+		  class="mx.com.telcel.facades.populators.TelcelCardTypePopulator">
+		<property name="typeService" ref="typeService"/>
+	</bean>
+
+	<alias name="defaultTelcelCheckoutFacade" alias="telcelCheckoutFacade"/>
+	<bean id="defaultTelcelCheckoutFacade" class="mx.com.telcel.facades.orders.impl.DefaultTelcelCheckoutFacade" parent="defaultCheckoutFacade"
+	>
+	</bean>
+
+
+	<alias name="defaultCustomCheckoutFacade" alias="customCheckoutFacade"/>
+	<bean id="defaultCustomCheckoutFacade" class="mx.com.telcel.facades.orders.impl.DefaultCustomCheckoutFacade" parent="defaultTelcoCheckoutFacade"
+	>
+	</bean>
+
+	<alias name="defaultReferencePaymentInfoConverter" alias="referencePaymentInfoConverter"/>
+	<bean id="defaultReferencePaymentInfoConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData"/>
+		<property name="populators">
+			<list>
+				<ref bean="referencePaymentInfoPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultReferencePaymentInfoPopulator" alias="referencePaymentInfoPopulator"/>
+	<bean id="defaultReferencePaymentInfoPopulator"
+		  class="mx.com.telcel.facades.populators.ReferencePaymentInfoDataPopulator"
+	>
+		<property name="addressConverter" ref="addressConverter"/>
+	</bean>
+
+
+	<alias name="defaultSpeiPaymentInfoConverter" alias="speiPaymentInfoConverter"/>
+	<bean id="defaultSpeiPaymentInfoConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData"/>
+		<property name="populators">
+			<list>
+				<ref bean="speiPaymentInfoPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultSpeiPaymentInfoPopulator" alias="speiPaymentInfoPopulator"/>
+	<bean id="defaultSpeiPaymentInfoPopulator"
+		  class="mx.com.telcel.facades.populators.SpeiPaymentInfoDataPopulator"
+	>
+		<property name="addressConverter" ref="addressConverter"/>
+	</bean>
+
+	<alias name="paymentCommerceInfoCartPopulator" alias="paymentCommerceInfoCartPopulator"/>
+	<bean id="paymentCommerceInfoCartPopulator"
+		  class="mx.com.telcel.facades.populators.PaymentCommerceInfoCartPopulator" >
+	</bean>
+
+	<alias name="paymentCommerceInfoCartConverter" alias="paymentCommerceInfoCartConverter"/>
+	<bean id="paymentCommerceInfoCartConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="mx.com.telcel.facades.paymentcommerce.data.PaymentCommerceInfoData"/>
+		<property name="populators">
+			<list>
+				<ref bean="paymentCommerceInfoCartPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="orderTelmexPopulator" alias="orderTelmexPopulator"/>
+	<bean id="orderTelmexPopulator"
+	class="mx.com.telcel.facades.populators.OrderTelmexPopulator" >
+	</bean>
+
+	<alias name="orderTelmexConverter" alias="orderTelmexConverter"/>
+	<bean id="orderTelmexConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="mx.com.telcel.facades.ordertelmex.data.OrderTelmexData"/>
+	    <property name="populators">
+	        <list>
+		      <ref bean="orderTelmexPopulator"/>
+		 </list>
+	    </property>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="cmsPageModelToDataRenderingConverter"/>
+		<property name="add" ref="defaultTelcelPageModelToDataRenderingPopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelPageModelToDataRenderingPopulator" alias="telcelPageModelToDataRenderingPopulator"/>
+	<bean id="defaultTelcelPageModelToDataRenderingPopulator"
+		  class="mx.com.telcel.facades.populators.TelcelPageModelToDataRenderingPopulator">
+	</bean>
+	
+	<alias name="defaultTelcelCMSComponentModelToDataRenderingPopulator" alias="cmsComponentModelToDataRenderingPopulator"/>
+	<bean id="defaultTelcelCMSComponentModelToDataRenderingPopulator"
+		  class="mx.com.telcel.facades.populators.TelcelCMSComponentModelToDataRenderingPopulator"
+		  parent="defaultCMSComponentModelToDataRenderingPopulator">
+		<property name="cmsItemConverter" ref="cmsRenderingCMSItemConverter"/>
+		<property name="uniqueIdentifierAttributeToDataContentConverter"
+				  ref="cmsUniqueIdentifierAttributeToDataContentConverter"/>
+	</bean>
+
+	<alias name="defaultTelcelCMSNavigationNodeModelToDataRenderingPopulator" alias="cmsNavigationNodeModelToDataRenderingPopulator"/>
+    <bean id="defaultTelcelCMSNavigationNodeModelToDataRenderingPopulator"
+          class="mx.com.telcel.facades.populators.TelcelNavigationNodeModelToDataRenderingPopulator">
+        <property name="navigationEntryModelToDataConverter" ref="cmsNavigationEntryModelToDataConverter"/>
+        <property name="renderingVisibilityService" ref="cmsRenderingVisibilityService"/>
+        <property name="uniqueIdentifierAttributeToDataContentConverter" ref="cmsUniqueIdentifierAttributeToDataContentConverter"/>
+        <property name="mediaToDataContentConverter" ref="mediaModelConverter"/>
+    </bean>
+
+	<alias name="defaultTelcelPaymentSubscriptionResultDataPopulator" alias="paymentSubscriptionResultDataPopulator"/>
+	<bean id="defaultTelcelPaymentSubscriptionResultDataPopulator" class="mx.com.telcel.facades.populators.TelcelPaymentSubscriptionResultDataPopulator" parent="defaultPaymentSubscriptionResultDataPopulator">
+	</bean>
+
+
+	<alias name="defaultTmaBaseTelcelOrderPopulator" alias="tmaBaseOrderTelcelPopulator"/>
+	<bean id="defaultTmaBaseTelcelOrderPopulator"
+		  class="mx.com.telcel.facades.populators.TmaAbstractTelcelOrderPopulator"
+		  parent="baseOrderPopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="add" ref="tmaBaseOrderTelcelPopulator"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="cartConverter"/>
+		<property name="add" ref="tmaBaseOrderTelcelPopulator"/>
+	</bean>
+
+	<!-- ProductOfferingPrice Id Generator-->
+	<alias name="defaultTicketTelcelIdGenerator" alias="ticketTelcelCodeGenerator"/>
+	<bean id="defaultTicketTelcelIdGenerator"
+		  class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+		<property name="key" value="ticketTelcelId"/>
+		<property name="digits" value="10"/>
+		<property name="start" value="0000000000"/>
+		<property name="type" value="numeric"/>
+		<property name="template" value="$"/>
+	</bean>
+
+    <!-- Telcel Pending Payment Email Context-->
+	<bean id="pendingPaymentEmailContext"
+			  class="mx.com.telcel.facades.process.email.context.PendingPaymentEmailContext"
+			  parent="abstractEmailContext"
+			  scope="prototype">
+	</bean>
+
+    <!-- Telcel Successful Purchase Email Context-->
+	<bean id="successfulPurchaseEmailContext"
+			  class="mx.com.telcel.facades.process.email.context.SuccessfulPurchaseEmailContext"
+			  parent="abstractEmailContext"
+			  scope="prototype">
+	</bean>
+	
+	<!-- Telcel Successful Delivery Email Context-->
+	<bean id="successfulDeliveryEmailContext"
+			  class="mx.com.telcel.facades.process.email.context.SuccessfulDeliveryEmailContext"
+			  parent="abstractEmailContext"
+			  scope="prototype">
+	</bean>
+	
+	<!-- Telcel Reserved Order Email Context-->
+	<bean id="reservedOrderEmailContext"
+			  class="mx.com.telcel.facades.process.email.context.ReservedOrderEmailContext"
+			  parent="abstractEmailContext"
+			  scope="prototype">
+	</bean>
+
+	<alias name="defaultTelcelPageRenderingService" alias="cmsPageRenderingService"/>
+	<bean id="defaultTelcelPageRenderingService"
+		  class="mx.com.telcel.facades.pages.impl.DefaultTelcelPageRenderingService" parent="defaultPageRenderingService">
+		<property name="pageModelToDataRenderingConverter" ref="cmsPageModelToDataRenderingConverter"/>
+		<property name="facadeValidationService" ref="facadeValidationService"/>
+		<property name="renderingPageValidator" ref="cmsRenderingPageValidator"/>
+		<property name="findAllPagesRenderingPageValidator" ref="cmsFindAllPagesRenderingPageValidator"/>
+		<property name="restrictionAwareService" ref="cmsRestrictionAwareService"/>
+		<property name="cmsDataFactory" ref="cmsDataFactory"/>
+		<property name="renderingPageModelSuppliers" ref="cmsRenderingPageModelSuppliers"/>
+		<property name="cmsPageService" ref="cmsPageService"/>
+		<property name="renderingCacheService" ref="cmsRenderingCacheService"/>
+	</bean>
+
+	<!--Cancellation underpayment Email Context-->
+	<bean id="cancellationUnderpaymentEmailProcess"
+		  class="mx.com.telcel.facades.process.email.context.CancellationUnderpaymentEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<bean id="cancellationCardItemEmailProcess"
+		  class="mx.com.telcel.facades.process.email.context.CancellationCardItemEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+
+	<bean id="cancellationOthersItemEmailProcess"
+		  class="mx.com.telcel.facades.process.email.context.CancellationOthersItemEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+
+	<bean id="cancellationTelcelEmailProcess"
+		  class="mx.com.telcel.facades.process.email.context.CancellationTelcelEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+
+	<bean id="cancellationUserCardEmailProcess"
+		  class="mx.com.telcel.facades.process.email.context.CancellationUserCardEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+
+	<bean id="cancellationUserOthersEmailProcess"
+		  class="mx.com.telcel.facades.process.email.context.CancellationUserOthersEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+
+	<alias name="telcelTmaVariantOptionDataMediaPopulator" alias="tmaVariantOptionDataMediaPopulator"/>
+	<bean id="telcelTmaVariantOptionDataMediaPopulator"
+		  class="mx.com.telcel.facades.converters.populator.TmaVariantOptionDataMediaPopulator">
+		<property name="imageConverter" ref="imageConverter"/>
+		<property name="acceleratorImageFormatMapping" ref="imageFormatMapping"/>
+		<property name="imageFormats">
+			<list>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+				<value>cartIcon</value>
+				<value>styleSwatch</value>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultTelcelFindDeliveryCostStrategy" alias="findDeliveryCostStrategy"/>
+	<bean id="defaultTelcelFindDeliveryCostStrategy"
+		  class="mx.com.telcel.facades.orders.impl.DefaultTelcelFindDeliveryCostStrategy"
+		  parent="defaultFindDeliveryCostStrategy"/>
+
+	<!-- append specific populator to the default orderHistoryConverter-->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderHistoryConverter"/>
+		<property name="add" ref="telcelOrderHistoryPopulator"/>
+	</bean>
+	<!-- Custom Populator telcelOrderHistoryPopulator-->
+	<bean id="telcelOrderHistoryPopulator" class="mx.com.telcel.facades.populators.TelcelOrderHistoryPopulator">
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="abstractPopulatingAsnycConverter" class="mx.com.telcel.facades.converters.impl.AbstractPopulatingAsyncConverter" abstract="true">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<bean id="asyncCartConverter" parent="abstractPopulatingAsnycConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CartData"/>
+		<property name="populators">
+			<list>
+				<ref bean="cartPopulator"/>
+				<ref bean="pickupOrderEntryGroupPopulator"/>
+				<ref bean="deliveryOrderEntryGroupPopulator"/>
+				<ref bean="orderAppliedVouchersPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="accGroupCartConverter" alias="cartConverter"/>
+	<bean id="accGroupCartConverter" parent="asyncCartConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="groupOrderEntryPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="tmaTelcelSearchResultPricesPopulator"
+		  class="mx.com.telcel.facades.converters.populator.TmaTelcelSearchResultPricesPopulator">
+	</bean>
+
+<!--	<alias name="defaultTelcelTmaSearchResultPriceConverter" alias="tmaTelcelSearchResultPriceConverter"/>-->
+<!--	<bean id="defaultTelcelTmaSearchResultPriceConverter" parent="abstractPopulatingConverter">-->
+<!--		<property name="targetClass" value=" de.hybris.platform.commercefacades.product.data.PriceData"/>-->
+<!--		<property name="populators">-->
+<!--			<list>-->
+<!--				<ref bean="tmaTelcelSearchResultPricesPopulator"/>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--	</bean>-->
+
+	<alias name="defaultTmaSearchResultPriceConverter" alias="tmaSearchResultPriceConverter"/>
+	<bean id="defaultTmaSearchResultPriceConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value=" de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="populators">
+			<list>
+				<ref bean="tmaSearchResultPricesPopulator"/>
+				<ref bean="tmaTelcelSearchResultPricesPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="consignmentConverter"/>
+		<property name="add" ref="telcelConsignmentPopulator"/>
+	</bean>
+
+	<alias name="defaultTelcelConsignmentPopulator" alias="telcelConsignmentPopulator"/>
+	<bean id="defaultTelcelConsignmentPopulator" class="mx.com.telcel.facades.populators.TelcelConsignmentPopulator">
+		<property name="additionalServiceEntryConverter" ref="additionalServiceEntryConverter"/>
+	</bean>
+
+	<alias name="customAbstractTmaOrderEntryPopulator" alias="tmaAbstractOrderEntryPopulator"/>
+	<bean id="customAbstractTmaOrderEntryPopulator" class="mx.com.telcel.facades.populators.TmaAbstractOrderEntryPriceAttributePopulator">
+		<property name="tmaAbstractOrderCompositeComponentMap" ref="tmaAbstractOrderPriceConvertersMapping"/>
+	</bean>
+
+	<bean id="telcelTimerPayment3dsJobPerformable"
+		  class="mx.com.telcel.facades.job.TelcelTimerPayment3dsJobPerformable"
+		  parent="abstractJobPerformable">
+	</bean>
+
+</beans>
