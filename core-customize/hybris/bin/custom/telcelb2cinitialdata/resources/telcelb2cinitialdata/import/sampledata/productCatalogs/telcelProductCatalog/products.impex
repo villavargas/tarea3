@@ -1,0 +1,530 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+$productCatalog = telcelProductCatalog
+
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$approved = approvalstatus(code)[default = 'check']
+$mundo = mundo(code)[default = 'Personas']
+$supercategories = supercategories(code, $catalogVersion)
+$channels = distributionChannels(code)
+
+# Product attributes models
+INSERT_UPDATE Mundo; code[unique=true]  ;name
+                   ; Personas           ;Personas
+                   ; Empresas           ;Empresas
+
+INSERT_UPDATE TipoTerminal;code[unique=true]  
+                          ;smartphone
+                          ;accesorios
+
+INSERT_UPDATE Tecnologia; code[unique=true]  ;name
+                        ; 3g                 ;3G
+                        ; 4g                 ;4G
+                        ; 5g                 ;5G
+
+INSERT_UPDATE RegionTelcel; code[unique = true] ; name
+                         ; R9                   ; PREPAGO
+                         ; DEUR                 ; UNIVERSAL
+                         ; AMBOS                ; Ambos
+                         ; MX01                ; MX01
+                         ; MX02                ; MX02
+                         ; MX03                ; MX03
+                         ; MX04                ; MX04
+                         ; MX05                ; MX05
+                         ; MX06                ; MX06
+                         ; MX07                ; MX07
+                         ; MX08                ; MX08
+                         ; MX09                ; MX09
+
+# Variant Product mandatory attributes
+
+INSERT_UPDATE Color; code[unique=true];hexCode;rgb
+;transparent;#FFFFFF;
+;ALPINE GREEN;#005C53;
+;AMARILLO;#fbba19;
+;AMIGO;;
+;AQUA;#2fa2ad;
+;ARENA;#c39c65;
+;AZUL;#5C96D6;
+;AZUL /AQUA;#5C96D6;#2fa2ad
+;AZUL CLARO;#B9D6EA;
+;AZUL GLACIAR;#7B878F;
+;AZUL LIGHT;#437bf5;
+;AZUL MARINO;#242d4f;
+;AZUL RELOJ;#242d4f;
+;AZUL/NARAN;#5C96D6;
+;AZUL/NARANJA;#5C96D6;
+;AZUL/PLATA;#5C96D6;#CCCCCCC
+;BCO/FASHIO;#ffffff;#f6dbc1
+;BCO/ROS+VR;#ffffff;#f49cde
+;BEIGE;#fde8c9;
+;BLACK;#000000;
+;BLACK PEARL;#000316;
+;BLANCO;#e8e8e8;
+;BLANCO VER;#ffffff;#95dfaa
+;BLANCO VERDE;#ffffff;#95dfaa
+;BLANCO/AZU;#e8e8e8;
+;BLANCO/BLA;#e8e8e8;
+;BLANCO/LAV;#e8e8e8;
+;BLANCO/MOR;#e8e8e8;
+;BLANCO/NAR;#e8e8e8;
+;BLANCO/NEG;#e8e8e8;
+;BLANCO/PLA;#e8e8e8;
+;BLANCO/ROJ;#e8e8e8;
+;BLANCO/ROJO;#e8e8e8;
+;BLANCO/ROS;#e8e8e8;
+;BLUE;#5C96D6;
+;BRONCE;;
+;CAFE;#71522B;
+;CANDY RED;#cc356a;
+;COBRE;#c77962;
+;CORAL;#fe4e37;
+;CROMO;#bebebe;
+;DATOS;;
+;DEV KIT;;
+;DORADO;#B99919;
+;DORADO/BLA;#B99919;
+;DORADO/BLANCO;#B99919;
+;DURANZO CLARO;#F2D2B3;
+;DURAZNO;#f2ad86;
+;EPN;;
+;ESP;;
+;ESPECIAL;;
+;ESTANDAR F;;
+;ESTANDAR I;;
+;EVAL;;
+;FIJA;;
+;FUCSIA;#c20073;
+;GENERICO;#7B7B7B;
+;GOLD;#ceb559;
+;GRAFITO;#383428;
+;GRAPHITE;#4a4a4a;
+;GREEN;#97c153;
+;GREEN LIGH;#7F9D4E;
+;GRIS;#7B7B7B;
+;GRIS ESP;#7B7B7B;
+;GRIS ESPECIAL;#7B7B7B;
+;GRIS/NEGRO;#7B7B7B;#000316
+;GRIS/ROSA;;
+;GRIS/VERDE;#7B7B7B;#549D54
+;HOT PINK;#901d51;
+;JET BLACK;#21242c;
+;LAVANDA;#b57edc;
+;LILA;#b57edc;
+;LIMA;#e4ff00;
+;LIQUIDBLUE;#8d9dff;
+;M2M;;
+;MENTA;#53ca98;
+;MICRO;#7B7B7B;
+;MIDNIGHT;#7B7B7B;
+;MIDNIGHT G;#7B7B7B;
+;MIDNIGHT GRAY;#7B7B7B;
+;MOKA;#967b6a;
+;MORADO;#6F44CB;
+;NANO;;
+;NARANJA;#FF8A00;
+;NEG/PTA+VR;#000000;
+;NEGRO;#000316;
+;NEGRO BRILLANTE;#000316;
+;NEGRO GRAFITO;#1F1e19;
+;NEGRO/AMAR;#000316;
+;NEGRO/AZUL;#5C96D6
+;NEGRO/BLAN;#000316;
+;NEGRO/DORA;#000316;
+;NEGRO/DORADO;#000316;
+;NEGRO/GRAF;#000316;
+;NEGRO/GRIS;#000316;#7B7B7B
+;NEGRO/MARR;#000316;
+;NEGRO/NARA;#000316;
+;NEGRO/PLAT;#000316;
+;NEGRO/ROJO;#000316;#FF4500
+;NEGRO/ROSA;#000316;#EF688A
+;NEGRO/TITA;#000316;
+;ORO ROSA;#EF688A;
+;OTRO;#FFFFF;
+;P BLUE;#5C96D6;
+;PEACH LIGH;#f2ad86;
+;PINK;#F6BFD9;
+;PLATA;#CCCCCCC;
+;PLATA/NEGR;#CCCCCCC;
+;PLATINO;#bebebe;
+;PORTA;;
+;PROMO;;
+;PURPLE;#6F44CB;
+;PURPURA;#6F44CB;
+;RED;#ff0404;
+;ROJO;#FF4500;
+;ROJO/NEGRO;#FF4500;#000316
+;ROSA;#EF688A;
+;ROSA PASTE;#EF688A;
+;ROSA/BLANC;#EF688A;#ffffff
+;ROSA/DORAD;#EF688A;#ceb559
+;ROSA/DORADO;#EF688A;#ceb559
+;ROSA/PLATA;#EF688A;#CCCCCCC
+;ROSE GOLD;#EF688A;
+;SIERRA BLU;#90B6D0;
+;SIERRA BLUE;#90B6D0;
+;SILVER;#CCCCCCC;
+;SKY BLUE;#003399;
+;SPACE GRAY;#313131;
+;STARLIGHT;#F7E6E3;
+;TIP;;
+;TITANIUM;#4a4341;
+;TPR;;
+;TRICOLOR;#161616;#3d4661
+;TURQUESA;#35b6d0;
+;VERDE;#549D54;
+;VERDE AURORA;#009CAC;
+;VERDE CLARO;#7CCD7C;
+;VERDE METAL;#7F9D4E;
+;VERDE/META;#549D54;
+;VINO;#5d000e;
+;VINO/PLATA;#5d000e;#CCCCCCC
+;VIOLETA;#422950;
+;WHITE;#eaeaea;
+;WHITE PLAT;#eaeaea;#d9d9d9
+;YELLOW;#f0ef9b;
+;ÚNICO;;
+
+INSERT_UPDATE StorageUnit; code[unique=true];name
+                         ; KB               ;Kilobyte
+                         ; MB               ;Megabyte
+                         ; GB               ;Gigabyte
+                         ; TB               ;Terabyte
+                         ; PB               ;PetaByte
+                         ; NA               ;NA
+
+INSERT_UPDATE Storage; code[unique=true];storageUnit(code);storageValue
+                    ; 256KB           ; KB               ;256
+                    ; 128KB           ; KB               ;128
+                    ; 64KB            ; KB               ;64
+                    ; 32KB            ; KB               ;32
+                    ; 16KB            ; KB               ;16
+                    ; 256MB           ; MB               ;256
+                    ; 128MB           ; MB               ;128
+                    ; 64MB            ; MB               ;64
+                    ; 32MB            ; MB               ;32
+                    ; 16MB            ; MB               ;16
+                    ; 256GB           ; GB               ;256
+                    ; 128GB           ; GB               ;128
+                    ; 64GB            ; GB               ;64
+                    ; 32GB            ; GB               ;32
+                    ; 16GB            ; GB               ;16
+                    ; 1TB             ; TB               ;1
+                    ; 116GB             ; GB               ;116
+                    ; 116MB             ; MB               ;116
+                    ; 116KB             ; KB               ;116
+                    ; 512GB             ; GB               ;512
+                    ; 512MB             ; MB               ;512
+                    ; 512KB             ; KB               ;512
+                    ; 1GB             ; GB               ;1
+                    ; 1MB             ; MB               ;1
+                    ; 1KB             ; KB               ;1
+                    ; 2GB             ; GB               ;2
+                    ; 2MB             ; MB               ;2
+                    ; 2KB             ; KB               ;2
+                    ; 4GB             ; GB               ;4
+                    ; 4MB             ; MB               ;4
+                    ; 4KB             ; KB               ;4
+                    ; 8GB             ; GB               ;8
+                    ; 8MB             ; MB               ;8
+                    ; 8KB             ; KB               ;8
+                    ; 12GB             ; GB               ;12
+                    ; 12MB             ; MB               ;12
+                    ; 12KB             ; KB               ;12
+                    ; NA               ; NA               ;0
+
+# Dummy Products
+INSERT_UPDATE TelcelSimpleProductOffering;code[unique=true];marca;modelo;tipoTerminal(code);unit(code)[default=pieces];ean;$channels;$approved;soldIndividually;$catalogVersion;
+                                         ;Galaxy_s21;Samsung;SM-G991BZALLTM;smartphone;;;desktop,mobile;;true
+                                         ;Galaxy_s21Ultra;Samsung;SM-G998BZKMLTM;smartphone;;;desktop,mobile;;true
+                                         ;iPhone_x;Apple;iphonex123;smartphone;;;desktop,mobile;;true
+                                         ;iPhone_13;Apple;iphone13-234;smartphone;;;desktop,mobile;;true
+                                         ;iPhone_13pro;Apple;iphone13-235;smartphone;;;desktop,mobile;;true
+
+#Dummy Amigo Chip
+INSERT_UPDATE TelcelSimpleProductOffering;code[unique=true];marca;modelo;tipoTerminal(code);unit(code)[default=pieces];$channels;$approved;soldIndividually;$catalogVersion;
+;amigo_chip;telcel;AC1;;;desktop,mobile;;true
+;accesorios_SIMCARD_TCM013TRIO;SIMCARD;TCM013TRIO;;;desktop,mobile;approved;true
+;accesorios_GENERICO_SIN MODELO;GENERICO;SIN MODELO;;;desktop,mobile;approved;true
+
+# Dummy Accessories
+INSERT_UPDATE TelcelSimpleProductOffering;code[unique=true];marca;modelo;unit(code)[default=pieces];$channels;$approved;soldIndividually;tipoTerminal(code)[default=accesorios];$catalogVersion;
+;HUAWEI_Freebuds4i;Huawei;HWFB-4iMLX;;desktop,mobile;;true
+;airpods_pro;Apple;APP-AIRPRO;;desktop,mobile;;true
+;cargador_s10334;Samsung;SM-C10334;;desktop,mobile;;true
+#gadgets>bicicletas
+;bag_QJBK-E1;wotow;QJBK-E1;;desktop,mobile;;true
+#gadgets>selfie_stick
+;selfieStick_B07FM171ST;Xiaomi;B07FM171ST;;desktop,mobile;;true
+#gadgets>impresora
+;print_G3110;Canon;G3110;;desktop,mobile;;true
+#gadgets>bascula
+;techvida_bascula_B07K47S8RX;Techvida;B07K47S8RX;;desktop,mobile;;true
+#gadgets>scooter
+;scooter_FBC4022GL;Xiaomi;FBC4022GL;;desktop,mobile;;true
+#gadgets>pluma
+;pluma_BHR4603GL;Xiaomi;BHR4603GL;;desktop,mobile;;true
+#gadgets>teclado_gaming
+;Ballista_B07VDVFRZ8;Primus;B07VDVFRZ8;;desktop,mobile;;true
+#gadgets>audifonos_gaming
+;audifonos_PHS-250;Primus;PHS-250;;desktop,mobile;;true
+#gadgets>mouse_gaming
+;GLADIUS_10000S;Primus;10000S;;desktop,mobile;;true
+#hogar>camaras
+;MiHome_MJSXJ05CM;Xiaomi;;;desktop,mobile;;true
+#hogar>aspirador
+;xiaomi_MiRobot_Vacuum12;Xiaomi;Vacuum12;;desktop,mobile;;true
+#hogar>kit_sensores
+;xiaomi_MiSmart_YTC4033ES;Xiaomi;YTC4033ES;;desktop,mobile;;true
+#hogar>focos_inteligentes
+;xiaomi_MiSmart_XM200036;Xiaomi;XM200036;;desktop,mobile;;true
+#hogar>purificador__aire
+;xiaomi_MiAir_B07ZV7BDXZ;Xiaomi;B07ZV7BDXZ;;desktop,mobile;;true
+#hogar>lampara_nocturna
+;xiaomi_B0872SSPH7;Xiaomi;B0872SSPH7;;desktop,mobile;;true
+#hogar>monitor_temperatura
+;xiaomi_NUN4126GL;Xiaomi;NUN4126GL;;desktop,mobile;;true
+#memorias>micro_sd
+;kingston_SDCS2;Kingston;SDCS2;;desktop,mobile;;true
+#memorias>16gb,32gb,64gb
+;kingston_USB_DT100G3;Kingston;DT100G3;;desktop,mobile;;true
+#proteccion>cases
+;magsafe_MM2Q3ZM-A;Apple;MM2Q3ZM-A;;desktop,mobile;;true
+#proteccion>fundas
+;apple_funda_5060530233175;Apple;5060530233175;;desktop,mobile;;true
+#proteccion>micas
+;mica_B09HN5H11W5;Apple;B09HN5H11W5;;desktop,mobile;;true
+#rastreadores>cellocator
+;TKMARS_TK913;tkmars;TK913;;desktop,mobile;;true
+#rastreadores>concox
+;MiniOB22_B08LSPTYHX;tkmars;B08LSPTYHX;;desktop,mobile;;true
+#rastreadores>trackers
+;tracker_B08LSPTYHX;tkmars;B08LSPTYHX;;desktop,mobile;;true
+#router>router_wifi
+;xiaomi_MiWifi_DVB4235GL;Xiaomi;DVB4235GL;;desktop,mobile;;true
+#router>mesh_wifi
+;tp-link-mesh_AC1200;tplink;AC1200;;desktop,mobile;;true
+#soportes>soportes_celular
+;UGREEN_80708;Ugreen;80708;;desktop,mobile;;true
+#soportes>bicicleta
+;UGREEN_HLBKIO104;Ugreen;HLBKIO104;;desktop,mobile;;true
+#tablets_laptops>laptops_wifi
+;techvida_B092VGGF2C;Techvida;B092VGGF2C;;desktop,mobile;;true
+#tarjeta_cobro>billpocket
+;billpocket_m20250;Ugreen;m20250;;desktop,mobile;;true
+#wearables_smartwatch>bandas
+;apple_banda_B0874TVXSZ;Apple;B0874TVXSZ;;desktop,mobile;;true
+
+# Dummy Tablets
+INSERT_UPDATE TelcelSimpleProductOffering;code[unique=true];marca;modelo;unit(code)[default=pieces];$channels;$approved;soldIndividually;tipoTerminal(code)[default=accesorios];$catalogVersion;
+                                         ;accesorios_ALCATEL_8094M;ALCATEL;8094M;;desktop,mobile;;true
+
+# Dummy Vida_Conectada  Reloj Watch
+INSERT_UPDATE TelcelSimpleProductOffering;code[unique=true];marca;modelo;unit(code)[default=pieces];$channels;$approved;soldIndividually;tipoTerminal(code)[default=accesorios];$catalogVersion;
+                                         ;accesorios_HUAWEI_WATCH_FITN;HUAWEI;WATCH FITN;;desktop,mobile;;true
+
+#Categorizing Dummy Products
+UPDATE TelcelSimpleProductOffering;code[unique=true];$supercategories;variantType(code);$catalogVersion
+                                  ;Galaxy_s21;telefonos-y-smartphones,color,storage_size;TelcelPoVariant;
+                                  ;Galaxy_s21Ultra;telefonos-y-smartphones,color,storage_size;TelcelPoVariant;
+                                  ;iPhone_x;telefonos-y-smartphones,color,storage_size;TelcelPoVariant;
+                                  ;iPhone_13;telefonos-y-smartphones,color,storage_size;TelcelPoVariant;
+                                  ;iPhone_13pro;telefonos-y-smartphones,color,storage_size;TelcelPoVariant;
+
+#Categorizing Amigo Chip
+UPDATE TelcelSimpleProductOffering;code[unique=true];$supercategories;variantType(code);$catalogVersion
+;amigo_chip;amigo_chip;TelcelPoVariant
+;accesorios_SIMCARD_TCM013TRIO;amigo_chip;TelcelPoVariant
+;accesorios_GENERICO_SIN MODELO;amigo_chip;TelcelPoVariant
+
+#Categorizing Tablets
+UPDATE TelcelSimpleProductOffering;code[unique=true];$supercategories;variantType(code);$catalogVersion
+                                  ;accesorios_ALCATEL_8094M;tablets,color,storage_size;TelcelPoVariant;
+
+#Categorizing Vida_Conectada  Reloj Watch
+UPDATE TelcelSimpleProductOffering;code[unique=true];$supercategories;variantType(code);$catalogVersion
+                                  ;accesorios_HUAWEI_WATCH_FITN;vida_conectada,color,storage_size;TelcelPoVariant;
+
+##Categorizing Dummy Accessories
+UPDATE TelcelSimpleProductOffering;code[unique=true];$supercategories;variantType(code);$catalogVersion
+#audio>audifonos
+;HUAWEI_Freebuds4i;accesorios,color;TelcelPoVariant;
+;airpods_pro;accesorios,color;TelcelPoVariant;
+#carga>cargadores_pared
+;cargador_s10334;accesorios,color;TelcelPoVariant;
+#gadgets>bicicletas
+;bag_QJBK-E1;accesorios,color;TelcelPoVariant;
+#gadgets>selfie_stick
+;selfieStick_B07FM171ST;accesorios,color;TelcelPoVariant;
+#gadgets>impresora
+;print_G3110;accesorios,color;TelcelPoVariant;
+#gadgets>bascula
+;techvida_bascula_B07K47S8RX;accesorios,color;TelcelPoVariant;
+#gadgets>scooter
+;scooter_FBC4022GL;accesorios,color;TelcelPoVariant;
+#gadgets>pluma
+;pluma_BHR4603GL;accesorios,color;TelcelPoVariant;
+#gadgets>teclado_gaming
+;Ballista_B07VDVFRZ8;accesorios,color;TelcelPoVariant;
+#gadgets>audifonos_gaming
+;audifonos_PHS-250;accesorios,color;TelcelPoVariant;
+#gadgets>mouse_gaming
+;GLADIUS_10000S;accesorios,color;TelcelPoVariant;
+#hogar>camaras
+;MiHome_MJSXJ05CM;accesorios,color;TelcelPoVariant;
+#hogar>aspirador
+;xiaomi_MiRobot_Vacuum12;accesorios,color;TelcelPoVariant;
+#hogar>kit_sensores
+;xiaomi_MiSmart_YTC4033ES;accesorios,color;TelcelPoVariant;
+#hogar>focos_inteligentes
+;xiaomi_MiSmart_XM200036;accesorios,color;TelcelPoVariant;
+#hogar>purificador__aire
+;xiaomi_MiAir_B07ZV7BDXZ;accesorios,color;TelcelPoVariant;
+#hogar>lampara_nocturna
+;xiaomi_B0872SSPH7;accesorios,color;TelcelPoVariant;
+#hogar>monitor_temperatura
+;xiaomi_NUN4126GL;accesorios,color;TelcelPoVariant;
+#memorias>micro_sd
+;kingston_SDCS2;accesorios,storage_size;TelcelPoVariant;
+#memorias>16gb,32gb,64gb
+;kingston_USB_DT100G3;accesorios,storage_size;TelcelPoVariant;
+#proteccion>cases
+;magsafe_MM2Q3ZM-A;accesorios,color;TelcelPoVariant;
+#proteccion>fundas
+;apple_funda_5060530233175;accesorios,color;TelcelPoVariant;
+#proteccion>micas
+;mica_B09HN5H11W5;accesorios,color;TelcelPoVariant;
+#rastreadores>cellocator
+;TKMARS_TK913;accesorios,color;TelcelPoVariant;
+#rastreadores>concox
+;MiniOB22_B08LSPTYHX;accesorios,color;TelcelPoVariant;
+#rastreadores>trackers
+;tracker_B08LSPTYHX;accesorios,color;TelcelPoVariant;
+#router>router_wifi
+;xiaomi_MiWifi_DVB4235GL;accesorios,color;TelcelPoVariant;
+#router>mesh_wifi
+;tp-link-mesh_AC1200;accesorios,color;TelcelPoVariant;
+#soportes>soportes_celular
+;UGREEN_80708;accesorios,color;TelcelPoVariant;
+#soportes>bicicleta
+;UGREEN_HLBKIO104;accesorios,color;TelcelPoVariant;
+#tablets_laptops>laptops_wifi
+;techvida_B092VGGF2C;accesorios,color;TelcelPoVariant;
+#tarjeta_cobro>billpocket
+;billpocket_m20250;accesorios,color;TelcelPoVariant;
+#wearables_smartwatch>bandas
+;apple_banda_B0874TVXSZ;accesorios,color;TelcelPoVariant;
+
+## Dummy Producs Variants
+INSERT_UPDATE TelcelPoVariant;code[unique=true];tmaBasePo(code,$catalogVersion);$supercategories;color(code);storage(code);region(code);gtin;sistemaOperativo;sistemaOperativoVersion;tipoSim;sku;sapAlternativo;tecnologia(code);sectorId;sector;defaultTelcel[default=true];$mundo;$approved;unit(code)[default=pieces];tipoActivacion[default=true];$catalogVersion
+                             ;Galaxy_s21_black_128GB;Galaxy_s21;telefonos-y-smartphones,NEGRO,128GB;NEGRO;128GB;R9;gtin;android;11;nanosim;897618757;897618757;4g;10;AMIGO KIT;
+                             ;Galaxy_s21_violet_128GB;Galaxy_s21;telefonos-y-smartphones,VIOLETA,128GB;VIOLETA;128GB;R9;gtin;android;11;nanosim;897618758;897618758;4g;10;AMIGO KIT;
+                             ;Galaxy_s21Ultra_black_256GB;Galaxy_s21Ultra;telefonos-y-smartphones,NEGRO,256GB;NEGRO;256GB;R9;gtin;android;11;nanosim;897618759;897618759;4g;10;AMIGO KIT;
+                             ;Galaxy_s21Ultra_black_128GB;Galaxy_s21Ultra;telefonos-y-smartphones,NEGRO,128GB;NEGRO;128GB;R9;gtin;android;11;nanosim;897618717;897618717;4g;10;AMIGO KIT;
+                             ;iPhone_x_white_256GB;iPhone_x;telefonos-y-smartphones,BLANCO,256GB;BLANCO;256GB;R9;gtin;ios;11;nanosim;897618727;897618727;4g;10;AMIGO KIT;
+                             ;iPhone_x_white_128GB;iPhone_x;telefonos-y-smartphones,BLANCO,128GB;BLANCO;128GB;R9;gtin;ios;11;nanosim;897618737;897618737;4g;10;AMIGO KIT;
+                             ;iPhone_13_red_256GB;iPhone_13;telefonos-y-smartphones,ROJO,256GB;ROJO;256GB;R9;gtin;ios;11;nanosim;897618747;897618747;4g;10;AMIGO KIT;
+                             ;iPhone_13_blue_256GB;iPhone_13;telefonos-y-smartphones,AZUL,256GB;AZUL;256GB;R9;gtin;ios;11;nanosim;897618767;897618767;4g;10;AMIGO KIT;
+                             ;iPhone_13pro_blue_1TB;iPhone_13pro;telefonos-y-smartphones,AZUL,1TB;AZUL;1TB;R9;gtin;ios;11;nanosim;897618777;897618777;4g;10;AMIGO KIT;
+                             ;iPhone_13pro_blue_256GB;iPhone_13pro;telefonos-y-smartphones,AZUL,256GB;AZUL;256GB;R9;gtin;ios;11;nanosim;897618787;897618787;4g;10;AMIGO KIT;
+                             ;iPhone_13_red_128GB;iPhone_13;telefonos-y-smartphones,ROJO,128GB;ROJO;128GB;R9;gtin;ios;11;nanosim;897618797;897618797;4g;10;AMIGO KIT;
+                             ;iPhone_13_red_64GB;iPhone_13;telefonos-y-smartphones,ROJO,64GB;ROJO;64GB;R9;gtin;ios;11;nanosim;897618157;897618157;4g;10;AMIGO KIT;
+                             ;iPhone_13_blue_128GB;iPhone_13;telefonos-y-smartphones,AZUL,128GB;AZUL;128GB;R9;gtin;ios;11;nanosim;897618862;897618862;4g;10;AMIGO KIT;
+                             ;iPhone_13_blue_64GB;iPhone_13;telefonos-y-smartphones,AZUL,64GB;AZUL;64GB;R9;gtin;ios;11;nanosim;897618257;897618257;4g;10;AMIGO KIT;
+                             ;iPhone_x_white_64GB;iPhone_x;telefonos-y-smartphones,BLANCO,64GB;BLANCO;64GB;R9;gtin;ios;11;nanosim;897618357;897618357;4g;10;AMIGO KIT;
+                             ;Galaxy_s21_violet_64GB;Galaxy_s21;telefonos-y-smartphones,VIOLETA,64GB;VIOLETA;64GB;R9;gtin;android;11;nanosim;897618457;897618457;4g;10;AMIGO KIT;
+                             ;Galaxy_s21_violet_1TB;Galaxy_s21;telefonos-y-smartphones,VIOLETA,1TB;VIOLETA;1TB;R9;gtin;android;11;nanosim;897618557;897618557;4g;10;AMIGO KIT;
+                             ;Galaxy_s21Ultra_black_64GB;Galaxy_s21Ultra;telefonos-y-smartphones,NEGRO,64GB;NEGRO;64GB;R9;gtin;android;11;nanosim;897618657;897618657;4g;10;AMIGO KIT;
+                             ;Galaxy_s21Ultra_black_1TB;Galaxy_s21Ultra;telefonos-y-smartphones,NEGRO,1TB;NEGRO;1TB;R9;gtin;android;11;nanosim;897618857;897618857;4g;10;AMIGO KIT;
+
+## Dummy Chip Variants
+INSERT_UPDATE TelcelPoVariant;code[unique=true];tmaBasePo(code,$catalogVersion);$supercategories;color(code);storage(code);region(code);gtin;sistemaOperativo;sistemaOperativoVersion;tipoSim;sku;sapAlternativo;tecnologia(code);sectorId;sector;defaultTelcel[default=true];$mundo;$approved;unit(code)[default=pieces];tipoActivacion[default=true];$catalogVersion
+                            ;amigo_chip_telcel ;amigo_chip      ;amigo_chip          ;     ;   ;  ;    ;       ;  ;       ;70018860;;;12;SIM Cards;
+                            ;7004153 ;accesorios_SIMCARD_TCM013TRIO;amigo_chip  ;;;;;;;;7004153;;;12;SIM Cards;;;approved
+                            ;7006681 ;accesorios_GENERICO_SIN MODELO;amigo_chip;;;;;;;;7006681;;;12;SIM Cards;;;approved
+
+## Dummy Accessories Variants
+INSERT_UPDATE TelcelPoVariant;code[unique=true];tmaBasePo(code,$catalogVersion);$supercategories;sku;color(code);storage(code);$mundo;$approved;unit(code)[default=pieces];tipoActivacion[default=false];$catalogVersion
+                            ;HUAWEI_Freebuds4i_black;HUAWEI_Freebuds4i;accesorios,audiofonos,NEGRO;897611001;NEGRO
+                            ;HUAWEI_Freebuds4i_red;HUAWEI_Freebuds4i;accesorios,audiofonos,ROJO;897611002;ROJO
+                            ;airpods_pro_white;airpods_pro;accesorios,audiofonos,BLANCO;897611003;BLANCO
+                            ;cargador_s10334_black;cargador_s10334;accesorios,cargadores_pared,NEGRO;897611037;NEGRO
+                            #gadgets>bicicletas
+                            ;bag_QJBK-E1_black;bag_QJBK-E1;accesorios,bicicletas,NEGRO;897611004;NEGRO
+                            #gadgets>selfie_stick
+                            ;selfieStick_B07FM171ST_black;selfieStick_B07FM171ST;accesorios,selfie_stick,NEGRO;897611005;NEGRO
+                            #gadgets>impresora
+                            ;print_G3110_black;print_G3110;accesorios,impresora,NEGRO;897611006;NEGRO
+                            #gadgets>bascula
+                            ;techvida_bascula_B07K47S8RX_black;techvida_bascula_B07K47S8RX;accesorios,bascula,NEGRO;897611007;NEGRO
+                            #gadgets>scooter
+                            ;scooter_FBC4022GL_black;scooter_FBC4022GL;accesorios,scooter,NEGRO;897611008;NEGRO
+                            #gadgets>pluma
+                            ;pluma_BHR4603GL_black;pluma_BHR4603GL;accesorios,pluma,NEGRO;897611009;NEGRO
+                            #gadgets>teclado_gaming
+                            ;Ballista_B07VDVFRZ8_black;Ballista_B07VDVFRZ8;accesorios,teclado_gaming,NEGRO;897611010;NEGRO
+                            #gadgets>audifonos_gaming
+                            ;audifonos_PHS-250_violet;audifonos_PHS-250;accesorios,audifonos_gaming,VIOLETA;897611011;VIOLETA
+                            #gadgets>mouse_gaming
+                            ;GLADIUS_10000S_black;GLADIUS_10000S;accesorios,mouse_gaming,NEGRO;897611012;NEGRO
+                            #hogar>camaras
+                            ;MiHome_MJSXJ05CM_white;MiHome_MJSXJ05CM;accesorios,camaras,BLANCO;897611013;BLANCO
+                            #hogar>aspirador
+                            ;xiaomi_MiRobot_Vacuum12_white;xiaomi_MiRobot_Vacuum12;accesorios,aspirador,BLANCO;897611014;BLANCO
+                            #hogar>kit_sensores
+                            ;xiaomi_MiSmart_YTC4033ES_white;xiaomi_MiSmart_YTC4033ES;accesorios,kit_sensores,BLANCO;897611015;BLANCO
+                            #hogar>focos_inteligentes
+                            ;xiaomi_MiSmart_XM200036_white;xiaomi_MiSmart_XM200036;accesorios,focos_inteligentes,BLANCO;897611016;BLANCO
+                            #hogar>purificador__aire
+                            ;xiaomi_MiAir_B07ZV7BDXZ_white;xiaomi_MiAir_B07ZV7BDXZ;accesorios,purificador__aire,BLANCO;897611017;BLANCO
+                            #hogar>lampara_nocturna
+                            ;xiaomi_B0872SSPH7_white;xiaomi_B0872SSPH7;accesorios,lampara_nocturna,BLANCO;897611018;BLANCO
+                            #hogar>monitor_temperatura
+                            ;xiaomi_NUN4126GL_white;xiaomi_NUN4126GL;accesorios,monitor_temperatura,BLANCO;897611019;BLANCO
+                            #memorias>micro_sd
+                            ;kingston_SDCS2_128GB;kingston_SDCS2;accesorios,micro_sd,128GB;897611020;;128GB
+                            #memorias>16gb
+                            ;kingston_USB_DT100G3_16GB;kingston_USB_DT100G3;accesorios,16GB;897611021;;16GB
+                            #memorias>32gb
+                            ;kingston_USB_DT100G3_32GB;kingston_USB_DT100G3;accesorios,32GB;897611022;;32GB
+                            #memorias>64gb
+                            ;kingston_USB_DT100G3_64GB;kingston_USB_DT100G3;accesorios,64GB;897611023;;64GB
+                            #proteccion>cases
+                            ;magsafe_MM2Q3ZM-A_blue;magsafe_MM2Q3ZM-A;accesorios,cases,AZUL;897611024;AZUL
+                            #proteccion>fundas
+                            ;apple_funda_5060530233175_black;apple_funda_5060530233175;accesorios,fundas,NEGRO;897611025;NEGRO
+                            #proteccion>micas
+                            ;mica_B09HN5H11W5_transparent;mica_B09HN5H11W5;accesorios,micas,transparent;897611026;transparent
+                            #rastreadores>cellocator
+                            ;TKMARS_TK913_black;TKMARS_TK913;accesorios,cellocator,NEGRO;897611027;NEGRO
+                            #rastreadores>concox
+                            ;MiniOB22_B08LSPTYHX_black;MiniOB22_B08LSPTYHX;accesorios,concox,NEGRO;897611028;NEGRO
+                            #rastreadores>trackers
+                            ;tracker_B08LSPTYHX_black;tracker_B08LSPTYHX;accesorios,trackers,NEGRO;897611029;NEGRO
+                            #router>router_wifi
+                            ;xiaomi_MiWifi_DVB4235GL_black;xiaomi_MiWifi_DVB4235GL;accesorios,router_wifi,NEGRO;897611030;NEGRO
+                            #router>mesh_wifi
+                            ;tp-link-mesh_AC1200_white;tp-link-mesh_AC1200;accesorios,mesh_wifi,BLANCO;897611031;BLANCO
+                            #soportes>soportes_celular
+                            ;UGREEN_80708_silver;UGREEN_80708;accesorios,soportes_celular,SILVER;897611032;SILVER
+                            #soportes>bicicleta
+                            ;UGREEN_HLBKIO104_black;UGREEN_HLBKIO104;accesorios,bicicleta,NEGRO;897611033;NEGRO
+                            #tablets_laptops>laptops_wifi
+                            ;techvida_B092VGGF2C_black;techvida_B092VGGF2C;accesorios,laptops_wifi,NEGRO;897611034;NEGRO
+                            #tarjeta_cobro>billpocket
+                            ;billpocket_m20250_black;billpocket_m20250;accesorios,billpocket,NEGRO;897611035;NEGRO
+                            #wearables_smartwatch>bandas
+                            ;apple_banda_B0874TVXSZ_silver;apple_banda_B0874TVXSZ;accesorios,bandas,SILVER;897611036;SILVER
+
+## Dummy Tablets Variants
+INSERT_UPDATE TelcelPoVariant;code[unique=true];tmaBasePo(code,$catalogVersion);$supercategories;color(code);storage(code);region(code);gtin;sistemaOperativo;sistemaOperativoVersion;tipoSim;sku;sapAlternativo;tecnologia(code);sectorId;sector;defaultTelcel[default=true];$mundo;$approved;unit(code)[default=pieces];tipoActivacion[default=true];$catalogVersion
+                             ;90017484;accesorios_ALCATEL_8094M;tablets,BLANCO,256GB;BLANCO;256GB;R9;;ANDROID 10;;;90017484;90017484;;10;Equipo prepago;
+
+## Dummy Vida_Conectada  Reloj Watch Variants
+INSERT_UPDATE TelcelPoVariant;code[unique=true];tmaBasePo(code,$catalogVersion);$supercategories;color(code);storage(code);region(code);gtin;sistemaOperativo;sistemaOperativoVersion;tipoSim;sku;sapAlternativo;tecnologia(code);sectorId;sector;defaultTelcel[default=true];$mundo;$approved;unit(code)[default=pieces];tipoActivacion[default=true];$catalogVersion
+                             ;9006890;accesorios_HUAWEI_WATCH_FITN;vida_conectada,NEGRO,256GB;NEGRO;256GB;R9;;;;;9006890;9006890;;15;Accesorios;
+
+
