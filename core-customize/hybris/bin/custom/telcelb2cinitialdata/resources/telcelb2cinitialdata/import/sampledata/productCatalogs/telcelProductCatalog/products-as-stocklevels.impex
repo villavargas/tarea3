@@ -1,0 +1,21 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+$productCatalog = telcelProductCatalog
+$productCatalogName = Telcel Product Catalog
+$vendor = telcel
+$warehouse = warehouse(code)[unique = true, default = 'warehouse_telcel']
+
+## ImpEx for Importing Stock Levels for Accesories
+INSERT_UPDATE StockLevel;productCode[unique=true];available[default=1];inStockStatus(code)[default=forceInStock];maxPreOrder[default=0];maxStockLevelHistoryCount[default=-1];overSelling[default=0];preOrder[default=0];reserved[default=0];$warehouse
+;recarga_inicial_activacion_esq_1_20;
+;recarga_inicial_activacion_esq_1_30;
+;recarga_inicial_activacion_esq_1_50;
+;recarga_inicial_activacion_esq_1_80;
+;recarga_inicial_activacion_esq_1_100;
+;recarga_inicial_activacion_esq_1_150;
+;recarga_inicial_activacion_esq_1_200;
+;recarga_inicial_activacion_esq_1_300;
+;recarga_inicial_activacion_esq_1_500;
+
+
