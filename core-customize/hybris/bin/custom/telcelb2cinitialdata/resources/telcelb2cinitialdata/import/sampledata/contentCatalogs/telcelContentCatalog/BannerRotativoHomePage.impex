@@ -1,0 +1,47 @@
+## Language
+#$lang=en
+#$contentCatalog=telcospaContentCatalog
+#$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+#$siteResource=jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/sampledata/contentCatalogs/telcelContentCatalog/images/banners/homepage
+#
+#$picture=media(code, $contentCV)
+#$medias=medias(code, $contentCV)
+#$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+#
+## Site Home Medias Banner Header
+#INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpg'];$contentCV[unique=true];folder(qualifier)[default=images];
+#;desktop    ; RoatatingImage1.png     ; $siteResource/telmex-hbo-w35.bne.jpg    ;RoatatingImage1.png;;
+#;desktop    ; RoatatingImage2.png     ; $siteResource/activacion tienda_w43_bne.jpg    ;RoatatingImage2.png;;
+#;mobile    ; RoatatingImageMobile1.png     ; $siteResource/oferta_telmex_w35.bnm.jpg      ;RoatatingImageMobile2.png;;
+#;mobile    ; RoatatingImageMobile2.png     ; $siteResource/activacion tienda_w43_bnm.jpg  ;RoatatingImageMobile1.png;;
+#
+## Site Home Media Container Carousel Banner 1
+#INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+#;CarouselHomeBanner_ImgContainer_1; RoatatingImage1.png,RoatatingImageMobile1.png;
+#;CarouselHomeBanner_ImgContainer_2; RoatatingImage2.png,RoatatingImageMobile2.png;
+#
+##Banner Header Components For Home
+#INSERT_UPDATE BannerComponent     ; $contentCV[unique=true] ; uid[unique=true]; name ; &componentRef; urlLink;$picture[lang=$lang]
+#;; CarouselHomeBanner1Desktop     ; Banner Home One  Wide Screen     ; CarouselHomeBanner1Desktop       ; / ; RoatatingImage1.png
+#;; CarouselHomeBanner2Desktop     ; Banner Home Two  Wide Screen     ; CarouselHomeBanner2Desktop       ; / ; RoatatingImage2.png
+#;; CarouselHomeBanner1Mobile     ; Banner Home One Mobile    ; CarouselHomeBanner1Mobile       ; / ; RoatatingImageMobile1.png
+#;; CarouselHomeBanner2Mobile     ; Banner Home Two Mobile    ; CarouselHomeBanner2Mobile       ; / ; RoatatingImageMobile2.png
+#
+##Home Header Carrousel
+#INSERT_UPDATE RotatingImagesComponent;$contentCV[unique=true];uid[unique=true];name;banners(&componentRef) ;&componentRef
+#;; TelcelHomepageCarouselComponent1;  Homepage Carousel Desktop;  CarouselHomeBanner1Desktop, CarouselHomeBanner2Desktop;TelcelHomepageCarouselComponent1
+#;; TelcelHomepageCarouselComponent2;  Homepage Carousel Mobile; CarouselHomeBanner1Mobile,CarouselHomeBanner2Mobile;TelcelHomepageCarouselComponent2
+#
+#INSERT_UPDATE ContentSlotName; name[unique = true]    ; template(uid, $contentCV)[unique = true][default = 'LandingPage2Template']; validComponentTypes(code); compTypeGroup(code)
+#                             ; Section1A              ;                                                                           ;                          ; wide
+#
+##Home Content Slos Roatating Image
+#INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+#;;Section1Slot-Homepage;Section1 Slot for Homepage Cms 1;true;TelcelHomepageCarouselComponent1;;;
+#;;Section1ASlot-Homepage;Section1 Slot for Homepage Cms 2;true;TelcelHomepageCarouselComponent2;;;
+#
+#
+##Home Header Content Slos For Page
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+#;;Section1-Homepage;Section1;;Section1Slot-Homepage;;;
+#;;Section1A-Homepage;Section1A;;Section1ASlot-Homepage;;;
