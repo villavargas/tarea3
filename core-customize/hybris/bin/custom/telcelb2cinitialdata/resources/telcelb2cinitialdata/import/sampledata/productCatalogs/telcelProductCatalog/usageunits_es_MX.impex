@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+# ImpEx for Importing Usage Unit Localisations
+
+# Language
+$lang = es_MX
+
+#UPDATE UsageUnit; id[unique = true]       ; name[lang = $lang]    ; namePlural[lang = $lang]
+#                ; radio_stations          ; estación              ; estaciones
+#                ; theme_packages          ; paquete               ; paquetes
+#                ; movies_on_demand        ; película              ; películas
+#                ; documentaries_on_demand ; documental            ; documentales
+#                ; blockbusters_on_demand  ; éxito de taquilla     ; éxitos de taquilla
+#                ; videos_on_demand        ; video                 ; videos
+#                ; sessions                ; Sesión paralela de TV ; Sesiones paralelas de TVns
+#                ; channels                ; canal de televisión   ; Canales de televisión
+#                ; gb                      ; GB                    ; GB
+#                ; mb                      ; MEGABYTE              ; MEGABYTE
+#                ; gbps                    ; GB / s                ; GB / s
+#                ; mbps                    ; MB / s                ; MB / s
+#                ; unit                    ; unidad                ; unidades
+#                ; phone_minutes           ; minuto                ; minutos
+#                ; sms                     ; mensaje de texto      ; mensajes de texto
+#                ; mobile_data             ; MB                    ; MBs
+#                ; music_pieces            ; pieza                 ; piezas musicales
+#                ; replacements            ; reemplazo             ; reemplazos
+#                ; month                   ; Minuto                ; Minutos
