@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration
+	http://www.springframework.org/schema/integration/spring-integration.xsd
+	http://www.springframework.org/schema/integration/file
+	http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config/>
+
+    <bean id="baseDirectoryResize" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcel/resize-images" />
+    </bean>
+
+    <!-- 1) Scan for files -->
+    <file:inbound-channel-adapter id="batchFilesTelcelResizeImages" directory="#{baseDirectoryResize}"
+                                  filename-regex="^(.*)\.csv" comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000" />
+    </file:inbound-channel-adapter>
+
+    <!-- 2) move the file to processing and setup header -->
+    <file:outbound-gateway request-channel="batchFilesTelcelResizeImages" reply-channel="batchFilesTelcelResizeImagesProc"
+                           directory="#{baseDirectoryResize}/processing" delete-source-files="true" />
+
+    <int:service-activator input-channel="batchFilesTelcelResizeImagesProc" output-channel="batchFilesHeaderInitResizeImages"
+                           ref="ResizeImagesHeaderSetupTask" method="execute" />
+
+    <bean id="ResizeImagesHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="telcelProductCatalog" />
+        <property name="net" value="false" />
+        <property name="storeBaseDirectory" ref="baseDirectoryResize" />
+    </bean>
+
+    <int:service-activator input-channel="batchFilesHeaderInitResizeImages" output-channel="batchFilesHeaderResizeImages" ref="headerInitTask"
+                           method="execute" />
+
+    <!-- 3) transform csv to impex file -->
+    <int:service-activator input-channel="batchFilesHeaderResizeImages" output-channel="batchFilesTranResizeImages" ref="telcelResizeImagesBatchTransformerTask"
+                           method="execute" />
+
+    <bean id="telcelResizeImagesBatchTransformerTask"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.task.ImpexTransformerTask"
+          init-method="initConvertersMap">
+        <property name="fieldSeparator" value=","/>
+        <property name="encoding" value="UTF-8"/>
+        <property name="linesToSkip" value="0"/>
+        <property name="cleanupHelper" ref="cleanupHelper"/>
+    </bean>
+
+    <!-- Mapping and Converter -->
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          id="batchMediaImagesConverterMapping"
+          p:converter-ref="batchMediaImagesConverter"
+          p:mapping="resize-images">
+    </bean>
+
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          id="batchProductUpdateConverterMapping"
+          p:converter-ref="batchTelcelMediaProductConverter"
+          p:mapping="resize-images">
+    </bean>
+
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          id="batchTelcelProductConverterMapping"
+          p:converter-ref="batchProductConverter"
+          p:mapping="resize-images">
+    </bean>
+
+    <!-- 4) run impex import -->
+    <int:service-activator input-channel="batchFilesTranResizeImages" output-channel="batchFilesImpResizeImages" ref="batchRunnerTask" method="execute" />
+
+    <!-- 5) Cleanup -->
+    <int:service-activator input-channel="batchFilesImpResizeImages" ref="batchCleanupTaskResizeImages" method="execute" />
+    <bean id="batchCleanupTaskResizeImages" class="mx.com.telcel.core.services.dataimport.TelcelResizeImagesCleanupTask">
+        <property name="cleanupHelper" ref="telcelResizeImagesCleanupHelper" />
+    </bean>
+
+    <bean id="telcelResizeImagesCleanupHelper" class="mx.com.telcel.core.services.dataimport.TelcelResizeImagesCleanupHelper" parent="cleanupHelper">
+        <property name="cronJobService" ref="cronJobService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter" id="batchMediaImagesConverter">
+        <property name="header">
+            <value>
+                #{defaultImpexProductHeader}
+                #% import de.hybris.platform.core.Registry
+                #% import de.hybris.platform.solrfacetsearch.indexer.impl.DefaultIndexerService
+                #% import de.hybris.platform.solrfacetsearch.config.FacetSearchConfig
+
+                $medias=medias(code, $catalogVersion)[mode=replace]
+
+                INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$catalogVersion
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>
+                ;{+1};{+1},{+1}_96Wx96H,{+1}_300Wx300H,{+1}_1200Wx1200H,{+1}_30Wx30H,{+1}_65Wx65H,{+1}_515Wx515H;
+            </value>
+        </property>
+        <property value="images" name="type"/>
+    </bean>
+
+    <bean class="mx.com.telcel.core.services.dataimport.TelcelResizeImageMediaAppendImpexConverter" id="batchTelcelMediaProductConverter">
+        <property name="telcelProductDao" ref="telcelProductDao"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="catalogService" ref="catalogService"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="header">
+            <value>
+                #{defaultImpexProductHeader}
+
+                $thumbnail=thumbnail(code, $catalogVersion)
+                $thumbnails=thumbnails(code, $catalogVersion)
+                $picture=picture(code, $catalogVersion)
+                $detail=detail(code, $catalogVersion)
+                $normal=normal(code, $catalogVersion)
+                $others=others(code, $catalogVersion)
+                $galleryImages=galleryImages(qualifier, $catalogVersion)
+                # Import product media
+                INSERT_UPDATE TelcelPoVariant;sku[unique=true];$detail[mode=append];$others[mode=append];$normal[mode=append];$thumbnails[mode=append];$galleryImages[mode=append];$catalogVersion
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>
+                ;{0};{+1}_1200Wx1200H;{+1}_30Wx30H,{+1}_65Wx65H,{+1}_515Wx515H;{+1}_300Wx300H;{+1}_96Wx96H;{+1};
+            </value>
+        </property>
+    </bean>
+    <bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter"
+          id="batchProductConverter">
+        <property name="header">
+            <value>
+                #{defaultImpexProductHeader}
+                $thumbnail=thumbnail(code, $catalogVersion)
+                $picture=picture(code, $catalogVersion)
+                # Import product media
+                INSERT_UPDATE TelcelPoVariant;sku[unique=true];$picture; $thumbnail;$catalogVersion
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>
+                #% beforeEach:
+                $flag={+2};
+                #%if: $flag==1
+                ;{0};{+1}_300Wx300H;{+1}_96Wx96H;
+                #% break;
+                #%endif:
+                #%beforeEach:end
+            </value>
+        </property>
+    </bean>
+
+</beans>
+
