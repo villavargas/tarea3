@@ -1,0 +1,1157 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="mx.com.telcel.facades.product.data.ColorTelcelData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+		<property name="hexadecimal" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.product.data.StorageTelcelData">
+		<property name="unit" type="String"/>
+		<property name="value" type="String"/>
+	</bean>
+
+
+<!--	<bean class="de.hybris.platform.commercefacades.product.data.PriceData">-->
+<!--		<property name="unit" type="String"/>-->
+<!--		<property name="value" type="String"/>-->
+<!--	</bean>-->
+
+
+	<bean class="de.hybris.platform.b2ctelcocommercewebservicescommons.dto.ProductOfferingPriceWsDTO">
+		<property name="maxPrice"
+				  type="de.hybris.platform.b2ctelcocommercewebservicescommons.dto.MoneyWsDTO" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.b2ctelcofacades.data.TmaComponentProdOfferPriceData">
+		<property name="basePricevalue" type="java.lang.Double"/>
+		<property name="maxPrice" type="java.lang.Double"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="genders" type="java.util.List&lt;mx.com.telcel.facades.product.data.GenderData>"/>
+		<property name="includeGift" type="boolean"/>
+		<property name="descripcionIncludeGift" type="java.lang.String"/>
+		<property name="isFreeShipping" type="boolean"/>
+		<property name="placeholder" type="String"/>
+		<property name="marca" type="java.lang.String"/>
+		<property name="modelo" type="java.lang.String"/>
+		<property name="nombreComercial" type="java.lang.String"/>
+		<property name="color" type="java.lang.String"/>
+		<property name="variants" type="java.lang.String"/>
+		<property name="sector" type="java.lang.String"/>
+		<property name="region" type="java.lang.String"/>
+		<property name="colorName" type="java.lang.String"/>
+		<property name="defaultTelcel" type="boolean"/>
+		<property name="lanzamiento" type="boolean"/>
+		<property name="promocion" type="boolean"/>
+		<property name="preventa" type="boolean"/>
+		<property name="hotsale" type="boolean"/>
+		<property name="buenFin" type="boolean"/>
+		<property name="proximamente" type="boolean"/>
+		<property name="nuevo" type="boolean"/>
+		<property name="comercialName" type="java.lang.String"/>
+		<property name="sitioOficial" type="java.lang.String"/>
+		<property name="storage" type="java.lang.String"/>
+		<property name="dimensiones" type="java.lang.String"/>
+		<property name="pesoGramos" type="java.lang.String"/>
+		<property name="duracionBateriaCC" type="java.lang.String"/>
+		<property name="duracionBateriaStandby" type="java.lang.String"/>
+		<property name="duracionBateriaLC" type="java.lang.String"/>
+		<property name="pantalla" type="java.lang.String"/>
+		<property name="camaraTrasera" type="java.lang.String"/>
+		<property name="camaraFrontal" type="java.lang.String"/>
+		<property name="memoria" type="java.lang.String"/>
+		<property name="procesador" type="java.lang.String"/>
+		<property name="procesadorMarca" type="java.lang.String"/>
+		<property name="procesadorModelo" type="java.lang.String"/>
+		<property name="procesadorVelocidad" type="java.lang.String"/>
+		<property name="conexionWifi" type="boolean"/>
+		<property name="conexionBluetooth" type="boolean"/>
+		<property name="conexionNfc" type="boolean"/>
+		<property name="conexionUsb" type="boolean"/>
+		<property name="conexionWifiOffload" type="boolean"/>
+		<property name="conexionHdmi" type="boolean"/>
+		<property name="conexionTvout" type="boolean"/>
+		<property name="gigaRed" type="java.lang.String"/>
+		<property name="gigaRedSoportado" type="boolean"/>
+		<property name="sistemaOperativo" type="java.lang.String"/>
+		<property name="accesorios" type="java.lang.String"/>
+		<property name="altavoz" type="java.lang.String"/>
+		<property name="clienteCorreo" type="java.lang.String"/>
+		<property name="microfono" type="java.lang.String"/>
+		<property name="modem" type="java.lang.String"/>
+		<property name="ranura" type="java.lang.String"/>
+		<property name="ranuraMicroSD" type="java.lang.String"/>
+		<property name="requisitosSistema" type="java.lang.String"/>
+		<property name="resolucion" type="java.lang.String"/>
+		<property name="sensor" type="java.lang.String"/>
+		<property name="modemUsb" type="java.lang.String"/>
+		<property name="tipoSim" type="java.lang.String"/>
+		<property name="descripcionSeo" type="java.lang.String"/>
+		<property name="tituloSeo" type="java.lang.String"/>
+		<property name="slogan" type="java.lang.String"/>
+		<property name="ceMotriz" type="boolean"/>
+		<property name="ceAuditiva" type="boolean"/>
+		<property name="ceVisual" type="boolean"/>
+		<property name="tieneLiga" type="boolean"/>
+		<property name="capacidad" type="mx.com.telcel.facades.product.data.StorageTelcelData"/>
+		<property name="sku" type="java.lang.String"/>
+		<property name="volte" type="java.lang.String"/>
+		<property name="colorData" type="mx.com.telcel.facades.product.data.ColorTelcelData"/>
+		<property name="samePrice" type="boolean"/>
+		<property name="activable" type="java.lang.Boolean"/>
+		<property name="pricePerMonth" type="java.lang.String"/>
+		<property name="tipoActivacion" type="boolean"/>
+		<property name="categoryName" type="java.lang.String"/>
+		<property name="bandaSoportada3G" type="java.lang.String"/>
+		<property name="bandaSoportadaGSM" type="java.lang.String"/>
+		<property name="bandaSoportada4G" type="java.lang.String"/>
+		<property name="bandaSoportadaVOLTE" type="java.lang.String"/>
+		<property name="frecuenciaCATM1" type="java.lang.String"/>
+		<property name="frecuenciaNGIOT" type="java.lang.String"/>
+		<property name="tecnologia" type="java.lang.String"/>
+		<property name="r1" type="java.lang.Boolean"/>
+		<property name="r2" type="java.lang.Boolean"/>
+		<property name="r3" type="java.lang.Boolean"/>
+		<property name="r4" type="java.lang.Boolean"/>
+		<property name="r5" type="java.lang.Boolean"/>
+		<property name="r6" type="java.lang.Boolean"/>
+		<property name="r7" type="java.lang.Boolean"/>
+		<property name="r8" type="java.lang.Boolean"/>
+		<property name="r9" type="java.lang.Boolean"/>
+		<property name="availableInRegion" type="boolean"/>
+		<property name="pdpUrl" type="java.lang.String"/>
+		<property name="pictureUrl" type="java.lang.String"/>
+		<property name="paymentStatus" type="java.lang.String"/>
+		<property name="paymentStatusDescription" type="java.lang.String"/>
+		<property name="trackStatus" type="java.lang.String"/>
+		<property name="trackStatusDescription" type="java.lang.String"/>
+		<property name="estimatedDeliveryDate" type="java.lang.String"/>
+		<property name="realDeliveryDate" type="java.lang.String"/>
+		<property name="sendStatus" type="java.lang.String"/>
+		<property name="sendStatusDescription" type="java.lang.String"/>
+		<property name="chipName" type="java.lang.String"/>
+		<property name="invoiceNumberList" type="java.util.List&lt;String>"/>
+		<property name="addProductToCartUrl" type="java.lang.String"/>
+		<property name="paqueteAmigo" type="java.lang.String"/>
+		<property name="vigenciaPaqueteAmigo" type="java.lang.String"/>
+		<property name="sistemaOperativoVersion" type="java.lang.String"/>
+		<property name="guiaFedex" type="java.lang.String"/>
+		<property name="paqueteAmigoNombre" type="java.lang.String"/>
+		<property name="paqueteAmigoPrecio" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.product.data.GenderData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+		<property name="modelo" type="String">
+			<description>Marca de producto</description>
+		</property>
+		<property name="marca" type="String">
+			<description>Modelo de producto</description>
+		</property>
+		<property name="color" type="String">
+			<description>Color de producto</description>
+		</property>
+		<property name="nombreComercial" type="String">
+			<description>Nombre Comercial de producto</description>
+		</property>
+		<property name="volte" type="java.lang.String"/>
+
+		<property name="genders" type="java.util.List&lt;mx.com.telcel.facades.product.data.GenderData>"/>
+		<property name="includeGift" type="boolean"/>
+		<property name="isFreeShipping" type="boolean"/>
+		<property name="placeholder" type="String"/>
+		<property name="variants" type="java.lang.String"/>
+		<property name="sector" type="java.lang.String"/>
+		<property name="region" type="java.lang.String"/>
+		<property name="colorName" type="java.lang.String"/>
+		<property name="defaultTelcel" type="boolean"/>
+		<property name="lanzamiento" type="boolean"/>
+		<property name="promocion" type="boolean"/>
+		<property name="preventa" type="boolean"/>
+		<property name="hotsale" type="boolean"/>
+		<property name="buenFin" type="boolean"/>
+		<property name="proximamente" type="boolean"/>
+		<property name="nuevo" type="boolean"/>
+		<property name="comercialName" type="java.lang.String"/>
+		<property name="sitioOficial" type="java.lang.String"/>
+		<property name="storage" type="java.lang.String"/>
+		<property name="dimensiones" type="java.lang.String"/>
+		<property name="pesoGramos" type="java.lang.String"/>
+		<property name="pantalla" type="java.lang.String"/>
+		<property name="camaraTrasera" type="java.lang.String"/>
+		<property name="camaraFrontal" type="java.lang.String"/>
+		<property name="memoria" type="java.lang.String"/>
+		<property name="conexionWifi" type="boolean"/>
+		<property name="conexionBluetooth" type="boolean"/>
+		<property name="conexionNfc" type="boolean"/>
+		<property name="conexionUsb" type="boolean"/>
+		<property name="conexionWifiOffload" type="boolean"/>
+		<property name="conexionHdmi" type="boolean"/>
+		<property name="conexionTvout" type="boolean"/>
+		<property name="gigaRed" type="java.lang.String"/>
+		<property name="gigaRedSoportado" type="boolean"/>
+		<property name="sistemaOperativo" type="java.lang.String"/>
+		<property name="accesorios" type="java.lang.String"/>
+		<property name="altavoz" type="java.lang.String"/>
+		<property name="clienteCorreo" type="java.lang.String"/>
+		<property name="microfono" type="java.lang.String"/>
+		<property name="modem" type="java.lang.String"/>
+		<property name="ranura" type="java.lang.String"/>
+		<property name="ranuraMicroSD" type="java.lang.String"/>
+		<property name="requisitosSistema" type="java.lang.String"/>
+		<property name="resolucion" type="java.lang.String"/>
+		<property name="sensor" type="java.lang.String"/>
+		<property name="modemUsb" type="java.lang.String"/>
+		<property name="tipoSim" type="java.lang.String"/>
+		<property name="descripcionSeo" type="java.lang.String"/>
+		<property name="slogan" type="java.lang.String"/>
+		<property name="ceMotriz" type="boolean"/>
+		<property name="ceAuditiva" type="boolean"/>
+		<property name="ceVisual" type="boolean"/>
+		<property name="tieneLiga" type="boolean"/>
+		<property name="capacidad" type="mx.com.telcel.facades.product.data.StorageTelcelData"/>
+		<property name="sku" type="java.lang.String"/>
+		<property name="colorData" type="mx.com.telcel.facades.product.data.ColorTelcelData"/>
+		<property name="samePrice" type="boolean"/>
+		<property name="activable" type="java.lang.Boolean"/>
+		<property name="pricePerMonth" type="java.lang.String"/>
+		<property name="tipoActivacion" type="boolean"/>
+		<property name="categoryName" type="java.lang.String"/>
+		<property name="availableInRegion" type="boolean"/>
+		<property name="paymentStatus" type="java.lang.String"/>
+		<property name="paymentStatusDescription" type="java.lang.String"/>
+		<property name="trackStatus" type="java.lang.String"/>
+		<property name="trackStatusDescription" type="java.lang.String"/>
+		<property name="estimatedDeliveryDate" type="java.lang.String"/>
+		<property name="realDeliveryDate" type="java.lang.String"/>
+		<property name="sendStatus" type="java.lang.String"/>
+		<property name="sendStatusDescription" type="java.lang.String"/>
+		<property name="chipName" type="java.lang.String"/>
+		<property name="invoiceNumberList" type="java.util.List&lt;String>"/>
+		<property name="addProductToCartUrl" type="java.lang.String"/>
+		<property name="sistemaOperativoVersion" type="java.lang.String"/>
+		<property name="nameHtml" type="java.lang.String"/>
+		<property name="leyendaMSI" type="java.lang.String"/>
+		<property name="guiaFedex" type="java.lang.String"/>
+		<property name="paqueteAmigoNombre" type="java.lang.String"/>
+		<property name="paqueteAmigoPrecio" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.zipcodes.data.CodigosPostalesTelcelData">
+		<property name="estado" type="de.hybris.platform.commercefacades.user.data.RegionData"/>
+		<property name="municipio" type="String"/>
+		<property name="codigo" type="String"/>
+		<property name="ciudad" type="String"/>
+		<property name="colonia" type="String"/>
+		<property name="tipoDeAsentamiento" type="String"/>
+		<property name="cveBES" type="String"/>
+		<property name="cvePoblacion" type="String"/>
+		<property name="region" type="mx.com.telcel.data.TelcelRegionsForPricesData"/>
+		<property name="isoCodeSAP" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.region.selector.data.TelcelRegionDataWsDTO">
+		<property name="region" type="de.hybris.platform.commercefacades.user.data.RegionData"/>
+		<property name="regionCode" type="String"/>
+		<property name="isPriceZero" type="boolean"/>
+		<property name="code" type="String"/>
+		<property name="description" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.zipcodes.data.CodigosPostalesTelcelDTO">
+		<property name="estado" type="de.hybris.platform.commercefacades.user.data.RegionData"/>
+		<property name="municipio" type="String"/>
+		<property name="codigo" type="String"/>
+		<property name="ciudad" type="String"/>
+		<property name="colonia" type="String"/>
+		<property name="tipoDeAsentamiento" type="String"/>
+		<property name="cveBES" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO">
+		<property name="entriesAccesories"
+				  type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO>">
+			<description>Productos de tipo Accesorio</description>
+		</property>
+		<property name="entrysDenied" type="java.util.List&lt;mx.com.telcel.facades.order.data.OrderDetailEntryDeniedData>"/>
+		<property name="holderLineName" type="String"/>
+        <property name="holderLineEmail" type="String"/>
+		<property name="paymentStatus" type="String"/>
+		<property name="paymentStatusDescription" type="String"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.order.data.CartData">
+		<property name="entriesAccesories"
+				  type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderEntryData>">
+			<description>Productos de tipo Accesorio</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="birthdate" type="java.util.Date" />
+		<property name="phoneNumber" type="String"/>
+		<property name="detailEmail" type="String"/>
+		<property name="curp" type="String"/>
+		<property name="emailverified" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
+		<property name="birthdate" type="java.util.Date" />
+		<property name="phoneNumber" type="String"/>
+		<property name="detailEmail" type="String"/>
+		<property name="curp" type="String"/>
+		<property name="uid" type="String"/>
+		<property name="name" type="String"/>
+		<property name="emailverified" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.VariantMatrixElementData">
+		<property name="color" type="mx.com.telcel.facades.product.data.ColorTelcelData"/>
+		<property name="capacidad" type="mx.com.telcel.facades.product.data.StorageTelcelData"/>
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.VariantMatrixElementWsDTO">
+		<description>Representation of a Variant Matrix Element</description>
+		<hints>
+			<hint name="wsRelated"/>
+			<hint name="alias">VariantMatrixElement</hint>
+		</hints>
+		<property name="color" type="mx.com.telcel.facades.product.data.ColorTelcelData"/>
+		<property name="capacidad" type="mx.com.telcel.facades.product.data.StorageTelcelData"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.VariantOptionData">
+		<property name="color" type="mx.com.telcel.facades.product.data.ColorTelcelData"/>
+		<property name="capacidad" type="mx.com.telcel.facades.product.data.StorageTelcelData"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.VariantOptionWsDTO">
+	<description>Representation of a Variant Option</description>
+	<hints>
+		<hint name="wsRelated"/>
+		<hint name="alias">VariantOption</hint>
+	</hints>
+		<property name="color" type="mx.com.telcel.facades.product.data.ColorTelcelData"/>
+		<property name="capacidad" type="mx.com.telcel.facades.product.data.StorageTelcelData"/>
+	</bean>
+
+	<enum class="de.hybris.platform.commercefacades.product.ProductOption">
+		<value>CUSTOM</value>
+	</enum>
+
+
+	<bean class="de.hybris.platform.b2ctelcoservices.tmaPoVariant.TmaSolrDocumentCompositePv"
+		  extends="de.hybris.platform.b2ctelcoservices.tmaPoVariant.TmaSolrDocumentPoVariant">
+		<property name="children"
+				  type="java.util.List&lt;de.hybris.platform.b2ctelcoservices.tmaPoVariant.TmaSolrDocumentPoVariant>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.b2ctelcoservices.tmaPoVariant.TmaSolrDocumentPoVariant">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.esquemacobro.data.TelcelEsquemaCobroDTO">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+		<property name="description" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.cmsfacades.data.MediaData">
+		<property name="titleText" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ImageData">
+		<property name="titleText" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.b2ctelcocommercewebservicescommons.dto.MediaWsDTO">
+		<property name="titleText" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.cmsocc.data.MediaWsDTO">
+		<property name="titleText" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO">
+		<description>Representation of an Image</description>
+		<property name="titleText" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="razonSocial" type="String"/>
+		<property name="calle" type="String"/>
+		<property name="rfc" type="String"/>
+		<property name="concepto" type="String"/>
+		<property name="regimen" type="String"/>
+		<property name="regimenCapital" type="String"/>
+		<property name="saveAddress" type="Boolean"/>
+		<property name="conceptoDescription" type="String"/>
+		<property name="regimenDescription" type="String"/>
+		<property name="regimenCapitalDescription" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="esquemaCobro" type="mx.com.telcel.facades.esquemacobro.data.TelcelEsquemaCobroDTO"/>
+		<property name="additionalServiceEntries" type="java.util.List&lt;mx.com.telcel.facades.order.data.AdditionalServiceEntryData>"/>
+		<property name="basePricevalue" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="maxPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="totalWithoutAdditonalServices" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="quantityBreakdown" type="java.util.List&lt;mx.com.telcel.facades.order.data.EntryQtyBreakdownData>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="entrysDenied" type="java.util.List&lt;mx.com.telcel.facades.order.data.OrderDetailEntryDeniedData>"/>
+		<property name="totalWithoutAdditonalServices" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="requireInvoice" type="java.lang.Boolean"/>
+		<property name="telcelBillingAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+        <property name="holderLineName" type="java.lang.String"/>
+        <property name="holderLineEmail" type="java.lang.String"/>
+		<property name="paymentStatus" type="java.lang.String"/>
+		<property name="paymentStatusDescription" type="java.lang.String"/>
+        <property name="holderLineAddress" type="mx.com.telcel.facades.holderline.data.HolderLineData"/>
+		<property name="blockMerge" type="java.lang.Boolean"/>
+		<property name="orderne" type="java.lang.String"/>
+		<property name="usne" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.EntryQtyBreakdownData">
+		<property name="quantity" type="java.lang.Long"/>
+		<property name="entryQtyPos" type="java.lang.Integer"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.AdditionalServiceEntryData">
+		<property name="additionalServiceProduct" type="mx.com.telcel.facades.product.data.AdditionalServiceData"/>
+		<property name="basePrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="entryNumber" type="java.lang.Integer"/>
+		<property name="rejected" type="java.lang.Boolean"/>
+		<property name="deniedPayment" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+		<property name="esquemaCobro" type="mx.com.telcel.facades.esquemacobro.data.TelcelEsquemaCobroDTO"/>
+		<property name="basePricevalue" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+			<description>Base price value of order entry item</description>
+		</property>
+		<property name="maxPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+			<description>Max price value of order entry item</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.b2ctelcofacades.data.CartActionInput">
+		<property name="esquemaCobro" type="mx.com.telcel.facades.esquemacobro.data.TelcelEsquemaCobroDTO"/>
+		<property name="additionalServiceEntry" type="mx.com.telcel.facades.order.data.AdditionalServiceEntryData"/>
+		<property name="additionalServiceEntries" type="java.util.List&lt;mx.com.telcel.facades.order.data.AdditionalServiceEntryData>"/>
+		<property name="entryQtyPos" type="java.lang.Integer"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.service.data.CommerceCartParameter">
+		<property name="esquemaCobro" type="mx.com.telcel.core.model.EsquemaCobroModel"/>
+		<property name="asEntryProduct" type="mx.com.telcel.core.model.TelcelAdditionalServiceProductOfferingModel"/>
+		<property name="asEntryNumber" type="java.lang.Integer"/>
+		<property name="asRejected" type="java.lang.Boolean"/>
+		<property name="entryQtyPos" type="java.lang.Integer"/>
+		<property name="additionalServiceEntries" type="java.util.List&lt;de.hybris.platform.commerceservices.service.data.AsEntryParameter>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.service.data.AsEntryParameter">
+		<property name="asEntryProduct" type="mx.com.telcel.core.model.TelcelAdditionalServiceProductOfferingModel"/>
+		<property name="asEntryNumber" type="java.lang.Integer"/>
+		<property name="asRejected" type="java.lang.Boolean"/>
+		<property name="basePrice" type="java.lang.Double"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.product.data.AdditionalServiceData" extends="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="type" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.product.data.AdditionalServiceDataList">
+		<property name="additionalServices" type="java.util.List&lt;mx.com.telcel.facades.product.data.AdditionalServiceData>"/>
+	</bean>
+	
+	<!-- Beans for CVTs and DATs Data -->
+	<bean class="mx.com.telcel.facades.cvtdat.data.UserInfoCVTData">
+	    <property name="numEmpleado" type="String"/>
+	    <property name="usrUniversal" type="String"/>
+	    <property name="nombre" type="String"/>
+	    <property name="apPaterno" type="String"/>
+	    <property name="apMaterno" type="String"/>
+	    <property name="region" type="String"/>
+	    <property name="idPerfil" type="String"/>
+	    <property name="nombrePerfil" type="String"/>
+	    <property name="fvPrepagoPadre" type="String"/>
+	    <property name="fvPospagoPadre" type="String"/>
+	    <property name="fvPrepagoPersonal" type="String"/>
+	    <property name="fvPospagoPersonal" type="String"/>
+	    <property name="fvPrepagoReporte" type="String"/>
+	    <property name="fvPospagoReporte" type="String"/>
+	    <property name="escenario" type="String"/>
+	    <property name="direccion" type="String"/>
+	    <property name="subDireccion" type="String"/>
+	    <property name="gerencia" type="String"/>
+	    <property name="departamento" type="String"/>
+	    <property name="descDepartamento" type="String"/>
+	    <property name="puesto" type="String"/>
+	    <property name="correo" type="String"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.facades.cvtdat.data.UserInfoDATData">
+	    <property name="Usuario" type="String"/>
+	    <property name="Token" type="String"/>
+	    <property name="Region" type="String"/>
+	    <property name="FuerzaVentaActiva" type="String"/>
+	    <property name="FuerzaVentaReporte" type="String"/>
+	    <property name="FuerzaVentaPadre" type="String"/>
+	    <property name="IdFuerzaVentaActiva" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.Order">
+		<property name="orderInfo" type="mx.com.telcel.facades.externalorder.data.OrderInfo"/>
+	</bean>
+	<bean class="mx.com.telcel.facades.externalorder.data.OrderInfo">
+		<property name="orderId" type="String"/>
+		<property name="deliveryInfo" type="mx.com.telcel.facades.externalorder.data.DeliveryInfo"/>
+		<property name="paymentInfo" type="mx.com.telcel.facades.externalorder.data.PaymentInfo"/>
+		<property name="deviceComboList" type="java.util.List&lt;mx.com.telcel.facades.externalorder.data.DeviceCombo>"/>
+		<property name="customer" type="mx.com.telcel.facades.externalorder.data.Customer"/>
+		<property name="salesForce" type="mx.com.telcel.facades.externalorder.data.SalesForce"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.DeliveryInfo">
+		<property name="deliveryPostalCode" type="String"/>
+		<property name="deliveryColony" type="String"/>
+		<property name="deliveryMunicipality" type="String"/>
+		<property name="deliveryStreet" type="String"/>
+		<property name="deliveryStateId" type="String"/>
+		<property name="deliveryInsideNumber" type="String"/>
+		<property name="deliveryOutsideNumber" type="String"/>
+		<property name="deliveryPhone" type="String"/>
+		<property name="deliveryCity" type="String"/>
+		<property name="deliveryName" type="String"/>
+		<property name="deliveryReference" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.PaymentInfo">
+		<property name="grandTotal" type="String"/>
+		<property name="shipCost" type="String"/>
+		<property name="taxPercent" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.DeviceCombo">
+		<property name="componentList" type="java.util.List&lt;mx.com.telcel.facades.externalorder.data.Component>"/>
+		<property name="orderItemDetail" type="mx.com.telcel.facades.externalorder.data.OrderItemDetail"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.Customer">
+		<property name="lastName" type="String"/>
+		<property name="motherLastName" type="String"/>
+		<property name="userRFC" type="String"/>
+		<property name="birthDate" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="email" type="String"/>
+		<property name="secondname" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.SalesForce">
+		<property name="salesForceId" type="String"/>
+		<property name="distId" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.Component">
+		<property name="orderItemPriceWithoutTax" type="String"/>
+		<property name="itemType" type="String"/>
+		<property name="discountValue" type="String"/>
+		<property name="discountType" type="String"/>
+		<property name="orderItemPartNumber" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.externalorder.data.OrderItemDetail">
+		<property name="orderItemId" type="String"/>
+		<property name="reservatioinId" type="String"/>
+		<property name="navigationRegion" type="String"/>
+		<property name="fulfillmentCenterRegion" type="String"/>
+		<property name="fulfillmentCenterId" type="String"/>
+		<property name="regionId" type="String"/>
+		<property name="reservationDate" type="String"/>
+		<property name="deliveryNumber" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.b2ctelcoservices.pricing.TmaSolrDocumentComponentPop">
+		<property name="basePricevalue" type="java.lang.Double"/>
+		<property name="maxPrice" type="java.lang.Double"/>
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.ProductSearchPageCategory">
+		<property name="titleSeo" type="String"/>
+		<property name="descriptionSeo" type="String"/>
+	</bean>
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.ProductSearchPageWsDTO">
+		<description>Representation of a Product Search Page</description>
+		<hints>
+			<hint name="wsRelated"/>
+			<hint name="alias">ProductSearchPage</hint>
+		</hints>
+		<property name="category" type="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.ProductSearchPageCategory">
+			<description>Category Data</description>
+		</property>
+	</bean>
+	<bean class="mx.com.telcel.facades.ticket.data.AyudaTicket">
+		<property name="code" type="String"/>
+		<property name="descripcion" type="String"/>
+		<property name="motivos" type="java.util.List&lt;mx.com.telcel.facades.ticket.data.MotivoAyudaTicket>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.ticket.data.MotivoAyudaTicket">
+		<property name="code" type="String"/>
+		<property name="descripcion" type="String"/>
+		<property name="requiereSituacion" type="java.lang.Boolean"/>
+		<property name="nota" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.ticket.data.TicketTelcel">
+		<property name="numeroOrden" type="String"/>
+		<property name="motivo" type="String"/>
+		<property name="contacto" type="String"/>
+		<property name="situacion" type="String"/>
+		<property name="nombreCliente" type="String"/>
+		<property name="apellidoPaternoCliente" type="String"/>
+		<property name="estado" type="String"/>
+		<property name="apellidoMaternoCliente" type="String"/>
+		<property name="contactoPorTelefono" type="boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.b2ctelcofacades.data.ProductOfferingSearchContextData">
+		<property name="esquemaCobro" type="java.lang.String" />
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.RastreoOrderData">
+		<property name="orderNumber" type="String"/>
+		<property name="fechaPedido" type="String"/>
+		<property name="entregaEstimada" type="String"/>
+		<property name="realFechaEntrega" type="String"/>
+		<property name="status" type="String"/>
+		<property name="ultimoStatus" type="String"/>
+		<property name="idConsignment" type="String"/>
+		<property name="producto" type="de.hybris.platform.commercefacades.product.data.ProductData"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.RastreoOrderRequiereCorreoData">
+		<property name="requiereCorreo" type="boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.cmsfacades.data.AbstractPageData">
+		<property name="analyticJson" type="String"/>
+		<property name="pagina" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.cmsocc.data.CMSPageWsDTO">
+		<property name="analyticJson" type="String"/>
+		<property name="pagina" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.cmsfacades.data.AbstractCMSComponentData">
+		<property name="tipoBanner" type="java.lang.String" />
+		<property name="title" type="java.lang.String" />
+		<property name="caption" type="java.lang.String" />
+		<property name="posicion" type="java.lang.String" />
+		<property name="categoria" type="java.lang.String" />
+		<property name="subcategoria" type="java.lang.String" />
+		<property name="nombre" type="java.lang.String" />
+		<property name="ubicacion" type="java.lang.String" />
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.OrderHeaderData">
+	    <property name="orderNumber" type="String"/>
+	    <property name="requestDate" type="String"/>
+	    <property name="status" type="String"/>
+	    <property name="totalPrice" type="String"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.facades.order.data.OrderDetailImageData">
+	    <property name="format" type="String"/>
+	    <property name="imageType" type="String"/>
+	    <property name="url" type="String"/>
+	</bean>
+
+
+	<bean class="mx.com.telcel.facades.order.data.OrderDetailEntryDeniedData">
+		<property name="sku" type="String"/>
+		<property name="skuFather" type="String"/>
+		<property name="entryNumber" type="String"/>
+	</bean>
+	<bean class="mx.com.telcel.facades.order.data.OrderDetailProductData">
+	    <property name="images" type="java.util.List&lt;mx.com.telcel.facades.order.data.OrderDetailImageData>"/>
+	    <property name="name" type="String"/>
+	    <property name="price" type="String"/>
+	    <property name="brand" type="String"/>
+	    <property name="capacity" type="String"/>
+	    <property name="color" type="String"/>
+	    <property name="chargingScheme" type="String"/>
+	    <property name="lineToRenew" type="String"/>
+	    <property name="trackStatus" type="String"/>
+	    <property name="paymentStatus" type="String"/>
+	    <property name="estimatedDeliveryDate" type="String"/>
+		<property name="productId" type="String"/>
+		<property name="invoiceNumberList" type="java.util.List&lt;String>"/>
+		<property name="formattedDescription" type="String"/>
+		<property name="includeGift" type="boolean"/>
+		<property name="descripcionIncludeGift" type="String"/>
+		<property name="paqueteAmigo" type="String"/>
+		<property name="vigenciaPaqueteAmigo" type="String"/>
+		<property name="consignmentCode" type="String"/>
+		<property name="linea" type="String"/>
+		<property name="pictureUrlJasper" type="java.lang.String"/>
+		<property name="recargaName" type="String"/>
+		<property name="recargaPrice" type="String"/>
+		<property name="recargaRejected" type="boolean"/>
+	</bean>
+
+
+	
+	<bean class="mx.com.telcel.facades.order.data.OrderDetailAddressData">
+	    <property name="name" type="String"/>
+	    <property name="street" type="String"/>
+	    <property name="number" type="String"/>
+	    <property name="district" type="String"/>
+	    <property name="postalCode" type="String"/>
+	    <property name="town" type="String"/>
+	    <property name="state" type="String"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.facades.order.data.OrderDetailPaymentData">
+	    <property name="msi" type="Integer"/>
+	    <property name="cardType" type="String"/>
+	    <property name="lastDigits" type="String"/>
+	</bean>
+	
+	<bean class="mx.com.telcel.facades.order.data.OrderDetailData">
+	    <property name="orderNumber" type="String"/>
+	    <property name="purchaseDate" type="String"/>
+	    <property name="paymentStatus" type="String"/>
+		<property name="entrysDenied" type="java.util.List&lt;mx.com.telcel.facades.order.data.OrderDetailEntryDeniedData>"/>
+		<property name="estimatedDeliveryDate" type="String"/>
+	    <property name="dateOfDelivery" type="String[]"/>
+	    <property name="expirationDate" type="String"/>
+	    <property name="customerName" type="String"/>
+	    <property name="formattedAddress" type="String"/>
+	    <property name="subtotal" type="Double"/>
+	    <property name="shippingCost" type="Double"/>
+	    <property name="total" type="Double"/>
+	    <property name="address" type="mx.com.telcel.facades.order.data.OrderDetailAddressData"/>
+	    <property name="products" type="java.util.List&lt;mx.com.telcel.facades.order.data.OrderDetailProductData>"/>
+	    <property name="payment" type="mx.com.telcel.facades.order.data.OrderDetailPaymentData"/>
+		<property name="numberPhone" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ProductOrder">
+		<property name="relatedParty" type="java.util.List&lt;mx.com.telcel.facades.order.data.RelatedParty>"/>
+		<property name="channel" type="java.util.List&lt;mx.com.telcel.facades.order.data.Channel>"/>
+		<property name="productOrderItem" type="java.util.List&lt;mx.com.telcel.facades.order.data.ProductOrderItem>"/>
+		<property name="resource" type="java.util.List&lt;mx.com.telcel.facades.order.data.ResourceProductOrder>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.RelatedParty">
+		<property name="role" type="String"/>
+		<property name="id" type="String"/>
+		<property name="contactMedium" type="java.util.List&lt;mx.com.telcel.facades.order.data.ContactMedium>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ContactMedium">
+		<property name="characteristic" type="mx.com.telcel.facades.order.data.Characteristic"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.Characteristic">
+		<property name="locality" type="String"/>
+		<property name="postCode" type="String"/>
+		<property name="area" type="java.util.List&lt;mx.com.telcel.facades.order.data.Area>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.Area">
+		<property name="type" type="String"/>
+		<property name="id" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.Channel">
+		<property name="id" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ProductOrderItem">
+		<property name="action" type="String"/>
+		<property name="product" type="java.util.List&lt;mx.com.telcel.facades.order.data.ProductOrderItemProduct>"/>
+		<property name="productOffering" type="java.util.List&lt;mx.com.telcel.facades.order.data.ProductOrderItemProductOffering>"/>
+		<property name="resource" type="java.util.List&lt;mx.com.telcel.facades.order.data.Resource>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ProductOrderItemProduct">
+		<property name="name" type="String"/>
+		<property name="description" type="String"/>
+		<property name="characteristic" type="java.util.List&lt;mx.com.telcel.facades.order.data.ProductOrderItemCharacteristic>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ProductOrderItemCharacteristic">
+		<property name="name" type="String"/>
+		<property name="value" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ProductOrderItemProductOffering">
+		<property name="productOfferingPrice" type="java.util.List&lt;mx.com.telcel.facades.order.data.ItemProductOfferingPrice>"/>
+		<property name="id" type="String"/>
+		<property name="category" type="java.util.List&lt;mx.com.telcel.facades.order.data.ItemProductOfferingPriceCategory>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ItemProductOfferingPrice">
+		<property name="price" type="mx.com.telcel.facades.order.data.ItemProductOfferingPriceData"/>
+		<property name="priceType" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ItemProductOfferingPriceData">
+		<property name="taxIncludedAmount" type="mx.com.telcel.facades.order.data.ItemProductOfferingPriceTaxIncludedAmount"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ItemProductOfferingPriceTaxIncludedAmount">
+		<property name="value" type="java.lang.Double"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ItemProductOfferingPriceCategory">
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ResourceProductOrder">
+		<property name="resourceCharacteristic" type="java.util.List&lt;mx.com.telcel.facades.order.data.ResourceCharacteristic>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.Resource">
+		<property name="name" type="String"/>
+		<property name="id" type="String"/>
+		<property name="type" type="String"/>
+		<property name="resourceCharacteristic" type="java.util.List&lt;mx.com.telcel.facades.order.data.ResourceCharacteristic>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ResourceCharacteristic">
+		<property name="name" type="String"/>
+		<property name="value" type="String"/>
+		<property name="valueType" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ActivationResponseData">
+		<property name="productOrdering" type="java.util.List&lt;mx.com.telcel.facades.order.data.ProductOrderingResponse>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.RespuestaActivacion">
+		<property name="productOrdering" type="java.util.List&lt;mx.com.telcel.facades.order.data.ProductOrderingResponse>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ProductOrderingResponse">
+		<property name="id" type="String"/>
+		<property name="state" type="String"/>
+		<property name="error" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ActivationResponseError">
+		<property name="responseDate" type="String"/>
+		<property name="latency" type="String"/>
+		<property name="errorList" type="mx.com.telcel.facades.order.data.ActivationResponseErrorList"/>
+	</bean>
+
+
+	<bean class="mx.com.telcel.facades.order.data.ActivationResponseErrorList">
+		<property name="error" type="java.util.List&lt;mx.com.telcel.facades.order.data.ActivationResponseErrorObject>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.order.data.ActivationResponseErrorObject">
+		<property name="code" type="String"/>
+		<property name="severityLevel" type="String"/>
+		<property name="description" type="String"/>
+		<property name="actor" type="String"/>
+		<property name="businessMeaning" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.ordertelmex.data.MaterialOrderTelmexData">
+	    <property name="cveMaterial" type="String"/>
+	    <property name="pzas" type="String"/>
+	    <property name="claveSAT" type="String"/>
+	    <property name="descripcionSAT" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.ordertelmex.data.PosicionOrderTelmexData">
+	    <property name="material" type="mx.com.telcel.facades.ordertelmex.data.MaterialOrderTelmexData"/>
+	    <property name="imei" type="String"/>
+	    <property name="iccid" type="String"/>
+	    <property name="precio" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.ordertelmex.data.OrderTelmexData">
+	    <property name="pedido" type="String"/>
+	    <property name="entrega" type="String"/>
+	    <property name="factura" type="String"/>
+	    <property name="region" type="String"/>
+	    <property name="almacen" type="String"/>
+	    <property name="posiciones" type="java.util.List&lt;mx.com.telcel.facades.ordertelmex.data.PosicionOrderTelmexData>"/>
+	</bean>
+
+	<!-- Data From Payment Commerce -->
+	<bean class="mx.com.telcel.facades.paymentcommerce.data.ItemPCData">
+	    <property name="sku" type="String"/>
+	    <property name="description" type="String"/>
+	    <property name="price" type="Double"/>
+	    <property name="model" type="String"/>
+	    <property name="color" type="String"/>
+	    <property name="type" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.paymentcommerce.data.PaymentPCData">
+	    <property name="tokenCard" type="String"/>
+	    <property name="promotions" type="String"/>
+	    <property name="sessionId" type="String"/>
+	    <property name="paymentReferenceName" type="String"/>
+	    <property name="type" type="String"/>
+	    <property name="cvv" type="String"/>
+	    <property name="lastDigits" type="String"/>
+	    <property name="firstname" type="String"/>
+	    <property name="lastname" type="String"/>
+	    <property name="amount" type="Double"/>
+	    <property name="msi" type="Integer"/>
+		<property name="paymentType" type="String"/>
+		<property name="merchantId" type="java.lang.String"/>
+		<property name="apiKey" type="java.lang.String"/>
+	    <property name="items" type="java.util.List&lt;mx.com.telcel.facades.paymentcommerce.data.ItemPCData>"/>
+	    <property name="itemsSa" type="java.util.List&lt;mx.com.telcel.facades.paymentcommerce.data.ItemPCData>"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.paymentcommerce.data.OrderPCData">
+	    <property name="region" type="Integer"/>
+	    <property name="city" type="String"/>
+	    <property name="state" type="String"/>
+	    <property name="address" type="String"/>
+	    <property name="postalCode" type="String"/>
+	    <property name="email" type="String"/>
+	    <property name="phone" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.paymentcommerce.data.PaymentCommerceInfoData">
+	    <property name="order" type="mx.com.telcel.facades.paymentcommerce.data.OrderPCData"/>
+	    <property name="payment" type="mx.com.telcel.facades.paymentcommerce.data.PaymentPCData"/>
+		<property name="validatePayment" type="java.lang.Boolean"/>
+		<property name="executePayment" type="java.lang.Boolean"/>
+
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData">
+		<property name="tokenCard" type="java.lang.String"/>
+		<property name="sessionId" type="java.lang.String"/>
+		<property name="promotions" type="String"/>
+		<property name="paymentReferenceName" type="String"/>
+		<property name="holderName" type="java.lang.String"/>
+		<property name="bank" type="java.lang.String"/>
+		<property name="company" type="java.lang.String"/>
+		<property name="credit" type="java.lang.Boolean"/>
+		<property name="holderLastName" type="java.lang.String"/>
+		<property name="url3ds" type="java.lang.String"/>
+		<property name="zipCode" type="java.lang.String"/>
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="cvv" type="java.lang.String"/>
+		<property name="cvn" type="java.lang.String"/>
+		<property name="msi" type="Integer"/>
+		<property name="merchantId" type="java.lang.String"/>
+		<property name="apiKey" type="java.lang.String"/>
+		<property name="receipt" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.ReceiptInfoData>"/>
+		<property name="fingerprint" type="de.hybris.platform.payment.dto.FingerPrint"/>
+
+
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.ReceiptInfoData">
+		<property name="transaction" type="java.lang.String"/>
+		<property name="bank" type="String"/>
+		<property name="clabe" type="String"/>
+		<property name="agreement" type="String"/>
+		<property name="reference" type="String"/>
+		<property name="expiration" type="String"/>
+		<property name="status" type="String"/>
+		<property name="code" type="String"/>
+		<property name="barcode" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.ReceiptInfoWsData">
+		<property name="transaction" type="java.lang.String"/>
+		<property name="bank" type="String"/>
+		<property name="clabe" type="String"/>
+		<property name="agreement" type="String"/>
+		<property name="reference" type="String"/>
+		<property name="expiration" type="String"/>
+		<property name="status" type="String"/>
+		<property name="code" type="String"/>
+		<property name="barcode" type="String"/>
+	</bean>
+
+	<bean  class="de.hybris.platform.payment.dto.FingerPrint" >
+		<property name="organizationId" type="java.lang.String"/>
+		<property name="sessionId" type="String"/>
+		<property name="webSession" type="String"/>
+	</bean>
+
+	<bean  class="de.hybris.platform.payment.dto.CardInfo" >
+		<property name="tokenCard" type="java.lang.String"/>
+		<property name="promotions" type="String"/>
+		<property name="paymentReferenceName" type="String"/>
+		<property name="holderName" type="java.lang.String"/>
+		<property name="bank" type="java.lang.String"/>
+		<property name="company" type="java.lang.String"/>
+		<property name="credit" type="java.lang.Boolean"/>
+		<property name="zipCode" type="java.lang.String"/>
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="cvv" type="java.lang.String"/>
+		<property name="cvn" type="java.lang.String"/>
+		<property name="msi" type="Integer"/>
+		<property name="saved" type="java.lang.Boolean"/>
+		<property name="merchantId" type="java.lang.String"/>
+		<property name="apiKey" type="java.lang.String"/>
+		<property name="fingerprint" type="de.hybris.platform.payment.dto.FingerPrint"/>
+
+	</bean>
+
+	<bean  class="de.hybris.platform.acceleratorservices.payment.data.PaymentInfoData" >
+		<property name="tokenCard" type="java.lang.String"/>
+		<property name="promotions" type="String"/>
+		<property name="paymentReferenceName" type="String"/>
+		<property name="holderName" type="java.lang.String"/>
+		<property name="holderLastName" type="java.lang.String"/>
+		<property name="url3ds" type="java.lang.String"/>
+		<property name="bank" type="java.lang.String"/>
+		<property name="company" type="java.lang.String"/>
+		<property name="credit" type="java.lang.Boolean"/>
+		<property name="zipCode" type="java.lang.String"/>
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="cvv" type="java.lang.String"/>
+		<property name="cvn" type="java.lang.String"/>
+		<property name="msi" type="Integer"/>
+		<property name="saved" type="java.lang.Boolean"/>
+		<property name="merchantId" type="java.lang.String"/>
+		<property name="apiKey" type="java.lang.String"/>
+		<property name="fingerprint" type="de.hybris.platform.payment.dto.FingerPrint"/>
+
+
+	</bean>
+
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.PaymentDetailsWsDTO">
+		<description>Representation of a Payment Details</description>
+		<property name="tokenCard" type="java.lang.String"/>
+		<property name="sessionId" type="java.lang.String"/>
+		<property name="promotions" type="String"/>
+		<property name="paymentReferenceName" type="String"/>
+		<property name="holderName" type="java.lang.String"/>
+		<property name="holderLastName" type="java.lang.String"/>
+		<property name="bank" type="java.lang.String"/>
+		<property name="company" type="java.lang.String"/>
+		<property name="credit" type="java.lang.Boolean"/>
+		<property name="zipCode" type="java.lang.String"/>
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="cvv" type="java.lang.String"/>
+		<property name="cvn" type="java.lang.String"/>
+		<property name="msi" type="Integer"/>
+		<property name="merchantId" type="java.lang.String"/>
+		<property name="apiKey" type="java.lang.String"/>
+		<property name="receipt" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.ReceiptInfoWsData>"/>
+		<property name="fingerprint" type="de.hybris.platform.payment.dto.FingerPrint"/>
+
+	</bean>
+
+	<bean class="de.hybris.platform.acceleratorfacades.payment.data.PaymentSubscriptionResultData" extends="de.hybris.platform.acceleratorservices.payment.data.PaymentSubscriptionResult">
+		<property name="storedReference" type="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData"/>
+		<property name="storedSpei" type="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData"/>
+	</bean>
+
+	<bean
+			class="de.hybris.platform.acceleratorservices.payment.data.PaymentSubscriptionResultItem"
+			extends="de.hybris.platform.acceleratorservices.payment.data.PaymentSubscriptionResult">
+		<property name="storedReference"
+				  type="de.hybris.platform.core.model.order.payment.ReferencePaymentInfoModel" />
+		<property name="storedSpei"
+				  type="de.hybris.platform.core.model.order.payment.SpeiPaymentInfoModel" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderHistoryWsDTO">
+	    <property name="paymentStatus" type="java.lang.String"/>
+	    <property name="paymentStatusDescription" type="java.lang.String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.holderline.data.HolderLineData">
+		<property name="name" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="dateOfBirth" type="String"/>
+		<property name="email" type="String"/>
+		<property name="curp" type="String"/>
+	</bean>
+
+	<bean class="mx.com.telcel.facades.holderline.data.TelcelCPRegionData">
+		<property name="region" type="String"/>
+		<property name="cp" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.ConsignmentData">
+		<property name="line" type="java.lang.String"/>
+		<property name="additionalServiceEntry" type="mx.com.telcel.facades.order.data.AdditionalServiceEntryData"/>
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO"
+		  extends="de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO">
+		<description>Representation of an Order</description>
+		<property name="url3ds" type="String">
+			<description>url3ds</description>
+		</property>
+		<property name="orderne" type="String">
+			<description>Order Number Encrypted</description>
+		</property>
+		<property name="usne" type="String">
+			<description>User UID Encrypted</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.LinksOrderWsDTO">
+		<description>Representation of an Order</description>
+		<property name="url3ds" type="java.util.List&lt;String>" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.ActivateOrderWsDTO">
+		<description>Representation of an Order</description>
+		<property name="status" type="String">
+			<description>status</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.DesactivateOrderWsDTO">
+		<description>DesactivateOrderWsDTO</description>
+		<property name="status" type="String">
+			<description>status</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.CartAddressRespWsDTO">
+		<description>CartAddressRespWsDTO</description>
+		<property name="status" type="String">
+			<description>status</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.cmsfacades.data.NavigationNodeData">
+		<property name="icon" type="de.hybris.platform.cmsfacades.data.MediaData" />
+	</bean>
+</beans>
