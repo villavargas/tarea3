@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+           
+    
+    <extension abstractclassprefix="Generated" classprefix="Telcelb2cwebservices" managername="Telcelb2cwebservicesManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="telcelb2cwebservices" usemaven="true">
+                               
+      
+        
+        <requires-extension name="webservicescommons"/>
+        <requires-extension name="telcelb2ccore"/>
+        <requires-extension name="telcelb2cfacades"/>
+
+      
+        
+        <coremodule generated="true" manager="mx.com.telcel.jalo.Telcelb2cwebservicesManager" packageroot="mx.com.telcel"/>
+                      
+        
+        <webmodule jspcompile="false" webroot="/telcelb2cwebservices"/>
+                					
+		
+        
+        	
+
+   
+    
+    </extension>
+              
+
+
+</extensioninfo>
