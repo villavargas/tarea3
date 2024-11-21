@@ -1,0 +1,41 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#
+# Import the Solr configuration for the telcel store
+#
+
+# Index Type
+$solrIndexedType = telcelProductType
+
+# Language
+$lang = es_MX
+
+# Solr Indexed Property
+UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; displayName[lang = $lang]
+                          ; $solrIndexedType                          ; allPromotions      ; "Promoción"
+                          ; $solrIndexedType                          ; availableInStores  ; "Historias"
+                          ; $solrIndexedType                          ; brand              ; "Marca"
+                          ; $solrIndexedType                          ; category           ; "Categoría"
+                          ; $solrIndexedType                          ; code               ; "Código"
+                          ; $solrIndexedType                          ; description        ; "Descripción"
+                          ; $solrIndexedType                          ; manufacturerName   ; "Nombre del Fabricante"
+                          ; $solrIndexedType                          ; name               ; "Nombre"
+                          ; $solrIndexedType                          ; price              ; "Precio"
+                          ; $solrIndexedType                          ; summary            ; "Resumen"
+                          ; $solrIndexedType                          ; reviewAvgRating    ; "Revisar calificación promedio"
+                          ; $solrIndexedType                          ; numberOfReviews    ; "Reseñas"
+                          ; $solrIndexedType                          ; termLimits         ; "Límites de plazo"
+                          ; $solrIndexedType                          ; termRenewals       ; "Renovaciones de plazo"
+                          ; $solrIndexedType                          ; billingTimes       ; "Horarios de facturación"
+
+
+# Define the available sorts
+UPDATE SolrSort; indexedType(identifier)[unique = true]; code[unique = true]; name[lang = $lang]             ; useBoost
+               ; $solrIndexedType                      ; name-asc           ; "Nombre (ascendente)"          ; "false" ;
+               ; $solrIndexedType                      ; name-desc          ; "Nombre (descendente)"         ; "false" ;
+               ; $solrIndexedType                      ; price-asc          ; "Precio: el más bajo primero)" ; "false" ;
+               ; $solrIndexedType                      ; price-desc         ; "Precio: más caros primero)"   ; "false" ;
+               ; $solrIndexedType                      ; relevance          ; "Relevancia"                   ; "true"  ;
+               ; $solrIndexedType                      ; topRated           ; "Los más valorados"            ; "false" ;
