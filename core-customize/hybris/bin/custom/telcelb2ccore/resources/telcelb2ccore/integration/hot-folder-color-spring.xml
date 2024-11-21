@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration
+	http://www.springframework.org/schema/integration/spring-integration.xsd
+	http://www.springframework.org/schema/integration/file
+	http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config/>
+
+    <bean id="baseDirectoryColor" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcel/colorproduct"/>
+    </bean>
+
+    <file:inbound-channel-adapter id="batchFilesColor"
+                                  directory="#{baseDirectoryColor}"
+                                  filename-regex="^(.*)\.csv"
+                                  comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000"/>
+    </file:inbound-channel-adapter>
+
+    <file:outbound-gateway request-channel="batchFilesColor"
+                           reply-channel="batchFilesColorProcess"
+                           directory="#{baseDirectoryColor}/processing"
+                           delete-source-files="true"/>
+
+    <int:service-activator input-channel="batchFilesColorProcess"
+                           output-channel="batchFilesColorHeaderInit"
+                           ref="colorHeaderSetupTask"
+                           method="execute"/>
+
+    <int:service-activator input-channel="batchFilesColorHeaderInit"
+                           output-channel="batchFilesColorHeader"
+                           ref="colorHeaderInitTask"
+                           method="execute"/>
+
+    <bean id="colorHeaderInitTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderInitTask">
+        <property name="sequenceIdParser" ref="colorBatchSequenceIdParser"/>
+        <property name="languageParser" ref="batchLanguageParser"/>
+        <property name="fallbackLanguage" value="en" />
+    </bean>
+    <bean id="colorBatchSequenceIdParser" class="de.hybris.platform.acceleratorservices.dataimport.batch.util.SequenceIdParser">
+        <property name="parser">
+            <bean class="de.hybris.platform.acceleratorservices.util.RegexParser">
+                <property name="regex" value="_(\d+)\.csv" />
+            </bean>
+        </property>
+    </bean>
+
+    <int:service-activator input-channel="batchFilesColorHeader" output-channel="batchFilesTran" ref="colorBatchTransformerTask" method="execute"/>
+
+    <bean id="colorBatchTransformerTask"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.task.ImpexTransformerTask"
+          init-method="initConvertersMap">
+        <property name="fieldSeparator" value=";"/>
+        <property name="encoding" value="UTF-8"/>
+        <property name="linesToSkip" value="1"/>
+        <property name="cleanupHelper" ref="cleanupHelper"/>
+    </bean>
+
+    <bean id="colorHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="telcelProductCatalog"/>
+        <property name="net" value="false"/>
+        <property name="storeBaseDirectory" ref="baseDirectoryColor"/>
+    </bean>
+
+    <bean id="colorConverterMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="#{configurationService.configuration.getProperty('hotfolder.color.mapping')}"
+          p:converter-ref="colorImpexConverter"/>
+
+    <!--TelcelColorImpexConverter creates/update the color category value-->
+    <bean id="colorImpexConverter" class="mx.com.telcel.core.services.dataimport.TelcelColorImpexConverter">
+        <property name="modelService" ref="modelService"/>
+        <property name="categoryService" ref="categoryService"/>
+        <property name="catalogService" ref="catalogService"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="header">
+            <value>
+                INSERT_UPDATE Color;code[unique=true];name[lang=es_MX];hexCode;rgb
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+0};{1};{2};{3}</value>
+        </property>
+    </bean>
+
+</beans>
