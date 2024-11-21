@@ -1,0 +1,252 @@
+## messageSource=classpath:/telcelb2ccore/messages/email-ticketNotificationAgent_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0067)https://mails-qa.telcel-ux.com/Tienda_generico-bloqueo-cuenta.html# -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" style="background: #ffffff !important;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="./Tienda_generico-bloqueo-cuenta_files/css2" rel="stylesheet">
+
+
+  <meta name="viewport" content="width=device-width">
+  <title></title>
+  <style>@media only screen {
+    html {
+      min-height: 100%;
+      background: #f3f3f3;
+    }
+  }
+
+  @media only screen and (max-width: 580px) {
+    table.body img {
+      width: auto;
+      height: auto;
+    }
+
+    table.body center {
+      min-width: 0 !important;
+    }
+
+    table.body .container {
+      width: 95% !important;
+    }
+
+    table.body .columns {
+      height: auto !important;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    table.body .columns .columns {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    table.body .collapse .columns {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    th.small-2 {
+      display: inline-block !important;
+      width: 16.66667% !important;
+    }
+
+    th.small-3 {
+      display: inline-block !important;
+      width: 25% !important;
+    }
+
+    th.small-6 {
+      display: inline-block !important;
+      width: 50% !important;
+    }
+
+    th.small-9 {
+      display: inline-block !important;
+      width: 75% !important;
+    }
+
+    th.small-12 {
+      display: inline-block !important;
+      width: 100% !important;
+    }
+
+    .columns th.small-12 {
+      display: block !important;
+      width: 100% !important;
+    }
+
+    table.menu {
+      width: 100% !important;
+    }
+
+    table.menu td,
+    table.menu th {
+      width: auto !important;
+      display: inline-block !important;
+    }
+
+    table.menu.vertical td,
+    table.menu.vertical th {
+      display: block !important;
+    }
+
+    table.menu[align="center"] {
+      width: auto !important;
+    }
+  }
+
+  @media screen and (max-width: 39.9375em) {
+    .container {
+      width: 95% !important;
+    }
+  }
+
+  @media screen and (max-width: 39.9375em) {
+    .tienda--mis-pedidos .tienda--mis-pedidos---celda {
+      padding: 20px !important;
+    }
+
+    .tienda--mis-pedidos .tienda--mis-pedidos---celda th {
+      text-align: center !important;
+    }
+
+    .tienda--mis-pedidos .tienda--mis-pedidos---celda th p {
+      text-align: center !important;
+      background-color: #e5edf5 !important;
+    }
+  }
+
+  @media screen and (max-width: 39.9375em) {
+    .compra-exitosa--header img {
+      width: 32px !important;
+      height: 32px !important;
+    }
+  }
+
+  @media screen and (max-width: 39.9375em) {
+    .compra-no-exitosa--header img {
+      width: 32px !important;
+      height: 32px !important;
+    }
+  }
+
+  @media screen and (max-width: 39.9375em) {
+    .tienda--activa-tu-sim img {
+      width: 40px !important;
+      height: 40px !important;
+    }
+  }</style>
+</head>
+<body style="-moz-box-sizing: border-box; -ms-text-size-adjust: 100%; -webkit-box-sizing: border-box; -webkit-print-color-adjust: exact; -webkit-text-size-adjust: 100%; Margin: 0; background: #ffffff !important; box-sizing: border-box; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; min-width: 100%; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; width: 100% !important;">
+<span class="preheader" style="color: #f3f3f3; display: none !important; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; mso-hide: all !important; opacity: 0; overflow: hidden; visibility: hidden;"></span>
+<table class="body" style="Margin: 0; background: #ffffff !important; border-collapse: collapse; border-spacing: 0; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; height: 100%; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 100%;">
+  <tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;">
+    <td class="center" align="center" valign="top" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+      <center style="min-width: 580px; width: 100%;">
+
+        <table align="center" class="wrapper header float-center" style="Margin: 0 auto; background: #ffffff; border-bottom: solid 1px #e3e3e3; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td class="wrapper-inner" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 20px !important; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+          <table align="center" class="container" style="Margin: 0 auto; background: transparent; border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: inherit; vertical-align: top; width: 580px;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+            <table class="row collapse" style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; position: relative; text-align: left; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;">
+              <th class="small-6 large-6 columns first last" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0 auto; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0 auto; padding-bottom: 0 !important; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 290px; word-wrap: break-word;"><table style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><th style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                <img id="logo-telcel" src="${ctx.mediaSecureBaseWebsiteUrl}${ctx.logoModel}" style="-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;">
+              </th></tr></tbody></table></th>
+              <th class="tienda-logo--derecha-contenedor small-6 large-6 columns last" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0 auto; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0 !important; padding-left: 0; padding-right: 0; padding-top: 0; text-align: right; vertical-align: top; width: 290px; word-wrap: break-word;">
+                <table style="border-collapse: collapse; border-spacing: 0; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 100%;">
+                  <tbody>
+                  <tr style="padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;">
+                  </tr></tbody></table></th>
+            </tr></tbody></table>
+          </td></tr></tbody></table>
+        </td></tr></tbody></table>
+        <table align="center" class="spacer float-center" style="Margin: 0 auto; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="24" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 24px; font-weight: normal; hyphens: auto; line-height: 24px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+        <table align="center" class="container float-center" style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center; vertical-align: top; width: 580px;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+          <table class="row" style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; position: relative; text-align: left; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;">
+            <th class="text-center small-12 large-12 columns first last" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0 auto; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center; vertical-align: top; width: 580px; word-wrap: break-word;"><table style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><th style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+              <img src="${ctx.mediaSecureBaseWebsiteUrl}${ctx.bannerModel}" alt="TIENDA EN LINEA TELCEL" style="-ms-interpolation-mode: bicubic; clear: both; display: block; margin: auto; max-width: 100%; outline: none; text-decoration: none; width: auto;">
+            </th>
+              <th class="expander" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0 !important; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; visibility: hidden; width: 0; word-wrap: break-word;"></th></tr></tbody></table></th>
+          </tr></tbody></table>
+        </td></tr></tbody></table><table align="center" class="container content-center float-center" style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; float: none; margin: auto !important; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center; vertical-align: top; width: 520px !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+        <table align="center" class="container" style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: inherit; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+          <table class="row" style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; position: relative; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;">
+            <th class="small-12 large-11 columns first last" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0 auto; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 531.66667px; word-wrap: break-word;"><table style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><th style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+              <h1 class="header--azul" style="Margin: 0; Margin-bottom: 0; color: #0a3d7e; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0; margin-bottom: 16px !important; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; word-wrap: normal;">Nueva Solicitud de contacto Tienda en Línea Telcel</h1>
+            </th></tr></tbody></table></th>
+          </tr></tbody></table>
+          <table class="row" style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; position: relative; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;">
+            <th class="small-12 large-12 columns first last" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0 auto; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 580px; word-wrap: break-word;"><table style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><th style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+              <p class="p-14" style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;"> Un cliente se ha puesto en contacto contigo, por favor revisa su caso y dale seguimiento</p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+
+              <p class="muted p-12" style="Margin: 0; Margin-bottom: 0; color: black; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;">Número de pedido: ${ctx.orderNumber}</p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+
+              <p class="muted p-12" style="Margin: 0; Margin-bottom: 0; color: black; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;">Nombre completo:
+                #if($ctx.StringUtils.isNotEmpty(${ctx.nombreCliente})) ${ctx.nombreCliente} #end #if($ctx.StringUtils.isNotEmpty(${ctx.apellidoPaterno})) ${ctx.apellidoPaterno} #end #if($ctx.StringUtils.isNotEmpty(${ctx.apellidoMaterno})) ${ctx.apellidoMaterno} #end</p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+
+              <p class="muted p-12" style="Margin: 0; Margin-bottom: 0; color: black; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;">Región: #if($ctx.StringUtils.isNotEmpty(${ctx.estado})) ${ctx.estado} #end</p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+
+              <p class="muted p-12" style="Margin: 0; Margin-bottom: 0; color: black; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;">Correo electrónico: #if($ctx.StringUtils.isNotEmpty(${ctx.customerEmail})) ${ctx.customerEmail} #end </p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+              
+              <p class="muted p-12" style="Margin: 0; Margin-bottom: 0; color: black; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;">Teléfono: #if($ctx.StringUtils.isNotEmpty(${ctx.telefonoContacto})) ${ctx.telefonoContacto} #end </p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+
+              <p class="muted p-12" style="Margin: 0; Margin-bottom: 0; color: black; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;">Caso/Categoría: #if($ctx.StringUtils.isNotEmpty(${ctx.consulta})) ${ctx.consulta} #end </p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+
+              <p class="muted p-12" style="Margin: 0; Margin-bottom: 0; color: black; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left;">Mensaje: #if($ctx.StringUtils.isNotEmpty(${ctx.comentarios})) ${ctx.comentarios} #end </p>
+              <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: auto !important;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="16" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+            </th>
+              <th class="expander" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0 !important; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; visibility: hidden; width: 0; word-wrap: break-word;"></th></tr></tbody></table></th>
+          </tr></tbody></table>
+        </td></tr></tbody></table>
+      </td></tr></tbody></table>
+
+
+
+      </center></td></tr>
+  </tbody></table>
+
+
+
+
+<table align="center" class="container" style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: inherit; vertical-align: top; width: 580px;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+  <table class="row" style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; position: relative; text-align: left; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><th class="small-12 large-12 columns first last" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0 auto; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0 auto; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 580px; word-wrap: break-word;"><table style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><th style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+    <div class="tienda_footer-disclaimer" style="border-top: solid 1px #e3e3e3; border-bottom: solid 1px #e3e3e3; font-size: 10px; margin: 16px 0 !important; padding: 16px 0 !important;">
+      <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center;">Telcel nunca te pedirá que reveles o verifiques tu contraseña de la Tienda en línea, tu número de tarjeta de crédito ni de tu cuenta bancaria. Si recibes por correo electrónico un enlace para actualizar la información de tu cuenta sin haberlo solicitado, no hagas clic en el enlace y repórtalo al número <a href="tel:8008352358" style="color: #0071d1; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-weight: bold; line-height: 1.3; padding: 0; text-align: left; text-decoration: none;">800 8352358</a> o al correo <a style="color: #0071d1; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-weight: bold; line-height: 1.3; padding: 0; text-align: left; text-decoration: none; white-space: nowrap;" href="mailto:tiendaenlinea@telcel.com">tiendaenlinea@telcel.com</a></p>
+    </div>
+
+    <div class="tienda_footer-saludos" style="font-size: 12px; margin-bottom: 16px !important;">
+      <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center;">Agradecemos tu confianza y esperamos volver a verte pronto</p>
+      <table class="spacer" style="border-collapse: collapse; border-spacing: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; width: 100%;"><tbody><tr style="padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top;"><td height="4" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 4px; font-weight: normal; hyphens: auto; line-height: 4px; margin: 0; mso-line-height-rule: exactly; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; word-wrap: break-word;">&nbsp;</td></tr></tbody></table>
+      <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center;">Tienda en línea Telcel</p>
+      <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: center;"><a href="https://www.telcel.com/" style="color: #0071d1; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-weight: 600; line-height: 1.3; padding: 0; text-align: left; text-decoration: none;">www.telcel.com</a></p>
+    </div>
+  </th>
+    <th class="expander" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: &#39;Source Sans Pro&#39;, sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0 !important; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; text-align: left; vertical-align: top; visibility: hidden; width: 0; word-wrap: break-word;"></th></tr></tbody></table></th></tr></tbody></table>
+</td></tr></tbody></table>
+
+
+
+<!-- prevent Gmail on iOS font size manipulation -->
+<div style="display:none; white-space:nowrap; font:15px courier; line-height:0;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div>
+
+
+
+</body></html>
