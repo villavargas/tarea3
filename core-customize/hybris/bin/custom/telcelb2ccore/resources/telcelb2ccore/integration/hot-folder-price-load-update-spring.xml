@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <bean id="baseDirectoryTelcel" class="java.lang.String">
+        <constructor-arg value="#{baseDirectory}/telcel/telcelprices"/>
+    </bean>
+
+    <!-- 1) Scan for files -->
+    <file:inbound-channel-adapter id="batchFilesPriceTelcel" directory="#{baseDirectoryTelcel}"
+                                  filename-regex="^(.*)-(\d+)\.csv" comparator="fileOrderComparator"
+                                  auto-startup="#{configurationService.configuration.getProperty('hotfolder.inbound.enabled')}">
+        <int:poller fixed-rate="1000"/>
+    </file:inbound-channel-adapter>
+
+    <!-- 2) move the file to processing and setup header -->
+    <file:outbound-gateway request-channel="batchFilesPriceTelcel" reply-channel="batchFilesPriceTelcelProc"
+                           directory="#{baseDirectoryTelcel}/processing" delete-source-files="true"/>
+    <int:service-activator input-channel="batchFilesPriceTelcelProc" output-channel="batchFilesHeaderInit"
+                           ref="telcelPriceHeaderSetupTask" method="execute"/>
+    <bean id="telcelPriceHeaderSetupTask"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="telcelProductCatalog"/>
+        <property name="net" value="false"/>
+        <property name="storeBaseDirectory" ref="baseDirectoryTelcel"/>
+    </bean>
+
+   <bean id="telcelTmaOneTimeProdOfferPriceChargeConverterMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="telcelprices"
+          p:converter-ref="telcelTmaOneTimeProdOfferPriceChargeConverter"/>
+
+    <bean id="tmaOneTimeProdOfferPriceChargeImpexHeader" class="java.lang.String">
+        <constructor-arg>
+            <value># Impex for importing data into $CATALOG$
+                $version=Staged
+                $productCatalog = telcelProductCatalog
+                $catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default=$version])[unique=true, default=$productCatalog:$version]
+                $currency = currency(isocode)[default = MXN]
+                $priceEvent = priceEvent(code)[default='paynow']
+                $product = product(sku, $catalogVersion)[unique = true]
+                $priority = priority[default = 200]
+                $price = price[default = 0.0]
+                $unit = unit(code)[default = pieces]
+            </value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="telcelTmaOneTimeProdOfferPriceChargeConverter"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{tmaOneTimeProdOfferPriceChargeImpexHeader}
+                INSERT_UPDATE TmaOneTimeProdOfferPriceCharge;id[unique = true];bpWoTaxes[default=0];basePricevalue[default=0];currentPPWoTaxes[default=0];value[default=0];$priceEvent;$currency;$catalogVersion
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+0}_{1}_MXN;{2};{3};{4};{5};;;</value>
+        </property>
+    </bean>
+
+   <bean id="telcelPriceRowConverterMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="telcelprices"
+          p:converter-ref="telcelpriceRowConverter"/>
+
+    <bean id="telcelpriceRowConverter"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{tmaOneTimeProdOfferPriceChargeImpexHeader}
+                INSERT_UPDATE PriceRow;code[unique = true];$product;ug(code)[allownull = true];$currency;$unit;$catalogVersion;productOfferingPrice(id, $catalogVersion);$priority;$price;
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+0}_{1}_pr;{0};{1};;;;{+0}_{1}_MXN;;</value>
+        </property>
+    </bean>
+
+    <bean id="telcelUpdateProductConverterMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="telcelprices"
+          p:converter-ref="telcelUpdateProductConverter"/>
+
+    <bean id="telcelUpdateProductConverter"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{tmaOneTimeProdOfferPriceChargeImpexHeader}
+                UPDATE TelcelPoVariant;sku[unique=true];updatePrice[default=true];$catalogVersion
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+0};;;</value>
+        </property>
+    </bean>
+</beans>
