@@ -1,0 +1,753 @@
+## messageSource=classpath:/telcelb2ccore/messages/email-productBackInStock_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+#set ($myinterestUrl = "${ctx.secureBaseUrl}/my-account/my-interests")
+#set ($productUrl = "${ctx.secureBaseUrl}${ctx.productData.url}")
+#set ($isForceInStock = ${ctx.productData.stock.stockLevelStatus.code} ==
+    "inStock" && !$ctx.productData.stock.stockLevel)
+#set( $ctxUrlImgRes = $ctx.mediaBaseUrl)
+#if($ctxUrlImgRes.contains("http:"))
+    #set( $ctxUrlImgRes = $ctxUrlImgRes.replace("http:", "https:"))
+    #set( $ctxUrlImgRes = $ctxUrlImgRes.replace("9001", "9002"))
+#end
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0065)https://telcel-ux.com/mails/Tienda_equipo-disponible-prepago.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" style="background: #ffffff !important;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="./Tienda_equipo-disponible-prepago_files/css2" rel="stylesheet">
+
+
+    <meta name="viewport" content="width=device-width">
+    <title></title>
+    <style>@media only screen {
+        html {
+            min-height: 100%;
+            background: #f3f3f3;
+        }
+    }
+
+    @media only screen and (max-width: 580px) {
+        table.body img {
+            width: auto;
+            height: auto;
+        }
+
+        table.body center {
+            min-width: 0 !important;
+        }
+
+        table.body .container {
+            width: 95% !important;
+        }
+
+        table.body .columns {
+            height: auto !important;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        table.body .columns .columns {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        table.body .collapse .columns {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        th.small-6 {
+            display: inline-block !important;
+            width: 50% !important;
+        }
+
+        th.small-12 {
+            display: inline-block !important;
+            width: 100% !important;
+        }
+
+        .columns th.small-12 {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        table.menu {
+            width: 100% !important;
+        }
+
+        table.menu td,
+        table.menu th {
+            width: auto !important;
+            display: inline-block !important;
+        }
+
+        table.menu.vertical td,
+        table.menu.vertical th {
+            display: block !important;
+        }
+
+        table.menu[align="center"] {
+            width: auto !important;
+        }
+    }
+
+    @media screen and (max-width: 39.9375em) {
+        .container {
+            width: 95% !important;
+        }
+    }
+
+    @media screen and (max-width: 39.9375em) {
+        .tienda--mis-pedidos .tienda--mis-pedidos---celda {
+            padding: 20px;
+        }
+
+        .tienda--mis-pedidos .tienda--mis-pedidos---celda th {
+            text-align: center !important;
+        }
+
+        .tienda--mis-pedidos .tienda--mis-pedidos---celda th p {
+            text-align: center !important;
+            background-color: #e5edf5 !important;
+        }
+    }
+
+    @media screen and (max-width: 39.9375em) {
+        .compra-exitosa--header img {
+            width: 32px !important;
+            height: 32px !important;
+        }
+    }
+
+    @media screen and (max-width: 39.9375em) {
+        .compra-no-exitosa--header img {
+            width: 32px !important;
+            height: 32px !important;
+        }
+    }
+
+    @media screen and (max-width: 39.9375em) {
+        .tienda--activa-tu-sim img {
+            width: 40px !important;
+            height: 40px !important;
+        }
+    }</style>
+</head>
+<body style="-moz-box-sizing: border-box; -ms-text-size-adjust: 100%; -webkit-box-sizing: border-box; -webkit-text-size-adjust: 100%; Margin: 0; background: #ffffff !important; box-sizing: border-box; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; min-width: 100%; padding: 0; text-align: left; width: 100% !important;">
+<span class="preheader"
+      style="color: #f3f3f3; display: none !important; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; mso-hide: all !important; opacity: 0; overflow: hidden; visibility: hidden;"></span>
+<table class="body"
+       style="Margin: 0; background: #ffffff !important; border-collapse: collapse; border-spacing: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; height: 100%; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+    <tbody>
+    <tr style="padding: 0; text-align: left; vertical-align: top;">
+        <td class="center" align="center" valign="top"
+            style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+            <center data-parsed="" style="min-width: 580px; width: 100%;">
+
+
+                <table align="center" class="wrapper header float-center"
+                       style="Margin: 0 auto; background: #ffffff; border-bottom: solid 1px #e3e3e3; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding: 0; text-align: center; vertical-align: top; width: 100%;">
+                    <tbody>
+                    <tr style="padding: 0; text-align: left; vertical-align: top;">
+                        <td class="wrapper-inner"
+                            style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 20px; text-align: left; vertical-align: top; word-wrap: break-word;">
+                            <table align="center" class="container"
+                                   style="Margin: 0 auto; background: transparent; border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding: 0; text-align: inherit; vertical-align: top; width: 580px;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                        <table class="row collapse"
+                                               style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <th class="small-6 large-6 columns first last"
+                                                    style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 290px;">
+                                                    <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+##                                                                <img id="logo-telcel"
+##                                                                     src="./Tienda_equipo-disponible-prepago_files/logo-telcel.png"
+##                                                                     style="-ms-interpolation-mode: bicubic; clear: both; display: block; height: 24px; max-width: 100%; outline: none; text-decoration: none; width: 124px;">
+                                                                ${ctx.cmsSlotContents.SiteLogoBackInStock}
+                                                            </th>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th>
+                                                <th class="tienda-logo--derecha-contenedor small-6 large-6 columns last"
+                                                    style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: right; width: 290px;">
+                                                    <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: right;">
+                                                                <a class="tienda-logo--derecha"
+                                                                   href="https://www.telcel.com/personas/equipos/telefonos-y-smartphones"
+                                                                   style="Margin: 0; color: #0a3d7e; float: right; font-family: 'Source Sans Pro', sans-serif; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left; text-decoration: none;">
+##                                                                    <img class="tienda-logo"
+##                                                                         src="./Tienda_equipo-disponible-prepago_files/group-3.png"
+##                                                                         style="-ms-interpolation-mode: bicubic; border: none; clear: both; display: block; float: left; height: 24px !important; margin-right: 4px; max-width: 100%; outline: none; text-decoration: none; width: 141px !important;">
+                                                                     ${ctx.cmsSlotContents.TiendaTelcelBackInStock}
+                                                                </a>
+                                                            </th>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="spacer float-center"
+                       style="Margin: 0 auto; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding: 0; text-align: center; vertical-align: top; width: 100%;">
+                    <tbody>
+                    <tr style="padding: 0; text-align: left; vertical-align: top;">
+                        <td height="24px"
+                            style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 24px; font-weight: normal; hyphens: auto; line-height: 24px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table align="center" class="container float-center"
+                       style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding: 0; text-align: center; vertical-align: top; width: 580px;">
+                    <tbody>
+                    <tr style="padding: 0; text-align: left; vertical-align: top;">
+                        <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                            <table class="row"
+                                   style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <th class="small-12 large-12 columns first last"
+                                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 580px;">
+                                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+##                                                    <img src="./Tienda_equipo-disponible-prepago_files/placeholder.jpg"
+##                                                         alt="TIENDA EN LINEA TELCEL"
+##                                                         style="-ms-interpolation-mode: bicubic; clear: both; display: block; max-width: 100%; outline: none; text-decoration: none; width: auto;">
+                                                    ${ctx.cmsSlotContents.PlaceholderBackInStock}
+                                                </th>
+                                                <th class="expander"
+                                                    style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0 !important; text-align: left; visibility: hidden; width: 0;"></th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table align="center" class="container float-center"
+                       style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding: 0; text-align: center; vertical-align: top; width: 580px;">
+                    <tbody>
+                    <tr style="padding: 0; text-align: left; vertical-align: top;">
+                        <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                            <table class="spacer"
+                                   style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <td height="16px"
+                                        style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="row"
+                                   style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <th class="small-12 large-11 columns first last"
+                                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 531.66667px;">
+                                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                    <h1 class="header--azul"
+                                                        style="Margin: 0; Margin-bottom: 0; color: #0a3d7e; font-family: 'Source Sans Pro', sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: left; word-wrap: normal;">
+                                                        Tu nuevo equipo te está esperando</h1>
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="spacer"
+                                   style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <td height="16px"
+                                        style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="row"
+                                   style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <th class="small-12 large-12 columns first last"
+                                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 580px;">
+                                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                    <h1 style="Margin: 0; Margin-bottom: 0; color: inherit; font-family: 'Source Sans Pro', sans-serif; font-size: 20px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: left; word-wrap: normal;">
+                                                        ¡Hola ${ctx.customerName}!</h1>
+                                                    <table class="spacer"
+                                                           style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <td height="16px"
+                                                                style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                                &nbsp;
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p class="p-14"
+                                                       style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: left;">
+                                                        Sabemos que estás buscando un ${ctx.modelo}&nbsp;${ctx.marca} y te tenemos una
+                                                        buena noticia.</p>
+                                                    <table class="spacer"
+                                                           style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <td height="24px"
+                                                                style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 24px; font-weight: normal; hyphens: auto; line-height: 24px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                                &nbsp;
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th>
+                                                <th class="expander"
+                                                    style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0 !important; text-align: left; visibility: hidden; width: 0;"></th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <table align="center" class="container float-center"
+                       style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; float: none; margin: 0 auto; padding: 0; text-align: center; vertical-align: top; width: 580px;">
+                    <tbody>
+                    <tr style="padding: 0; text-align: left; vertical-align: top;">
+                        <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                            <table class="row"
+                                   style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <th class="small-12 large-12 columns first last"
+                                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 580px;">
+                                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                    <table class="row detalle-del-pedido"
+                                                           style="border-bottom: solid 1px #e3e3e3; border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <th class="text-center small-12 large-1 columns first"
+                                                                style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0 !important; padding-right: 0 !important; text-align: center; width: 8.33333%;">
+                                                                <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                                    <tbody>
+                                                                    <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                        <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                                           #foreach($image in $ctx.productData.images)
+                                                                                #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                                                                                    <img class="detalle-de-pedido--equipo float-center"
+                                                                                         src="${ctxUrlImgRes}$image.url"
+                                                                                         style="-ms-interpolation-mode: bicubic; Margin: 0 auto; clear: both; display: block; float: none; margin: 0 auto; max-width: 100%; outline: none; text-align: center; text-decoration: none; width: 24px;">
+
+                                                                                #end
+                                                                            #end
+                                                                        </th>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </th>
+                                                            <th class="small-12 large-11 columns last"
+                                                                style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0 !important; padding-right: 0 !important; text-align: left; width: 91.66667%;">
+                                                                <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                                    <tbody>
+                                                                    <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                        <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                                            <table class="row"
+                                                                                   style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                                                                <tbody>
+                                                                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                                    <th class="small-12 large-12 columns first last"
+                                                                                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0 !important; padding-right: 0 !important; text-align: left; width: 100%;">
+                                                                                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                                                            <tbody>
+                                                                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                                                                    <h4 style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: 600; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: left; word-wrap: normal;">
+                                                                                                        ${ctx.productData.name}</h4>
+                                                                                                    <table class="spacer"
+                                                                                                           style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                                                                        <tbody>
+                                                                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                                                            <td height="4px"
+                                                                                                                style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 4px; font-weight: normal; hyphens: auto; line-height: 4px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                                                                                &nbsp;
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </th>
+                                                                                                <th class="expander"
+                                                                                                    style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0 !important; text-align: left; visibility: hidden; width: 0;"></th>
+                                                                                            </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </th>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <table class="row"
+                                                                                   style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                                                                <tbody>
+                                                                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                                    <th class="small-12 large-6 columns first"
+                                                                                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0 !important; padding-right: 0 !important; text-align: left; width: 50%;">
+                                                                                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                                                            <tbody>
+                                                                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                                                                    <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: left;">
+                                                                                                        #if($ctx.StringUtils.isNotEmpty(${ctx.productData.marca}))
+                                                                                                            ${ctx.productData.marca}&nbsp;|&nbsp;
+                                                                                                        #end
+                                                                                                        #if($ctx.ObjectUtils.isNotEmpty(${ctx.productData.capacidad}))
+                                                                                                            ${ctx.productData.capacidad.value}&nbsp;${ctx.productData.capacidad.unit}&nbsp;|&nbsp;
+                                                                                                        #end
+                                                                                                        #if($ctx.StringUtils.isNotEmpty(${ctx.productData.color}))
+                                                                                                            ${ctx.productData.color}
+                                                                                                        #end
+##                                                                                                        #if($ctx.ObjectUtils.isNotEmpty(${entry.esquemaCobro}))
+##                                                                                                            ${entry.esquemaCobro.name}
+##                                                                                                        #end
+                                                                                                        #if(${ctx.productData.includeGift})
+                                                                                                            <br> Incluye regalo
+                                                                                                        #end
+                                                                                                    </p>
+                                                                                                    <table class="spacer"
+                                                                                                           style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                                                                        <tbody>
+                                                                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                                                            <td height="16px"
+                                                                                                                style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 16px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                                                                                &nbsp;
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </th>
+                                                                                            </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </th>
+##                                                                                    <th class="small-12 large-6 columns last"
+##                                                                                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0 !important; padding-right: 0 !important; text-align: left; width: 50%;">
+##                                                                                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+##                                                                                            <tbody>
+##                                                                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+##                                                                                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+##                                                                                                    <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: left;">
+##                                                                                                        Promoción:
+##                                                                                                        <strong>Incluye
+##                                                                                                            500
+##                                                                                                            MB</strong>
+##                                                                                                    </p>
+##                                                                                                </th>
+##                                                                                            </tr>
+##                                                                                            </tbody>
+##                                                                                        </table>
+##                                                                                    </th>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </th>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </th>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table align="center" class="container"
+                                   style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding: 0; text-align: inherit; vertical-align: top; width: 580px;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                        <table class="spacer"
+                                               style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <td height="14px"
+                                                    style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 14px; font-weight: normal; hyphens: auto; line-height: 14px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="row tienda--mis-pedidos"
+                                               style="background-color: #e5edf5; border: 0; border-collapse: collapse; border-spacing: 0; display: table; min-height: 75px; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <th class="tienda--mis-pedidos---celda small-12 large-8 columns first"
+                                                    valign="middle"
+                                                    style="Margin: 0 auto; border: solid 16px #e5edf5; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 386.66667px;">
+                                                    <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                                <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 14px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: left;">
+                                                                    <strong>¡Ya está disponible en la Tienda en línea
+                                                                        Telcel!</strong></p>
+                                                            </th>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th>
+                                                <th class="tienda--mis-pedidos---celda tienda--mis-pedidos-espacio small-12 large-4 columns last"
+                                                    valign="middle"
+                                                    style="Margin: 0 auto; border: solid 16px #e5edf5; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 193.33333px;">
+                                                    <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                                                <div>
+                                                                    <!--[if mso]>
+                                                                    <div style="text-align: right; border: solid 16px #e5edf5;">
+                                                                        <v:roundrect
+                                                                                xmlns:v="urn:schemas-microsoft-com:vml"
+                                                                                xmlns:w="urn:schemas-microsoft-com:office:word"
+                                                                                href="${productUrl}"
+                                                                                style="height:40px;v-text-anchor:middle;width:200px;"
+                                                                                arcsize="10%" stroke="f"
+                                                                                fillcolor="#7b1fa2">
+                                                                            <w:anchorlock/>
+                                                                            <center style="color:#ffffff;font-family:sans-serif;font-size:16px;font-weight:bold;">
+                                                                                Inicia tu compra
+                                                                            </center>
+                                                                        </v:roundrect>
+                                                                    </div>
+                                                                    <![endif]-->
+                                                                    <!--[if !mso]> <!-->
+                                                                    <table cellspacing="0" cellpadding="0"
+                                                                           style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                                        <tbody>
+                                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                                            <td align="center" height="40"
+                                                                                bgcolor="#7b1fa2"
+                                                                                style="-moz-border-radius: 5px; -moz-hyphens: auto; -webkit-border-radius: 5px; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; border-radius: 5px; color: #ffffff; display: block; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                                                <a href="${productUrl}"
+                                                                                   style="Margin: 0; background-color: #7b1fa2; border-radius: 4px; color: #ffffff; display: inline-block; float: right; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: bold; line-height: 40px; margin: 0; padding: 0; text-align: center; text-decoration: none; white-space: nowrap; width: 100%;">
+                                                                                    Inicia tu compra
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!-- <![endif]-->
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="spacer"
+                                               style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <td height="48px"
+                                                    style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 48px; font-weight: normal; hyphens: auto; line-height: 48px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table align="center" class="container"
+                                   style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding: 0; text-align: inherit; vertical-align: top; width: 580px;">
+                                <tbody>
+                                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                    <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+
+                                        <table class="row tienda--marcacion-800"
+                                               style="background-color: #e5edf5; border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <th class="tienda--marcacion-800---columna small-12 large-12 columns first last"
+                                                    style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 8px 0; padding-bottom: 8px; padding-left: 0; padding-right: 0; text-align: left; width: 580px;">
+                                                    <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                        <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                            <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; padding-bottom: 0; text-align: left;">
+                                                                <table style="background-color: #e5edf5; border-collapse: collapse; border-spacing: 0; padding: 8px; text-align: center; vertical-align: top; width: 100%;">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: center; vertical-align: top; word-wrap: break-word;">
+                                                                            <span style="font-size: 12px; color: #222222;"><strong>¿Necesitas ayuda?</strong> Comunícate a Atención a clientes al <a
+                                                                                    href="tel:8008352358"
+                                                                                    style="Margin: 0; color: #0071d1; font-family: 'Source Sans Pro', sans-serif; font-weight: bold; line-height: 1.3; margin: 0; padding: 0; text-align: left; text-decoration: none;">800 8352358</a></span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </th>
+                                                            <th class="expander"
+                                                                style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0 !important; padding-bottom: 0; text-align: left; visibility: hidden; width: 0;"></th>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </center>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<table align="center" class="container"
+       style="Margin: 0 auto; background: #fefefe; border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding: 0; text-align: inherit; vertical-align: top; width: 580px;">
+    <tbody>
+    <tr style="padding: 0; text-align: left; vertical-align: top;">
+        <td style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+            <table class="row"
+                   style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%;">
+                <tbody>
+                <tr style="padding: 0; text-align: left; vertical-align: top;">
+                    <th class="small-12 large-12 columns first last"
+                        style="Margin: 0 auto; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0 auto; padding: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; text-align: left; width: 580px;">
+                        <table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                            <tbody>
+                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                <th style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left;">
+                                    <div class="tienda_footer-disclaimer"
+                                         style="border-bottom: solid 1px #e3e3e3; font-size: 10px; margin: 16px 0; padding: 16px 0;">
+                                        <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: center;">
+                                            Telcel nunca te pedirá que reveles o verifiques tu contraseña de la Tienda
+                                            en línea, tu número de tarjeta de crédito ni de tu cuenta bancaria. Si
+                                            recibes por correo electrónico un enlace para actualizar la información de
+                                            tu cuenta sin haberlo solicitado, no hagas clic en el enlace y repórtalo al
+                                            número <a href="tel:8008352358"
+                                                      style="Margin: 0; color: #0071d1; font-family: 'Source Sans Pro', sans-serif; font-weight: bold; line-height: 1.3; margin: 0; padding: 0; text-align: left; text-decoration: none;">800
+                                            8352358</a> o al correo <a
+                                                style="Margin: 0; color: #0071d1; font-family: 'Source Sans Pro', sans-serif; font-weight: bold; line-height: 1.3; margin: 0; padding: 0; text-align: left; text-decoration: none;"
+                                                href="mailto:tiendaenlinea@telcel.com">tiendaenlinea@telcel.com</a></p>
+                                    </div>
+
+                                    <div class="tienda_footer-saludos" style="font-size: 12px; margin-bottom: 16px;">
+                                        <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: center;">
+                                            Gracias por preferir la Tienda en Línea Telcel</p>
+                                        <table class="spacer"
+                                               style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%;">
+                                            <tbody>
+                                            <tr style="padding: 0; text-align: left; vertical-align: top;">
+                                                <td height="4px"
+                                                    style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 4px; font-weight: normal; hyphens: auto; line-height: 4px; margin: 0; mso-line-height-rule: exactly; padding: 0; text-align: left; vertical-align: top; word-wrap: break-word;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: center;">
+                                            Tienda en línea Telcel</p>
+                                        <p style="Margin: 0; Margin-bottom: 0; color: #222222; font-family: 'Source Sans Pro', sans-serif; font-size: 12px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 0; padding: 0; text-align: center;">
+                                            <a href="https://www.telcel.com/"
+                                               style="Margin: 0; color: #0071d1; font-family: 'Source Sans Pro', sans-serif; font-weight: 600; line-height: 1.3; margin: 0; padding: 0; text-align: left; text-decoration: none;">www.telcel.com</a>
+                                        </p>
+                                    </div>
+                                </th>
+                                <th class="expander"
+                                    style="Margin: 0; color: #0a0a0a; font-family: 'Source Sans Pro', sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding: 0 !important; text-align: left; visibility: hidden; width: 0;"></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!-- prevent Gmail on iOS font size manipulation -->
+<div style="display:none; white-space:nowrap; font:15px courier; line-height:0;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+</div>
+
+
+</body>
+</html>
