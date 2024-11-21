@@ -1,0 +1,181 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+$storeUid = telcel
+$siteUid = telcel
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+$catalogVersionOnline = catalogversion(catalog(id[default=$productCatalog]), version[default='Online'])[unique=true, default=$productCatalog:Online]
+$jarResourceCmsTelcelLdap = jar:mx.com.telcel.initialdata.setup.InitialDataSystemSetup&/telcelb2cinitialdata/import/coredata/ldap
+
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+# Import modulegen config properties into impex macros
+$jarResource = $config-system.current.environment
+
+######### Item Cleanup CronJobs START #########
+INSERT_UPDATE FlexibleSearchRetentionRule; code[unique = true]                   ; searchQuery                                                                                                                                                                                                                                                          ; actionReference                            ; retentionTimeSeconds
+# Find all deactivated not processed customers owning orders and past retention date (2 days) without retention state. Remove related objects of the found customers and set the their retention state to 'PROCESSED'.
+                                         ; customersWithOrdersFSRetentionRule    ; SELECT DISTINCT {c.pk}, {c.itemtype} FROM {Customer AS c JOIN Order AS o on {c.pk} = {o.user}} WHERE {c.deactivationDate} < ?CALC_RETIREMENT_TIME and {c.retentionState} IS NULL                                                                                     ; customerCleanupRelatedObjectsAction        ; 172800
+# Find and remove all deactivated customers not owning any order currently and the current date has past deactivation date+retention date (2 days).
+                                         ; customersWithoutOrdersFSRetentionRule ; SELECT DISTINCT {c:PK}, {c.itemtype} FROM {Customer AS c} WHERE {c:PK} NOT IN ({{SELECT {c1.pk} FROM {Customer AS c1 JOIN Order AS o on {c1.pk} = {o.user}} WHERE {c1.deactivationDate} < ?CALC_RETIREMENT_TIME }}) AND {c.deactivationDate} < ?CALC_RETIREMENT_TIME ; customerNotOwningOrdersRemoveCleanupAction ; 172800
+# Find and remove all expired orders (10 years)
+                                         ; ordersFSRetentionRule                 ; SELECT DISTINCT {pk}, {itemtype} FROM {Order} WHERE {expirationTime} < ?CALC_RETIREMENT_TIME                                                                                                                                                                         ; orderRemoveCleanupAction                   ; 315576000
+# Find and remove all expired tickets (1 year from retentionDate) which customers have been processed.
+                                         ; ticketsFSRetentionRule                ; SELECT DISTINCT {t.pk}, {t.itemtype} FROM {CsTicket as t} WHERE {t.retentionDate} < ?CALC_RETIREMENT_TIME                                                                                                                                                            ; csTicketRemoveCleanupAction                ; 31557600
+# Find and close all non-closed tickets which weren't updated for some period (90 days)
+                                         ; ticketsFSStagnationRule               ; SELECT DISTINCT {t.pk}, {t.itemtype},{t.state} FROM {CsTicket as t} where {t.modifiedtime} < ?CALC_RETIREMENT_TIME AND {t.state} IN ({{SELECT {s.pk} FROM {CsTicketState as s} WHERE {s.code} IN ('New', 'Open')}})                                                  ; csTicketStagnationAction                   ; 7776000
+
+# FS JOB
+INSERT_UPDATE RetentionJob; code[unique = true]                ; retentionRule(code)                   ; batchSize[default = 100]
+                          ; customersWithOrdersRetentionJob    ; customersWithOrdersFSRetentionRule    ;
+                          ; customersWithoutOrdersRetentionJob ; customersWithoutOrdersFSRetentionRule ;
+                          ; ordersRetentionJob                 ; ordersFSRetentionRule                 ;
+                          ; ticketsRetentionJob                ; ticketsFSRetentionRule                ;
+                          ; ticketsFSStagnationJob             ; ticketsFSStagnationRule               ;
+
+# FS CRON JOB
+INSERT_UPDATE CronJob; code[unique = true]                    ; job(code)                          ; sessionLanguage(isoCode)[default = en]
+                     ; customersWithOrdersRetentionCronJob    ; customersWithOrdersRetentionJob    ;
+                     ; customersWithoutOrdersRetentionCronJob ; customersWithoutOrdersRetentionJob ;
+                     ; ordersRetentionCronJob                 ; ordersRetentionJob                 ;
+                     ; ticketsRetentionCronJob                ; ticketsRetentionJob                ;
+                     ; ticketsStagnationJob                   ; ticketsFSStagnationJob             ;
+
+# Run CronJobs at 3:05 AM every day
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]           ; second[default = 0]; minute[default = 5]; hour[default = 3]; day[default = -1]; month[default = -1]; year[default = -1]; relative[default = false]; active[default = false]; maxAcceptableDelay[default = -1]
+                     ; customersWithOrdersRetentionCronJob    ;
+                     ; customersWithoutOrdersRetentionCronJob ;
+                     ; ordersRetentionCronJob                 ;
+                     ; ticketsRetentionCronJob                ;
+# Run the CloseStagnantServiceTicketsJob at 12:05 AM every day
+                     ; ticketsStagnationJob                   ;                    ;                    ; 12               ; 0                ;                    ;                   ;                          ; true                   ;
+
+INSERT_UPDATE CronJob; code[unique = true]; job(code)                 ; singleExecutable; sessionLanguage(isocode)
+                     ; masVendidosCronJob ; masVendidosJobPerformable ; false           ; en
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+# Run the full-telcospaIndex-cronJob at 3:20 AM every day
+                     ; masVendidosCronJob          ; 0     ; 20    ; 3   ; -1 ; -1   ; -1  ; false   ; false ; -1
+
+INSERT_UPDATE CronJob; code[unique = true]  ; job(code)                   ; singleExecutable; sessionLanguage(isocode)
+                     ; esquemasCobroCronJob ; esquemasCobroJobPerformable ; false           ; en
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; esquemasCobroCronJob        ; 0     ; 0     ; 6   ; -1 ; -1   ; -1  ; false   ; false ; -1
+
+# Telcel Stock CronJob
+INSERT_UPDATE ServicelayerJob; code[unique = true]          ; springId                     ;
+                             ; replicateStockJobPerformable ; replicateStockJobPerformable ;
+
+INSERT_UPDATE TelcelStockReplicationCronJob; code[unique = true]                ; active; job(code)                    ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); nodeGroup             ; $catalogVersionOnline
+                                           ; "Replicacion de stock cada 20 min" ; true  ; replicateStockJobPerformable ;                                       ; USD                     ; admin           ; "backofficeNodeGroup" ;
+
+#INSERT_UPDATE Trigger; cronJob(code)[unique = true]       ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+#                     ; "Replicacion de stock cada 20 min" ; 0     ; 20    ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]       ; cronExpression[unique = true]
+                     ; "Replicacion de stock cada 20 min" ; 0 0/20 * * * ?
+
+# Telcel Replicate SamlUserGroup CronJob
+INSERT_UPDATE ServicelayerJob; code[unique = true]                   ; springId                              ;
+                             ; replicateUserGroupsForSamlPerformable ; replicateUserGroupsForSamlPerformable ;
+
+INSERT_UPDATE TelcelStockReplicationCronJob; code[unique = true]           ; active; job(code)                             ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); $catalogVersionOnline
+                                           ; "Replicacion User Group Saml" ; true  ; replicateUserGroupsForSamlPerformable ;                                       ; USD                     ; admin           ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]  ; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; "Replicacion User Group Saml" ; 0     ; 20    ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+# Telcel Order Forwarding CronJob
+#INSERT_UPDATE ServicelayerJob; code[unique = true]              ; springId                         ;
+#                             ; telcelOrderForwardingPerformable ; telcelOrderForwardingPerformable ;
+#
+#INSERT_UPDATE TelcelOrderForwardingCronJob; code[unique = true]         ; active; job(code)                        ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); store(uid); site(uid)
+#                                          ; "Reenvio de ordenes telcel" ; true  ; telcelOrderForwardingPerformable ;                                       ; USD                     ; admin           ; $storeUid ; $siteUid
+#
+#
+#INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+#                     ; "Reenvio de ordenes telcel" ; 0     ; 0     ; 1   ; -1 ; -1   ; -1  ; false   ; false ; -1
+
+INSERT_UPDATE CronJob; code[unique = true]; job(code)                    ; singleExecutable; sessionLanguage(isocode)
+                     ; pendingPaymentJob  ; pendingPaymentJobPerformable ; false           ; en
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; second; minute; hour; day; month; year; relative; active; maxAcceptableDelay
+                     ; pendingPaymentJob           ; 0     ; 60    ; -1  ; -1 ; -1   ; -1  ; true    ; false ; -1
+
+
+#Cron Job LDAP
+#TODO: especificar catalogo para tomar el atributo configFile(code)
+#INSERT_UPDATE ConfigurationMedia; code[unique = true]   ; $catalogVersion; mime            ; realfilename      ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#                                ; ldapHybrisMappingFile ;                ; application/xml ; configuration.xml ; $jarResourceCmsTelcelLdap/configuration.xml                                 ;
+#
+#INSERT_UPDATE LDIFGroupImportJob; code[unique = true]; active; sessionUser(uid); sessionLanguage(isoCode); logLevelFile(code)
+#                                ; ImportUsersJob     ; true  ; admin           ; en                      ; INFO
+#
+#INSERT_UPDATE LDIFGroupImportCronJob; code[unique = true]       ; job(code)      ; searchbase        ; ldapquery       ; resultfilter                                                                             ; userSearchFieldQualifier; userRootDN                                  ; userResultfilter                                                                         ; importUsers; codeExecution; configFile(code) ; active; sessionUser(uid); sessionLanguage(isoCode); requestAbort; logLevelFile(code)
+#                                    ; ad_user_importJob_Central ; ImportUsersJob ; o=Tienda,o=telcel ; (objectClass=*) ; employeeNumber, objectClass, title, cn,actualdn,ldapaccount,perfilTiendaEnL,memberof,uid,telcelregion,telceluser ; employeeNumber          ; uid=TiendaLinea,ou=people,o=Tienda,o=telcel ; employeeNumber, objectClass, title, cn,actualdn,ldapaccount,perfilTiendaEnL,memberof,uid,telcelregion,telceluser ; 1          ; 1            ; ldapHybrisMappingFile ; true  ; admin           ; en                      ; true        ; INFO
+#                                    ; ad_user_importJob_Central ; ImportUsersJob ; o=Tienda,o=telcel ; (uid=18703) ; employeeNumber, objectClass, title, cn,actualdn,ldapaccount,perfilTiendaEnL,memberof,uid,telcelregion,telceluser ; employeeNumber          ; uid=TiendaLinea,ou=people,o=Tienda,o=telcel ; employeeNumber, objectClass, title, cn,actualdn,ldapaccount,perfilTiendaEnL,memberof,uid,telcelregion,telceluser ; 1          ; 1            ; ldapHybrisMappingFile ; true  ; admin           ; en                      ; true        ; INFO
+
+#INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression[unique = true]
+#                     ; ad_user_importJob_Central   ; 0 0 17 1/1 * ? *
+
+
+# Telcel Stock CronJob
+INSERT_UPDATE ServicelayerJob; code[unique = true]            ; springId                       ;
+                             ; telcelUpdateLDIFGroupImportJob ; telcelUpdateLDIFGroupImportJob ;
+
+INSERT_UPDATE TelcelStockReplicationCronJob; code[unique = true]     ; active; job(code)                      ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); $catalogVersionOnline
+                                           ; "update-ldap-employees" ; true  ; telcelUpdateLDIFGroupImportJob ;                                       ; USD                     ; admin           ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression[unique = true]
+                     ; "update-ldap-employees"     ; 0 30 7 1/1 * ? *
+                     ; "update-ldap-employees"     ; 0 30 12 1/1 * ? *
+                     ; "update-ldap-employees"     ; 0 30 17 1/1 * ? *
+
+
+# Telcel Create Request Pickup
+INSERT_UPDATE ServicelayerJob; code[unique = true]                  ; springId                             ;
+                             ; telcelCreateRequestPickupPerformable ; telcelCreateRequestPickupPerformable ;
+
+INSERT_UPDATE TelcelCreateRequestPickupCronJob; code[unique = true]              ; active; job(code)                            ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); warehouses(code)
+                                              ; "Create Request Pickup"          ; true  ; telcelCreateRequestPickupPerformable ;                                       ; USD                     ; admin           ;
+                                              ; "Create Request Pickup OnDemand" ; true  ; telcelCreateRequestPickupPerformable ;                                       ; USD                     ; admin           ; VL01_CDMX
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression[unique = true]; hour; minute; warehouses(code);
+                     ; "Create Request Pickup"     ; 0 55 12 1/1 * ? *            ; 12  ; 55    ; CD07_Mochis,CD06_Culiacan,VL01_Monterrey,CD01_Monterrey,CD07_Tampico,CD10_Reynosa,CD16_Tepic,VL01_Queretaro,CD02_Queretaro,CD03_Leon,CD04_Acapulco,CD04_Villahermosa,CD03_Tapachula,VL01_Chihuahua,CD01_Chihuahua,CD20_Colima
+                     ; "Create Request Pickup"     ; 0 55 11 1/1 * ? *            ; 11  ; 55    ; RU04_Torreon,CD03_Torreon,CD18_Morelia,VL01_Puebla,CD01_Puebla
+                     ; "Create Request Pickup"     ; 0 25 13 1/1 * ? *            ; 13  ; 25    ; RU03_Juarez,CD02_Juarez
+                     ; "Create Request Pickup"     ; 0 25 16 1/1 * ? *            ; 16  ; 25    ; VL01_CDMX
+                     ; "Create Request Pickup"     ; 0 55 13 1/1 * ? *            ; 13  ; 55    ; CD16_Saltillo,CD05_Veracruz,VL01_Guadalajara,CD01_Guadalajara
+                     ; "Create Request Pickup"     ; 0 25 10 1/1 * ? *            ; 10  ; 25    ; CD03_CANCUN
+
+                     ; "Create Request Pickup"     ; 0 25 11 1/1 * ? *            ; 11  ; 25    ; VL01_Tijuana,CD01_Tijuana,VL01_Hermosillo,CD01_Hermosillo,CD05_Aguascaliente
+                     ; "Create Request Pickup"     ; 0 55 2 1/1 * ? *             ; 2   ; 55    ; CD04_San_Luis_Potosi,CD06_Zacatecas,CD02_Tuxtla
+                     ; "Create Request Pickup"     ; 0 55 4 1/1 * ? *             ; 4   ; 55    ; CD09_Oaxaca
+                     ; "Create Request Pickup"     ; 0 25 12 1/1 * ? *            ; 12  ; 25    ; VL01_Merida,CD01_Merida
+
+
+# Telcel Payment 3DS ( Timer 5 minutes )  CronJob
+INSERT_UPDATE ServicelayerJob; code[unique = true]                 ; springId                            ;
+                             ; telcelTimerPayment3dsJobPerformable ; telcelTimerPayment3dsJobPerformable ;
+
+INSERT_UPDATE TelcelStockReplicationCronJob; code[unique = true]          ; active; job(code)                           ; sessionLanguage(isoCode)[default = en]; sessionCurrency(isocode); sessionUser(uid); nodeGroup             ; $catalogVersionOnline
+                                           ; "TelcelListenerTimerPayment" ; true  ; telcelTimerPayment3dsJobPerformable ;                                       ; USD                     ; admin           ; "backofficeNodeGroup" ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true] ; cronExpression[unique = true]
+                     ; "TelcelListenerTimerPayment" ; 0 0/5 * * * ?
+
+INSERT_UPDATE CronJob; code[unique = true]     ; job(code)                          ; singleExecutable; sessionLanguage(isocode); active
+                     ; activacionCronJob       ; activacionJobPerformable           ; false           ; en                      ; true
+                     ; liberaRecursosTelcelJob ; liberaRecursosTelcelJobPerformable ; false           ; en                      ; true
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression; active; maxAcceptableDelay
+                     ; activacionCronJob           ; 0 0/5 * * * ? ; true  ; -1
+                     ; liberaRecursosTelcelJob     ; 0 0/5 * * * ? ; true  ; -1
+
+# Configuracion CRONJOB PARA LIBERACION DE RECURSOS POR CONSIGMENT
+INSERT_UPDATE TelcelReleaseResourcesByConsignmentCronJob;code[unique = true];active;job(code);sessionLanguage(isoCode)[default = en];sessionCurrency(isocode);sessionUser(uid);nodeGroup;
+;"Libera recursos por Consignment Manualmente";true;releaseResourcesByConsignmentJobPerformable;;USD;admin;"backofficeNodeGroup";
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true];cronExpression[unique = true]
+                     ;"Libera recursos por Consignment Manualmente" ; 0 0/20 * * * ?
