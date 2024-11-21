@@ -1,0 +1,9 @@
+[ {
+  "basePath" : "/examplehac",
+  "mainTabLabel" : "Neoris extension",
+  "subTabs" : [ {
+    "path" : "/renameTomcatLog/",
+    "label" : "Rename Tomcat Log",
+    "skipPrefix" : false
+  }]
+} ]
