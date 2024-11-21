@@ -1,0 +1,58 @@
+<hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
+	<extensions>
+		<path dir='${HYBRIS_BIN_DIR}' autoload='false' />
+		<extension name="acceleratorcms"/>
+		<extension name="adaptivesearchbackoffice"/>
+		<extension name="adaptivesearchsolr"/>
+		<extension name="addonsupport"/>
+		<extension name="b2ctelcobackoffice"/>
+		<extension name="b2ctelcocms"/>
+		<extension name="b2ctelcospastore"/>
+		<extension name="b2ctelcotmfwebservices"/>
+		<extension name="b2ctelcowebservices"/>
+		<extension name="b2ctelcocommercewebservicescommons"/>
+		<extension name="b2ctelcoocc"/>
+		<extension name="b2ctelcoserviceabilityclient"/>
+		<extension name="commerceservicesbackoffice"/>
+		<extension name="solrfacetsearchbackoffice"/>
+		<extension name="solrserver"/>
+		<extension name="subscriptionbackoffice"/>
+		<extension name="commercewebservices"/>
+		<extension name="cmsbackoffice"/>
+		<extension name="cmswebservices"/>
+		<extension name="previewwebservices"/>
+		<extension name="smarteditwebservices"/>
+		<extension name="cmssmarteditwebservices"/>
+		<extension name="permissionswebservices"/>
+		<extension name="cmssmartedit"/>
+		<extension name="cmsocc"/>
+		<extension name="backofficesolrsearch"/>
+		<extension name="acceleratorocc"/>
+		<extension name="customersupportbackoffice"/>
+		<extension name="personalizationwebservices"/>
+		<extension name="previewpersonalizationweb"/>
+		<extension name="personalizationcmsweb"/>
+		<extension name="personalizationsmartedit"/>
+		<extension name="personalizationservicesbackoffice"/>
+		<extension name="personalizationcmsbackoffice"/>
+		<extension name="personalizationservices"/>
+		<extension name="personalizationfacades"/>
+		<extension name="acceleratorservices"/>
+		<extension name="assistedservicefacades"/>
+		<extension name="rulebuilderbackoffice"/>
+		<extension name="couponbackoffice"/>
+		<extension name="droolsruleengineservices"/>
+		<extension name="couponfacades"/>
+		<extension name="couponservices"/>
+		<extension name="b2ctelcoserviceabilityclient"/>
+		<extension name='telcelb2cbackoffice' />
+		<extension name='telcelb2cfulfilmentprocess' />
+		<extension name='telcelb2ccore' />
+		<extension name='telcelb2cfacades' />
+		<extension name='telcelb2cinitialdata' />
+		<extension name='telcelb2cwebservices' />
+		<!--<extension name='telcelcommercewebservices' />-->
+		<!--<extension name="zcommercewebservices" />-->
+		<!--<extension name="cmsoccaddon" />-->
+	</extensions>
+</hybrisconfig>
