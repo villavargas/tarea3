@@ -1,0 +1,13 @@
+## Rastreo Pedido page (/rastreo-pedido)
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name               ; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false']
+;                          ; RastreoPedido      ; Rastreo Pedido Page ; AccountPageTemplate            ; /rastreo-pedido
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]           ; name               ; cmsComponents(uid, $contentCV)
+;                          ; BodyContentSlot-rastreoPedido ; Rastreo Pedido Slot ; RastreoPedidoComponent
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]       ; position[unique = true]; page(uid, $contentCV)[unique = true]; contentSlot(uid, $contentCV)[unique = true]
+;                          ; BodyContent-rastreoPedido ; BodyContent            ; RastreoPedido                        ; BodyContentSlot-rastreoPedido
+
+INSERT_UPDATE CMSFlexComponent; $contentCV[unique = true]; uid[unique = true]    ; name                    ; flexType
+;                          ; RastreoPedidoComponent ; Rastreo Pedido Component ; RastreoPedido
+## Rastreo Pedido page (/rastreo-pedido) END
