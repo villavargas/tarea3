@@ -1,0 +1,41 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$approved = approvalstatus(code)[default = 'approved']
+$supercategories = supercategories(code, $catalogVersion)
+$channels = distributionChannels(code)
+
+# Additional Service Product attributes models
+
+INSERT_UPDATE AdditionalServiceType;code[unique=true]
+;recarga_inicial
+
+# Additional Service Products
+INSERT_UPDATE TelcelAdditionalServiceProductOffering;code[unique=true];type(code);unit(code)[default=pieces];variantType(code);ean;soldIndividually;$channels;sku;sapAlternativo;default;$supercategories;$approved;$catalogVersion
+;recarga_inicial_activacion_esq_0_50;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;81001948;81001948;false;1
+;recarga_inicial_activacion_esq_0_80;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;81001949;81001949;false;1
+;recarga_inicial_activacion_esq_0_150;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;81001950;81001950;false;1
+;recarga_inicial_activacion_esq_1_20;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1004441;1004441;false;1
+;recarga_inicial_activacion_esq_1_30;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1004241;1004241;false;1
+;recarga_inicial_activacion_esq_1_50;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1003761;1003761;true;1
+;recarga_inicial_activacion_esq_1_80;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1005042;1005042;false;1
+;recarga_inicial_activacion_esq_1_100;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1003721;1003721;false;1
+;recarga_inicial_activacion_esq_1_150;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1003722;1003722;false;1
+;recarga_inicial_activacion_esq_1_200;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1003723;1003723;false;1
+;recarga_inicial_activacion_esq_1_300;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1003724;1003724;false;1
+;recarga_inicial_activacion_esq_1_500;recarga_inicial;;TmaPoVariant;;true;desktop,mobile;1003725;1003725;false;1
+
+
+UPDATE TelcelAdditionalServiceProductOffering;code[unique=true];sku;esquemaCobro(code);$approved;$catalogVersion
+                                             ;recarga_inicial_activacion_esq_1_20;;;check;
+                                             ;recarga_inicial_activacion_esq_1_30;;;check;
+                                             ;recarga_inicial_activacion_esq_1_50;1003761;ASL;
+                                             ;recarga_inicial_activacion_esq_1_80;;;check;
+                                             ;recarga_inicial_activacion_esq_1_100;1003721;ASL;
+                                             ;recarga_inicial_activacion_esq_1_150;;;check;
+                                             ;recarga_inicial_activacion_esq_1_200;;;check;
+                                             ;recarga_inicial_activacion_esq_1_300;;;check;
+                                             ;recarga_inicial_activacion_esq_1_500;;;check;
