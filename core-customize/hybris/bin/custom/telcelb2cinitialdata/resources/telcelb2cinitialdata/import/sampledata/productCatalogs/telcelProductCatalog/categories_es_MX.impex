@@ -1,0 +1,393 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+#******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+# ImpEx for Importing Categories into Telcel Store
+
+
+# Macros / Replacement Parameter definitions
+$productCatalog = telcelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+
+# Language
+$lang = es_MX
+
+## ImpEx for Importing Categories into telco Store (English)
+UPDATE Category; code[unique = true]        ;name[lang = $lang]		    ;titleSeo[default='Telcel Tienda en línea']					;descriptionSeo[default='']	; $catalogVersion
+; telefonos-y-smartphones   ;Teléfonos y Smartphones	;Smartphones y Teléfonos - Es Momento de estrenar | Telcel	;Encuentra tu nuevo smartphone, tu primer celular con la más amplia gama y precios sorprendentes en Telcel Tienda en Línea. ¡Estrena el Tuyo Ahora!
+; tablets                   ;Tabletas					;Tabletas - Encuentra diferentes marcas | Telcel Tienda		;Encuentra Tabletas Huawei, Samsung y muchas más en Telcel Tienda con precios sorprendentes. Llévatela con el Plan de Internet que más te convenga.
+; vida_conectada            ;Vida Conectada			    ;Smart Watch y GPS - Mantente Conectado | Vida Conectada	;En Telcel Tienda en Línea tenemos disponibles diferentes modelos de Smartwatch y GPS de tus marcas favoritas. Llévatelos como Adicional a tu Plan o Amigo.
+; internet_movil            ;Internet Móvil			    ;Internet Móvil - Conectate con la Red Wifi Móvil Telcel	;Con red Wifi Móvil Telcel conectate desde cualquier sitio y navega sin restricción o interrupciones. Internte Móvil en tus manos.
+; accesorios                ;Accesorios				    ;Tienda de accesorios para smartphone y hogar | Telcel		;En nuestra tienda de accesorios encuentra todo lo necesario para equipar tu casa con cámaras de seguridad wifi o encuentra tus audifonos bluetooth.
+; renueva_plan              ;Renueva tu Plan			;Renueva tu plan y equipo Telcel							;Inicia tu registro hoy y empieza tu proceso de  renovación de Plan y equipo Telcel, nuestros ejecutivos te contactará.
+; amigo_chip                ;Amigo Chip                 ;Amigo chip express compatible con red 5G | Telcel          ;Amigo chip Telcel express ofrece compatibilidad hasta con la red 5G, y 3 tamaños mini, micro y nano. Además incluye Paquete Amigo Sin Límite 100.
+##SubCategories accesorios
+;audio              ;Audio
+;carga              ;Carga
+;gadgets            ;Gadgets
+;hogar              ;Hogar Inteligente
+;memorias           ;Memorias
+;proteccion         ;Protección
+;rastreadores       ;Rastreadores/Geolocalizadores
+;router             ;Router
+;soportes           ;Soportes
+;tablets_laptops    ;Tablets/Laptops
+;tarjeta_cobro      ;Tarjeta de cobro
+;wearables_smartwatch;Wearables/Smartwatch
+;bocinas                       ;Bocinas
+;audiofonos                    ;Audífonos
+;cargadores_pared              ;Cargadores de pared
+;cargagores_inalambricos       ;Cargadores inalámbricos
+;cables                        ;Cables
+;adaptadores_corriente         ;Adaptadores de corriente
+;baterias                      ;Baterías
+;power_bank                    ;Power bank
+;bicicletas                    ;bicicletas
+;selfie_stick                  ;Selfie stick
+;impresora                     ;Impresora
+;bascula                       ;Báscula
+;scooter                       ;Scooter
+;pluma                         ;Pluma
+;teclado_gaming                ;Teclado gamming
+;audifonos_gaming              ;Audifonos gamming
+;mouse_gaming                  ;Mouse gamming
+;camaras                       ;Cámaras
+;aspirador                     ;Aspiradora
+;caja_inteligente              ;Caja Inteligente
+;kit_sensores                  ;Kit de sensores
+;focos_inteligentes            ;Focos inteligentes
+;purificador__aire             ;Purificador de aire
+;lampara_nocturna              ;Lámpara Nocturna
+;monitor_temperatura           ;Monitor de temperatura
+;micro_sd                      ;Micro sd
+;16gb                          ;16 GB
+;32gb                          ;32 GB
+;64gb                          ;64 GB
+;cases                         ;Cases
+;fundas                        ;Fundas
+;micas                         ;Micas
+;cellocator                    ;Cellocator
+;obd_zte                       ;OBD ZTE
+;concox                        ;Concox
+;trackers                      ;Trackers
+;router_wifi                   ;Router Wifi
+;mesh_wifi                     ;Mesh wifi
+;soportes_celular              ;Soportes para celular
+;bicicleta                     ;Bicicleta
+;tablets_wifi                  ;Tablets wifi
+;laptops_wifi                  ;Laptops wifi
+;billpocket                    ;Billpocket
+;wearables_bt                  ;Wearables BT
+;wearables_iot                 ;Wearables IOT
+;bandas                        ;Bandas
+##SubCategories tablets
+;t_audio              ;Audio
+;t_carga              ;Carga
+;t_gadgets            ;Gadgets
+;t_hogar              ;Hogar Inteligente
+;t_memorias           ;Memorias
+;t_proteccion         ;Protección
+;t_rastreadores       ;Rastreadores/Geolocalizadores
+;t_router             ;Router
+;t_soportes           ;Soportes
+;t_tablets_laptops    ;Tablets/Laptops
+;t_tarjeta_cobro      ;Tarjeta de cobro
+;t_wearables_smartwatch;Wearables/Smartwatch
+;t_bocinas                       ;Bocinas
+;t_audiofonos                    ;Audífonos
+;t_cargadores_pared              ;Cargadores de pared
+;t_cargagores_inalambricos       ;Cargadores inalámbricos
+;t_cables                        ;Cables
+;t_adaptadores_corriente         ;Adaptadores de corriente
+;t_baterias                      ;Baterías
+;t_power_bank                    ;Power bank
+;t_bicicletas                    ;bicicletas
+;t_selfie_stick                  ;Selfie stick
+;t_impresora                     ;Impresora
+;t_bascula                       ;Báscula
+;t_scooter                       ;Scooter
+;t_pluma                         ;Pluma
+;t_teclado_gaming                ;Teclado gamming
+;t_audifonos_gaming              ;Audifonos gamming
+;t_mouse_gaming                  ;Mouse gamming
+;t_camaras                       ;Cámaras
+;t_aspirador                     ;Aspiradora
+;t_caja_inteligente              ;Caja Inteligente
+;t_kit_sensores                  ;Kit de sensores
+;t_focos_inteligentes            ;Focos inteligentes
+;t_purificador__aire             ;Purificador de aire
+;t_lampara_nocturna              ;Lámpara Nocturna
+;t_monitor_temperatura           ;Monitor de temperatura
+;t_micro_sd                      ;Micro sd
+;t_16gb                          ;16 GB
+;t_32gb                          ;32 GB
+;t_64gb                          ;64 GB
+;t_cases                         ;Cases
+;t_fundas                        ;Fundas
+;t_micas                         ;Micas
+;t_cellocator                    ;Cellocator
+;t_obd_zte                       ;OBD ZTE
+;t_concox                        ;Concox
+;t_trackers                      ;Trackers
+;t_router_wifi                   ;Router Wifi
+;t_mesh_wifi                     ;Mesh wifi
+;t_soportes_celular              ;Soportes para celular
+;t_bicicleta                     ;Bicicleta
+;t_tablets_wifi                  ;Tablets wifi
+;t_laptops_wifi                  ;Laptops wifi
+;t_billpocket                    ;Billpocket
+;t_wearables_bt                  ;Wearables BT
+;t_wearables_iot                 ;Wearables IOT
+;t_bandas                        ;Bandas
+##SubCategories vida_conectada
+;vc_audio              ;Audio
+;vc_carga              ;Carga
+;vc_gadgets            ;Gadgets
+;vc_hogar              ;Hogar Inteligente
+;vc_memorias           ;Memorias
+;vc_proteccion         ;Protección
+;vc_rastreadores       ;Rastreadores/Geolocalizadores
+;vc_router             ;Router
+;vc_soportes           ;Soportes
+;vc_tablets_laptops    ;Tablets/Laptops
+;vc_tarjeta_cobro      ;Tarjeta de cobro
+;vc_wearables_smartwatch;Wearables/Smartwatch
+;vc_bocinas                       ;Bocinas
+;vc_audiofonos                    ;Audífonos
+;vc_cargadores_pared              ;Cargadores de pared
+;vc_cargagores_inalambricos       ;Cargadores inalámbricos
+;vc_cables                        ;Cables
+;vc_adaptadores_corriente         ;Adaptadores de corriente
+;vc_baterias                      ;Baterías
+;vc_power_bank                    ;Power bank
+;vc_bicicletas                    ;bicicletas
+;vc_selfie_stick                  ;Selfie stick
+;vc_impresora                     ;Impresora
+;vc_bascula                       ;Báscula
+;vc_scooter                       ;Scooter
+;vc_pluma                         ;Pluma
+;vc_teclado_gaming                ;Teclado gamming
+;vc_audifonos_gaming              ;Audifonos gamming
+;vc_mouse_gaming                  ;Mouse gamming
+;vc_camaras                       ;Cámaras
+;vc_aspirador                     ;Aspiradora
+;vc_caja_inteligente              ;Caja Inteligente
+;vc_kit_sensores                  ;Kit de sensores
+;vc_focos_inteligentes            ;Focos inteligentes
+;vc_purificador__aire             ;Purificador de aire
+;vc_lampara_nocturna              ;Lámpara Nocturna
+;vc_monitor_temperatura           ;Monitor de temperatura
+;vc_micro_sd                      ;Micro sd
+;vc_16gb                          ;16 GB
+;vc_32gb                          ;32 GB
+;vc_64gb                          ;64 GB
+;vc_cases                         ;Cases
+;vc_fundas                        ;Fundas
+;vc_micas                         ;Micas
+;vc_cellocator                    ;Cellocator
+;vc_obd_zte                       ;OBD ZTE
+;vc_concox                        ;Concox
+;vc_trackers                      ;Trackers
+;vc_router_wifi                   ;Router Wifi
+;vc_mesh_wifi                     ;Mesh wifi
+;vc_soportes_celular              ;Soportes para celular
+;vc_bicicleta                     ;Bicicleta
+;vc_tablets_wifi                  ;Tablets wifi
+;vc_laptops_wifi                  ;Laptops wifi
+;vc_billpocket                    ;Billpocket
+;vc_wearables_bt                  ;Wearables BT
+;vc_wearables_iot                 ;Wearables IOT
+;vc_bandas                        ;Bandas
+
+## ImpEx for Importing Variant Categories into telco Store (English)
+UPDATE VariantCategory; code[unique = true]; name[lang = $lang]; $catalogVersion
+                      ; color              ; Color
+                      ; storage_size       ; Almacenamiento
+#
+# ImpEx for Variant Value Categories into telco Store (English)
+UPDATE VariantValueCategory; code[unique = true]; name[lang = $lang]; $catalogVersion
+;transparent;Transparente
+;ALPINE GREEN;ALPINE GREEN
+;AMARILLO;AMARILLO
+;AMIGO;AMIGO
+;AQUA;AQUA
+;ARENA;ARENA
+;AZUL;AZUL
+;AZUL /AQUA;AZUL /AQUA
+;AZUL CLARO;AZUL CLARO
+;AZUL GLACIAR;AZUL GLACIAR
+;AZUL LIGHT;AZUL LIGHT
+;AZUL MARINO;AZUL MARINO
+;AZUL RELOJ;AZUL RELOJ
+;AZUL/NARAN;AZUL/NARAN
+;AZUL/NARANJA;AZUL/NARANJA
+;AZUL/PLATA;AZUL/PLATA
+;BCO/FASHIO;BCO/FASHIO
+;BCO/ROS+VR;BCO/ROS+VR
+;BEIGE;BEIGE
+;BLACK;BLACK
+;BLACK PEARL;BLACK PEARL
+;BLANCO;BLANCO
+;BLANCO VER;BLANCO VER
+;BLANCO VERDE;BLANCO VERDE
+;BLANCO/AZU;BLANCO/AZU
+;BLANCO/BLA;BLANCO/BLA
+;BLANCO/LAV;BLANCO/LAV
+;BLANCO/MOR;BLANCO/MOR
+;BLANCO/NAR;BLANCO/NAR
+;BLANCO/NEG;BLANCO/NEG
+;BLANCO/PLA;BLANCO/PLA
+;BLANCO/ROJ;BLANCO/ROJ
+;BLANCO/ROJO;BLANCO/ROJO
+;BLANCO/ROS;BLANCO/ROS
+;BLUE;BLUE
+;BRONCE;BRONCE
+;CAFE;CAFE
+;CANDY RED;CANDY RED
+;COBRE;COBRE
+;CORAL;CORAL
+;CROMO;CROMO
+;DATOS;DATOS
+;DEV KIT;DEV KIT
+;DORADO;DORADO
+;DORADO/BLA;DORADO/BLA
+;DORADO/BLANCO;DORADO/BLANCO
+;DURANZO CLARO;DURANZO CLARO
+;DURAZNO;DURAZNO
+;EPN;EPN
+;ESP;ESP
+;ESPECIAL;ESPECIAL
+;ESTANDAR F;ESTANDAR F
+;ESTANDAR I;ESTANDAR I
+;EVAL;EVAL
+;FIJA;FIJA
+;FUCSIA;FUCSIA
+;GENERICO;GENERICO
+;GOLD;GOLD
+;GRAFITO;GRAFITO
+;GRAPHITE;GRAPHITE
+;GREEN;GREEN
+;GREEN LIGH;GREEN LIGH
+;GRIS;GRIS
+;GRIS ESP;GRIS ESP
+;GRIS ESPECIAL;GRIS ESPECIAL
+;GRIS/NEGRO;GRIS/NEGRO
+;GRIS/ROSA;GRIS/ROSA
+;GRIS/VERDE;GRIS/VERDE
+;HOT PINK;HOT PINK
+;JET BLACK;JET BLACK
+;LAVANDA;LAVANDA
+;LILA;LILA
+;LIMA;LIMA
+;LIQUIDBLUE;LIQUIDBLUE
+;M2M;M2M
+;MENTA;MENTA
+;MICRO;MICRO
+;MIDNIGHT;MIDNIGHT
+;MIDNIGHT G;MIDNIGHT G
+;MIDNIGHT GRAY;MIDNIGHT GRAY
+;MOKA;MOKA
+;MORADO;MORADO
+;NANO;NANO
+;NARANJA;NARANJA
+;NEG/PTA+VR;NEG/PTA+VR
+;NEGRO;NEGRO
+;NEGRO BRILLANTE;NEGRO BRILLANTE
+;NEGRO GRAFITO;NEGRO GRAFITO
+;NEGRO/AMAR;NEGRO/AMAR
+;NEGRO/AZUL;NEGRO/AZUL
+;NEGRO/BLAN;NEGRO/BLAN
+;NEGRO/DORA;NEGRO/DORA
+;NEGRO/DORADO;NEGRO/DORADO
+;NEGRO/GRAF;NEGRO/GRAF
+;NEGRO/GRIS;NEGRO/GRIS
+;NEGRO/MARR;NEGRO/MARR
+;NEGRO/NARA;NEGRO/NARA
+;NEGRO/PLAT;NEGRO/PLAT
+;NEGRO/ROJO;NEGRO/ROJO
+;NEGRO/ROSA;NEGRO/ROSA
+;NEGRO/TITA;NEGRO/TITA
+;ORO ROSA;ORO ROSA
+;OTRO;OTRO
+;P BLUE;P BLUE
+;PEACH LIGH;PEACH LIGH
+;PINK;PINK
+;PLATA;PLATA
+;PLATA/NEGR;PLATA/NEGR
+;PLATINO;PLATINO
+;PORTA;PORTA
+;PROMO;PROMO
+;PURPLE;PURPLE
+;PURPURA;PURPURA
+;RED;RED
+;ROJO;ROJO
+;ROJO/NEGRO;ROJO/NEGRO
+;ROSA;ROSA
+;ROSA PASTE;ROSA PASTE
+;ROSA/BLANC;ROSA/BLANC
+;ROSA/DORAD;ROSA/DORAD
+;ROSA/DORADO;ROSA/DORADO
+;ROSA/PLATA;ROSA/PLATA
+;ROSE GOLD;ROSE GOLD
+;SIERRA BLU;SIERRA BLU
+;SIERRA BLUE;SIERRA BLUE
+;SILVER;SILVER
+;SKY BLUE;SKY BLUE
+;SPACE GRAY;SPACE GRAY
+;STARLIGHT;STARLIGHT
+;TIP;TIP
+;TITANIUM;TITANIUM
+;TPR;TPR
+;TRICOLOR;TRICOLOR
+;TURQUESA;TURQUESA
+;VERDE;VERDE
+;VERDE AURORA;VERDE AURORA
+;VERDE CLARO;VERDE CLARO
+;VERDE METAL;VERDE METAL
+;VERDE/META;VERDE/META
+;VINO;VINO
+;VINO/PLATA;VINO/PLATA
+;VIOLETA;VIOLETA
+;WHITE;WHITE
+;WHITE PLAT;WHITE PLAT
+;YELLOW;YELLOW
+;ÚNICO;ÚNICO
+;16GB;16GB
+;32GB;32GB
+;64GB;64GB
+;128GB;128GB
+;256GB;256GB
+;1TB;1TB
+;16KB;16KB
+;32KB;32KB
+;64KB;64KB
+;128KB;128KB
+;256KB;256KB
+;16MB;16MB
+;32MB;32MB
+;64MB;64MB
+;128MB;128MB
+;256MB;256MB
+;512GB;512GB
+;512MB;512MB
+;512KB;512KB
+;12GB;12GB
+;12MB;12MB
+;12KB;12KB
+;8GB;8GB
+;8MB;8MB
+;8KB;8KB
+;4GB;4GB
+;4MB;4MB
+;4KB;4KB
+;2GB;2GB
+;2MB;2MB
+;2KB;2KB
+;NA;NA
+;1GB;1GB
+;1MB;1MB
+;1KB;1KB
+;116GB;116GB
+;116MB;116MB
+;116KB;116KB
