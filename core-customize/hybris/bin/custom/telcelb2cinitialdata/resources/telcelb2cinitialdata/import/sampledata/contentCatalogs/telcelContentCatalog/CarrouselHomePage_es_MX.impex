@@ -1,0 +1,9 @@
+$productCatalog = telcelProductCatalog
+$contentCatalog = telcelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$lang=es_MX
+
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                            ;title[lang=$lang]
+                                      ;                          ; TelcelRecommendationsProductCarouselComponent ; "Te recomendamos"
