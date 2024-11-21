@@ -1,0 +1,37 @@
+# ---------------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# ---------------------------------------------------------------------------
+
+$regulargroup = regulargroup
+$customergroup = customergroup
+
+$defaultPassword = nimda
+$lang = es_MX
+
+INSERT_UPDATE Employee; UID[unique = true]; groups(uid)[mode = append]; sessionLanguage(isocode); password[default = $defaultPassword]; name
+                      ; sbgadmin          ; sbgadmingroup             ; $lang                   ;                                     ; SBG Admin
+
+INSERT_UPDATE UserGroup; UID[unique = true]; groups(uid)[mode = append]      ; locname[lang = en]
+                       ; basesbgadmingroup ; employeegroup                   ; Base SBG Admin Group
+                       ; sbgadmingroup     ; employeegroup,basesbgadmingroup ; SBG Admin Group
+
+INSERT_UPDATE User; UID[unique = true]; name      ; groups(uid)   ;
+                  ; sbgadmin          ; SBG Admin ; sbgadmingroup ;
+
+INSERT_UPDATE OAuthClientDetails; clientId[unique = true]; resourceIds; scope    ; authorizedGrantTypes                                         ; authorities         ; clientSecret; registeredRedirectUri
+                                ; sbg_admin              ; hybris     ; basic    ; authorization_code,refresh_token,password,client_credentials ; ROLE_SBGADMINGROUP  ; secret      ; https://localhost:9002/authorizationserver/oauth2_callback         ;
+                                ; spa_client             ; hybris     ; basic    ; password,client_credentials                                  ; ROLE_CLIENT         ; secret      ;                                                                    ;
+                                ; trusted_client         ; hybris     ; extended ; authorization_code,refresh_token,password,client_credentials ; ROLE_TRUSTED_CLIENT ; secret      ;                                                                    ;
+                                ; client-side            ; hybris     ; basic    ; implicit,client_credentials                                  ; ROLE_CLIENT         ; secret      ; http://localhost:9001/authorizationserver/oauth2_implicit_callback ;
+                                ; mobile_android         ; hybris     ; basic    ; authorization_code,refresh_token,password,client_credentials ; ROLE_CLIENT         ; secret      ; http://localhost:9001/authorizationserver/oauth2_callback          ;
+
+#customer support
+UPDATE Employee; UID[unique = true]; groups(uid)[mode = append]
+                      ; admin          ; customersupportadministratorrole
+
+#hac manager support
+INSERT_UPDATE Employee;UID[unique=true];password;groups(uid)[mode=append]
+;devops;devops1234;hac_platform_update,hac_platform_extensions,hac_platform_logging,hac_platform_license,hac_platform_support,hac_maintenance_deployment,hac_console_impeximport,hac_console_impexexport
+;backofficesupport;bo1234;hac_platform_tenants,hac_platform_configuration_limited,hac_platform_logging,hac_platform_support,hac_platform_pkanalyzer,hac_platform_classpathanalyzer,hac_monitoring_cronjobs,hac_console_flexiblesearch,hac_console_impeximport,hac_console_scriptinglanguages
+
+
